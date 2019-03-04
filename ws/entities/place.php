@@ -46,7 +46,7 @@ function create_place($parameters){
     $query = "
     INSERT INTO `place` (`place_id`, `admin_id`, `facebook_id`,  `business_name`, `business_phone`, `business_logo`, `auth`) 
     VALUES (NULL, '$parameters->admin_id', '$parameters->facebook_id',  '$parameters->business_name', '$parameters->business_phone', '$namelFotoV', '$auth');";
-
+    echo $query;
     $result = mysqli_query($con, $query);
     if ($result === TRUE) {
         $place_id = mysqli_insert_id($con);
