@@ -10,21 +10,21 @@ function create_new_app($parameters){
     $admin = false;
     echo 1;
     if($parameters->admin_id != '') $admin = create_admin($parameters); else $parameters->admin_id = 'administrator@ferby.com';
-    echo 1;
+    echo 2;
     if(!$admin) $parameters->user_exists = true;
-echo 1;
+echo 3;
     $parameters->alliance_name = $parameters->business_name;
 
     $alliance_id = create_alliance($parameters);
 
     if(!$alliance_id) return false;
-echo 1;
+echo 4;
     $parameters->alliance_id = $alliance_id;
 
     $place_id = create_place($parameters);
 
     if(!$place_id) return false;
-echo 1;
+echo 5;
     $parameters->place_id = $place_id;
 
     $parameters->place_location_id = default_place_location($parameters);
@@ -32,13 +32,13 @@ echo 1;
     $place_alliance = create_place_alliance($parameters);
 
     if(!$place_alliance) return false;
-echo 1;
+echo 6;
     $parameters->place_alliance_id = $place_alliance;
 
     $result_points_settings = insert_settings($parameters);
 
     $result_checkin_option = insert_checkin_option($parameters);
-echo 1;
+echo 7;
     return $parameters;    
 
 }
