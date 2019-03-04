@@ -64,7 +64,7 @@
             <tbody>
                 <tr height="14px">
                     <td width="143">
-                        <img src="http://ferby.stolz-engineering.com/img/ferbylogo.PNG" width="143" height="59" alt="Gmail" class="logo">
+                        <img src="https://xtra.myferby.com/img/ferbylogo.PNG" width="143" height="59" alt="Gmail" class="logo">
                     </td>
                     
                 </tr>

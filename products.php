@@ -5,28 +5,28 @@
   // $t = "Super Samus Blue";//isset($_GET["t"]) ? $_GET["t"] : ""
   // $d = "Super NES";
   // $img = "https://upload.wikimedia.org/wikipedia/en/f/f1/Mega_Man_X_Coverart.png";
-  $response = file_get_contents('http://ferby.stolz-engineering.com/ws/wsMain.php?action=select_product&id='.$id);
+  $response = file_get_contents('https://xtra.myferby.com/ws/wsMain.php?action=select_product&id='.$id);
   $response = json_decode($response);
 
   if(empty($response)){
     $p = "Ferby";
     $t = "Lo sentimos, algo salio mal con el enlace";
     $d = "Producto no encontrado o enlace roto. Consultar con el equipo de Apps Ferby.";
-    $img = "http://ferby.stolz-engineering.com:8888/wp-content/uploads/2018/02/tr1.png";
-    $product_img = "http://ferby.stolz-engineering.com:8888/wp-content/uploads/2018/02/tr1.png";
+    $img = "https://xtra.myferby.com:8888/wp-content/uploads/2018/02/tr1.png";
+    $product_img = "https://xtra.myferby.com:8888/wp-content/uploads/2018/02/tr1.png";
     $headers  = get_headers($img, 1);
     $app = "http://myferby.com";
     $price = "";
     
 
   }else{
-    //$add_whatsapp_click = file_get_contents('http://ferby.stolz-engineering.com/ws/wsMain.php?action=add_whatsapp_click&id='.$id);
+    //$add_whatsapp_click = file_get_contents('https://xtra.myferby.com/ws/wsMain.php?action=add_whatsapp_click&id='.$id);
     $p = $response[0]->business_name;
     $t = $response[0]->name;
     $d = $response[0]->description;
-    $img = "http://ferby.stolz-engineering.com/img/".$response[0]->img;
-    $app = "http://ferby.stolz-engineering.com/".$response[0]->name_app;
-    $product_img = "http://ferby.stolz-engineering.com/img/".$response[0]->img;
+    $img = "https://xtra.myferby.com/img/".$response[0]->img;
+    $app = "https://xtra.myferby.com/".$response[0]->name_app;
+    $product_img = "https://xtra.myferby.com/img/".$response[0]->img;
     $price = $response[0]->price;
 
     // $headersProduct  = get_headers($img, 1);
@@ -40,35 +40,35 @@
     //     if(isset($headersCategory['Content-Length'])){
     //       $size = $headersCategory['Content-Length'];
     //       if($size > 299999){
-    //         $img = "http://ferby.stolz-engineering.com:8888/wp-content/uploads/2018/02/tr1.png";  
+    //         $img = "https://xtra.myferby.com:8888/wp-content/uploads/2018/02/tr1.png";  
     //       //  return;
     //       }else{
-    //         $img = "http://ferby.stolz-engineering.com/img/".$response[0]->category_img;
+    //         $img = "https://xtra.myferby.com/img/".$response[0]->category_img;
     //       }
     //       //return;
     //     }else{
-    //       $img = "http://ferby.stolz-engineering.com:8888/wp-content/uploads/2018/02/tr1.png";  
+    //       $img = "https://xtra.myferby.com:8888/wp-content/uploads/2018/02/tr1.png";  
     //     }
     //     //return;
     //   }else{
-    //     $img = "http://ferby.stolz-engineering.com/img/".$response[0]->img;
+    //     $img = "https://xtra.myferby.com/img/".$response[0]->img;
     //   }
     //   //return;
     // }else{
-    //   $product_img = "http://ferby.stolz-engineering.com:8888/wp-content/uploads/2018/02/tr1.png";
-    //   $img = "http://ferby.stolz-engineering.com/img/".$response[0]->category_img;
+    //   $product_img = "https://xtra.myferby.com:8888/wp-content/uploads/2018/02/tr1.png";
+    //   $img = "https://xtra.myferby.com/img/".$response[0]->category_img;
     //   $headersCategory = get_headers($img, 1);
     //   if(isset($headersCategory['Content-Length'])){
     //     $size = $headersCategory['Content-Length'];
     //     if($size > 299999){
-    //       $img = "http://ferby.stolz-engineering.com:8888/wp-content/uploads/2018/02/tr1.png";  
+    //       $img = "https://xtra.myferby.com:8888/wp-content/uploads/2018/02/tr1.png";  
           
     //     }else{
-    //       $img = "http://ferby.stolz-engineering.com/img/".$response[0]->category_img; 
+    //       $img = "https://xtra.myferby.com/img/".$response[0]->category_img; 
     //     }
-    //     $product_img = "http://ferby.stolz-engineering.com/img/".$response[0]->category_img; 
+    //     $product_img = "https://xtra.myferby.com/img/".$response[0]->category_img; 
     //   }else{
-    //     $img = "http://ferby.stolz-engineering.com:8888/wp-content/uploads/2018/02/tr1.png";
+    //     $img = "https://xtra.myferby.com:8888/wp-content/uploads/2018/02/tr1.png";
     //   }
     // }
   //return;

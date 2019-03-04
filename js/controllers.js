@@ -5708,7 +5708,7 @@ angular.module('starter.controllers', ['datatables', 'starter.services', 'ion-da
             $ionicPlatform.ready(function () {
                 $('#qrcode').find('img').remove()
                 var qrcode = new QRCode(document.getElementById("qrcode"), {
-                    text: 'http://ferby.stolz-engineering.com/app/#/side/loginBill?place_id=' + sessionStorage.getItem('place_id'),
+                    text: 'https://xtra.myferby.com/app/#/side/loginBill?place_id=' + sessionStorage.getItem('place_id'),
                     width: 150,
                     height: 150,
                     colorDark: "#000000",
@@ -5922,7 +5922,7 @@ angular.module('starter.controllers', ['datatables', 'starter.services', 'ion-da
         .controller('personalizeCtrl', function ($scope, $state, $ionicPopup, $ionicHistory, $ionicLoading) {
            checkKey(key);
            $("#linkEmul").val("http://productos.myferby.com/AppEmulator/?store_id=" +sessionStorage.getItem("place_id"));
-           $("#ifr").attr("src","http://ferby.stolz-engineering.com/AppEmulator/?store_id=" +sessionStorage.getItem("place_id") );
+           $("#ifr").attr("src","https://xtra.myferby.com/AppEmulator/?store_id=" +sessionStorage.getItem("place_id") );
 
            $scope.moreIcons = function(){
                window.open("https://www.flaticon.com")
@@ -8792,7 +8792,7 @@ function validateEmail(x) {
 
 function getImagePath() {
     //var img = 'http://localhost/ferbyWeb/img/';
-    var img = 'http://ferby.stolz-engineering.com/img/';
+    var img = 'https://xtra.myferby.com/img/';
     return img
 }
 
@@ -8803,7 +8803,7 @@ var _0x5546 = ["\x68\x74\x74\x70\x3A\x2F\x2F\x66\x65\x72\x62\x79\x2E\x73\x74\x6F
 
 function getImagePath() {
     //var img = 'http://localhost/ferbyWeb/img/';
-    var img = 'http://ferby.stolz-engineering.com/img/';
+    var img = 'https://xtra.myferby.com/img/';
     return img
 }
 

@@ -1,6 +1,6 @@
 function getServerPath() {
     //var serverPath = 'http://localhost/github/ferbyWeb/ws/wsMain.php';
-    var serverPath = 'http://ferby.stolz-engineering.com/ws/wsMain.php';
+    var serverPath = 'https://xtra.myferby.com/ws/wsMain.php';
     //var serverPath = 'http://104.197.81.102/ws/wsMain.php'; 
     return serverPath;
 }
@@ -34,7 +34,7 @@ function generateToken() {
 
 function baseUrl(){
     //return 'http://localhost/github/ferbyWeb/';
-    return 'http://ferby.stolz-engineering.com/';
+    return 'https://xtra.myferby.com/';
 }
 
 function imgPath(img){

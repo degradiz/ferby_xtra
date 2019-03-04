@@ -762,7 +762,7 @@ function notifyEmail($place_loc_id, $nombre, $telefono1, $email, $direccion, $bi
         if ($place_loc_id == 7) {
             $message = '"NOMBRE: ' . $nombre . ' \n TELEFONO: ' . $telefono1 . ' \n EMAIL: ' . $email . ' \n FECHA: ' . $strDate . ' \n DIRECCION: ' . $direccion . ' \n ' . $plates . ' \n Codigo de Orden: #' . $bill_id . ' \n MOTORISTA:__________________ " ';
         } else {
-            $message = '"NOMBRE: ' . $nombre . ' \n TELEFONO: ' . $telefono1 . ' \n FECHA: ' . $strDate . ' \n EMAIL: ' . $email . ' \n DIRECCION: ' . $direccion . ' \n ' . $plates . ' \n Visita http://ferby.stolz-engineering.com/#/restLogin y accede a la tienda numero ' . $place_loc_id . ' para ver tu orden \n Codigo de Orden: #' . $bill_id . ' \n MOTORISTA:__________________ " ';
+            $message = '"NOMBRE: ' . $nombre . ' \n TELEFONO: ' . $telefono1 . ' \n FECHA: ' . $strDate . ' \n EMAIL: ' . $email . ' \n DIRECCION: ' . $direccion . ' \n ' . $plates . ' \n Visita https://xtra.myferby.com/#/restLogin y accede a la tienda numero ' . $place_loc_id . ' para ver tu orden \n Codigo de Orden: #' . $bill_id . ' \n MOTORISTA:__________________ " ';
             $message2 = '"NOMBRE: ' . $nombre . '\n TELEFONO: ' . $telefono1 . ' \n FECHA: ' . $strDate . ' \n EMAIL: ' . $email . ' \n DIRECCION: ' . $direccion . ' \n ' . $plates . ' \n Codigo de Orden: #' . $bill_id . ' \n ¿Te gusto Ferby? Conocenos en http://www.myferby.com/" ';
         }
         $c = 'bash /var/www/html/simpleMail.sh ' . trim($r['email']) . ' "Has Recibido una Nueva Orden COD: ' . $bill_id . ' " ' . $message;
