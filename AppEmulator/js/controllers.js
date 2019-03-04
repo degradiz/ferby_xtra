@@ -1456,10 +1456,10 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
 
             
             if(typeof cordova === "undefined"){
-                window.open("https://api.whatsapp.com/send?phone="+ localStorage.th_phone+ "&text=" + encodeURIComponent("http://productos.myferby.com/products.php?id="+id)+" Hola, cuándo volveran a tener el producto: "+$scope.actualPlate.name, '_system');
+                window.open("https://api.whatsapp.com/send?phone="+ localStorage.th_phone+ "&text=" + encodeURIComponent("https://xtra.myferby.com/AppEmulator/products.php?id="+id)+" Hola, cuándo volveran a tener el producto: "+$scope.actualPlate.name, '_system');
                 return;
             }
-            window.open("https://api.whatsapp.com/send?phone="+ localStorage.th_phone+ "&text=" + encodeURIComponent("http://productos.myferby.com/products.php?id="+id)+" Hola, cuándo volveran a tener el producto: "+$scope.actualPlate.name, "_system", "location=no");
+            window.open("https://api.whatsapp.com/send?phone="+ localStorage.th_phone+ "&text=" + encodeURIComponent("https://xtra.myferby.com/AppEmulator/products.php?id="+id)+" Hola, cuándo volveran a tener el producto: "+$scope.actualPlate.name, "_system", "location=no");
             return;
         }
 
@@ -1472,10 +1472,10 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
             });
 
             if(typeof cordova === "undefined"){
-                window.open("https://api.whatsapp.com/send?phone="+ localStorage.th_phone+ "&text=" + encodeURIComponent("http://productos.myferby.com/products.php?id="+id)+" Hola, cuándo volveran a tener el producto: "+$scope.actualPlate.name, '_system');
+                window.open("https://api.whatsapp.com/send?phone="+ localStorage.th_phone+ "&text=" + encodeURIComponent("https://xtra.myferby.com/AppEmulator/products.php?id="+id)+" Hola, cuándo volveran a tener el producto: "+$scope.actualPlate.name, '_system');
                 return;
             }
-            window.open("https://api.whatsapp.com/send?phone="+ localStorage.th_phone+ "&text=" + encodeURIComponent("http://productos.myferby.com/products.php?id="+id)+" Hola, cuándo volveran a tener el producto: "+$scope.actualPlate.name, "_system", "location=no");
+            window.open("https://api.whatsapp.com/send?phone="+ localStorage.th_phone+ "&text=" + encodeURIComponent("https://xtra.myferby.com/AppEmulator/products.php?id="+id)+" Hola, cuándo volveran a tener el producto: "+$scope.actualPlate.name, "_system", "location=no");
             return;
 
         }

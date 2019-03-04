@@ -1,7 +1,7 @@
 function getServerPath() {
     //var serverPath = 'http://localhost/github/ferbyWeb/ws/wsMain.php';
     var serverPath = 'https://xtra.myferby.com/ws/wsMain.php';
-    //var serverPath = 'http://104.197.81.102/ws/wsMain.php'; 
+    //var serverPath = 'https://xtra.myferby.com/ws/wsMain.php'; 
     return serverPath;
 }
 
@@ -210,7 +210,7 @@ function validateEmail(x) {//
 function getImgPath() {
     //var img = 'http://localhost/ferbyWeb/img/'
     // var img = 'http://192.168.1.67/img/'
-    var img = 'http://104.197.81.102/img/'
+    var img = 'https://xtra.myferby.com/img/'
     return img
 }
 
