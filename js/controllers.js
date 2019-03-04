@@ -5921,7 +5921,7 @@ angular.module('starter.controllers', ['datatables', 'starter.services', 'ion-da
         })        
         .controller('personalizeCtrl', function ($scope, $state, $ionicPopup, $ionicHistory, $ionicLoading) {
            checkKey(key);
-           $("#linkEmul").val("https://xtra.myferby.com/AppEmulator/AppEmulator/?store_id=" +sessionStorage.getItem("place_id"));
+           $("#linkEmul").val("https://xtra.myferby.com/AppEmulator/?store_id=" +sessionStorage.getItem("place_id"));
            $("#ifr").attr("src","https://xtra.myferby.com/AppEmulator/?store_id=" +sessionStorage.getItem("place_id") );
 
            $scope.moreIcons = function(){
