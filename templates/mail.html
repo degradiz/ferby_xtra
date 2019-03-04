@@ -1,0 +1,21 @@
+<ion-view view-title="Envio de Correos">
+    <ion-content  overflow-scroll="true" style="background-color: #BDBDBD">
+        <div style="width:100%">
+            <div style="float:right;" class="card col col-25">
+                <button class="button button-dark" style="margin:auto" ng-click='sendEmails()'>Enviar</button>
+            </div>
+        </div>
+        <br />
+        <br />
+        <br />
+        <br />
+        <div style="width:100%">
+            <div class="card" style="width: 90%;margin-left: 5%;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                <input id="mailImage" type="file" accept="image/*"/>
+                <label style="width:80%;margin-left: 10%;">Título</label>
+                <input maxlength="256" id="emailTitle" type="text" style="width:80%;margin-left: 10%;border: 1px solid gray" />
+                <textarea id="message" style="width:80%;margin-left:10%;height: 350px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);margin-bottom: 20px"></textarea>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

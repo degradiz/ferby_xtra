@@ -1,0 +1,32 @@
+﻿<ion-view ng-init="getPromos()">
+
+    <ion-content style="background-color:#D8D8D8">
+        <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()">
+        </ion-refresher>
+        <div class="card"  ng-repeat="p in promociones" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+            <div class="row">
+                <div class="col-50">
+                    <div class="square2" style="background-image:url({{p.img}})">
+                        <div class="content2">  
+                            <div class="table2">
+                                <div class="table-cell2">
+                                    <img class="rs animated bounceIn waves-block" id="imgPromo{{p.promo_id}}" src="{{p.img}}" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-50">
+                    <h1 style="text-align:center" id="textId{{p.promo_id}}">{{p.title}}</h1>
+                    <button style="margin-top:20%;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" ng-click="largeImage({{p.promo_id}})">Ver Imagen</button>
+                </div>
+            </div>
+            <div class="row" style="display:flex; background-color:darkred; margin: 0px 0px 0px 0px" >
+                <div class="col">
+                    <p style="color:white">{{p.description}}</p>
+                </div>
+            </div>
+        </div>
+
+    </ion-content>
+</ion-view>

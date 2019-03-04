@@ -1,0 +1,244 @@
+<div class="card" style="width: 90%;padding-top: 10px;padding-left: 10px;padding-right: 10px;padding-bottom: 10px; text-align: center">
+        <div class="row responsive-md" >
+          <div >
+            <input type="search" ng-change="search()" autofocus style="width: 100%" placeholder="Buscar App" ng-model="personalize.search" />
+          </div>
+  
+          <div >
+              <button ng-click="toggleOrdenes()" class="button button-dark">Mostrar/Ocultar Botones Ordenes</button>
+          </div>
+  
+          <div >
+              <button ng-click="toggleRedes()" class="button button-dark">Mostrar/Ocultar Botones Redes Sociales</button>
+          </div>
+  
+          <div >
+              <button ng-click="toggleFondos()" class="button button-dark">Mostrar/Ocultar Fondos</button>
+          </div>
+  
+          <div >
+              <button ng-click="toggleColores()" class="button button-dark">Mostrar/Ocultar Colores</button>
+          </div>
+        </div>
+      </div>
+<table class="table table-striped table-bordered table-hover" id="apps">
+                        <label ng-if="personalize.search.trim() == ''">*tip*: para mejorar tu experiencia hemos cargado nada mas los primeros 10 resultados, utilizar el buscador para encontrar mas facil tu App</label>
+                        <thead>
+                            <tr>
+                                <th style="display:none;">Place Id</th>
+                                <th style="width: 50px !important">App</th>
+                                <!-- <th>Usuario</th> -->
+
+                                <!-- <th>FB Id</th> -->
+                                <th style="width: 120px !important">Phone</th>
+                                <th style="width: 120px !important">Ruta App</th>
+                                <th style="width: 90px !important">Logo Empresa</th>
+                                <th style="width: 20px">Puntos</th>
+                                <th ng-if="toggle.redes == 1" style="width: 110px !important">WhatsApp</th>
+                                <th ng-if="toggle.redes == 1" style="width: 110px !important">Facebook</th>
+                                <th ng-if="toggle.redes == 1" style="width: 110px !important">Messenger</th>
+                                <th ng-if="toggle.redes == 1" style="width: 110px !important">Promociones</th>
+
+                                <th ng-if="toggle.fondos == 1" style="width: 110px !important">Fondo App</th>
+                                <th ng-if="toggle.fondos == 1" style="width: 110px !important">Fondo Autenticacion</th>
+                                <th ng-if="toggle.fondos == 1" style="width: 110px !important">Foto Destacada</th>
+                                
+                                <th ng-if="toggle.ordenes == 1" style="width: 80px !important">Desk Order</th>
+                                <th ng-if="toggle.ordenes == 1" style="width: 80px !important">Pick Order</th>
+                                <th ng-if="toggle.ordenes == 1" style="width: 80px !important">Home Order</th>
+                                <th ng-if="toggle.colores == 1" style="width: 15px !important">Color Boton</th>
+                                <th ng-if="toggle.colores == 1" style="width: 20px">Tema de inicio</th>
+                                <th style="width: 20px">Ver App</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            <tr  ng-repeat="p in places" class="odd gradeX ">
+                                
+                                <td id='place_id{{p.place_id}}' style="display:none;">{{p.place_id}}</td>
+                                <td style="width:50px"id='business_name{{p.place_id}}'>
+                                  <p style="text-align: center; font-size: 15px; font-weight: 600">{{p.business_name}} {{p.place_id}}</p>
+                                  <div style="width:100%; margin: 0; padding: 0" class="container">
+                                        <p style="text-align: center; font-size: 13px; font-weight: 300">Facebook Id: </p>
+                                        <p style="text-align: center; font-size: 13px; font-weight: 300">{{p.facebook_id}}</p>
+                                        <div class="overlay">
+                                            <div ng-click="set_facebook_id(p);" class="text">Editar</div>
+                                        </div>
+                                  </div>
+                                  <center><button ng-click="editParams({{p}})" class="button button-dark">Editar Parámetros</button></center>
+                                </td>
+                                <!-- <td id='facebookButton{{p.place_id}}'><center><button ng-click="set_facebook_id({{p}})" class="button button-dark"><i class="ion-edit"></i></button></center></td> -->
+                                <!-- <td id='admin_id{{p.place_id}}'>{{p.admin_id}}</td> -->
+                                <td id="business_phone{{p.place_id}}">
+                                    <div style="width:100%; margin: 0; padding: 0" class="container">
+                                        <p style="text-align: center; font-size: 12px; font-weight: 600">{{validPhone(p)}}</p>
+                                        <div class="overlay">
+                                            <div ng-click="set_business_phone(p);" class="text">Editar</div>
+                                        </div>
+                                    </div>
+
+                                </td>
+
+                                <td id="nameApp{{p.place_id}}">
+                                    <div style="width:100%; margin: 0; padding: 0" class="container">
+                                        <p style="text-align: center; font-size: 12px; font-weight: 600">{{validText(p)}}</p>
+                                        <div class="overlay">
+                                            <div ng-click="set_name_app(p);" class="text">Editar</div>
+                                        </div>
+                                    </div>
+
+                                </td>
+
+                                <td id="business_logo{{p.place_id}}">
+                                    <div class="container">
+                                        <img style="width:90px" src="img/{{p.business_logo}}" alt="Seleccionar" class="image" />
+                                        <div class="overlay">
+                                            <div ng-click="set_business_logo(p.place_id);" class="text">Actualizar</div>
+                                        </div>
+                                    </div>
+                                </td>
+
+                                <td ng-if="p.addon_puntos == 0" id='buttonPoints{{p.place_id}}'>
+                                    <center><button ng-click="activatePoints({{p}})" class="button button-dark">Activar Sistema</button></center>
+                                </td>
+
+                                <td ng-if="p.addon_puntos == 1" id='buttonPoints{{p.place_id}}'>
+                                    <center><button ng-click="managePoints({{p}})" class="button button-dark">Editar Parámetros</button></center>
+                                </td>
+
+                                <td ng-if="toggle.redes == 1" id="phone_img{{p.place_id}}">
+                                    <div class="container">
+                                        <img style="width:110px" src="img/{{p.phone_img}}" alt="Seleccionar" class="image" />
+                                        <div class="overlay">
+                                            <div ng-click="set_phone_img(p.place_id)" class="text">Actualizar</div>
+                                        </div>
+                                    </div>
+                                </td>
+
+                                <td ng-if="toggle.redes == 1" id="facebook_img{{p.place_id}}">
+                                    <div class="container">
+                                        <img style="width:110px" src="img/{{p.facebook_img}}" alt="Seleccionar" class="image" />
+                                        <div class="overlay">
+                                            <div ng-click="set_facebook_img(p.place_id)" class="text">Actualizar</div>
+                                        </div>
+                                    </div>
+                                </td>
+
+                                <td ng-if="toggle.redes == 1" id="messenger_img{{p.place_id}}">
+                                    <div class="container">
+                                        <img style="width:110px" src="img/{{p.messenger_img}}" alt="Seleccionar" class="image" />
+                                        <div class="overlay">
+                                            <div ng-click="set_messenger_img(p.place_id)" class="text">Actualizar</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td ng-if="toggle.redes == 1" id="promo_img{{p.place_id}}">
+                                    <div class="container">
+                                        <img style="width:110px" src="img/{{p.promo_img}}" alt="Seleccionar" class="image" />
+                                        <div class="overlay">
+                                            <div ng-click="set_promo_img(p.place_id)" class="text">Actualizar</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td ng-if="toggle.fondos == 1" id="background_app{{p.place_id}}">
+                                    <div class="container">
+                                        <img style="width:110px" src="img/{{p.background_app}}" alt="Seleccionar" class="image" />
+                                        <div class="overlay">
+                                            <div ng-click="set_bg_app(p.place_id)" class="text">Actualizar</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td ng-if="toggle.fondos == 1" id="business_background1{{p.place_id}}">
+                                    <div class="container">
+                                        <img style="width:110px" src="img/{{p.business_background1}}" alt="Seleccionar" class="image" />
+                                        <div class="overlay">
+                                            <div ng-click="set_background(p.place_id,1)" class="text">Actualizar</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <!--<td id='business_background1{{p.place_id}}'>{{p.business_background1}}</td>-->
+                                <td ng-if="toggle.fondos == 1" id="business_background2{{p.place_id}}">
+                                    <div class="container">
+                                        <img style="width:110px" src="img/{{p.business_background2}}" alt="Seleccionar" class="image" />
+                                        <div class="overlay">
+                                            <div ng-click="set_background(p.place_id,2)" class="text">Actualizar</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td ng-if="toggle.ordenes == 1" id="deskImg{{p.place_id}}">
+                                    <div class="container">
+                                        <center>
+                                            <img style="width:80px" src="img/{{p.desk_img}}" alt="Seleccionar" class="image" />
+                                            <div class="overlay">
+                                                <div ng-click="set_desk_img(p.place_id)" class="text">Actualizar</div>
+                                            </div>
+                                        </center>
+                                    </div>
+                                    <div style="width:100%; margin: 0; padding: 0" class="container">
+                                        <p style="text-align: center; font-size: 13px; font-weight: 300">{{p.desk_text}}</p>
+                                        <div class="overlay">
+                                            <div ng-click="set_desk_text(p);" class="text">Editar</div>
+                                        </div>
+                                    </div>
+                                    <div  style="width:120px !important; margin: 0 0 0 0; padding: -5" class="container">
+                                        <center>
+                                        <input type="checkbox"  ng-checked="{{p.desk_order}}" ng-model="p.desk_order" ng-click='switchDesk($event.target.checked, p)' id="switchDesk{{p.place_id}}" class="switch-input">
+                                        <label for="switchDesk{{p.place_id}}" class="switch-label"><span class="toggle--on">On</span><span class="toggle--off">Off</span></label>
+                                        </center>
+                                    </div>
+                                </td>
+                                <td ng-if="toggle.ordenes == 1" id="pickImg{{p.place_id}}">
+                                    <div class="container">
+                                        <center>
+                                            <img style="width:80px" src="img/{{p.pick_img}}" alt="Seleccionar" class="image" />
+                                            <div class="overlay">
+                                                <div ng-click="set_pick_img(p.place_id)" class="text">Actualizar</div>
+                                            </div>
+                                        </center>
+                                    </div>
+                                    <div style="width:100%; margin: 0; padding: 0" class="container">
+                                        <p style="text-align: center; font-size: 13px; font-weight: 300">{{p.pick_text}}</p>
+                                        <div class="overlay">
+                                            <div ng-click="set_pick_text(p);" class="text">Editar</div>
+                                        </div>
+                                    </div>
+                                    <div  style="width:120px !important; margin: 0 0 0 0; padding: -5" class="container">
+                                        <input type="checkbox"  ng-checked="{{p.pick_order}}" ng-model="p.pick_order" ng-click='switchPick($event.target.checked, p)' id="switchPick{{p.place_id}}" class="switch-input">
+                                        <label for="switchPick{{p.place_id}}" class="switch-label"><span class="toggle--on">On</span><span class="toggle--off">Off</span></label>
+                                    </div>
+                                </td>
+                                <td ng-if="toggle.ordenes == 1" id="homeImg{{p.place_id}}">
+                                    <div class="container">
+                                        <center>
+                                            <img style="width:80px" src="img/{{p.home_img}}" alt="Seleccionar" class="image" />
+                                            <div class="overlay">
+                                                <div ng-click="set_home_img(p.place_id)" class="text">Actualizar</div>
+                                            </div>
+                                        </center>
+                                    </div>
+                                    <div style="width:100%; margin: 0; padding: 0" class="container">
+                                        <p style="text-align: center; font-size: 13px; font-weight: 300">{{p.home_text}}</p>
+                                        <div class="overlay">
+                                            <div ng-click="set_home_text(p);" class="text">Editar</div>
+                                        </div>
+                                    </div>
+                                    <div  style="width:120px; margin: 0; padding: -5" class="container">
+                                        <input type="checkbox"  ng-checked="true" ng-model="p.home_order" disabled="true" id="switchHome{{p.place_id}}" class="switch-input">
+                                        <label for="switchHome{{p.place_id}}" class="switch-label"><span class="toggle--on">On</span><span class="toggle--off">Off</span></label>
+                                    </div>
+                                </td>
+                                <!--<td id='business_background2{{p.place_id}}'>{{p.business_background2}}</td>-->
+                                <td ng-if="toggle.colores == 1" id='button_color_theme{{p.place_id}}'>
+                                    <center style="width:15px">
+                                        <button ng-click="set_button_color_theme(p.place_id)" style="{{change_style_color(p.button_color_theme)}}" class="button button-dark"><i class="ion-edit"></i></button>
+                                    </center>
+                                </td>
+                                <td ng-if="toggle.colores == 1" id='button_color_theme2{{p.place_id}}'>
+                                    <center>
+                                        <button ng-click="set_home_square_color(p.place_id)" style="{{change_style_color(p.home_square_color)}}" class="button button-dark"><i class="ion-edit"></i></button>
+                                    </center>
+                                </td>
+                                <td id='buttonApp{{p}}'><center><button ng-click="nameAppUrl({{p}})" class="button button-dark"><i class="ion-ionic"></i></button></center></td>
+                            </tr>
+                        </tbody>
+                    </table> 

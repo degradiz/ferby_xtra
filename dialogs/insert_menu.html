@@ -1,0 +1,23 @@
+<p>Categoría</p>
+<select id="menuCategory">
+    <option value="{{c.category_id}}" ng-repeat="c in cat">{{c.name}}</option>
+</select>
+<p>Nombre</p>
+<input id="menuName" type="text" />
+<p>Descripción</p>
+<textarea id="menuDesc"></textarea>
+<p>Precio Descriptivo (Letras y Numeros)</p>
+<input id="menuPrice" type="text" />
+<p>Precio En Numeros (Solo Numeros)</p>
+<input id="menuPriceBase" type="number" />
+<p ng-if="addon_puntos == 1" id="pmenuPoints">Puntos (Al Comprar un producto)</p>
+<input ng-if="addon_puntos == 1" id="menuPoints" type="text" />
+<p>Inventario</p>
+<input id="menuInventario" value="0" type="text" />
+<p>Imagen</p>
+<input id="menuImage" type="file" accept="image/*"/>
+<p>Estado</p>
+<select id="menuStatus">
+    <option value="1">Activo</option>
+    <option value="0">Inactivo</option>
+</select>

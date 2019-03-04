@@ -1,0 +1,79 @@
+﻿<ion-view ng-init="init()">
+    <ion-content  id="target" overflow-scroll="true">
+
+        <ion-refresher pulling-text="Pull to refresh..."
+                       on-refresh="init()">
+        </ion-refresher>
+        <div class="card animated bounceInLeft" style="overflow:visible;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); height:auto;max-width: 600px; margin:auto; display:block;margin-top: 10px">
+            <button ng-click="cleanForm()" style="width:auto;display: block;margin-top: 15px;margin-left: 10px;" class="button button-dark">&nbsp;&nbsp;Limpiar Formulario&nbsp;&nbsp;</button>
+			<br />
+            <p class="textColor" style="margin-left: 10px;">Sucursal: {{storeName}}</p>
+            <input style="display:none" readonly maxlength="256" id="lat" type="text" style="display: block" />
+            <input style="display:none" readonly maxlength="256" id="lng" type="text" style="display: block" />
+            <div >
+                <label id="lblsendType" style="display:none" class="item item-input item-select">
+                    <div class="input-label">
+                        Envio
+                    </div>
+                    <select id="sendType">
+                        <option value="1" selected>A Domicilio</option>
+                        <option value="0">Para Llevar</option>
+                    </select>
+                </label>
+                <label class="item item-input">
+                    <input  value="{{nombre}}" id="nombre" type="text" placeholder="Nombre">
+                </label>
+                <label class="item item-input">
+                    <input  value="{{mail}}" id="mail" type="email" autocomplete="on" placeholder="Correo Electronico">
+                </label>
+                <label class="item item-input">
+                    <input  value="{{tel}}" id="tel" type="tel" placeholder="Telefono">
+                </label>
+                <label ng-if="placeTheme.addon_cupones == 1" class="item item-input">
+                    <input style="color:white; font-family: 'Anton', sans-serif;" ng-model="confirm.cupon" type="text" placeholder="Cupon">
+                </label>
+                <label class="item item-input">
+                    <textarea id="dir" placeholder="Direccion Escrita"></textarea>
+                </label>
+                <label ng-if="puntos.bill_points > 0 && placeTheme.addon_puntos == 1" class="item item-input">
+                    <input id="user_id" ng-model="confirm.username" value="{{identidad}}" placeholder="Identidad para acumular puntos solo numeros" title="solo puede ingresar 13 numeros" maxlength="13" type="tel" pattern="[0-9]*">
+
+                </label>
+                <span style="margin-left: 15px">Tipo De Pago:</span>
+                <select id="tipoPago" style="width: 100%" class="item item-input">
+                    <option value="Efectivo">Efectivo</option>
+                    <option value="Tarjeta">Tarjeta</option>
+                </select>
+                <ion-list ng-if="confirm.calendar_order == 1">
+                    <div class="row">
+                        <div class="col">
+                            Fecha de Entrega:
+                        </div>
+                        <div style="border:1px solid black;white-space:normal"  class="col">
+                            <!-- <div id="delivery" date="true" time="false" class="item" ion-datetime-picker ng-model="datetimeValue">{{datetimeValue| date: "yyyy-MM-dd"}}</div> -->
+                            <div id='delivery' style="text-align: center; padding: 10px" ng-value='confirm.default_date' date ion-datetime-picker ng-model='confirm.default_date'>{{confirm.default_date| date: 'yyyy-MM-dd'}}</div>
+                        </div>
+                    </div>
+                </ion-list>
+                <div id="redim" style="display:none">
+                    <span>Redimir Puntos de Esta Identidad:</span>
+                    <label class="item item-input">
+                        <input  id="user_id_redim" ng-model="confirm.identidad" value="{{identidad}}" type="text" placeholder="Identidad para acumular puntos solo numeros" title="solo puede ingresar 13 numeros" maxlength="13">
+                    </label>
+                </div>
+            </div>
+            <br />
+            <button ng-click="updatBillHomeDetail()" style="width:auto;display: block;margin-top: 15px;margin: auto;" class="button button-balanced">&nbsp;&nbsp;Enviar&nbsp;&nbsp;</button>
+                <p style="
+                font-size: 13px; margin: 0 auto;
+                max-width: 400px;
+                border: solid 2px rgb(245, 245, 245);
+                padding: 12px;overflow-wrap: break-word;
+                word-wrap: break-word;
+                hyphens: auto;
+                margin: 5px;" 
+  >{{politics}}</p>
+            <br />
+        </div>
+    </ion-content>
+</ion-view>

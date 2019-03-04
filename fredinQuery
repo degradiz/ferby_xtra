@@ -1,0 +1,7 @@
+ALTER TABLE `username` ADD `place_app_id` INT NOT NULL AFTER `place_id`;
+
+CREATE TABLE `ferby`.`receipt_points` ( `receipt_points_id` INT NOT NULL AUTO_INCREMENT , `receipt_gift_points` INT NOT NULL , `receipt_username` INT NOT NULL , `receipt_place_id` INT NOT NULL , `receipt_name` INT NOT NULL , `receipt_place` INT NOT NULL , `receipt_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , `deleted` INT NOT NULL DEFAULT '0' , PRIMARY KEY (`receipt_points_id`)) ENGINE = InnoDB;
+
+ALTER TABLE `receipt_points` CHANGE `receipt_username` `receipt_username` VARCHAR(128) NOT NULL;
+ALTER TABLE `receipt_points` CHANGE `receipt_name` `receipt_name` VARCHAR(128) NOT NULL;
+ALTER TABLE `receipt_points` CHANGE `receipt_place` `receipt_place` VARCHAR(128) NOT NULL;

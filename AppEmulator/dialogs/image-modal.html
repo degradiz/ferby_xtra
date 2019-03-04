@@ -1,0 +1,13 @@
+﻿<ion-modal-view class="image-modal" on-swipe-down="closeModal()" ng-click="closeModal()">
+        <ion-scroll 
+                zooming="true"
+                direction="xy" 
+                
+                class="zoom-pane" 
+                min-zoom="1" 
+                scrollbar-x="false" 
+                scrollbar-y="false" 
+                overflow-scroll="false">
+            <img ng-src="{{fullImageSrc}}" />
+        </ion-scroll>
+</ion-modal-view>

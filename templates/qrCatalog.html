@@ -1,0 +1,75 @@
+<ion-view view-title="Qr Catalogo" ng-init="getQrCatalog()">
+    <ion-content  overflow-scroll="true" style="background-color: #BDBDBD">
+        <ion-refresher
+            pulling-text="Pull to refresh..."
+            on-refresh="getQrCatalog()">
+        </ion-refresher>
+        <div style="width:100%">
+            <div style="float:right;" class="card col col-25">
+                <button style="margin:auto" class="button button-dark"  ng-click="insertQrCatalog()">Nuevo Registro</button>
+            </div>
+            <div style="float:left;" class="card col col-25">
+                <div style="width:100%;background-color: #5e2318">
+                    <i id="arrow" ng-click="expand()" style="color:white;margin-left: 5px" class="ion-chevron-down"></i>
+                </div>
+                <div id="colapse">
+                    <p style="text-align: center;color:black">Codigo de La Tienda</p>
+                    <div id="qrcode">
+                        <img style="height: auto;width: 50%;margin-left: 25%" src="" />
+                    </div>
+                    <p>Haz click derecho, guardar como para salvar la imagen.</button>
+                </div>
+            </div>
+        </div>
+        <br />
+        <br />
+        <br />
+        <br />
+        <div style="width:100%">
+            <div class="card" style="width: 90%;margin-left: 5%;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" >
+                <div id="loadingQr">
+                    <img style="width: 25%;margin-left: 37.5%" src="images/output_SaWDgJ.gif">
+                    <p style="width: 100%;text-align: center;font-weight: bold">Cargando</p>
+                </div>
+                <div id="contentQr" style="display: none">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Promociones
+                        </div>
+                        <div class="panel-body">
+                            <div class="dataTable_wrapper">
+                                <table datatable="ng" class="table table-striped table-bordered table-hover" id="mainMenu">
+                                    <thead>
+                                        <tr>
+                                            <th>Imagen</th>
+                                            <th>Titulo</th>
+                                            <th>Descripción</th>
+                                            <th style="display:none">Estado</th>
+                                            <th>Estado</th>
+                                            <th>Imprimir</th>
+                                            <th>Edit</th>
+                                            <th>Delete</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="q in qrs" class="odd gradeX">
+                                            <td><img style="width:150px;" src="{{q.img}}" /></td>
+                                            <td id="tblTitle{{q.reg_id}}">{{q.title}}</td>
+                                            <td id="tblDesc{{q.reg_id}}">{{q.desc}}</td>
+                                            <td style="display: none" id="tblStatus{{q.reg_id}}">{{q.status}}</td>
+                                            <td ng-if="q.status == 1"><span style="color: green">Active</span></td>
+                                            <td ng-if="q.status == 2"><span style="color: red">Inactive</span></td>
+                                            <td class="center"><button ng-click="updateQrCatalog({{q.reg_id}})" class="button button-dark" >Edit</button></td>
+                                            <td><button ng-click="gotoqrPrint({{q.reg_id}})" class="button button-assertive"><i class="ion-ios-arrow-down"></i></button></td>
+                                            <td class="center"><button ng-click="deleteQrCatalog({{q.reg_id}})" class="button button-assertive" >Delete</button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

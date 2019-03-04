@@ -1,0 +1,21 @@
+<ion-view view-title="Editor de Sucursales">
+    <ion-content  overflow-scroll="true" ng-init='initialize()'>
+        <div id="map" style="height:450px; width:100%"></div>
+        <input id="mlat" style="display: none"/>
+        <div class="card">
+            <form>
+                <label>Nombre</label>
+                <input maxlength="256" id="name" type="text" />
+                <label>Ciudad</label>
+                <input maxlength="256" id="city" type="text" />
+                <label>Latitud</label>
+                <input readonly maxlength="256" id="lat" type="text" />
+                <label>Longitud</label>
+                <input readonly maxlength="256" id="lng" type="text" />
+                <label>Minimo de Compra</label>
+                <input maxlength="256" id="min" type="text"  />
+            </form><br />
+            <button ng-click="insert_place()" class="button button-dark">{{btnMes}}</button>
+        </div>
+    </ion-content>
+</ion-view>

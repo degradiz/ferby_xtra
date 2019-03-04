@@ -1,0 +1,4 @@
+
+ VAMOOS4211 
+ t  
+ FOTOPORFAVOR:{"name":"temp-e4dad9aa71457d21.png","ruta":"..\\img\\temp-e4dad9aa71457d21.png","succes":true,"error":""}

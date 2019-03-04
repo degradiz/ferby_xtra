@@ -1,0 +1,32 @@
+
+<ion-view view-title="Ajustes" hide-nav-bar="true">
+
+    <ion-content  overflow-scroll="true" ng-init="getDets()" style="background-color: #BDBDBD" ng-init='inicio()'>
+
+
+        <div class="card" style="width: 90%;margin-left: 5%;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+
+            <div class="list">
+                <label class="item item-button-right">
+                    <span class="input-label">Sesion</span>
+                    <button  ng-click="logout()" class="button button-dark"><i class="ion-arrow-return-left"></i></button>
+                </label>
+                <div ng-repeat="s in stores">
+                    <label class="item item-button-right">
+                        <span class="input-label">Domicilio</span>
+                        <button ng-if="s.home_order == '1'" ng-click='turnOffTienda(s.place_location_id)' class="button  button-positive">Encendido</button>
+                        <button ng-if="s.home_order == '0'" ng-click='turnOnTienda(s.place_location_id)'class="button  button-assertive">Apagado</button>
+
+                    </label>
+                    <label class="item item-button-right">
+                        <span class="input-label">Para Llevar</span>
+                        <button ng-if="s.pick_order == '1'" ng-click='turnOffPick(s.place_location_id)' class="button  button-positive">Encendido</button>
+                        <button ng-if="s.pick_order == '0'"  ng-click='turnOnPick(s.place_location_id)' class="button  button-assertive">Apagado</button>
+                    </label>
+                </div>
+
+
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

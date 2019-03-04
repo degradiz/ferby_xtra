@@ -1,0 +1,868 @@
+<ion-view view-title="Personalizar" ng-init="getPersonalizeSettings()">
+    <ion-content  overflow-scroll="true"  style="background-color: #F1F1F1">
+        <ion-refresher
+        pulling-text="Pull to refresh..."
+        on-refresh="getPersonalizeSettings()">
+    </ion-refresher>
+    <br />
+    <div class="row responsive-sm" >
+        <div class="card col" style="width: 98%;margin-left: 1%;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                *En este panel puedes personalizar tu app, no olvides hacer click en &nbsp; <b> <i class="ion-navicon"></i> </b>  &nbsp; para mas opciones, si tienes dudas visita nuestro Ferby Academy <a  target="_blank" href="https://www.myferby.com/academy/">Aquí</a>
+            <div class="panel-body">
+                <div class="dataTable_wrapper">
+                    <div class="card">
+                        <div ng-repeat="p in places" class="odd gradeX ">
+                            <div class="row" style="background-color: lightgray">
+                                        <div class="col ">
+                                            <b>Nombre Del App</b>
+                                        </div>
+                                        <div class="col ">
+                                            <p style="text-align: center; font-size: 12px; font-weight: 600">   {{p.business_name}} </p>
+                                        </div>
+                            </div>
+                            <div class="row" ng-if="username == 'administrator@ferby.com'">
+                                <div class="col">
+                                   <b>Ingresa tu clave heredada de FireBase</b>
+
+                                </div>
+                                <div class="col">
+                                    <div id='fcm_key{{p.place_id}}'>
+                                        <div style="width:100%; margin: 0; padding: 0" class="container">
+                                                <p style="text-align: center; font-size: 12px; font-weight: 600">{{validField(p.fcm_key)}}</p>
+
+                                              <div class="overlay">
+                                                  <div ng-click="set_fcm(p);" class="text">Editar</div>
+                                              </div>
+                                        </div>
+                                       <!-- <button ng-click="editParams({{p}})" class="button button-dark">Editar Parámetros</button>-->
+                                    </div>
+                                </div>
+                            </div>    
+                            <div class="row">
+                                <div class="col">
+                                   <b>ID de Pagina de Facebook</b>
+                                   <button  ng-click="getFBID();" class="button button-balanced">
+                                        Obtener Facebook ID
+                                    </button>
+                                </div>
+                                <div class="col">
+                                    <div id='business_name{{p.place_id}}'>
+                                        <div style="width:100%; margin: 0; padding: 0" class="container">
+                                                <p style="text-align: center; font-size: 12px; font-weight: 600">{{validFB(p)}}</p>
+                                         
+                                              <div class="overlay">
+                                                  <div ng-click="set_facebook_id(p);" class="text">Editar</div>
+                                              </div>
+                                        </div>
+                                       <!-- <button ng-click="editParams({{p}})" class="button button-dark">Editar Parámetros</button>-->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                   <b>Nombre usuario de Instagram</b>
+
+                                </div>
+                                <div class="col">
+                                    <div id='instagram_username{{p.place_id}}'>
+                                        <div style="width:100%; margin: 0; padding: 0" class="container">
+                                                <p style="text-align: center; font-size: 12px; font-weight: 600">{{validInstagram(p)}}</p>
+
+                                              <div class="overlay">
+                                                  <div ng-click="set_instagram(p);" class="text">Editar</div>
+                                              </div>
+                                        </div>
+                                       <!-- <button ng-click="editParams({{p}})" class="button button-dark">Editar Parámetros</button>-->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row"  style="background-color: lightgray" >
+                                <div class="col">
+                                    Numero de WhatsApp
+                                </div>
+                                <div class="col">
+                                        <div id="business_phone{{p.place_id}}">
+                                                <div style="width:100%; margin: 0; padding: 0" class="container">
+                                                    <p style="text-align: center; font-size: 12px; font-weight: 600">{{validPhone(p)}}</p>
+                                                    <div class="overlay">
+                                                        <div ng-click="set_business_phone(p);" class="text">Editar</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                   <b>Ingresa tu sitio web</b>
+
+                                </div>
+                                <div class="col">
+                                    <div id='help_link{{p.place_id}}'>
+                                        <div style="width:100%; margin: 0; padding: 0" class="container">
+                                                <p style="text-align: center; font-size: 12px; font-weight: 600">{{validHelpLink(p)}}</p>
+
+                                              <div class="overlay">
+                                                  <div ng-click="set_help(p);" class="text">Editar</div>
+                                              </div>
+                                        </div>
+                                       <!-- <button ng-click="editParams({{p}})" class="button button-dark">Editar Parámetros</button>-->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                   <b>Ingresa link de PlayStore</b>
+
+                                </div>
+                                <div class="col">
+                                    <div id='rate_app_playstore{{p.place_id}}'>
+                                        <div style="width:100%; margin: 0; padding: 0" class="container">
+                                                <p style="text-align: center; font-size: 12px; font-weight: 600">{{validField(p.rate_app_playstore)}}</p>
+
+                                              <div class="overlay">
+                                                  <div ng-click="set_rate_app_playstore(p);" class="text">Editar</div>
+                                              </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                            
+                            <div class="row">
+                                <div class="col">
+                                   <b>Ingresa tu link de formulario</b>
+
+                                </div>
+                                <div class="col">
+                                    <div id='subscription_link{{p.place_id}}'>
+                                        <div style="width:100%; margin: 0; padding: 0" class="container">
+                                                <p style="text-align: center; font-size: 12px; font-weight: 600">{{validField(p.subscription_link)}}</p>
+
+                                              <div class="overlay">
+                                                  <div ng-click="set_subscription(p);" class="text">Editar</div>
+                                              </div>
+                                        </div>
+                                       <!-- <button ng-click="editParams({{p}})" class="button button-dark">Editar Parámetros</button>-->
+                                    </div>
+                                </div>
+                            </div>                            
+                            <div class="row">
+                                <div class="col">
+                                    Logo
+                                </div>
+                                <div class="col ">
+                                        <div id="business_logo{{p.place_id}}">
+                                                <div class="container">
+                                                    <img style="margin:auto;max-width:100px" src="img/{{p.business_logo}}" alt="Seleccionar" class="image" />
+                                                    <div class="overlay">
+                                                        <div ng-click="set_business_logo(p.place_id);" class="text">Actualizar</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                </div>
+                            </div>
+                    
+                            <div class="row" >
+                                    <div class="col">
+                                        Fondo de Portada
+                                    </div>
+                                    <div class="col">
+                                            <td id="business_background2{{p.place_id}}">
+                                                    <div class="container">
+                                                        <img style="margin:auto;max-width:100px" src="img/{{p.business_background2}}" alt="Seleccionar" class="image" />
+                                                        <div class="overlay">
+                                                            <div ng-click="set_background(p.place_id,2)" class="text">Actualizar</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                    </div>
+                                </div>
+                                <div class="row"  style="background-color: lightgray" >
+                                    <div class="col">
+                                       Banner (no aplica en todas las apps)*
+                                    </div>
+                                    <div class="col">
+                                            <td  id="background_app{{p.place_id}}">
+                                                    <div class="container">
+                                                        <img style="margin:auto;max-width:100px" src="img/{{p.background_app}}" alt="Seleccionar" class="image" />
+                                                        <div class="overlay">
+                                                            <div ng-click="set_bg_app(p.place_id)" class="text">Actualizar</div>
+                                                        </div>
+                                                    </div>
+                                            </td>
+                                    </div>
+                                </div>
+                                <div class="row" >
+                                    <div class="col">
+                                        Color de Botones de Accion
+                                    </div>
+                                    <div class="col">
+                                            <center style="margin:auto">
+                                            <div  id='button_color_theme{{p.place_id}}'>
+                                                        <button ng-click="set_button_color_theme(p.place_id)" style="{{change_style_color(p.button_color_theme)}}" class="button button-dark"><i class="ion-edit"></i></button>
+                                                </div>
+                                            </center>
+                                    </div>
+                                </div>
+                            <div class="row"  style="background-color: lightgray" >
+                                <div class="col">
+                                    Color de Barra y Tabs
+                                </div>
+                                <div class="col">
+                                        <td id='button_color_theme2{{p.place_id}}'>
+                                                <center style="margin:auto">
+                                                    <button ng-click="set_home_square_color(p.place_id)" style="{{change_style_color(p.home_square_color)}}" class="button button-dark"><i class="ion-edit"></i></button>
+                                                </center>
+                                            </td>
+                                </div>
+                            </div>
+                            <br><br>
+                            <center class="row">
+                                <div class="wrapper" >
+                                    <div class="grisubshel">
+                                  
+                                        <div class="container" style="margin-bottom: 0px">
+                                            <center>
+                                                
+                                                <img style="width:100%" src="img/{{p.img_help_link}}" alt="Edit" class="image" />
+                                                <div class="overlay">
+                                                    <div ng-click="set_img_help_link(p.place_id)" class="text">Actualizar</div>
+                                                </div>
+                                            </center>
+                                        </div>
+                                        <div  style="margin: 0; padding: -5" class="container">
+                                            <input type="checkbox"  ng-checked="{{p.show_help_link}}" ng-model="p.show_help_link" ng-click='switch_show_help_link($event.target.checked, p)'  id="switch_show_help_link{{p.place_id}}" class="switch-input">
+                                            <label for="switch_show_help_link{{p.place_id}}" class="switch-label"><span class="toggle--on">On</span><span class="toggle--off">Off</span></label>
+                                        </div>
+                                        <span style="font-size: 12px">
+                                            Botón Sitio-Web
+                                        </span>
+                                    </div>
+                                    <div class="grisubshel">
+                                  
+                                        <div class="container" style="margin-bottom: 0px">
+                                            <center>
+                                                
+                                                <img style="width:100%" src="img/{{p.img_subscription_link}}" alt="Edit" class="image" />
+                                                <div class="overlay">
+                                                    <div ng-click="set_img_subscription_link(p.place_id)" class="text">Actualizar</div>
+                                                </div>
+                                            </center>
+                                        </div>
+                                        <div  style="margin: 0; padding: -5" class="container">
+                                            <input type="checkbox"  ng-checked="{{p.show_subscription_link}}" ng-model="p.show_subscription_link" ng-click='switch_show_subscription_link($event.target.checked, p)'  id="switch_show_subscription_link{{p.place_id}}" class="switch-input">
+                                            <label for="switch_show_subscription_link{{p.place_id}}" class="switch-label"><span class="toggle--on">On</span><span class="toggle--off">Off</span></label>
+                                        </div>
+                                        <span style="font-size: 12px" ng-click="set_subscription_link_text(p)">
+                                            <a> <i class="ion-edit"><u>{{p.subscription_link_text}}</u></i> </a>
+                                        </span>
+                                    </div>
+                                    <div class="grisubshel">
+                                  
+                                        <div class="container" style="margin-bottom: 0px">
+                                            <center>
+                                                
+                                                <img style="width:100%" src="img/{{p.img_reservar}}" alt="Edit" class="image" />
+                                                <div class="overlay">
+                                                    <div ng-click="set_img_reservar(p.place_id)" class="text">Actualizar</div>
+                                                </div>
+                                            </center>
+                                        </div>
+                                        <div  style="margin: 0; padding: -5" class="container">
+                                            <input type="checkbox"  ng-checked="{{p.show_reservar}}" ng-model="p.show_reservar" ng-click='switch_show_reservar($event.target.checked, p)'  id="switch_show_reservar{{p.place_id}}" class="switch-input">
+                                            <label for="switch_show_reservar{{p.place_id}}" class="switch-label"><span class="toggle--on">On</span><span class="toggle--off">Off</span></label>
+                                        </div>
+                                        <span style="font-size: 12px">
+                                            Botón Reservar
+                                        </span>
+                                    </div>
+                                    <div class="grisubshel">
+                                        
+                                        <div class="container" style="margin-bottom: 0px">
+                                            <center>
+                                                
+                                                <img style="width:100%" src="img/{{p.home_img}}" alt="Edit" class="image" />
+                                                <div class="overlay">
+                                                    <div ng-click="set_home_img(p.place_id)" class="text">Actualizar</div>
+                                                </div>
+                                            </center>
+                                        </div>
+                                        <div  style="margin: 0; padding: -5" class="container">
+                                            <input type="checkbox"  ng-checked="{{p.home_order}}" ng-model="p.home_order" ng-click='switchHome($event.target.checked, p)'  id="switch_show_home{{p.place_id}}" class="switch-input">
+                                            <label for="switch_show_home{{p.place_id}}" class="switch-label"><span class="toggle--on">On</span><span class="toggle--off">Off</span></label>
+                                        </div>
+                                        <span style="font-size: 12px" ng-click="set_home_text(p)">
+                                            <a> <i class="ion-edit"><u>{{p.home_text}}</u></i> </a>
+                                        </span>
+                                        <!-- <span style="font-size: 12px">
+                                            Botón Domicilio
+                                            </span> -->
+                                    </div>
+
+                                    <div class="grisubshel">
+                                        
+                                        <div class="container" style="margin-bottom: 0px">
+                                            <center>
+                                                
+                                                <img style="width:100%" src="img/{{p.pick_img}}" alt="Edit" class="image" />
+                                                <div class="overlay">
+                                                    <div ng-click="set_pick_img(p.place_id)" class="text">Actualizar</div>
+                                                </div>
+                                            </center>
+                                        </div>
+                                        <div  style="margin: 0; padding: -5" class="container">
+                                            <input type="checkbox"  ng-checked="{{p.pick_order}}" ng-model="p.pick_order" ng-click='switchPick($event.target.checked, p)'  id="switch_show_pick{{p.place_id}}" class="switch-input">
+                                            <label for="switch_show_pick{{p.place_id}}" class="switch-label"><span class="toggle--on">On</span><span class="toggle--off">Off</span></label>
+                                        </div>
+                                        <span style="font-size: 12px">
+                                            Botón Para Llevar
+                                            </span>
+                                    </div>
+
+                                    <div class="grisubshel">
+                                        
+                                        <div class="container" style="margin-bottom: 0px">
+                                            <center>
+                                                
+                                                <img style="width:100%" src="img/{{p.desk_img}}" alt="Edit" class="image" />
+                                                <div class="overlay">
+                                                    <div ng-click="set_desk_img(p.place_id)" class="text">Actualizar</div>
+                                                </div>
+                                            </center>
+                                        </div>
+                                        <div  style="margin: 0; padding: -5" class="container">
+                                            <input type="checkbox"  ng-checked="{{p.desk_order}}" ng-model="p.desk_order" ng-click='switchDesk($event.target.checked, p)'  id="switch_show_desk{{p.place_id}}" class="switch-input">
+                                            <label for="switch_show_desk{{p.place_id}}" class="switch-label"><span class="toggle--on">On</span><span class="toggle--off">Off</span></label>
+                                        </div>
+                                        <span style="font-size: 12px">
+                                            Botón Pre-ordenar
+                                            </span>
+                                    </div>
+
+                                    <div class="grisubshel">
+                                  
+                                        <div class="container" style="margin-bottom: 0px">
+                                            <center>
+                                                
+                                                <img style="width:100%" src="img/{{p.img_shop}}" alt="Edit" class="image" />
+                                                <div class="overlay">
+                                                    <div ng-click="set_img_shop(p.place_id)" class="text">Actualizar</div>
+                                                </div>
+                                            </center>
+                                        </div>
+                                        <div  style="margin: 0; padding: -5" class="container">
+                                            <input type="checkbox"  ng-checked="{{p.show_shop}}" ng-model="p.show_shop" ng-click='switch_show_shop($event.target.checked, p)'  id="switch_show_shop{{p.place_id}}" class="switch-input">
+                                            <label for="switch_show_shop{{p.place_id}}" class="switch-label"><span class="toggle--on">On</span><span class="toggle--off">Off</span></label>
+                                        </div>
+                                        <span style="font-size: 12px">
+                                            Botón Tienda
+                                        </span>
+                                    </div>
+            
+                                    <div class="grisubshel">
+                                        
+                                        <div class="container" style="margin-bottom: 0px">
+                                            <center>
+                                                
+                                                <img style="width:100%" src="img/{{p.facebook_img}}" alt="Edit" class="image" />
+                                                <div class="overlay">
+                                                    <div ng-click="set_facebook_img(p.place_id)" class="text">Actualizar</div>
+                                                </div>
+                                            </center>
+                                        </div>
+                                        <div  style="margin: 0; padding: -5" class="container">
+                                            <input type="checkbox"  ng-checked="{{p.show_facebook}}" ng-model="p.show_facebook" ng-click='switch_show_facebook($event.target.checked, p)'  id="switch_show_facebook{{p.place_id}}" class="switch-input">
+                                            <label for="switch_show_facebook{{p.place_id}}" class="switch-label"><span class="toggle--on">On</span><span class="toggle--off">Off</span></label>
+                                        </div>
+                                        <span style="font-size: 12px">
+                                            Botón Facebook
+                                            </span>
+                                    </div>
+                                    <div class="grisubshel">
+
+                                        <div class="container" style="margin-bottom: 0px">
+                                            <center>
+
+                                                <img style="width:100%" src="img/{{p.img_instagram}}" alt="Edit" class="image" />
+                                                <div class="overlay">
+                                                    <div ng-click="set_img_instagram(p.place_id)" class="text">Actualizar</div>
+                                                </div>
+                                            </center>
+                                        </div>
+                                        <div  style="margin: 0; padding: -5" class="container">
+                                            <input type="checkbox"  ng-checked="{{p.show_instagram}}" ng-model="p.show_instagram" ng-click='switch_show_instagram($event.target.checked, p)'  id="switch_show_instagram{{p.place_id}}" class="switch-input">
+                                            <label for="switch_show_instagram{{p.place_id}}" class="switch-label"><span class="toggle--on">On</span><span class="toggle--off">Off</span></label>
+                                        </div>
+                                        <span style="font-size: 12px">
+                                            Botón Instagram
+                                            </span>
+                                    </div>
+            
+                                    <div class="grisubshel">
+                                       
+                                        <div class="container" style="margin-bottom: 0px">
+                                            <center>
+                                                
+                                                <img style="width:100%" src="img/{{p.img_locations}}" alt="Edit" class="image" />
+                                                <div class="overlay">
+                                                    <div ng-click="set_img_locations(p.place_id)" class="text">Actualizar</div>
+                                                </div>
+                                            </center>
+                                        </div>
+                                        <div  style="margin: 0; padding: -5" class="container">
+                                            <input type="checkbox"  ng-checked="{{p.show_locations}}" ng-model="p.show_locations" ng-click='switch_show_locations($event.target.checked, p)'  id="switch_show_locations{{p.place_id}}" class="switch-input">
+                                            <label for="switch_show_locations{{p.place_id}}" class="switch-label"><span class="toggle--on">On</span><span class="toggle--off">Off</span></label>
+                                        </div>
+                                        <span style="font-size: 12px">
+                                            Botón Ubicaciones
+                                            </span>
+                                    </div>
+            
+                                    <div class="grisubshel">
+                                      
+                                        <div class="container" style="margin-bottom: 0px">
+                                            <center>
+                                                
+                                                <img style="width:100%" src="{{settingImg}}" alt="Edit" class="image" />
+                                                <div class="overlay">
+                                                    <div ng-click="set_img_addon_puntos(p.place_id)" class="text">Actualizar</div>
+                                                </div>
+                                            </center>
+                                        </div>
+                                        <div  style="margin: 0; padding: -5" class="container">
+                                            <input type="checkbox"  ng-checked="{{p.addon_puntos}}" ng-model="p.addon_puntos" ng-click='switch_addon_puntos($event.target.checked, p)'  id="switch_addon_puntos{{p.place_id}}" class="switch-input">
+                                            <label for="switch_addon_puntos{{p.place_id}}" class="switch-label"><span class="toggle--on">On</span><span class="toggle--off">Off</span></label>
+                                        </div>
+                                        <span style="font-size: 12px" ng-click="set_redeem_name(setting)">
+                                            <a> <i class="ion-edit"><u>{{setting.redeem_name}}</u></i> </a>
+                                        </span>
+                                        <!-- <span style="font-size: 12px">
+                                            Botón Puntos
+                                            </span> -->
+                                    </div>
+            
+                                    <div class="grisubshel">
+                                       
+                                        <div class="container" style="margin-bottom: 0px">
+                                            <center>
+                                                
+                                                <img style="width:100%" src="img/{{p.messenger_img}}" alt="Edit" class="image" />
+                                                <div class="overlay">
+                                                    <div ng-click="set_messenger_img(p.place_id)" class="text">Actualizar</div>
+                                                </div>
+                                            </center>
+                                        </div>
+                                        <div  style="margin: 0; padding: -5" class="container">
+                                            <input type="checkbox"  ng-checked="{{p.show_messenger}}" ng-model="p.show_messenger" ng-click='switch_show_messenger($event.target.checked, p)'  id="switch_show_messenger{{p.place_id}}" class="switch-input">
+                                            <label for="switch_show_messenger{{p.place_id}}" class="switch-label"><span class="toggle--on">On</span><span class="toggle--off">Off</span></label>
+                                        </div>
+                                        <span style="font-size: 12px">
+                                            Botón Messenger
+                                            </span>
+                                    </div>
+            
+                                    <div class="grisubshel">
+                                       
+                                        <div class="container" style="margin-bottom: 0px">
+                                            <center>
+                                                
+                                                <img style="width:100%" src="img/{{p.phone_img}}" alt="Edit" class="image" />
+                                                <div class="overlay">
+                                                    <div ng-click="set_phone_img(p.place_id)" class="text">Actualizar</div>
+                                                </div>
+                                            </center>
+                                        </div>
+                                        <div  style="margin: 0; padding: -5" class="container">
+                                            <input type="checkbox"  ng-checked="{{p.show_phone}}" ng-model="p.show_phone" ng-click='switch_show_phone($event.target.checked, p)'  id="switch_show_phone{{p.place_id}}" class="switch-input">
+                                            <label for="switch_show_phone{{p.place_id}}" class="switch-label"><span class="toggle--on">On</span><span class="toggle--off">Off</span></label>
+                                        </div>
+                                        <span style="font-size: 12px">
+                                            Botón WhatsApp
+                                            </span>
+                                    </div>
+            
+                                    <div class="grisubshel">
+                                   
+                                        <div class="container" style="margin-bottom: 0px">
+                                            <center>
+                                                
+                                                <img style="width:100%" src="img/{{p.img_coupons}}" alt="Edit" class="image" />
+                                                <div class="overlay">
+                                                    <div ng-click="set_img_coupons(p.place_id)" class="text">Actualizar</div>
+                                                </div>
+                                            </center>
+                                        </div>
+                                        <div  style="margin: 0; padding: -5" class="container">
+                                            <input type="checkbox"  ng-checked="{{p.show_coupons}}" ng-model="p.show_coupons" ng-click='switch_show_coupons($event.target.checked, p)'  id="switch_show_coupons{{p.place_id}}" class="switch-input">
+                                            <label for="switch_show_coupons{{p.place_id}}" class="switch-label"><span class="toggle--on">On</span><span class="toggle--off">Off</span></label>
+                                        </div>
+                                        <span style="font-size: 12px">
+                                            Botón Cupones
+                                            </span>
+                                    </div>
+            
+                                    <div class="grisubshel">
+                                       
+                                        <div class="container" style="margin-bottom: 0px">
+                                            <center>
+                                                
+                                                <img style="width:100%" src="img/{{p.img_promos}}" alt="Edit" class="image" />
+                                                <div class="overlay">
+                                                    <div ng-click="set_img_promos(p.place_id)" class="text">Actualizar</div>
+                                                </div>
+                                            </center>
+                                        </div>
+                                        <div  style="margin: 0; padding: -5" class="container">
+                                            <input type="checkbox"  ng-checked="{{p.show_promos}}" ng-model="p.show_promos" ng-click='switch_show_promos($event.target.checked, p)'  id="switch_show_promos{{p.place_id}}" class="switch-input">
+                                            <label for="switch_show_promos{{p.place_id}}" class="switch-label"><span class="toggle--on">On</span><span class="toggle--off">Off</span></label>
+                                        </div>
+                                        <span style="font-size: 12px">
+                                            Botón Promos
+                                            </span>
+                                    </div>
+            
+                                    <div class="grisubshel">
+                                  
+                                        <div class="container" style="margin-bottom: 0px">
+                                            <center>
+                                                
+                                                <img style="width:100%" src="img/{{p.img_events}}" alt="Edit" class="image" />
+                                                <div class="overlay">
+                                                    <div ng-click="set_img_events(p.place_id)" class="text">Actualizar</div>
+                                                </div>
+                                            </center>
+                                        </div>
+                                        <div  style="margin: 0; padding: -5" class="container">
+                                            <input type="checkbox"  ng-checked="{{p.show_events}}" ng-model="p.show_events" ng-click='switch_show_events($event.target.checked, p)'  id="switch_show_events{{p.place_id}}" class="switch-input">
+                                            <label for="switch_show_events{{p.place_id}}" class="switch-label"><span class="toggle--on">On</span><span class="toggle--off">Off</span></label>
+                                        </div>
+                                        <span style="font-size: 12px">
+                                            Botón Eventos
+                                        </span>
+                                    </div>
+
+                                    <div class="grisubshel">
+                                      
+                                        <div class="container" style="margin-bottom: 0px">
+                                            <center>
+                                                
+                                                <img style="width:100%" src="{{checkinImg}}" alt="Edit" class="image" />
+                                                <div class="overlay">
+                                                    <div ng-click="set_img_addon_check_in(p.place_id)" class="text">Actualizar</div>
+                                                </div>
+                                            </center>
+                                        </div>
+                                        <div  style="margin: 0; padding: -5" class="container">
+                                            <input type="checkbox"  ng-checked="{{p.addon_check_in}}" ng-model="p.addon_check_in" ng-click='switch_addon_check_in($event.target.checked, p)'  id="switch_addon_check_in{{p.place_id}}" class="switch-input">
+                                            <label for="switch_addon_check_in{{p.place_id}}" class="switch-label"><span class="toggle--on">On</span><span class="toggle--off">Off</span></label>
+                                        </div>
+                                        <span style="font-size: 12px">
+                                            Botón De Visitas
+                                            </span>
+                                    </div>
+                                    <div class="grisubshel">
+                                  
+                                        <div class="container" style="margin-bottom: 0px">
+                                            <center>
+                                                
+                                                <img style="width:100%" src="img/{{p.img_track_orders}}" alt="Edit" class="image" />
+                                                <div class="overlay">
+                                                    <div ng-click="set_img_track_orders(p.place_id)" class="text">Actualizar</div>
+                                                </div>
+                                            </center>
+                                        </div>
+                                        <div  style="margin: 0; padding: -5" class="container">
+                                            <input type="checkbox"  ng-checked="{{p.show_track_orders}}" ng-model="p.show_track_orders" ng-click='switch_show_track_orders($event.target.checked, p)'  id="switch_show_track_orders{{p.place_id}}" class="switch-input">
+                                            <label for="switch_show_track_orders{{p.place_id}}" class="switch-label"><span class="toggle--on">On</span><span class="toggle--off">Off</span></label>
+                                        </div>
+                                        <span style="font-size: 12px">
+                                            Botón Pedidos
+                                        </span>
+                                    </div>
+
+                                    <div class="grisubshel">
+                                  
+                                        <div class="container" style="margin-bottom: 0px">
+                                            <center>
+                                                
+                                                <img style="width:100%" src="img/{{p.img_rate_app}}" alt="Edit" class="image" />
+                                                <div class="overlay">
+                                                    <div ng-click="set_img_rate_app(p.place_id)" class="text">Actualizar</div>
+                                                </div>
+                                            </center>
+                                        </div>
+                                        <div  style="margin: 0; padding: -5" class="container">
+                                            <input type="checkbox"  ng-checked="{{p.show_rate_app}}" ng-model="p.show_rate_app" ng-click='switch_show_rate_app($event.target.checked, p)'  id="switch_show_rate_app{{p.place_id}}" class="switch-input">
+                                            <label for="switch_show_rate_app{{p.place_id}}" class="switch-label"><span class="toggle--on">On</span><span class="toggle--off">Off</span></label>
+                                        </div>
+                                        <span style="font-size: 12px" ng-click="set_rate_app_text(p)">
+                                            <a> <i class="ion-edit"><u>{{p.rate_app_text}}</u></i> </a>
+                                        </span>
+                                    </div>                                                                        
+
+                                </div>
+                            </center>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <button style="float:right" ng-click="moreIcons();" class="button button-balanced">
+                    Obtener Más Iconos
+                </button>
+        </div>
+        <div class="card col">
+            <div class="row">
+                <div class="col">
+                        <input type="text" style="width:100%" id="linkEmul" >
+                        <span stye="font-size:10px;">* Prueba este link en tu celular</span>
+                </div>
+                <div class="col">
+                    
+                        <button style="float:right" ng-click="reloadIframe();" class="button button-positive">
+                                Refrescar
+                            </button>
+                 </div>
+            </div>
+            <div style="width:100%">
+                    <iframe id="ifr" class="ifr" src="" style="border:20px solid black;border-radius:20px">
+                        </iframe>
+            </div>
+                    
+             
+        </div>
+    </div>
+<style>
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    .ifr{
+        height: 600px;width:250px;
+        display: table;
+  margin: 0 auto;
+        zoom: 0.90;
+-moz-transform: scale(0.80);
+-moz-transform-origin: 0 0;
+-o-transform: scale(0.89);
+-o-transform-origin: 0 0;
+-webkit-transform: scale(0.80);
+-webkit-transform-origin: 0 0;
+    }
+} 
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    .ifr{
+        height: 800px;width:500px;
+        display: table;
+  margin: 0 auto;
+        zoom: 0.90;
+        
+-moz-transform: scale(0.80);
+-moz-transform-origin: 0 0;
+-o-transform: scale(0.89);
+-o-transform-origin: 0 0;
+-webkit-transform: scale(0.80);
+-webkit-transform-origin: 0 0;
+    }
+} 
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    .ifr{
+        height: 800px;width:500px;
+        display: table;
+  margin: 0 auto;
+        zoom: 0.90;
+-moz-transform: scale(0.80);
+-moz-transform-origin: 0 0;
+-o-transform: scale(0.89);
+-o-transform-origin: 0 0;
+-webkit-transform: scale(0.80);
+-webkit-transform-origin: 0 0;
+    }
+} 
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    .ifr{
+        height: 800px;width:500px;
+        zoom: 0.90;
+        display: table;
+  margin: 0 auto;
+-moz-transform: scale(0.80);
+-moz-transform-origin: 0 0;
+-o-transform: scale(0.89);
+-o-transform-origin: 0 0;
+-webkit-transform: scale(0.80);
+-webkit-transform-origin: 0 0;
+    }
+} 
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    .ifr{
+        height: 900px;width:500px;
+        zoom: 0.90;
+        display: table;
+  margin: 0 auto;
+-moz-transform: scale(0.80);
+-moz-transform-origin: 0 0;
+-o-transform: scale(0.89);
+-o-transform-origin: 0 0;
+-webkit-transform: scale(0.80);
+-webkit-transform-origin: 0 0;
+    }
+}
+
+@media only screen and (min-width: 1500px) {
+    .ifr{
+        height: 1000px;width:70%;margin-left: 15%;
+        zoom: 0.90;
+-moz-transform: scale(0.80);
+-moz-transform-origin: 0 0;
+-o-transform: scale(0.89);
+-o-transform-origin: 0 0;
+-webkit-transform: scale(0.80);
+-webkit-transform-origin: 0 0;
+    }
+}
+
+    .wrapper {
+        display: grid;
+                   
+                   width:100% !important;
+                   grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+    .textsubshel {
+        text-align: center;
+        color: white;
+        font-size:13px;
+    }
+    .grisubshel {
+        border: 0.4px solid  rgba(255,255,255,0.2);
+                    padding-left: 10%;
+                    padding-right: 10%;
+                    padding-bottom: 5%;
+                    padding-top: 5%;
+    }
+
+ 
+
+    .container {
+        position: relative;
+        width: 100%;
+    }
+
+    .image {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .overlay {
+        position: absolute;
+        bottom: 0;
+        left: 100%;
+        right: 0;
+        background-color: #6495ED;
+        overflow: hidden;
+        width: 0;
+        height: 100%;
+        transition: .5s ease;
+    }
+
+    .container:hover .overlay {
+        width: 100%;
+        left: 0;
+    }
+
+    .text {
+        white-space: nowrap; 
+        color: white;
+        font-size: 20px;
+        position: absolute;
+        overflow: hidden;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+    }
+
+    @import url(https://fonts.googleapis.com/css?family=Roboto:300,500);
+    * {
+          margin: 0;
+          padding: 0;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+          box-sizing: border-box;
+      }
+
+
+      .switch-input {
+          display: none;
+      }
+      .switch-label {
+          position: relative;
+          display: inline-block;
+          min-width: 112px;
+          cursor: pointer;
+          font-weight: 500;
+          text-align: left;
+          margin: 16px;
+          padding: 16px 0 16px 44px;
+      }
+      .switch-label:before, .switch-label:after {
+          content: "";
+          position: absolute;
+          margin: 0;
+          outline: 0;
+          top: 50%;
+          -ms-transform: translate(0, -50%);
+          -webkit-transform: translate(0, -50%);
+          transform: translate(0, -50%);
+          -webkit-transition: all 0.3s ease;
+          transition: all 0.3s ease;
+      }
+      .switch-label:before {
+          left: 1px;
+          width: 34px;
+          height: 14px;
+          background-color: #9E9E9E;
+          border-radius: 8px;
+      }
+      .switch-label:after {
+          left: 0;
+          width: 20px;
+          height: 20px;
+          background-color: #FAFAFA;
+          border-radius: 50%;
+          box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.14), 0 2px 2px 0 rgba(0, 0, 0, 0.098), 0 1px 5px 0 rgba(0, 0, 0, 0.084);
+      }
+      .switch-label .toggle--on {
+          display: none;
+      }
+      .switch-label .toggle--off {
+          display: inline-block;
+      }
+      .switch-input:checked + .switch-label:before {
+          background-color: #A5D6A7;
+      }
+      .switch-input:checked + .switch-label:after {
+          background-color: #4CAF50;
+          -ms-transform: translate(80%, -50%);
+          -webkit-transform: translate(80%, -50%);
+          transform: translate(80%, -50%);
+      }
+      .switch-input:checked + .switch-label .toggle--on {
+          display: inline-block;
+      }
+      .switch-input:checked + .switch-label .toggle--off {
+          display: none;
+      }
+
+        .nopadding{
+            padding: 5px 0 0 5px;
+        }
+</style>
+
+</ion-content>
+</ion-view>

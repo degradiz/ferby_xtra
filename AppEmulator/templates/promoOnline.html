@@ -1,0 +1,37 @@
+﻿<ion-view  ng-init="getPromos()">
+
+    <ion-content style="background-color:#D8D8D8">
+        <ion-refresher pulling-text="Pull to refresh..." on-refresh="getPromos()">
+        </ion-refresher>
+        <div style="width:100%;display:none" id="primLoader">
+            <img style="width:10%;margin-left:45%" src="img/launcher-loader.gif" />
+        </div>
+        <div class="card" ng-repeat="p in promociones" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);max-width: 600px; margin:auto; display:block;margin-top: 10px;">
+          <div ng-if="p.length == 0 ">
+              Por los momentos no hay promociones disponibles.
+          </div>
+              <div class="row" style="border-bottom: solid 1px gray">
+                <div class="col-50">
+                    <div class="square2" style="background-image:url({{p.img}});max-width: 200px;max-height: 200px">
+                        <div class="content2" style="max-width: 200px;max-height: 200px">
+                            <div class="table2" style="max-width: 200px;max-height: 200px">
+                                <div class="table-cell2" style="max-width: 200px;max-height: 200px">
+                                    <img class="rs animated bounceIn waves-block" id="imgPrm{{p.promo_id}}" src="{{p.img}}" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-50">
+                    <h1 style="text-align:center" id="textId{{p.promo_id}}">{{p.title}}</h1>
+                    <button class="buttonUI" style="width:70%;margin-left: 15%;margin-top:20%;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" ng-click="largeImage({{p.promo_id}})">Ver Imagen</button>
+                </div>
+            </div>
+            <div class="row" style="display:flex; background-color:#0e0b14; margin: 0px 0px 0px 0px">
+                <div class="col">
+                    <p style="color:white">{{p.description}}</p>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

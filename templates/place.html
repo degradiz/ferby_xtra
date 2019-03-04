@@ -1,0 +1,57 @@
+<ion-view view-title="Mis Apps" ng-init="getPlaces()">
+    <ion-content  overflow-scroll="true" style="background-color: #F1F1F1">
+        <ion-refresher
+            pulling-text="Pull to refresh..."
+            on-refresh="getPlaces()">
+        </ion-refresher>
+
+        <div >
+            <div  class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); width: 30%;margin-left: 50%">
+                <button  class="button button-dark" style="margin-top:10px;margin-bottom:10px;margin-left: 25%;width: 50%" ng-click="addNewApp()">Agregar App</button>
+                <button ng-if="username == 'administrator@ferby.com'"  class="button button-dark" style="margin-top:10px;margin-bottom:10px;margin-left: 25%;width: 50%" ng-click="createNewApp()">Crear Nueva App</button>
+            </div>
+
+            <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); width: 80%;margin-left: 10%">
+                <div id="loadingPlaces">
+                    <img style="width: 25%;margin-left: 37.5%" src="images/output_SaWDgJ.gif">
+                    <p style="width: 100%;text-align: center;font-weight: bold">Cargando</p>
+                </div>
+                <div id="contentPlaces" style="display: none">
+                    <div ng-repeat="p in places" class="card"  style="display:inline-block;float:left;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); width:200px">
+                        <div style="width:100%">                         
+                            <a style="float: left;margin-left: 5%" class="" ng-click="edit('{{p.place_id}}')" ><i class="ion-edit"></i></a>
+                            <a style="float: right;margin-right: 5%" class="" ng-click="deletePlace(p)" ><i class="ion-trash-a"></i></a>
+                        </div>
+                        <div style="width: 100%; height: 200px;line-height: 200px">
+                            <img style="width: 80%; margin-left: 10%" src="{{imgUrl}}{{p.business_logo}}" >
+                        </div>
+                        <div style="background-color: #737373">
+                            <div style="width: 100%;">
+                                <h2 style="color:white;font-size: 18px;text-align: center" id="placeName{{p.place_id}}">{{p.business_name}}</h2>
+                            </div>
+                            <div style="width:100%">
+                                <center>
+                                    <!-- <button class="button button-dark" ng-click="goDash('{{p.business_logo}}',{{p.place_id}},'{{p.business_name}}', {{p.addon_puntos}}, '{{p.name_app}}')" style="margin-top: 7px;margin-bottom: 7px">Administrar</button> -->
+                                    <!-- <a ng-click="nameAppUrl({{p}})" class="button button-dark" style="margin-top: 7px;margin-bottom: 7px">Ver App</a> -->
+                                    <button class="button button-dark" ng-click="manageApp(p)" style="margin-top: 7px;margin-bottom: 7px;">Administrar</button>
+                                </center>
+                                <center ng-if="username == 'administrator@ferby.com'" class="row">
+                                    <div ng-if="p.addon_puntos == 0" class="col">
+                                        <button  class="button button-dark" ng-click="addPoints(p)" style="margin-top: 7px;margin-bottom: 7px; font-size: 15px">Add Points</button>
+                                    </div>
+                                    <div ng-if="p.addon_check_in == 0" class="col">
+                                        <button  class="button button-dark" ng-click="addCheckins(p)" style="margin-top: 7px;margin-bottom: 7px; font-size: 15px">Add Punchcard</button>
+                                    </div>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-hide="places.length">
+                        Registra aqui el nombre de tu empresa. Nota si tienes una cadena, registra solamente el nombre tu empresa. Las sucursales las agregaremos despues.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
+mm

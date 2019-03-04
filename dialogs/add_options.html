@@ -1,0 +1,50 @@
+<p>Nombre</p>
+<input id="optionName" ng-model="option.option_name"  type="text" />
+
+<div ng-hide="place.stock_order == 0">
+	<p>Inventario</p>
+	<input id="inventory" ng-model="option.option_stock"  value="0" type="text" />
+</div>
+<p>Grupo</p>  
+
+<select id="optionGroup" ng-model="type" ng-options="t as t.type_description for t in types track by t.type_code" ng-change="optionChange()">
+   <option value="">Seleccione una opcion</option>
+</select>
+
+</br>
+
+<div >
+	</br>
+	<div id="numberParam" style="display: none;">
+		<p>Variacion de Precio</p>
+		<input id="optionPrice" ng-model="option.option_price"  value="0" type="number" />
+		</br>
+	</div>
+	<div id="textParam" style="display: none;">
+		<p>Parámetro o valor</p>
+		<input id="optionParam" ng-model="option.option_param"  value="" type="text" />
+		</br>
+	</div>
+	<div id="locationParam" style="display: none;">
+		<p>Latitud</p>
+		<input id="optionParam" ng-model="option.lat"  value="" type="number" />
+		</br>
+		<p>Longitud</p>
+		<input id="optionParam" ng-model="option.lon"  value="" type="number" />
+		</br>
+	</div>
+</div>
+
+<!-- <select  ng-model="type"  placeholder="hola">
+	<option value="{{t.type_code}}" ng-repeat="t in types">{{t.type_description}} </option>
+    
+</select>
+<br/ -->
+
+
+<p>Imagen</p>
+<input id="new_image" name="file_image" type="file" accept="image/*"/>
+
+
+
+

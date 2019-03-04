@@ -1,0 +1,25 @@
+﻿<ion-view ng-init="viewUserCheckinsInit()">
+    <ion-floating-menu button-color="#580f0f" has-footer="true" >
+        <ion-floating-item button-color="#580f0f" icon="ion-home" ng-click="goToHome()"></ion-floating-item>
+        <ion-floating-item button-color="#580f0f" ng-if="wa.phone" icon="ion-social-whatsapp-outline" ng-click="openwa()"></ion-floating-item>
+    </ion-floating-menu>
+    <ion-content id="target">
+       
+        <ion-refresher pulling-text="Pull to refresh..." on-refresh="viewUserCheckinsInit()">
+        </ion-refresher>
+
+        <div class="card animated bounceInLeft" style="overflow:visible;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); height:auto;max-width: 600px; margin:auto; display:block;margin-top: 10px">
+            <button ng-click="editCheckinUser()" style="width:100%;display: block;margin: 5px 5px 5px -1px;" class="button button-dark">&nbsp;&nbsp;Cambiar de {{checkinOptions.checkin_name_format}} &nbsp;&nbsp;</button>
+
+            <label class="item item-input textColor">
+                Usuario: {{identidad}}
+            </label>
+            <label class="item item-input textColor">
+                {{checkinOptions.checkin_name}} Total: {{userPoints}}
+            </label>
+            <br />
+
+            <p style="margin-left:15px;margin-right:15px;">{{checkinOptions.checkin_description}}</p>
+        </div>
+    </ion-content>
+</ion-view>

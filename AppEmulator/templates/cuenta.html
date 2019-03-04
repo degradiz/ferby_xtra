@@ -1,0 +1,106 @@
+<ion-view view-title="Cuenta" hide-nav-bar="hideNavBar()">
+    <ion-nav-title>
+        Carrito
+    </ion-nav-title>
+
+    <ion-content ng-init="getCuenta()" overflow-scroll="true">
+
+        <div class="banner waves-block shadow" style="height:0px;width:100%;position:relative;top:0px;background-size:cover">
+            <div style="height:100%;width:100%;background-color:rgba(0,0,0,0.4);top:0px">
+                <div class="respoLogoPosition" style="padding-top:{{style.logo.position}}">
+                    <div class="row">
+                        <div class="col">
+                         <img class="animated bounceIn bannerIMG noneDisp" src="{{logoImage}}"  />
+                        </div>
+                        <div class="col" ng-if="wi > 800" >
+                            <div style="margin-top: 25px;float:right;">
+                                    <a class="menuColor" style="margin-left: 20px;" href="#/tab/categories" >Productos</a>
+                                    <a class="menuColor" style="margin-left: 20px;"  ng-if="p!=0" href="#/tab/promos" >Promociones</a>
+                                    <a class="menuActive menuColor" style="margin-left: 20px;" href="#/tab/cuenta" >Carrito</a>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>  
+        </div>
+
+        <ion-refresher pulling-text="Pull to refresh..."
+                       on-refresh="getCuenta()">
+        </ion-refresher>
+                
+        <div ng-if="buttonVisible=='false'">
+            <div ng-if="type=='LOCALMENU'" class="card animated bounceIn" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); height:auto">
+                <p style="display:flex;margin-top:50px;margin-bottom:50px"><button ng-click="abrirCuenta()" style="width:50%;margin-left:25%;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)">Abrir Cuenta</button></p>
+            </div>
+            <div ng-if="type=='HOMEDELIVERY'" class="card animated bounceIn" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); height:auto">
+                <p style="text-align:center;margin-top: 15px;margin: auto;">El carrito esta vacio, presiona el boton agregar al carrito para realizar tu pedido a domicilio</p>
+                <button class="color-button animated bounceIn" style="width:auto;display:block;float:right" ion-button ng-click="seguirOrdenando()">&nbsp;&nbsp;Agregar Al Carrito&nbsp;&nbsp;</button>
+            </div>
+        </div>
+
+        <div  style="height:auto;max-width: 1400px;display:block;margin:auto; background-color: rgb(24, 24, 24)">
+                <table ng-if="buttonVisible!='false'"  >
+                    <tr>
+                        <td>
+                            <span ng-if="shoppingCart.length != 0" style="font-size:24px;line-height:35px;color:white">
+                                &nbsp;Total:
+                                {{placeTheme.business_currency}} {{total}}
+                            </span>
+                            <p ng-if="bill.bill_points > 0 && placeTheme.addon_puntos == 1" style="color: lightgray !important;">&nbsp;<sub>Acumulas {{bill.bill_points}} {{settings.redeem_name}}</sub></p>
+                            <p  ng-if="shoppingCart.length == 0" style="text-align:center;margin-top: 15px;margin: auto;color: lightgray !important;">La cuenta esta vacia</p>
+                        </td>
+                        <td>
+                            <button class="color-button animated bounceIn" style="float:right;width:auto;margin-bottom: 10px;margin-right: 10px; color: white !important"  ng-click="seguirOrdenando()">&nbsp;&nbsp;Seguir Ordenando&nbsp;&nbsp;</button><br>
+                        </td>
+                    </tr>
+                </table>
+        </div>
+
+
+        <div ng-if="buttonVisible=='true'">
+
+            <div style="width:100%;display:none" id="ctLoader">
+                <img style="width:10%;margin-left:45%" src="img/launcher-loader.gif" />
+            </div>
+        <div ng-if="type=='LOCALMENU'">
+            <div ng-if="buttonVisible=='true'" style="width:100%;display:table;margin-top:10px;margin-bottom:10px">
+                <button class="animated bounceIn" style="width:auto;display:block;float:right" ion-button ng-click="nuevaOrden()">&nbsp;&nbsp;Reiniciar Cuenta&nbsp;&nbsp;</button>
+            </div>
+        </div>
+        <div ng-if="type=='HOMEDELIVERY'">
+            <div class="row">
+                <div class="col">
+                    <button class="button button-dark"  ng-click="seguirOrdenando()"> Agregar Mas </button>
+                </div>
+                <div class="col">
+                        <button class="button button-balanced"  ng-click="confirm()"> Finalizar </button>
+                </div>
+            </div>
+        </div>
+            <div class="card animated bounceInLeft" ng-repeat="s in shoppingCart" style="overflow:visible;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); height:auto;max-width: 1000px; margin:auto; display:block;margin-top: 10px">
+                <div class="row" style="height:auto;margin-top: 10px">
+                     <div style="margin-left:5px" class="col-20">
+                        <img src="{{s.img}}" style="width:100%;max-width: 200px" />
+                    </div>
+                    <div style="margin-left:5px" class="col-50">
+                        <div class="textColor" >
+                            {{s.name}}
+                            Cantidad:  {{s.qty}} <br />
+                            Precio: {{placeTheme.business_currency}} {{s.bill_detail_price}}<br />
+                            <span ng-if="s.option_name.length > 0" >Opciones: </span>{{s.option_name}}<br />
+                            <p ng-if="s.comment.length > 0">Comentario: {{s.comment}}<br /></p>
+                            
+                            <span ng-if="s.status!='1'" style="width:100%;text-align:right;display:block;color:green">Recibido En Cocina</span>
+                        </div>
+                    </div>
+                    <div style="margin-left:5px" class="col-20">
+                        <button class="button button-assertive" style="width:30%;margin-left:50%;font-size:24px"  ng-click="cancelBillDetail(s.bill_detail_id)"><i class="ion-trash-a"></i></button>
+                    </div>
+                </div>
+            </div>
+             <p style="height:auto;max-width: 1000px; margin:auto; display:block;margin-top: 10px" ng-if="bill.bill_points > 0 && placeTheme.addon_puntos == 1">&nbsp;<sub >* Estas Acumulando {{bill.bill_points}} {{settings.redeem_name}}. {{settings.redeem_description}} </sub></p>
+        </div>
+
+       
+    </ion-content>
+</ion-view>

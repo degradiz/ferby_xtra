@@ -1,0 +1,52 @@
+
+<ion-view view-title="Reportes">
+
+  <ion-content  overflow-scroll="true" style="background-color: #F1F1F1" ng-init='inicio()'  id="cntentMain">
+    <div class="card" style="width: 90%;margin-left: 5%;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" >
+
+      <div class="row responsive-md" >
+        <div class="col">
+          <div class="item item-divider">
+           Reporte de Ventas 
+         </div>
+         <div class="item item-text-wrap">
+          <img src="./images/money.png" style="width: 70%;margin-left:15%" />
+        </div>
+        <button class="button button-dark"style="width: 70%;margin-left:15%" ng-click="reporteDeVentas()" >Generar</button>
+      </div>
+        <div class="col">
+          <div class="item item-divider">
+           Reporte de CheckIns 
+         </div>
+         <div class="item item-text-wrap">
+            <img src="./images/check.png" style="width: 70%;margin-left:15%" />
+        </div>
+          <button class="button button-dark"style="width: 70%;margin-left:15%" ng-click="checkInsTransactions()" >Generar</button>
+      </div>
+        <div class="col">
+          <div class="item item-divider">
+           Reporte de Puntos 
+         </div>
+         <div class="item item-text-wrap">
+         <img src="./images/points.png"style="width: 70%;margin-left:15%" />
+        </div>
+          <button class="button button-dark"style="width: 70%;margin-left:15%"  ng-click="pointsTransactions()" >Generar</button>
+      </div>
+        <div class="col">
+          <div class="item item-divider">
+           Redención de Cupones 
+         </div>
+         <div class="item item-text-wrap">
+         <img src="./images/punchcard.png"style="width: 70%;margin-left:15%" />
+        </div>
+          <button class="button button-dark"style="width: 70%;margin-left:15%"  ng-click="cupon_redeems_report()" >Generar</button>
+      </div>
+      <div class="col">
+         
+      </div>  
+        <div class="col">
+         
+      </div>                  
+    </div>
+  </ion-content>
+</ion-view>

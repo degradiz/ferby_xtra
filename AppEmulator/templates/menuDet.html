@@ -1,0 +1,152 @@
+﻿<ion-view hide-nav-bar="hideNavBar()">
+    <ion-content ng-init="getCuenta()" overflow-scroll="true" >
+        <div class="banner waves-block shadow" style="height:100px;width:100%;position:relative;top:0px">
+            <div class="image-text-cover" style="top:0px;position:absolute;height:100px;width:100%;background-color:rgba(0,0,0,0.4);top:0px;background-image: url('{{actualCategoryImg}}');">
+                <h1 ng-if="actualPlate.name" style="text-align:center;font-size:24px;color:white;line-height:70px;">{{actualPlate.name}}</h1>
+            </div>
+            
+
+                <div ng-if="wi < 800" class="card item item-body" style="height:auto;max-width: 800px; margin:auto; display:block;margin-top: 10px;padding: 0px">
+                    
+                    <img style="margin: 0px;width: 100%;" class="waves-block singleImage" ng-click="showImage()" ng-src="{{actualPlate.img}}" onerror="{{this.style.display='none'}}"/>
+                    <div class="row responsive-sm">
+                        <div class="col">
+                                <h1 ng-if="actualPlate.name" style="text-align:center;font-size:24px;color:black;;">{{actualPlate.name}}</h1>
+                            <p style="font-size:14px">
+                               
+                            </p>
+                        </div>
+                        <div class="col">
+                            <center ng-if="stock_order == 1">
+                                <span style="color:{{stock.color_message}}; text-align-last: center;">{{stock.message}}</span>
+                            </center>
+                            <p class="textColor" style="font-size:14px;text-align:center;display:block;">
+                                {{actualPlate.description}}
+                            </p>
+                            <a class="textColor" style="text-align:center;display:block;font-size:14px;font-weight: bold;color:black; padding-bottom: 5px" class="subdued">
+                                {{actualPlate.price}}
+                            </a>
+                            <a  id="seecart" style="width:100%;display:none" href="#/tab/cuenta">Producto Agregado <span style="color:darkgreen">Ver Mi Carrito</span> </a>
+                                <p ng-if="addon_puntos == '1' && menuPuntos > 0" style="font-size:14px">
+                                    <a style="text-align:center;display:block;" class="subdued textColor">Acumulas: {{(actualPlate.menu_points==null || actualPlate.menu_puntos==0) ? '0.00' : actualPlate.menu_points}}
+                                        {{settings.redeem_name}}
+                                        <img class="waves-block" style="width:15%;margin-left: 43%" ng-src="{{settings.redeem_icon_url}}" />
+                                    </a>
+                                </p>
+                                <div ng-if="type != 'GUESTMENU'">
+                                    <div ng-if="type == 'LOCALMENU'">
+                                        <p ng-if="buttonVisible == 'true'" style="display:flex">
+                                            <button class="buttonUI" ng-click="agregarProducto()" style="width:40%; margin-left:30%;margin-top:20px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">Ordenar</button>
+                                        </p>
+                                        <p ng-if="buttonVisible == 'false'" style="display:flex">
+                                            <button class="buttonUI" ng-click="abrirCuenta()" style="width:40%; margin-left:30%;margin-top:20px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">Abrir Cuenta</button>
+                                        </p>
+                                    </div>
+                                    <div ng-if="( (whatsapp_order == 0 && actualPlate.menu_promotion == 0) || (whatsapp_order == 0 && promo_day == 0) ) && !(stock_order == 1 && stock.quantity == 0)">
+                                        <p display:flex">
+                                            <button class="buttonUI animated fadeInDownBig" ng-click="agregarProductoDom()" style="width:60%; margin-left:20%;margin-top:20px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">Agregar al Carrito</button>
+                                        </p>
+    
+                                        <!-- "stock_order == 1 && stock.quantity == 0"  -->
+    
+                                    </div>
+                                    <div ng-if="actualPlate.menu_promotion == 1 && promo_day == 1">
+                                        <p  style="display:flex">
+                                            <button class="buttonUX" ng-click="agregarProductoDom()" style="width:40%; background-color: #f5f523 !important; color: black !important; margin-left:30%;margin-top:20px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">Aplica para 2x1</button>
+                                        </p>
+                                    </div>
+                                    <div ng-if="whatsapp_order == 1">
+                                        <p  style="display:flex">
+                                            <button class="buttonUX" ng-click="cotizarPorWhatsApp(actualPlate.id)" style="width:40%; background-color: #25d366 !important; color: white !important; margin-left:30%;margin-top:20px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">Cotizar por WhatsApp</button>
+                                        </p>
+                                    </div>
+    
+                                    <div ng-if="stock_order == 1 && stock.quantity == 0">
+                                        <p  style="display:flex">
+                                            <button class="buttonUX" ng-click="informacionExistenciasWhatsApp(actualPlate.id)" style="width:70%; background-color: #25d366 !important; color: white !important; margin-left:15%;margin-top:20px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">Información de disponibilidad por WhatsApp</button>
+                                        </p>
+                                    </div>
+    
+                                    <!-- menu_promotion Comprar pares 2x1 ha sido cancelado -->
+                                    <div ng-if="actualPlate.menu_promotion == 9">
+                                        <p  style="display:flex">
+                                            <button class="buttonUX" ng-click="agregarProductoPromoPair()" style="width:40%; background-color: #f5f523 !important; color: black !important; margin-left:30%;margin-top:20px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">Comprar 2x1</button>
+                                        </p>
+                                    </div>
+    
+                                </div>
+                                <div ng-if="showGallery == 'true'" style="text-align: center;margin-top:30px">
+                                    <span class="textColor">Galeria
+                                        <span>
+                                            <ion-scroll zooming="true" direction="x" style="width:100%;">
+                                                <div style="display:flex">
+                                                    <div ng-repeat="image in allImages">
+                                                        <img class="waves-block" style="width:50%;margin-left:2px" ng-src="{{image.img_url}}" ng-click="showImages($index)" onerror="this.style.display='none'"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </ion-scroll>
+                                        </div>
+                                    </div>
+                                </div>
+    
+                            </div>
+
+
+    
+                            <div ng-if="wi > 800"  class="list">    
+                                <div style="top:150px;" class="card item item-body">
+                                    <div class="row responsive-sm">
+                                        <div class="col">
+                                            <img class="waves-block singleImage" ng-click="showImage()" ng-src="{{actualPlate.img}}" onerror="this.style.display='none'"/>
+                                            <p style="font-size:18px">
+                                                <a class="textColor" style="text-align:center;display:block;font-size:27px;font-weight: bold;color:black; padding-bottom: 5px" class="subdued">{{actualPlate.price}}</a>
+                    
+                                            </p>
+                                          </div>
+                                          <div class="col">
+                                              <p class="textColor" style="font-size:18px;text-align:center;display:block;">
+                                                {{actualPlate.description}}
+                                            </p>
+                                            <a  id="seecart" style="width:100%;display:none" href="#/tab/cuenta">Producto Agregado <span style="color:darkgreen">Ver Mi Carrito</span> </a>
+                                            <p ng-if="addon_puntos == '1' && menuPuntos > 0" style="font-size:18px">
+                                                <a style="text-align:center;display:block;" class="subdued textColor">Acumulas: {{(actualPlate.menu_points==null || actualPlate.menu_puntos==0) ? '0.00' : actualPlate.menu_points}} {{settings.redeem_name}}
+                                                     <img class="waves-block" style="width:15%;margin-left: 43%" ng-src="{{settings.redeem_icon_url}}" />
+                                                </a>
+                                            </p>
+                                            <div ng-if="type != 'GUESTMENU'">
+                                                <div ng-if="type == 'LOCALMENU'">
+                                                    <p ng-if="buttonVisible == 'true'" style="display:flex">
+                                                        <button class="buttonUI" ng-click="agregarProducto()" style="width:40%; margin-left:30%;margin-top:20px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">Ordenar</button>
+                                                    </p>
+                                                    <p ng-if="buttonVisible == 'false'" style="display:flex">
+                                                        <button class="buttonUI" ng-click="abrirCuenta()" style="width:40%; margin-left:30%;margin-top:20px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">Abrir Cuenta</button>
+                                                    </p>
+                                                </div>
+                                                <div ng-if="type == 'HOMEDELIVERY'">
+                                                    <p style="display:flex">
+                                                        <button class="buttonUI animated fadeInDownBig" ng-click="agregarProductoDom()" style="width:60%; margin-left:20%;margin-top:20px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">Agregar al Carrito</button>
+                                                    </p>
+                    
+                                                </div>
+                                            </div>
+                                                 <div ng-if="showGallery == 'true'" style="text-align: center;margin-top:30px">
+                                                    <span class="textColor">Galeria<span>
+                                                        <ion-scroll zooming="true" direction="x" style="width:100%;">
+                                                            <div style="display:flex">
+                                                                <div ng-repeat="image in allImages">
+                                                                    <img class="waves-block" style="width:28%;margin-left:2px" ng-src="{{image.img_url}}" ng-click="showImages($index)" onerror="this.style.display='none'"/>
+                                                                </div>
+                                                            </div>
+                                                        </ion-scroll>
+                                                </div>
+                                        </div>
+                                    </div>
+                    
+                                </div>
+                    
+                            </div>
+    
+                    </ion-content>
+
+            </ion-view>

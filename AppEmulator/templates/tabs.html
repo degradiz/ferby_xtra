@@ -1,0 +1,22 @@
+
+<ion-floating-menu has-footer="true" class="active">
+    <ion-floating-item button-color="#580f0f" icon="ion-home" ng-click="exit()"></ion-floating-item>
+    <ion-floating-item ng-if="wa.phone" button-color="#580f0f" icon="ion-social-whatsapp-outline" ng-click="openwa()"></ion-floating-item>
+    <ion-floating-item button-color="#580f0f" icon="ion-search" ng-click="searchPlate()"></ion-floating-item>
+</ion-floating-menu>
+<ion-tabs ng-init="tabInit()" class="tabs-dark">
+    <ion-tab title="Productos" icon-off="ion-android-apps" icon-on="ion-android-apps" href="#/tab/menu">
+        <ion-nav-view name="tab-menu"></ion-nav-view>
+    </ion-tab>
+    <ion-tab ng-if="p!=0" title="Promociones" icon-off="ion-ios-pricetag" icon-on="ion-ios-pricetag" href="#/tab/promos">
+        <ion-nav-view name="tab-promos"></ion-nav-view>
+    </ion-tab>
+
+    <ion-tab badge="data.cart" badge-style="badge-assertive" class="badge-assertive" ng-if="type=='LOCALMENU' || type=='HOMEDELIVERY'" title="Carrito" icon-off="ion-ios-cart" icon-on="ion-ios-cart" href="#/tab/cuenta">
+        <ion-nav-view name="tab-cuenta"></ion-nav-view>
+    </ion-tab>
+    <ion-tab ng-if="validateChat()" title="Chats" icon-off="ion-social-whatsapp-outline" icon-on="ion-chatbubbles" href="#/tab/online">
+        <ion-nav-view name="tab-chat"></ion-nav-view>
+    </ion-tab>
+</ion-tabs>
+

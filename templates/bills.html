@@ -1,0 +1,58 @@
+<ion-view view-title="Cuentas" ng-init="getTables()">
+    <ion-content  overflow-scroll="true" style="background-color: #BDBDBD">
+        <ion-refresher
+            pulling-text="Pull to refresh..."
+            on-refresh="getOrders()">
+        </ion-refresher>
+        <br />
+        <br />
+        <br />
+        <div style="width:100%">
+            <div class="card" style="width: 90%;margin-left: 5%;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                <div id="loadingX" style="display: block">
+                    <img style="width: 25%;margin-left: 37.5%" src="images/output_SaWDgJ.gif">
+                    <p style="width: 100%;text-align: center;font-weight: bold">Cargando</p>
+                </div>
+                <div id="contentOrders" style="display: none">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Historial de Órdenes
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="dataTable_wrapper">
+                                <table datatable="ng" class="table table-striped table-bordered table-hover" style="width:100%" id="categories">
+                                    <thead>
+                                        <tr>
+                                            <th>Numero de Orden</th>
+                                            <th>Fecha Entrega</th>
+                                            <th>Nombre</th>
+                                            <th>Direccion</th>
+                                            <th>Estado</th>
+                                            
+                                            <td>Detalle de orden</button></td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="o in orders" class="odd gradeX">
+                                            <td>{{o.bill_id}}</td>
+                                            <td>{{o.delivery_date}}</td>
+                                            <td>{{o.nombre}}</td>
+                                            <td>{{o.direccion}}</td>
+                                            <td ng-if="o.status == 7"><span style="color: green">Recibido</span></td>
+                                            <td ng-if="o.status == 8"><span style="color: blue">Despachado</span></td>
+                                            <td ng-click="goToBillDetail(o.bill_id)" class="center"><button class="button button-block button-positive">Ver</button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->
+
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

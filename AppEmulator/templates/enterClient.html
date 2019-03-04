@@ -1,0 +1,38 @@
+﻿<ion-view view-title="" hide-nav-bar="true">
+    <style>
+        @keyframes animatedBackground {
+            from {
+                background-position: 0 0;
+            }
+
+            to {
+                background-position: 100% 50%;
+            }
+        }
+
+        .animate-area {
+            background-image: url(bg-clouds.png);
+            background-position: 0px 0px;
+            background-repeat: repeat-x;
+            animation: animatedBackground 40s linear infinite;
+        }
+    </style>
+    <ion-content  ng-init="loadTheme()">
+        <div id="myRefHeight" style="background-size:cover" class="animate-area">
+            <div class="padding" style="position:absolute;width:80%;margin-left:10%;">
+                <img id="logoImg" src="./images/maki.png" style="width:70%;margin-left:15%;margin-top:5px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);border-radius:50%" />
+                <img style="width:100%" src="./images/banner.png" />
+             </div>
+            <div class="padding animated bounceInUp" style="position:absolute;margin-top:80%;width:100%;border-top:solid 1px white;">
+                <div>
+                    <button ng-click="invited()" class="button button-dark">Entrar</button>
+                    <div style="margin-top:10px">
+                        <p style="color:white;font-size:13px;text-align:center;bottom:0px;position:absolute;width:100%"><i>powered by </i><b style="color:white">Ferby</b></p>
+                        <p style="color:white;font-size:20px;text-align:center;text-decoration:underline" ng-click="showTerms()">Terminos de Uso</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

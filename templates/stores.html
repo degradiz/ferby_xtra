@@ -1,0 +1,157 @@
+<ion-view view-title="Sucursales">
+    <style>
+    .rigthAli{
+        text-align: center;
+    }
+    .tblEasy td b{
+       margin-right: 15px;
+    }
+
+.tblEasy tr{
+    border:1px solid #737373;
+}    
+    </style> 
+    <ion-content  overflow-scroll="true" ng-init="getStores();" style="background-color: #F1F1F1">
+        <ion-refresher
+        pulling-text="Pull to refresh..."
+        on-refresh="getStores()">
+    </ion-refresher>
+    <div style="width:100%;height:70px;background-color: white">
+            <div style="width:100%">
+                    <div  style="float:right;">
+                        <button class="button button-positive" ng-click="newStore()" style="margin:auto"> Nuevo Registro</button>
+                    </div>
+                </div>
+    </div>
+   <br><br>
+    
+    <div style="width:100%">
+        <div>
+            <div id="loadingStores">
+                <img style="width: 25%;margin-left: 37.5%" src="images/output_SaWDgJ.gif">
+                <p style="width: 100%;text-align: center;font-weight: bold">Cargando tus sucursales</p>
+            </div>
+            <div id="contentStores"  style="display: none">
+                <div   ng-repeat="s in stores">
+                    <center  style="max-width:900px;margin:auto;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                        <button class="button" ng-click="deletePlaceLocation({{s}})" style="margin:auto; background-color: red; color: white">Eliminar Sucursal {{s.name}}</button>
+                    </center>
+                    <table class="card tblEasy" style="max-width:900px;margin:auto;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" class="tblEasy"  >
+                            <tr><td><b>Código de Sucursal:</b> </td><td class="rigthAli" id='name{{s.place_location_id}}' >{{s.place_location_id}}</td></tr>
+                            <tr><td><b>Nombre:</b> </td><td class="rigthAli" id='name{{s.place_location_id}}'>{{s.name}}</td></tr>
+                            <tr><td><b>Ciudad:</b> </td><td class="rigthAli" id='city{{s.place_location_id}}'>{{s.ciudad}}</td></tr>
+                            
+                            <tr><td><b>Mínimo de Compra:</b> </td><td class="rigthAli" id='min{{s.place_location_id}}'>{{s.min}}</td></tr>
+                            <tr>
+                                <td><b>Costo de Envío:</b> </td> <td id="shipping_cost{{s.place_location_id}}">
+                                    <div style="width:100%; margin: 0; padding: 0" class="container">
+                                        <p style="text-align: center; font-size: 12px; font-weight: 600">{{s.shipping_cost}}</p>
+                                        <div class="overlay">
+                                            <div ng-click="set_shipping_cost(s);" class="text">Editar</div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Enlace web especial: (e.g., reservio.com, googleform.com)</b> </td> <td id="order_site{{s.place_location_id}}">
+                                    <div style="width:100%; margin: 0; padding: 0" class="container">
+                                        <p style="text-align: center; font-size: 12px; font-weight: 600">{{s.order_site}}</p>
+                                        <div class="overlay">
+                                            <div ng-click="set_order_site(s);" class="text">Editar</div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>WhatsApp Sucursal: </b> </td> <td id="whatsapp{{s.place_location_id}}">
+                                    <div style="width:100%; margin: 0; padding: 0" class="container">
+                                        <p style="text-align: center; font-size: 12px; font-weight: 600">{{s.whatsapp}}</p>
+                                        <div class="overlay">
+                                            <div ng-click="set_whatsapp_store(s);" class="text">Editar</div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- <tr><td><b>Costo de Envio:</b> </td><td class="rigthAli" id="shipping{{s.place_location_id}}">{{s.shipping_cost}}</td></tr> -->
+                            <tr><td><b>Modificar Contraseña de Sucursal:</b> </td> <td class="rigthAli" ng-click='editPasswordPlaceLocation({{s.place_location_id}})' ><button class="button button-positive"><i class="ion-edit"></i></button></td> </tr>
+                            <tr><td><b>Modificar Terminos y Condiciones:</b> </td> <td class="rigthAli"  ng-click='editPolitics({{s.place_location_id}})' ><button class="button button-positive"><i class="ion-edit"></i></button></td> </tr>
+                            <tr><td><b>Opcion de Envio a Domicilio:</b> </td>  <td class="rigthAli" ng-if="s.home_order == '1'"ng-click='turnOffTienda(s.place_location_id)'><button class="button button-balanced">Encendido</button></td>  
+                                <td class="rigthAli" ng-if="s.home_order == '0'" ng-click='turnOnTienda(s.place_location_id)'><button class="button button-assertive">Apagado</button></td> </tr>
+                            <tr><td><b>Opcion de Envio Para Llevar:</b> </td>  <td class="rigthAli" ng-if="s.pick_order == '1'" ng-click='turnOffPick(s.place_location_id)'><button class="button button-balanced">Encendido</button></td>  
+                                <td ng-if="s.pick_order == '0'" class="rigthAli"  ng-click='turnOnPick(s.place_location_id)'><button class="button button-assertive">Apagado</button></td> </tr>
+                            <tr><td><b>Editar</b></td><td class="rigthAli"  ng-click='editPlaceLocation({{s}})' ><button class="button button-positive"><i class="ion-edit"></i></button></td></tr>
+                        
+                        
+                            <tr>
+                                <td><b>Gestionar Promocion:</b> </td> <td id="promo_day{{p.place_id}}">
+                                    <div style="width:100%; margin: 0; padding: 0" class="container">
+                                        <p style="text-align: center; font-size: 12px; font-weight: 600">{{s.promo_day}}</p>
+                                        <div class="overlay">
+                                            <div ng-click="set_promo_day(s);" class="text">Editar</div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                        <br><br><br>
+                   
+                </div>
+                    </div>
+                </div>
+            </div>
+
+         
+
+
+            <style>
+            .container {
+                position: relative;
+                width: 100%;
+            }
+
+            .image {
+                display: block;
+                width: 100%;
+                height: auto;
+            }
+
+            .overlay {
+                position: absolute;
+                bottom: 0;
+                left: 100%;
+                right: 0;
+                background-color: #6495ED;
+                overflow: hidden;
+                width: 0;
+                height: 100%;
+                transition: .5s ease;
+            }
+
+            .container:hover .overlay {
+                width: 100%;
+                left: 0;
+            }
+
+            .text {
+                white-space: nowrap; 
+                color: white;
+                font-size: 20px;
+                position: absolute;
+                overflow: hidden;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                -ms-transform: translate(-50%, -50%);
+            }
+
+            @import url(https://fonts.googleapis.com/css?family=Roboto:300,500);
+            * {
+              margin: 0;
+              padding: 0;
+              -webkit-font-smoothing: antialiased;
+              -moz-osx-font-smoothing: grayscale;
+              box-sizing: border-box;
+          }
+      </style>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,54 @@
+﻿<ion-view >
+    <ion-content  ng-init="getCuenta()" >
+          <div class="banner waves-block" style="height:33%;width:100%;position:relative;top:0px;background-size:cover">
+            <div>
+                 <img class="animated bounceIn" src="{{logoImage}}" style="display: block;margin:auto;height:200px;" />
+            </div>
+        </div>
+        <div class="list card">
+            <div class="item item-body">
+
+                <div class="row responsive-sm">
+                    <div class="col">
+                        <img ng-click="agregarProductoDom()" style="max-width: 400px;display:block;margin:auto;" onError="this.onerror=null;$(this).hide();" class="full-image animated bounceIn" src="{{img}}" >
+                    </div>
+                    <div class="col">
+                        <div ng-if="showGallery == 'true'">
+                            <a>Galeria (Toca la imagen para ampliarla)</a>
+                            <ion-scroll zooming="true" direction="x" style="width:100%;">
+                                <div style="display:flex">
+                                    <div ng-repeat="image in allImages" >
+                                        <img class="waves-block" style="height:50px;margin-left:2px" ng-src="{{image.img_url}}" ng-click="showImages($index)"/>
+                                    </div>
+                                </div>
+                            </ion-scroll>
+                        </div>
+                        <p style="font-size:18px;text-align:center;display:block;">
+                            {{actualPlate.description}}
+                        </p>
+                        <p style="font-size:18px">
+                            <a style="text-align:center;display:block;font-size:36px;font-weight: bold;color:black" class="subdued">{{actualPlate.price}}</a>
+                        </p>
+                        <p ng-if="addon_puntos == '1' && actualPlate.menu_points > 0" style="font-size:18px">
+                            <a style="text-align:center;display:block;" class="subdued">Acumulas: {{(actualPlate.menu_points==null || actualPlate.menu_points==0) ? '0.00' : actualPlate.menu_points}} {{settings.redeem_name}} <img style="width:35px" src="./images/whitePin.png" /></a>
+                          
+                        </p>
+                          <div ng-if="type != 'GUESTMENU'">
+                <div ng-if="type == 'LOCALMENU'">
+                    <p ng-if="buttonVisible == 'true'" style="display:flex"><button class="buttonUI" ng-click="agregarProducto()" style="width:40%; margin-left:30%;margin-top:20px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">Ordenar</button></p>
+                    <p ng-if="buttonVisible == 'false'" style="display:flex"><button class="buttonUI" ng-click="abrirCuenta()" style="width:40%; margin-left:30%;margin-top:20px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">Abrir Cuenta</button></p>
+                </div>
+                <div ng-if="type == 'HOMEDELIVERY'">
+                    <p style="display:flex"><button class="buttonUI" ng-click="agregarProductoDom()" style="width:60%; margin-left:20%;margin-top:20px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">Agregar al Carrito</button></p>
+                </div>
+            </div>
+                    </div>
+                </div>
+
+            </div>
+          
+        </div>
+
+    </ion-content>
+   
+</ion-view>

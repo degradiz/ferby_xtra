@@ -1,0 +1,94 @@
+<ion-view view-title="Detalle Entrega" hide-nav-bar="true">
+    <style>
+        .row{
+            margin-left: 0px !important;
+        }
+        .col{
+            padding-left: 0px !important;
+        }
+        .col-20{
+            padding-left: 0px !important;
+        }
+    </style>
+    <ion-content  overflow-scroll="true" style="background-color: #BDBDBD" ng-init='inicio()'>
+        <div style="width:100%;height:30px;background-color:#201e29;margin: 0px 0px 0px 0px ">
+            <p ng-click="gobck()" style="text-align:center;line-height:30px">
+                <i class="ion-chevron-left" style="color:white;font-size:30px"></i>
+            </p>
+        </div>
+
+        <div class="card" style="width: 90%;margin-left: 5%;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+            <div ng-if="buttons == 1"> 
+                <button class="button button-dark" style="float:right;width:40%" ng-click="recibido()">Recibido</button>
+                <button class="button button-dark" style="float:left;width:40%" ng-click="transfer()">Transferir</button>
+            </div>
+            <div style="border-bottom: gray 1px solid" class="row">
+
+            </div>
+            <div class="row responsive-sm">
+                <div class="col" style="border-right:1px solid lightgray">
+                    <div class='row'>
+                        <div class='col'>
+                            <div style="width:100%;border-bottom: 1px solid lightgray">
+                                <b>Detalle Del Pedido</b>
+                                <i style="float:right;color:red;margin-right: 15px" class="ion-close-circled" ng-click='deleteOrder()'> Eliminar</i><br/>
+                                <i style="float:right;color:black;margin-right: 15px" class="ion-edit" ng-click='update_Bill_Data()' > Editar</i><br/>
+                            </div>
+                            Nombre: <span id='nmnPed'>{{orden[0].nombre}}</span><br/> 
+                            Correo: <span id='mlPed'>{{orden[0].email}}</span><br/> 
+                            Telefono: <span id='tlPed'>{{orden[0].telefono1}}</span><br/> 
+                            Direccion: <span id='adrPed'>{{orden[0].direccion}}</span><br/>
+                            RTN: <span id='rtPed'>{{orden[0].RTN}}</span><br/>
+                            Fecha de Entrega <span id='fcfPed'>{{orden[0].delivery_date}}</span><br/>
+                            Puntos <span id='puntos'>{{orden[0].bill_points}}</span><br/>
+                            <div id="mapCont">
+                              <div id="map" style="margin-top:40px;margin-bottom:40px;height:350px; width:100%;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                            </div>
+                            <p id="coord" style="visibility: hidden;"> <p/>
+                               <button class="button button-dark" ng-click="copyToClipboard('coord')">Copiar Coordenadas</button>
+                        </div>
+
+                    </div>
+
+                </div>
+               </div> 
+                <div class="col">
+                    <div class="row" ng-repeat="d in detail">
+                        <div class="col" >
+                            <div class="item item-divider" style="background-color:#201e29">
+                                <h2 style="color:white">{{d.name_plate}}</h2>
+                            </div>
+                            <div class='row responsive-sm'>
+                                <div class='col'>
+                                    <img id='imgBill' style="width:80%;margin-left: 10%;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.8), 0 6px 20px 0 rgba(0, 0, 0, 0.8);" src="{{d.img}}" />
+                                </div>
+                                <div class='col'>
+                                    <span style="white-space: normal"><b>Comentarios:</b> {{d.comment}}</span><br >
+                                    <span style="white-space: normal"><b>Opciones:</b> {{d.option_name}}</span><br >
+                                    <span style="white-space: normal"><b>Cantidad:</b> {{d.qty}}</span><br >
+                                    <span style="white-space: normal"><b>Precio:</b> L. {{d.bill_detail_price}}</span><br >
+                                </div>
+                            </div>
+                            <div class='row responsive-sm'>
+                                <div class='col-50'>
+                                    <input id="menuImage{{d.bill_detail_id}}" type="file" accept="image/*"/>
+                                    <img id="detImg{{d.bill_detail_id}}"  style='width:100%' src='{{d.img2}}' />
+                                </div>
+                                <div class='col-25'>
+                                    <button ng-click="updateImg({{d.bill_detail_id}})">Subir</button>
+                                </div>
+                                <div class='col-25'>
+                                    <div>
+                                        <button id='imgDel{{d.bill_detail_id}}' ng-click="deletebillDetailImg({{d.bill_detail_id}})">Borrar Img</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </ion-content>
+</ion-view>

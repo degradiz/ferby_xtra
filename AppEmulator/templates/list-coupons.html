@@ -1,0 +1,42 @@
+<ion-view overflow-scroll="true" ng-init="couponInit()">
+    <ion-nav-title>
+        Cupones
+    </ion-nav-title>
+    <ion-content overflow-scroll="true">
+        
+        <div ng-if="wi < 800" class="list card" ng-repeat="c in coupons">
+            <div class="item item-body">
+              <img class="full-image" ng-src="{{basePath}}{{c.cupon_img}}" ng-click="modalImage(c.cupon_img)" >
+              <center>
+                  <h2>{{c.cupon_name}}</h2>
+                  <p>{{c.cupon_description}}</p>
+              </center>
+              <span>Valido hasta: {{c.valid_thru}}</span>
+           
+            </div>
+        </div>
+        <div ng-if="wi > 800" style="height:auto;max-width:1200px;display:block;margin:auto;" >
+            <div  ng-repeat="c in coupons" ng-if='$index % 4 == 0' class="row responsive-md" >
+                <div class="col-25">
+                        <img style="width:100%" ng-src="{{basePath}}{{coupons[$index].cupon_img}}" ng-click="modalImage(coupons[$index].cupon_img)" >
+                </div>
+                <div class="col-25">
+                    <img  style="width:100%" ng-src="{{basePath}}{{coupons[$index + 1].cupon_img}}" ng-click="modalImage(coupons[$index + 1].cupon_img)" > 
+                </div>
+                 <div class="col-25">
+                 <img style="width:100%" ng-src="{{basePath}}{{coupons[$index + 2].cupon_img}}" ng-click="modalImage(coupons[$index + 2].cupon_img)" >
+                 </div>
+                 <div class="col-25">
+                  <img style="width:100%" ng-src="{{basePath}}{{coupons[$index + 3].cupon_img}}" ng-click="modalImage(coupons[$index + 3].cupon_img)"   >
+                </div>
+                <div ng-if='coupons.length < $index + 2' class="col-25">
+                </div>
+                <div ng-if='coupons.length < $index + 3' class="col-25">
+                </div>
+                <div ng-if='coupons.length < $index + 4' class="col-25">
+                </div>
+            </div>
+        </div>
+</div>                                                                              
+</ion-content>
+</ion-view>

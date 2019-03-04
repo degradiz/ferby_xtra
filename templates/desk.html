@@ -1,0 +1,63 @@
+<ion-view view-title="Mesas">
+    <ion-content  overflow-scroll="true" ng-init="getDesk()" style="background-color: #BDBDBD">
+        <ion-refresher
+            pulling-text="Pull to refresh..."
+            on-refresh="getDesk()">
+        </ion-refresher>
+        <div style="width:100%">
+            <div style="float:right;" class="card col col-25">
+                <button class="button button-dark" ng-click="insertDesk()" style="margin:auto">Nueva Mesa</button>
+            </div>
+        </div>
+        <br />
+        <br />
+        <br />
+        <br />
+        <div style="width:100%">
+            <div class="card" style="width: 90%;margin-left: 5%;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" >
+                <div id="loadingDesks">
+                    <img style="width: 25%;margin-left: 37.5%" src="images/output_SaWDgJ.gif">
+                    <p style="width: 100%;text-align: center;font-weight: bold">Cargando</p>
+                </div>
+                <div id="contentDesks" style="display: none">
+                    <div class="panel panel-default">
+                        <div  class="panel-heading">
+                            Mesas
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="dataTable_wrapper">
+                                <table datatable="ng" class="table table-striped table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Nombre</th>
+                                            <th style="display: none;">ID</th>
+                                            <th>Estado</th>
+                                            <th>Editar</th>
+                                            <th>Eliminar</th>
+                                            <th>Crear Codigo</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="d in desks" >
+                                            <td id="deskName{{d.desk_id}}">{{d.desk_name}}</td>
+                                            <td style="display: none;" id="deskStatus{{d.desk_id}}">{{d.status}}</td>
+                                            <td ng-if="d.status == 1"><span style="color: green">Activo</span></td>
+                                            <td ng-if="d.status == 0"><span style="color: red">Inactivo</span></td>
+                                            <td><button ng-click="editDesk({{d.desk_id}})" class="button button-dark"><i class="ion-edit"></i></button></td>
+                                            <td><button ng-click="deleteDesk({{d.desk_id}})" class="button button-assertive"><i class="ion-close"></i></button></td>
+                                            <td><button ng-click="gotoQr({{d.desk_id}})" class="button button-assertive"><i class="ion-ios-arrow-down"></i></button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </ion-content>
+</ion-view>

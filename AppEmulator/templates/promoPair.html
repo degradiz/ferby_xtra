@@ -1,0 +1,121 @@
+﻿<ion-view >
+
+    <ion-content  overflow-scroll="true" >
+       <div class="banner waves-block shadow" style="height:0px;width:100%;position:relative;top:0px;background-size:cover">
+            <div style="height:100%;width:100%;background-color:rgba(0,0,0,0.4);top:0px">
+                <div class="respoLogoPosition" style="padding-top:{{style.logo.position}}">
+                    <div class="row">
+                        <div class="col">
+                         <img class="animated bounceIn bannerIMG noneDisp" src="{{logoImage}}"  />
+                        </div>                           
+                        <div class="col" ng-if="wi > 800" >
+                            <div style="margin-top: 25px;float:right;">
+                                    <a class="menuColor menuActive" style="margin-left: 20px;" href="#/tab/categories" >Productos</a>
+                                    <a class="menuColor" style="margin-left: 20px;"  ng-if="p!=0" href="#/tab/promos" >Promociones</a>
+                                    <a class="menuColor" style="margin-left: 20px;" href="#/tab/cuenta" >Carrito</a>
+                            </div>    
+                        </div> 
+                    </div>
+                </div>
+            </div>  
+        </div>
+        <div class="list list-inset responsive-list-card" style="margin-bottom: 10px; margin-top: 10px; padding: 10px">
+            <label class="item item-input">
+                <i class="icon ion-search placeholder-icon"></i>
+                <input  id="search" autocomplete="on" type="text" placeholder="Buscar">
+            </label>
+        </div>
+        <div style="margin-bottom:10px">
+            <button class="buttonUX" ng-click="searchMenu()" style=" background-color: #f52323; color: white; width:50%;margin-left:25%;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">Cancelar</button>   
+        </div>
+        <div style="width:100%">
+            <p style="text-align:center;margin-top:40px" ng-if="qryCount == 0">No hay resultados para tu busqueda :( </p>
+        </div>
+
+        <div class="card responsive-list-card"  ng-if="wi < 800"  ng-repeat="p in plates" ng-click="elegirOpcionesSecondUpload({{plates[$index]}})">
+            <div class="row deezerRow">
+              <div  class="col-20">
+                 <span class="textColor indent" style="padding-left: 10px;"> <img style="width:70%" id="imgMenu{{plates[$index].id}}" src="{{getImagePath(plates[$index].img)}}" /></span>
+              </div>
+              <div class="col-60">
+                  <span class="textColor hardWeigth">{{plates[$index].name}} <img style="width:25px" ng-if="plates[$index].menu_points > 0" ng-src="{{settings.redeem_icon_url}}" /></span><br>
+                  <span class="textColor">&nbsp;&nbsp;{{plates[$index].price}}</span>
+                  <span class="textColor" ng-if="plates[$index].menu_points > 0" >&nbsp;&nbsp;+{{plates[$index].menu_points}}  {{settings.redeem_name}}</span>
+              </div>
+              <div class="col-10">
+                  <i class="textColor ion-chevron-right goIcon" ></i>
+              </div>
+          </div>     
+      </div>
+          <div ng-repeat="p in plates" ng-if="wi > 800" style="height:auto;max-width:1200px;display:block;margin:auto;">
+            <div ng-if='$index % 4 == 0' class="row responsive-md"  style="width:100%;">
+                    <a ng-click="elegirOpcionesSecondUpload({{plates[$index]}})" class="bxCard card col" >
+                        <div style="background-color:#232323">
+                            <p id="textId{{plates[$index].id}}" style="width:100%;text-align:center;margin-bottom: 0px;color:white" class="ng-binding">{{plates[$index].name}}</p>
+                        </div>
+                        <div>
+                            <img style="width:100%" id="imgMenu{{plates[$index].id}}" src="{{getImagePath(plates[$index].img)}}" />
+                            <p id="des{{plates[$index].id}}" style="display:none" class="textColor ng-binding">{{plates[$index].description}}</p>
+                            <p id="pr{{plates[$index].id}}" style="width:100%;text-align:center;" class="textColor ng-binding">{{plates[$index].price}}</p>
+                            <input type="hidden" id="menuPrice{{plates[$index].id}}" value="{{plates[$index].menu_price}}" />
+                            <input type="hidden" id="menuPuntos{{plates[$index].id}}" value="{{plates[$index].menu_points}}" />
+                            <span ng-if="plates[$index].menu_points > 0" class="textColor notify-badge">{{plates[$index].menu_points}} {{settings.redeem_name}}</span>
+                           <img class="coinWeb" ng-if="plates[$index].menu_points > 0" ng-src="{{settings.redeem_icon_url}}" />
+                        </div>
+                    </a>
+                    <a ng-click="elegirOpcionesSecondUpload({{plates[$index + 1]}})" ng-if='plates.length > $index + 1' class="bxCard card col">
+                         <div style="background-color:#232323">
+                            <p id="textId{{plates[$index + 1].id}}" style="width:100%;text-align:center;margin-bottom: 0px;color:white" class="ng-binding">{{plates[$index + 1].name}}</p>
+                        </div>
+                        <div>
+                            <img style="width:100%" id="imgMenu{{plates[$index + 1].id}}" src="{{getImagePath(plates[$index + 1].img)}}"  />
+                            <p id="des{{plates[$index + 1].id}}" style="display:none" class="textColor ng-binding">{{plates[$index + 1].description}}</p>
+                            <p id="pr{{plates[$index + 1].id}}" style="width:100%;text-align:center;" class="textColor ng-binding">{{plates[$index + 1].price}}</p>
+                            <input type="hidden" id="menuPrice{{plates[$index + 1].id}}" value="{{plates[$index + 1].menu_price}}" />
+                            <input type="hidden" id="menuPuntos{{plates[$index + 1].id}}" value="{{plates[$index + 1].menu_points}}" />
+                            <span ng-if="plates[$index + 1].menu_points > 0" class="textColor notify-badge">{{plates[$index + 1].menu_points}} {{settings.redeem_name}}</span>
+                          <img class="coinWeb"" ng-if="plates[$index + 1].menu_points > 0" ng-src="{{settings.redeem_icon_url}}" />
+                        </div>
+                    </a>
+                    <a ng-click="elegirOpcionesSecondUpload({{plates[$index + 2]}})" ng-if='plates.length > $index + 2' class="bxCard card col">
+                        <div style="background-color:#232323">
+                            <p id="textId{{plates[$index + 2].id}}" style="width:100%;text-align:center;margin-bottom: 0px;color:white" class="ng-binding">{{plates[$index + 2].name}}</p>
+                        </div>
+                        <div>
+                            <img style="width:100%" id="imgMenu{{plates[$index + 2].id}}" src="{{getImagePath(plates[$index + 2].img)}}" />
+                            <p id="des{{plates[$index + 2].id}}" style="display:none" class="textColor ng-binding">{{plates[$index + 2].description}}</p>
+                            <p id="pr{{plates[$index + 2].id}}" style="width:100%;text-align:center;" class="textColor ng-binding">{{plates[$index + 2].price}}</p>
+                            <input type="hidden" id="menuPrice{{plates[$index + 2].id}}" value="{{plates[$index + 2].menu_price}}" />
+                            <input type="hidden" id="menuPuntos{{plates[$index + 2].id}}" value="{{plates[$index + 2].menu_points}}" />
+                            <span ng-if="plates[$index + 2].menu_points > 0" class="textColor notify-badge">{{plates[$index + 2].menu_points}} {{settings.redeem_name}}</span>
+                          <img class="coinWeb"ng-if="plates[$index + 3].menu_points > 0" ng-src="{{settings.redeem_icon_url}}" />
+                        </div>
+                    </a>
+                    <a ng-click="elegirOpcionesSecondUpload({{plates[$index + 3]}})" ng-if='plates.length > $index + 3' class="bxCard card col">
+                        <div style="background-color:#232323">
+                            <p id="textId{{plates[$index + 3].id}}" style="width:100%;text-align:center;margin-bottom: 0px;color:white" class="ng-binding">{{plates[$index + 3].name}}</p>
+                        </div>
+                        <div>
+                            <img style="width:100%" id="imgMenu{{plates[$index + 3].id}}" src="{{getImagePath(plates[$index + 3].img)}}" />
+                            <p id="des{{plates[$index + 3].id}}" style="display:none" class="textColor ng-binding">{{plates[$index + 3].description}}</p>
+                            <p id="pr{{plates[$index + 3].id}}" style="width:100%;text-align:center" class="textColor ng-binding">{{plates[$index + 3].price}}</p>
+                            <input type="hidden" id="menuPrice{{plates[$index + 3].id}}" value="{{plates[$index + 3].menu_price}}" />
+                            <input type="hidden" id="menuPuntos{{plates[$index + 3].id}}" value="{{plates[$index + 3].menu_points}}" />
+                            <span ng-if="plates[$index + 3].menu_points > 0" class="textColor notify-badge">{{plates[$index + 3].menu_points}} {{settings.redeem_name}}</span>
+                             <img class="coinWeb" ng-if="plates[$index + 4].menu_points > 0" ng-src="{{settings.redeem_icon_url}}" />
+                        </div>
+                    </a>
+                    <div ng-if='plates.length < $index + 2' class="col">
+
+                    </div>
+                    <div ng-if='plates.length < $index + 3' class="col">
+
+                    </div>
+                    <div ng-if='plates.length < $index + 4' class="col">
+
+                    </div>
+                </div>
+        </div>
+
+</ion-content>
+</ion-view>

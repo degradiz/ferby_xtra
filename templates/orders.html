@@ -1,0 +1,82 @@
+<ion-view id="orderView">
+    <ion-content  overflow-scroll="true" ng-init="getData()">
+        <ion-refresher
+            pulling-text="Pull to refresh..."
+            on-refresh="getData()">
+        </ion-refresher>
+        <div class="row">
+            <div style="border-right: solid 2px black" class="col">
+                <h1 style="text-align: center">Ordenes Por Ingresar</h1>
+                <ion-scroll id="toDo" zooming="true" direction="y" style="width: 100%;">
+                    <ion-refresher
+                        pulling-text="Pull to refresh..."
+                        on-refresh="getPending()">
+                    </ion-refresher>
+                    <div id="loadingOrders">
+                        <img style="width: 25%;margin-left: 37.5%" src="images/output_SaWDgJ.gif">
+                        <p style="width: 100%;text-align: center;font-weight: bold">Cargando</p>
+                    </div>
+                    <div class="list">
+                        <a ng-repeat="p in pending" class="item item-avatar" href="#">
+                            <img src="{{p.img}}">
+                            <h2>{{p.name}}</h2>
+                             <p>Mesa : {{p.desk_name}}</p>
+                            <span style="float: right">Hace {{p.minutes_ago}} min</span>
+                            <b style="white-space: normal">{{p.name_plate}}</b>
+                            <p style="white-space: normal">{{p.comment}}</p>
+                            <p style="white-space: normal">{{p.option_name}}</p>
+                            <p>Cantidad:  {{p.qty}}</p>
+                            <p style="width:100%"><button ng-click="updateBill({{p.bill_detail_id}},2);" class="button button-dark">Check</button><span style="rigth"><img style="height: 75px;float:right;border-radius:50%" src="{{p.userimg}}" /></span></p>
+                        </a>
+                    </div>
+                </ion-scroll>
+            </div>
+            <div style="border-right: solid 2px black" class="col">
+                <h1 style="text-align: center" >Ordenes Siendo Ingresadas</h1>
+                <div id="loadingKitchen">
+                    <img style="width: 25%;margin-left: 37.5%" src="images/output_SaWDgJ.gif">
+                    <p style="width: 100%;text-align: center;font-weight: bold">Cargando</p>
+                </div>
+                <ion-scroll id="toDo2"  zooming="true" direction="y" style="width: 100%;">
+                    <div class="list">
+                        <a ng-repeat="k in kitchen" class="item item-avatar" href="#">
+                            <img src="{{k.img}}">
+                            <h2>{{k.name}}</h2>
+                            <p>Mesa : {{k.desk_name}}</p>
+                            <span style="float: right">Hace {{k.minutes_ago}} min</span>
+                            <b style="white-space: normal">{{k.name_plate}}</b>
+                            <p style="white-space: normal">{{k.comment}}</p>
+                            <p style="white-space: normal">{{k.option_name}}</p>
+                            <p style="white-space: normal">Cantidad: {{k.qty}}</p>
+                            <p style="width:100%"><button ng-click="updateBill({{k.bill_detail_id}},3);" class="button button-dark">Check</button><span style="rigth"><img style="height: 75px;float:right;border-radius:50%" src="{{k.userimg}}" /></span></p>
+                        </a>
+                    </div>
+                </ion-scroll>
+            </div>
+            <div style="border-right: solid 2px black" class="col">
+                <h1 style="text-align: center" >Historial 24 Horas</h1>
+                <div id="loadingDone">
+                    <img style="width: 25%;margin-left: 37.5%" src="images/output_SaWDgJ.gif">
+                    <p style="width: 100%;text-align: center;font-weight: bold">Cargando</p>
+                </div>
+                <ion-scroll id="toDo" zooming="true" direction="y" style="width: 100%;">
+                    <ion-scroll  id="toDo3" zooming="true" direction="y" style="width: 100%;">
+                        <div class="list">
+                            <a ng-repeat="d in done" class="item item-avatar" href="#">
+                                <img src="{{d.img}}">
+                                <h2>{{d.name}}</h2>
+                               <p>Mesa : {{d.desk_name}}</p>
+                                <span style="float: right">Hace {{d.minutes_ago}} min</span>
+                                <b style="white-space: normal">{{d.name_plate}}</b>
+                                <p style="white-space: normal">{{d.comment}}</p>
+                                <p style="white-space: normal">{{d.option_name}}</p>
+                                <p style="white-space: normal">Cantidad: {{d.qty}}</p>
+                                <p style="width:100%"><button ng-click="updateBill({{d.bill_detail_id}},4);" class="button button-dark">Check</button><span style="rigth"><img style="height: 75px;float:right;border-radius:50%" src="{{d.userimg}}" /></span></p>
+                            </a>
+                        </div>
+                    </ion-scroll>
+                </ion-scroll>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

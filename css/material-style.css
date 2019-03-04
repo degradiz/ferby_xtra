@@ -1,0 +1,90 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
+* {
+  box-sizing: border-box;
+}
+body {
+  background-image: linear-gradient(to right, #3f0303, #3d1a1a);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  height: 100vh;
+  font-family: 'Open Sans', sans-serif;
+}
+a {
+  text-decoration: none;
+}
+h1 {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+}
+.row {
+  /*max-width: 900px;*/
+  margin: 50px auto 0;
+}
+.card {
+  float: none;
+  padding: 0 1.7rem;
+  width: 80%;
+}
+
+.card .wrapper {
+  background-color: #fff;
+  min-height: 500px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.2);
+}
+.card .wrapper:hover .data {
+  transform: translateY(0);
+}
+.card .data {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  transform: translateY(calc(70px + 1em));
+  transition: transform 0.3s;
+}
+.card .data .content {
+  padding: 1em;
+  position: relative;
+  z-index: 1;
+}
+.card .author {
+  font-size: 12px;
+}
+.card .title {
+  margin-top: 10px;
+}
+.card .text {
+  height: 50px;
+  margin: 0;
+}
+
+.example-1 .wrapper {
+   
+}
+
+.example-1 .ferby {
+  top: 0;
+  left: 0;
+  background-color: #b82727;
+  color: #fff;
+  padding: 0.8em;
+}
+.example-1 .ferby span {
+  display: block;
+  text-align: center;
+}
+.example-1 .ferby .place {
+  font-weight: 700;
+  font-size: 24px;
+  text-shadow: 2px 3px 2px rgba(0, 0, 0, 0.18);
+}
+
+.example-1 .content {
+  background-color: #fff;
+  box-shadow: 0 5px 30px 10px rgba(0, 0, 0, 0.3);
+}
+.example-1 .title a {
+  color: #808080;
+}
+

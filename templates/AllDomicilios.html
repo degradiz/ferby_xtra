@@ -1,0 +1,147 @@
+<ion-view view-title="Domicilios Pendientes " ng-init='inicio()' hide-nav-bar="true">
+    <ion-content  overflow-scroll="true">
+        <div style="width:100%;height:30px;background-color:#201e29;margin: 0px 0px 0px 0px ">
+            <p ng-click="gobck()" style="text-align:center;line-height:30px">
+                <i class="ion-chevron-left" style="color:white;font-size:30px"></i>
+            </p>
+        </div>
+        <div class="card" style="width: 90%;margin-left: 5%;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+
+            <div class="card">
+
+                <div id="loadingAllDom">
+                    <img style="width: 25%;margin-left: 37.5%" src="images/output_SaWDgJ.gif">
+                    <p style="width: 100%;text-align: center;font-weight: bold">Cargando</p>
+                </div>
+                <div id="contentAllDom">
+                    <div ng-repeat='o in ordenes'>
+
+                        <div ng-if='$index % 4 == 0' class="row responsive-md">
+                            <div class="col">
+                                <div class="item item-divider">
+                                    {{ordenes[$index].nombre}} &nbsp; {{ordenes[$index].bill_id}}
+                                </div>
+                                <div class="item item-text-wrap">
+                                    <div class='row'>
+                                        <div class='col'>
+                                            <b>Telefono</b><br />
+                                            {{ordenes[$index].telefono1}}<br />
+
+                                        </div>
+                                        <div class='col'>
+                                            <b>Minutos </b> {{ordenes[$index].min}}
+                                        </div>
+                                    </div>
+                                    <b>Fecha</b> {{ordenes[$index].delivery_date}} <br>
+                                    <b ng-if="ordenes[$index].motorista.length() > 0" >Motorista</b> {{ordenes[$index].motorista}}
+                                </div>
+                                <div class="item item-divider">
+                                    <p ng-if="ordenes[$index].status == 8"><span style="color: green">Despachado</span></p>
+                                    <p style="text-decoration: underline;text-align: right" ng-if="ordenes[$index].status == 7" ng-click="packOff(ordenes[$index].bill_id)"><span style="color: blue">Despachar</span></p>
+                                    <p  ng-click="goToDetalle({{ordenes[$index].bill_id}})">Detalle</p> 
+                                    <p  ng-click="goToDetalle({{ordenes[$index].bill_id}})">Motorista</p> 
+                                </div>
+                            </div>
+                            
+                            <div ng-if='ordenes.length > $index + 1' class="col">
+                                <div class="item item-divider">
+                                    {{ordenes[$index + 1].nombre}} &nbsp; {{ordenes[$index + 1].bill_id}}
+                                </div>
+                                <div class="item item-text-wrap">
+
+                                    <div class='row'>
+                                        <div class='col'>
+                                            <b>Telefono </b><br />
+                                            {{ordenes[$index + 1].telefono1}}<br />
+                                        </div>
+                                        <div class='col'>
+                                            <b>Minutos </b>{{ordenes[$index + 1].min}}
+                                        </div>
+                                    </div>
+                                    <b>Fecha</b> {{ordenes[$index + 1].delivery_date}} <br>
+                                    <b ng-if="ordenes[$index + 1].motorista.length() > 0" >Motorista</b> {{ordenes[$index + 1].motorista}}
+                                </div>
+                                <div class="item item-divider">
+                                    <p ng-if="ordenes[$index + 1].status == 8"><span style="color: green">Despachado</span></p>
+                                    <p style="text-decoration: underline;text-align: right" ng-if="ordenes[$index + 1].status == 7" ng-click="packOff(ordenes[$index + 1].bill_id)"><span style="color: blue">Despachar</span></p>
+                                    <p  ng-click="goToDetalle({{ordenes[$index + 1].bill_id}})">Detalle</p> 
+                                    <p  ng-click="goToDetalle({{ordenes[$index + 1].bill_id}})">Motorista</p> 
+                                </div>
+                            </div>
+
+                            <div ng-if='ordenes.length > $index + 2' class="col">
+                                <div class="item item-divider">
+                                    {{ordenes[$index + 2].nombre}} &nbsp; {{ordenes[$index + 2].bill_id}}
+                                </div>
+                                <div class="item item-text-wrap">
+                                    <div class='row'>
+                                        <div class='col'>
+                                            <b>Telefono </b><br />
+                                            {{ordenes[$index + 2].telefono1}}<br />
+
+                                        </div>
+                                        <div class='col'>
+
+                                            <b>Minutos </b> {{ordenes[$index + 2].min}}
+                                        </div>
+                                    </div>
+                                    <b>Fecha</b> {{ordenes[$index + 2].delivery_date}} <br>
+                                    <b ng-if="ordenes[$index + 2].motorista.length() > 0" >Motorista</b> {{ordenes[$index + 2].motorista}}
+                                </div>
+                                <div class="item item-divider">
+                                    <p ng-if="ordenes[$index + 2].status == 8"><span style="color: green">Despachado</span></p>
+                                    <p style="text-decoration: underline;text-align: right" ng-if="ordenes[$index + 2].status == 7" ng-click="packOff(ordenes[$index + 2].bill_id)"><span style="color: blue">Despachar</span></p>
+                                    <p  ng-click="goToDetalle({{ordenes[$index + 2].bill_id}})">Detalle</p> 
+                                    <p  ng-click="goToDetalle({{ordenes[$index + 2].bill_id}})">Motorista</p> 
+                                </div>
+                            </div>
+
+                            <div ng-if='ordenes.length > $index + 3' class="col">
+                                <div class="item item-divider">
+                                    {{ordenes[$index + 3].nombre}} &nbsp; {{ordenes[$index + 3].bill_id}}
+                                </div>
+                                <div class="item item-text-wrap">
+
+                                    <div class='row'>
+                                        <div class='col'>
+                                            <b>Telefono </b><br />
+                                            {{ordenes[$index + 3].telefono1}}<br />
+
+                                        </div>
+                                        <div ng-click="goToDetalle({{ordenes[$index + 3].bill_id}})" class='col'>
+                                            <b>Minutos </b>{{ordenes[$index + 3].min}}
+                                        </div>
+                                    </div>
+                                    <b>Fecha</b> {{ordenes[$index + 3].delivery_date}} <br>
+                                    <b ng-if="ordenes[$index + 3].motorista.length() > 0" >Motorista</b> {{ordenes[$index + 3].motorista}}
+                                </div>
+                                <div class="item item-divider">
+                                    <div class="item item-divider">
+                                        <p ng-if="ordenes[$index + 3].status == 8"><span style="color: green">Despachado</span></p>
+                                        <p style="text-decoration: underline;text-align: right" ng-if="ordenes[$index + 3].status == 7" ng-click="packOff(ordenes[$index + 3].bill_id)"><span style="color: blue">Despachar</span></p>
+                                        <p  ng-click="goToDetalle({{ordenes[$index + 3].bill_id}})" style="text-decoration:underline">Detalle</p> 
+                                        <p>Motorista</p> 
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div ng-if='ordenes.length < $index + 2' class="col">
+
+                            </div>
+                            <div ng-if='ordenes.length < $index + 3' class="col">
+
+                            </div>
+                            <div ng-if='ordenes.length < $index + 4' class="col">
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

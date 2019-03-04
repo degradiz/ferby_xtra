@@ -1,0 +1,142 @@
+<ion-view view-title="Domicilios Pendientes">
+
+    <ion-content  overflow-scroll="true" style="background-color: #BDBDBD" ng-init='inicio()'  id="cntentMain">
+        <div class="card" style="width: 90%;margin-left: 5%;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" >
+            <div class="card">
+                <ion-refresher
+                    pulling-text="Pull to refresh..."
+                    on-refresh="inicio()">
+                </ion-refresher>
+                <div id="loadingDom">
+                    <img style="width: 25%;margin-left: 37.5%" src="images/output_SaWDgJ.gif">
+                    <p style="width: 100%;text-align: center;font-weight: bold">Cargando</p>
+                </div>
+                <div id="contentDom" style="display:none">
+                         <a class="button button-dark" style="float:right;display:block;width:auto" href="#/tab/Alldomicilios">Ver Historial Completo</a>
+                    <div ng-repeat='o in ordenes'>
+
+                        <div ng-if='$index % 4 == 0' class="row responsive-md"  >
+                            <div class="col"  >
+                                <div class="item item-divider">
+                                    {{ordenes[$index].nombre}} &nbsp; {{ordenes[$index].bill_id}}
+                                </div>
+                                <div class="item item-text-wrap">
+
+                                    <div class='row'>
+                                        <div class='col'>
+                                            <b>Telefono</b><br />
+                                            {{ordenes[$index].telefono1}}<br />
+        
+                                        </div>
+                                        <div class='col'>
+                                           <b>Minutos </b> {{ordenes[$index].min}}
+                                        </div>
+                                    </div>
+                                    <button ng-click="goToDetalle({{ordenes[$index].bill_id}})" class="button button-block button-positive">
+                                        Ver Detalle
+                                    </button>
+
+                                </div>
+                                <div class="item item-divider">
+                                    &nbsp;
+                                </div>
+                            </div>
+
+                            <div ng-if='ordenes.length > $index + 1' class="col"  >
+                                <div class="item item-divider">
+                                    {{ordenes[$index + 1].nombre}} &nbsp; {{ordenes[$index + 1].bill_id}}
+                                </div>
+                                <div class="item item-text-wrap">
+
+                                    <div class='row'>
+                                        <div class='col'>
+                                              <b>Telefono </b><br />
+                                            {{ordenes[$index + 1].telefono1}}<br />
+
+                                        </div>
+                                        <div class='col'>
+                                             <b>Minutos </b>{{ordenes[$index + 1].min}}
+                                        </div>
+                                    </div>
+                                    <button ng-click="goToDetalle({{ordenes[$index + 1].bill_id}})" class="button button-block button-positive">
+                                        Ver Detalle
+                                    </button>
+
+                                </div>
+                                <div class="item item-divider">
+                                    &nbsp;
+                                </div>
+                            </div>
+
+                            <div ng-if='ordenes.length > $index + 2' class="col"  >
+                                <div class="item item-divider">
+                                    {{ordenes[$index + 2].nombre}} &nbsp; {{ordenes[$index + 2].bill_id}}
+                                </div>
+                                <div class="item item-text-wrap">
+
+                                    <div class='row'>
+                                        <div class='col'>
+                                            <b>Telefono </b><br />
+                                            {{ordenes[$index + 2].telefono1}}<br />
+
+                                        </div>
+                                        <div class='col'>
+                                            
+                                           <b>Minutos </b> {{ordenes[$index + 2].min}}
+                                        </div>
+                                    </div>
+                                    <button ng-click="goToDetalle({{ordenes[$index + 2].bill_id}})" class="button button-block button-positive">
+                                        Ver Detalle
+                                    </button>
+
+                                </div>
+                                <div class="item item-divider">
+                                    &nbsp;
+                                </div>
+                            </div>
+
+                            <div ng-if='ordenes.length > $index + 3' class="col"  >
+                                <div class="item item-divider">
+                                    {{ordenes[$index + 3].nombre}} 
+                                </div>
+                                <div class="item item-text-wrap">
+
+                                    <div class='row'>
+                                        <div class='col'>
+                                             <b>Telefono </b><br />
+                                            {{ordenes[$index + 3].telefono1}}<br />
+
+                                        </div>
+                                        <div ng-click="goToDetalle({{ordenes[$index + 3].bill_id}})" class='col'>
+                                            <b>Minutos </b>{{ordenes[$index + 3].min}}
+                                        </div>
+                                    </div>
+                                    <button  ng-click="goToDetalle({{ordenes[$index + 3].bill_id}})" class="button button-block button-positive">
+                                        Ver Detalle
+                                    </button>
+
+                                </div>
+                                <div class="item item-divider">
+                                    &nbsp;
+                                </div>
+                            </div>
+
+                            <div ng-if='ordenes.length < $index + 2' class="col"  >
+
+                            </div>
+                            <div ng-if='ordenes.length < $index + 3' class="col"  >
+
+                            </div>
+                            <div ng-if='ordenes.length < $index + 4' class="col"  >
+
+                            </div>
+                        </div >
+
+                    </div>
+                    </div>
+
+
+
+                    </div>
+                    </ion-content>
+                    </ion-view>

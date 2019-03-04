@@ -1,0 +1,245 @@
+<ion-view view-title="Cupones" ng-init="getCupones()">
+    <ion-content  overflow-scroll="true" style="background-color: #F1F1F1">
+        
+        <ion-refresher
+            pulling-text="Pull to refresh..."
+            on-refresh="getCupones()">
+        </ion-refresher>
+    
+        <div style="width:100%;height:70px;background-color: white">
+                <div  style="float:right;">
+                      <button ng-click="createCupon()" class="button button-positive">Nuevo Cupon</button>
+                  </div>
+                </div>
+                <br><br>
+      <div style="width:100%">
+        <div class="card" style="width: 98%;  margin-left: 1%;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                <div class="panel-heading">
+                        Publica aqui cupones digitales.
+                    </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body" >
+                <div class="dataTable_wrapper">
+                    <table  datatable="ng" class="table table-striped table-bordered table-hover" id="categories">
+                            <thead>
+                                <tr>
+                                    <th style="width:180px !important" >Imagen</th>
+                                    <th>Titulo</th>
+                                    <th>Descripción</th>
+                                    <th>Token</th>
+                                    <th>Expiración</th>
+                                    <th>Switch</th>
+                                    <th>Eliminar</th>
+                                    <!-- <th>Edit</th> -->
+                                    <!-- <th>Imprimir</th>
+                                    <th>Visibilidad</th> -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="q in cupons" class="odd gradeX">
+                                    <!-- <td><img style="width:150px;" src="img/{{q.cupon_img}}" /></td> -->
+                                    <td id="business_logo">
+                                        <div class="container">
+                                            <img style="width:150px" src="img/{{q.cupon_img}}" alt="Sin Actualizar" class="image" />
+                                            <div class="overlay">
+                                                <div ng-click="set_cupon_image(q.cupon_code);" class="text">Actualizar Arte</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td id="cuponName{{q.cupon_code}}">
+                                        <div style="width:100%; margin: 0; padding: 0" class="container">
+                                            <p style="text-align: center; font-size: 12px; font-weight: 600">{{q.cupon_name}}</p>
+                                            <div class="overlay">
+                                                <div ng-click="set_cupon_name({{q}});" class="text">Editar</div>
+                                            </div>
+                                        </div>
+
+                                    </td>
+                                    <td id="cuponDescription{{q.cupon_code}}">
+                                        <div style="width:100%; margin: 0; padding: 0" class="container">
+                                            <p style="text-align: center; font-size: 12px; font-weight: 600">{{q.cupon_description}}</p>
+                                            <div class="overlay">
+                                                <div ng-click="set_cupon_description(q);" class="text">Editar</div>
+                                            </div>
+                                        </div>
+
+                                    </td>
+                                    <!-- <td id="tblTitle{{q.cupon_id}}">{{q.cupon_name}}</td> -->
+                                    <!-- <td id="tblDesc{{q.cupon_id}}">{{q.cupon_description}}</td> -->
+                                    <td id="tblToken{{q.cupon_id}}">{{q.cupon_code}}</td>
+                                    <td id="tblValidThru{{q.cupon_id}}">
+                                        <div style="width:100%; margin: 0; padding: 0" class="container">
+                                            <p style="text-align: center; font-size: 20px; font-weight: 600">{{validText(q.valid_thru)}}</p>
+                                            <div class="overlay">
+                                                <div ng-click="update_valid_thru(q);" class="text">Editar</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td id="switchCupon{{q.cupon_id}}">
+                                        
+                                        
+
+                                        <div  style="width:120px !important; margin: 0 0 0 0; padding: -5" class="container">
+                                        <center>
+                                        <input type="checkbox"  ng-checked="{{q.cupon_status}}" ng-model="q.cupon_status" ng-click='switch_cupon_code($event.target.checked, q)' id="switchStatus{{q.cupon_code}}" class="switch-input">
+                                        <label for="switchStatus{{q.cupon_code}}" class="switch-label"><span class="toggle--on">Off</span><span class="toggle--off">On</span></label>
+                                        </center>
+                                        </div>
+                                    </td>
+                                    <td class="center"><button ng-click="deleteCoupon(q)" class="button button-assertive" >Delete</button></td>
+                                    <!-- <td id="tblToken{{q.cupon_id}}">{{q.valid_thru}}</td> -->
+                                    <!-- <td class="center"><button ng-click="updateQrCatalog({{q}})" class="button button-dark" >Edit</button></td> -->
+                                    <!-- <td><button ng-click="gotoqrPrint({{q}})" class="button button-assertive"><i class="ion-ios-arrow-down"></i></button></td>
+                                    <td class="center"><button ng-click="deleteQrCatalog({{q}})" class="button button-assertive" >Visibilidad</button></td> -->
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="width:100%">
+                
+                <!-- <div style="float:right;" class="card col col-25">
+                    <button style="margin:auto" class="button button-dark"  ng-click="createCupon()">Nuevo Registro</button>
+                </div> -->
+       
+                    <div class="card" style=" width: 30%;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" >
+                        <div style="width:100%;background-color: #5e2318">
+                            <!-- <i id="arrow" ng-click="expand()" style="color:white;margin-left: 5px" class="ion-chevron-down"></i> -->
+                        </div>
+                        <div id="colapse" style="padding: 10px;">
+                            <p style="text-align: center;color:black">Codigo del próximo cupon</p>
+                            <div id="qrcode">
+                                <img style="height: auto;width: 20%;" src="" />
+                            </div>
+                            <p style="margin-top: 1rem;display: block;">Utiliza este código para editar un cupon existente o para un cupon nuevo que quieras agregar.</button>
+                            <br/>
+                            <center>
+                                <button style="margin:auto" class="button button-dark"  ng-click="createCupon()">Nuevo Cupon</button>
+                            </center>
+                        </div>
+                    </div>
+              
+    
+            </div>
+
+        <style>
+
+
+    .container {
+        position: relative;
+        width: 100%;
+    }
+
+    .image {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .overlay {
+        position: absolute;
+        bottom: 0;
+        left: 100%;
+        right: 0;
+        background-color: #6495ED;
+        overflow: hidden;
+        width: 0;
+        height: 100%;
+        transition: .5s ease;
+    }
+
+    .container:hover .overlay {
+        width: 100%;
+        left: 0;
+    }
+
+    .text {
+        white-space: nowrap; 
+        color: white;
+        font-size: 20px;
+        position: absolute;
+        overflow: hidden;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+    }
+
+    @import url(https://fonts.googleapis.com/css?family=Roboto:300,500);
+    * {
+          margin: 0;
+          padding: 0;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+          box-sizing: border-box;
+      }
+
+
+      .switch-input {
+          display: none;
+      }
+      .switch-label {
+          position: relative;
+          display: inline-block;
+          min-width: 112px;
+          cursor: pointer;
+          font-weight: 500;
+          text-align: left;
+          margin: 16px;
+          padding: 16px 0 16px 44px;
+      }
+      .switch-label:before, .switch-label:after {
+          content: "";
+          position: absolute;
+          margin: 0;
+          outline: 0;
+          top: 50%;
+          -ms-transform: translate(0, -50%);
+          -webkit-transform: translate(0, -50%);
+          transform: translate(0, -50%);
+          -webkit-transition: all 0.3s ease;
+          transition: all 0.3s ease;
+      }
+      .switch-label:before {
+          left: 1px;
+          width: 34px;
+          height: 14px;
+          background-color: #9E9E9E;
+          border-radius: 8px;
+      }
+      .switch-label:after {
+          left: 0;
+          width: 20px;
+          height: 20px;
+          background-color: #FAFAFA;
+          border-radius: 50%;
+          box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.14), 0 2px 2px 0 rgba(0, 0, 0, 0.098), 0 1px 5px 0 rgba(0, 0, 0, 0.084);
+      }
+      .switch-label .toggle--on {
+          display: none;
+      }
+      .switch-label .toggle--off {
+          display: inline-block;
+      }
+      .switch-input:checked + .switch-label:before {
+          background-color: rgb(255, 60, 60);
+      }
+      .switch-input:checked + .switch-label:after {
+          background-color: rgb(212, 20, 20);
+          -ms-transform: translate(80%, -50%);
+          -webkit-transform: translate(80%, -50%);
+          transform: translate(80%, -50%);
+      }
+      .switch-input:checked + .switch-label .toggle--on {
+          display: inline-block;
+      }
+      .switch-input:checked + .switch-label .toggle--off {
+          display: none;
+      }
+        </style>
+
+    </ion-content>
+</ion-view>

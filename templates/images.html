@@ -1,0 +1,54 @@
+<ion-view view-title="Imagenes">
+    <ion-content  overflow-scroll="true" ng-init="getImages()" style="background-color: #BDBDBD">
+        <ion-refresher
+            pulling-text="Pull to refresh..."
+            on-refresh="getImages()">
+        </ion-refresher>
+        <div style="width:100%">
+            <div style="float:right;" class="card col col-25">
+                <button class="button button-dark" ng-click="addImage()" style="margin:auto">Nueva Imagen</button>
+            </div>
+        </div>
+        <br />
+        <br />
+        <br />
+        <br />
+        <div style="width:100%">
+            <div class="card" style="width: 90%;margin-left: 5%;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" >
+                <div id="loadingImages">
+                    <img style="width: 25%;margin-left: 37.5%" src="images/output_SaWDgJ.gif">
+                    <p style="width: 100%;text-align: center;font-weight: bold">Cargando</p>
+                </div>
+                <div id="contentImages" style="display: none">
+                    <div class="panel panel-default">
+                        <div  class="panel-heading">
+                            Imagenes
+                        </div>
+                        <div class="panel-body">
+                            <div class="dataTable_wrapper">
+                                <table datatable="ng" class="table table-striped table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th style="display:none">ID</th>
+                                            <th>Imagen</th>
+                                            <th>Descripción</th>
+                                            <th>Eliminar</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="i in images" >
+                                            <td style="display:none">{{i.image_id}}</td>
+                                            <td><img style="width:220px" src="{{i.img_url}}" /></td>
+                                            <td>{{i.label}}</td>
+                                            <td><button ng-click="deleteImage({{i.image_id}})" class="button button-assertive"><i class="ion-close"></i></button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

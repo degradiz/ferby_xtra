@@ -1,0 +1,54 @@
+<ion-view view-title="Emp">
+    <ion-content ng-init='loadWaiters()'>
+        <div style="width:100%">
+            <div style="float:right;" class="card col col-25">
+                <button style="margin:auto" ng-click="newWaiter();" class="button button-dark"> Nuevo Registro</button>
+            </div>
+        </div>
+        <br />
+        <br />
+        <br />
+        <br />
+        <div style="width:100%">
+            <div class="card" >
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Tables
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div class="dataTable_wrapper">
+                            <table class="table table-striped table-bordered table-hover" id="employees">
+                                <thead>
+                                    <tr>
+                                        <th>User</th>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
+                                        <th>Number</th>
+                                        <th>Restore Password</th>
+                                        <th>Edit</th>
+                                        <th>Delete Waiter</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="w in waiter" class="odd gradeX">
+                                        <td id="wWaiter_id" >{{w.waiter_id}}</td>
+                                        <td id="wfist_name{{w.waiter_id}}">{{w.fist_name}}</td>
+                                        <td id = "wlast_name{{w.waiter_id}}">{{w.last_name}}</td>
+                                        <td id = "wnumber{{w.waiter_id}}" >{{w.number}}</td>
+                                        <td class="center"><button ng-click="restorePass('{{w.waiter_id}}')" class='button button-dark'>Restore Password</button></td>
+                                        <td class="center"><button ng-click="updateWaiter('{{w.waiter_id}}')" class='button button-dark'>Edit</button></td>
+                                        <td class="center"><button class='button button-assertive'>Delete</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.table-responsive -->
+
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

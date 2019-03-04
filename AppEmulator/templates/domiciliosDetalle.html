@@ -1,0 +1,46 @@
+﻿<ion-view>
+
+    <ion-content ng-init="inicio()" style="background-color:#D8D8D8">
+        <ion-refresher pulling-text="Pull to refresh..."
+                       on-refresh="inicio()">
+        </ion-refresher>
+        <div class="card animated bounceInLeft" style="overflow:visible;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); height:auto">
+            <div class="row responsive-sm">
+                <div class="col">
+                    <div class='row'>
+                        <div class='col'>
+                            Nombre: {{orden[0].nombre}}<br />
+                            Correo: {{orden[0].email}}<br />
+                            Telefono: {{orden[0].telefono1}}<br />
+                            Direccion: {{orden[0].direccion}}<br />
+                        </div>
+
+                    </div>
+                    <div class="row" ng-repeat="d in detail">
+                        <div class="col">
+                            <div class="item item-divider">
+                                <h2>{{d.name_plate}}</h2>
+                            </div>
+                            <div class='row'>
+                                <div class='col'>
+                                    <!--<img src="{{d.img}}">-->
+                                    <img style="height: 75px;float:right;border-radius:50%" src="{{d.img}}" />
+                                    <span style="float: right">Hace {{d.minutes_ago}} min</span>
+                                    <p style="white-space: normal">{{d.comment}}</p>
+                                    <p style="white-space: normal">{{d.option_name}}</p>
+                                    <p style="white-space: normal">Cantidad: {{d.qty}}</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div id="map" style="height:350px; width:100%;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                    </div>
+                    <!--<img src="http://www.droid-life.com/wp-content/uploads/2016/09/google-maps.jpg" style="width:100%">-->
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
