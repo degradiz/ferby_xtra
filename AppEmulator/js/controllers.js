@@ -319,7 +319,7 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
             //$scope.$apply();
         }
         $scope.faq = function () {
-            var ref = window.open('http://ferby.stolz-engineering.com:8888/preguntas-frecuentes-nichas-coins/', '_blank', 'location=no');
+            var ref = window.open('https://xtra.myferby.com:8888/preguntas-frecuentes-nichas-coins/', '_blank', 'location=no');
         }
         $scope.cleanForm = function () {
             $('#user_id').val('');
@@ -371,7 +371,7 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
         }
 
         $scope.faq = function () {
-            var ref = window.open('http://ferby.stolz-engineering.com:8888/preguntas-frecuentes-nichas-coins/', '_blank', 'location=no');
+            var ref = window.open('https://xtra.myferby.com:8888/preguntas-frecuentes-nichas-coins/', '_blank', 'location=no');
         }
 
         $scope.getPoints = function () { //Función que llama al WS el action get_user_points que devuelve los puntos acumulados por la identidad guardada previamente en la caché user_id
@@ -423,7 +423,7 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
             //$scope.$apply();
         }
         $scope.faq = function () {
-            var ref = window.open('http://ferby.stolz-engineering.com:8888/preguntas-frecuentes-nichas-coins/', '_blank', 'location=no');
+            var ref = window.open('https://xtra.myferby.com:8888/preguntas-frecuentes-nichas-coins/', '_blank', 'location=no');
         }
         $scope.cleanForm = function () {
             $scope.user = {};
@@ -474,7 +474,7 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
         }
 
         $scope.faq = function () {
-            var ref = window.open('http://ferby.stolz-engineering.com:8888/preguntas-frecuentes-nichas-coins/', '_blank', 'location=no');
+            var ref = window.open('https://xtra.myferby.com:8888/preguntas-frecuentes-nichas-coins/', '_blank', 'location=no');
         }
 
         $scope.getPoints = function () { //Función que llama al WS el action get_user_points que devuelve los puntos acumulados por la identidad guardada previamente en la caché user_id
@@ -1428,7 +1428,7 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
         $scope.p = p.length
         $scope.actualPlate = {};
         $scope.actualPlate = JSON.parse(localStorage.actualPlate);
-        $scope.actualPlate.img = $scope.actualPlate.img.replace("http://ferby.stolz-engineering.com/img/","").length == 0? "" : $scope.actualPlate.img;
+        $scope.actualPlate.img = $scope.actualPlate.img.replace("https://xtra.myferby.com/img/","").length == 0? "" : $scope.actualPlate.img;
         $scope.fullImageSrc = $scope.actualPlate.img;
         $scope.showImage = {};
         $scope.showImage = 0;
