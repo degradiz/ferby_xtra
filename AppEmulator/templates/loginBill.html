@@ -46,102 +46,111 @@
                     <div>
                         <br><br>
                         <img id="logoImg2" style="width:50%;margin-left:25%;margin-top:5px;" />
-                        <div id="innerCard" style="height:50%;width:100%;">
+                        <div id="innerCard" style="height:50%;width:100%; background-color: rgba(60, 54, 54, 0) !important;">
                             <div class="wrapper" >
                                 <div class="grisubshel" ng-click="openHelpLink(place.help_link)"  ng-if="place.show_help_link == 1" >
                                         <img ng-src="{{baseImgUrl}}{{place.img_help_link}}"  style="width:100%" />
-                                        <p class="textsubshel">Tienda</p>
+                                        <p class="textsubshelblack">Tienda</p>
                                 </div>
                                 <div class="grisubshel" ng-click="openHelpLink(place.subscription_link)"  ng-if="place.show_subscription_link == 1" >
                                         <img ng-src="{{baseImgUrl}}{{place.img_subscription_link}}"  style="width:100%" />
-                                        <p class="textsubshel">{{place.subscription_link_text}}</p>
+                                        <p class="textsubshelblack">{{place.subscription_link_text}}</p>
                                 </div>
                                 <div class="grisubshel" ng-click="getReservations()" ng-if="place.show_reservar == 1" >
                                         <img ng-src="{{baseImgUrl}}{{place.img_reservar}}"  style="width:100%" />
-                                        <p class="textsubshel">Reservar</p>
+                                        <p class="textsubshelblack">Reservar</p>
                                 </div>
                                 <div class="grisubshel" ng-repeat="category in specialCategories"  ng-click="obtenerServicio(category)"  >
                                     <img ng-src="{{baseImgUrl}}{{category.category_img}}"style="width:100%" />
-                                    <p class="textsubshel" >{{category.name}}</p>
+                                    <p class="textsubshelblack" >{{category.name}}</p>
                                 </div>
                                 <div class="grisubshel" ng-click="getPlacesLocation('HOMEDELIVERY', 0, 'domicilio','tab.categories')"  ng-if="place.show_shop == 1" >
                                         <img ng-src="{{baseImgUrl}}{{place.img_shop}}"  style="width:100%" />
-                                        <p class="textsubshel">Tienda</p>
+                                        <p class="textsubshelblack">Departamentos</p>
+                                </div>
+                                <div class="grisubshel" ng-click="storesDirections()" ng-if="place.show_locations == 1" >
+                                        <img ng-src="{{baseImgUrl}}{{place.img_locations}}"  style="width:100%"  />
+                                        <p  class="textsubshelblack" style="width:100%;text-align:center">Ubicaciones</p>
                                 </div>
                                 <div class="grisubshel"  ng-click="getPlacesLocation('HOMEDELIVERY', 0, 'domicilio','tab.categories')" ng-if="place.home_order == 1" >
                                         <img ng-src="{{baseImgUrl}}{{place.home_img}}"style="width:100%" />
-                                        <p class="textsubshel" >{{place.home_text}}</p>
+                                        <p class="textsubshelblack" >{{place.home_text}}</p>
                                 </div>
                                 <div class="grisubshel"  ng-click="getPlacesLocation('HOMEDELIVERY', 1, 'llevar','tab.categories')" ng-if="place.pick_order == 1" >
                                         <img ng-src="{{baseImgUrl}}{{place.pick_img}}"style="width:100%" />
-                                        <p class="textsubshel" >Para Llevar</p>
+                                        <p class="textsubshelblack" >Para Llevar</p>
                                 </div>
                                 <div class="grisubshel"  ng-click="getPlacesLocation('HOMEDELIVERY', 1, 'comer','tab.categories')" ng-if="place.desk_order == 1" >
                                         <img ng-src="{{baseImgUrl}}{{place.desk_img}}"style="width:100%" />
-                                        <p class="textsubshel" >Pre-ordenar</p>
+                                        <p class="textsubshelblack" >Pre-ordenar</p>
                                 </div>
                                 <a class="grisubshel" ng-click="loginCheckins()" ng-if="place.addon_check_in == 1" >
                                     <img ng-src="{{baseImgUrl}}{{checkinOptions.checkin_icon}}"  style="width:100%"  />
-                                    <p class="textsubshel">Visitas</p>
+                                    <p class="textsubshelblack">Visitas</p>
                                 </a>
                                 <div class="grisubshel" ng-click="loginPoints()" ng-if="place.addon_puntos == 1" >
                                         <img ng-src="{{settings.redeem_icon_url}}"  style="width:100%"  />
-                                        <p class="textsubshel">{{settings.redeem_name}}</p>
+                                        <p class="textsubshelblack">{{settings.redeem_name}}</p>
                                 </div>
 
                                 <div class="grisubshel" ng-click="openCoupons()" ng-if="place.show_coupons == 1" >
                                         <img ng-src="{{baseImgUrl}}{{place.img_coupons}}"  style="width:100%"  />
-                                        <p class="textsubshel">Cupones</p>
+                                        <p class="textsubshelblack">Xtra Cupones</p>
                                 </div>
                                 <div class="grisubshel" ng-click="openPromos()" ng-if="place.show_promos == 1" >
                                         <img ng-src="{{baseImgUrl}}{{place.img_promos}}"  style="width:100%"  />
-                                        <p class="textsubshel">Promos</p>
+                                        <p class="textsubshelblack">Promociones</p>
                                 </div>
                                 <div class="grisubshel" ng-click="openEvents()"  ng-if="place.show_events == 1" >
                                         <img ng-src="{{baseImgUrl}}{{place.img_events}}"  style="width:100%" />
-                                        <p class="textsubshel">Eventos</p>
+                                        <p class="textsubshelblack">Eventos</p>
                                 </div>
                                
-                                <div class="grisubshel" ng-click="storesDirections()" ng-if="place.show_locations == 1" >
-                                        <img ng-src="{{baseImgUrl}}{{place.img_locations}}"  style="width:100%"  />
-                                        <p  class="textsubshel" style="width:100%;text-align:center">Ubicación</p>
+                                <div class="grisubshel" ng-click="openME();" ng-if="0 == 0" >
+                                        <img ng-src="{{baseImgUrl}}{{place.messenger_img}}" style="width:100%" />
+                                        <p class="textsubshelblack">Usuario</p>
                                 </div>
                             
                                 <div class="grisubshel" ng-click="openME();" ng-if="place.show_messenger == 1" >
                                         <img ng-src="{{baseImgUrl}}{{place.messenger_img}}" style="width:100%" />
-                                        <p class="textsubshel">Messenger</p>
-                                </div>
-                                <div class="grisubshel" ng-click="openwa();" ng-if="place.show_phone == 1" >
-                                        <img ng-src="{{baseImgUrl}}{{place.phone_img}}" style="width:100%" />
-                                        <p class="textsubshel">WhatsApp</p>
+                                        <p class="textsubshelblack">Messenger</p>
                                 </div>
                                 
                                 <div class="grisubshel"  ng-click="openFB();" ng-if="place.show_facebook == 1" >
                                         <img ng-src="{{baseImgUrl}}{{place.facebook_img}}" style="width:100%" />
                                         <!-- <p style="width:100%;text-align:center">Mis Tegupesos</p> -->
-                                        <p class="textsubshel">Facebook</p>
+                                        <p class="textsubshelblack">Facebook</p>
                                 </div>
                                 <div class="grisubshel"  ng-click="openInstagram(place);" ng-if="place.show_instagram == 1" >
                                         <img ng-src="{{baseImgUrl}}{{place.img_instagram}}" style="width:100%" />
                                         <!-- <p style="width:100%;text-align:center">Mis Tegupesos</p> -->
-                                        <p class="textsubshel">Instagram</p>
+                                        <p class="textsubshelblack">Instagram</p>
                                 </div>
+
+                                <div class="grisubshel" ng-click="openwa();" ng-if="place.show_phone == 1" >
+                                        <img ng-src="{{baseImgUrl}}{{place.phone_img}}" style="width:100%" />
+                                        <p class="textsubshelblack">WhatsApp</p>
+                                </div>
+                                
+
+
                                 <div class="grisubshel" ng-if="place.show_track_orders == 1" ng-click="trackOrders();" ng-init="validateToken()">
                                     <img ng-src="{{baseImgUrl}}{{place.img_track_orders}}" style="width:100%" />
                                     <!-- <p style="width:100%;text-align:center">Mis Tegupesos</p> -->
-                                    <p class="textsubshel">Mis pedidos</p>
+                                    <p class="textsubshelblack">Mis pedidos</p>
                                 </div>
                                 <div class="grisubshel" ng-click="openWeb(place.rate_app_playstore)" ng-if="place.show_rate_app == 1" >
                                         <img ng-src="{{baseImgUrl}}{{place.img_rate_app}}"  style="width:100%"  />
-                                        <p class="textsubshel">{{place.rate_app_text}}</p>
+                                        <p class="textsubshelblack">{{place.rate_app_text}}</p>
                                 </div>
                                <!-- <div class="grisubshel" ng-click="loginCheckins()" ng-if="place.addon_check_in == 1" >
                                         <img ng-src="{{baseImgUrl}}{{checkinOptions.checkin_icon}}"  style="width:100%"  />
-                                        <p class="textsubshel">Visitas</p>
+                                        <p class="textsubshelblack">Visitas</p>
                                 </div>-->
                             
                             </div>
-                            <p style="color:white;width:100%;text-align: center">Powered By Ferby</p>
+                            <p style="color:black;width:100%;text-align: center"></p>
+                            <br><br>
                         </div>
                     </div>
                 </div>
@@ -160,8 +169,15 @@
                     color: white;
                     font-size:13px;
                 }
+                .textsubshelblack {
+                    text-align: center;
+                    color: black;
+                    font-size:13px;
+                    font-weight: 500;
+                    white-space: nowrap;
+                }
                 .grisubshel {
-                    border: 0.4px solid  rgba(255,255,255,0.2);
+                    border: 0.4px solid  rgba(255,255,255,0);
                     padding-left: 20%;
                     padding-right: 20%;
                     padding-bottom: 5%;
