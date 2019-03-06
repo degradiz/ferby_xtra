@@ -26,7 +26,9 @@
                                     <th style="width:180px !important" >Imagen</th>
                                     <th>Titulo</th>
                                     <th>Descripción</th>
+                                    <th>Cantidad</th>
                                     <th>Token</th>
+                                    
                                     <th>Expiración</th>
                                     <th>Switch</th>
                                     <th>Eliminar</th>
@@ -64,6 +66,18 @@
                                         </div>
 
                                     </td>
+
+
+                                    <td id="cuponCant{{q.cupon_code}}">
+                                        <div style="width:100%; margin: 0; padding: 0" class="container">
+                                            <p style="text-align: center; font-size: 12px; font-weight: 600">{{q.cupon_cant}}</p>
+                                            <div class="overlay">
+                                                <div ng-click="set_cupon_cant({{q}});" class="text">Editar</div>
+                                            </div>
+                                        </div>
+
+                                    </td>
+
                                     <!-- <td id="tblTitle{{q.cupon_id}}">{{q.cupon_name}}</td> -->
                                     <!-- <td id="tblDesc{{q.cupon_id}}">{{q.cupon_description}}</td> -->
                                     <td id="tblToken{{q.cupon_id}}">{{q.cupon_code}}</td>
@@ -75,6 +89,9 @@
                                             </div>
                                         </div>
                                     </td>
+
+
+
                                     <td id="switchCupon{{q.cupon_id}}">
                                         
                                         

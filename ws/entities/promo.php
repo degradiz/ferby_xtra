@@ -284,6 +284,7 @@ function create_cupon($parameters) {
                 `cupon_points`,
                 `cupon_code`,
                 `cupon_type`,
+                `cupon_cant`, 
                 `cupon_img`
                 ) 
             VALUES (
@@ -296,9 +297,10 @@ function create_cupon($parameters) {
                 '$parameters->cupon_points',
                 '$parameters->cupon_code',
                 '$parameters->cupon_type',
+                '$parameters->cupon_cant',
                 '$namelFotoV'
             );";
-
+echo $query;
     $result = mysqli_query($con, $query);
     if ($result === true) {
         return 1;

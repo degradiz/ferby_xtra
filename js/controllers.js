@@ -552,6 +552,48 @@ angular.module('starter.controllers', ['datatables', 'starter.services', 'ion-da
                 });
             };
 
+
+             $scope.set_cupon_cant = function (cupon) {
+                $scope.cupon = {};
+
+                $scope.cupon.name = cupon.cupon_cant;
+                myPopup = $ionicPopup.show({
+                    template: '<input type="text" ng-model="cupon.name" ng-value="cupon.name" autofocus>',
+                    title: 'Editar '+cupon.cupon_cant,
+                    subTitle: 'Actualizar el texto del boton',
+                    scope: $scope,
+                    buttons: [
+                        {text: 'Cancelar'},
+                        {
+                            text: '<b>Actualizar</b>',
+                            type: 'button-stable',
+                            onTap: function (e) {
+                                $ionicLoading.show({ templateUrl: 'dialogs/loader.html'});
+                                return $scope.cupon;
+                            }
+                        }
+                    ]
+                });
+              
+                myPopup.then(function(res){
+                    $.get(getServerPath(), {
+                        action: 'set_cupon_cant',
+                        cupon_code: cupon.cupon_code,
+                        cupon_cant: res.cant
+                    }, function (r) {
+                        $ionicLoading.hide()
+                        if(r==1)
+                        {
+                            alert('Texto actualizado correctamente');
+                            $scope.getCupones();
+                            return;
+                        }
+
+                        alert('Ocurrio un problema, si el registro no guardo intenta nuevamente o contacta a administracion.');
+                    });
+                });
+            };
+
             $scope.set_cupon_description = function (cupon) {
                 $scope.cupon = {};
 
@@ -700,23 +742,26 @@ angular.module('starter.controllers', ['datatables', 'starter.services', 'ion-da
 
             $scope.createCupon = function () {
                 myPopup = $ionicPopup.show({
-                    template:  "<label style='margin-top: 1rem;display: block;font-size: .8rem;' for='title;'>Título del cupón</label> \
+                    template:  "<label style='margin-top: 1rem;display: block;font-size: 1.5rem;' for='title;'>Título del cupón</label> \
                                 <input ng-model='cupon.cupon_name' id='title' placeholder='Título'/><br/> \
-                                <label style='margin-top: 1rem;display: block;font-size: .8rem;' for='expiration;'>Descripción o mensaje del cupón</label> \
+                                <label style='margin-top: 1rem;display: block;font-size: 1.5rem;' for='expiration;'>Descripción o mensaje del cupón</label> \
                                 <textarea ng-model='cupon.cupon_description' value='' placeholder='Descripción'/>\
-                                <label style='margin-top: 1rem;display: block;font-size: .8rem;' for='expiration;'>Fecha de expiración</label> \
+                                <label style='margin-top: 1rem;display: block;font-size: 1.5rem;' for='expiration;'>Fecha de expiración</label> \
                                 <div id='expirationDate' class='item' date ion-datetime-picker ng-model='cupon.expiration'>{{cupon.expiration| date: 'yyyy-MM-dd'}}</div> \
-                                <label style='display: block;font-size: .7rem;'>*El cupón será vigente hasta la fecha que elijas.</label> \
-                                <label style='margin-top: 1rem;display: block;font-size: .8rem;' for='ccImage;'>Imagen o arte</label> \
-                                <input id='new_image' name='file_image' type='file' accept='image/*'/>",
+                                <label style='display: block;font-size: 1rem;'>*El cupón será vigente hasta la fecha que elijas.</label> \
+                                <label style='margin-top: 1rem;display: block;font-size: 1.5rem;' for='ccImage;'>Imagen o arte</label> \
+                                <input id='new_image' name='file_image' type='file' accept='image/*'/>\
+                                <label style='margin-top: 1rem;display: block;font-size: 1.5rem;' for='cant;'>Cantidad de cupones</label> \
+                                <input ng-model='cupon.cupon_cant' id='cant' placeholder='1000'/><br/>" 
+                                ,
                     title: 'Crear Cupón',
                     subTitle: 'Llena los campos del cupón',
                     scope: $scope,
                     buttons: [
-                        {text: 'Cancelar'},
+                        {type: 'button-assertive',text: 'Cancelar'},
                         {
-                            text: '<b>Crear</b>',
-                            type: 'button-stable',
+                            text: 'Crear',
+                            type: 'button-balanced',
                             onTap: function () {
                                 var MAX_SIZE = LOGO_MAX_SIZE;
 
@@ -736,9 +781,15 @@ angular.module('starter.controllers', ['datatables', 'starter.services', 'ion-da
                                     return;
                                 }
 
+                                 if($scope.cupon.cupon_cant == undefined){
+                                    alert('Debes ingresar la cantidad de cupones a generar.');
+                                    return;
+                                }
+
                                 var date = $scope.cupon.expiration.toISOString().substring(0,10);
 
                                 var cupon_name = $scope.cupon.cupon_name;
+                                var cupon_cant = $scope.cupon.cupon_cant;
                                 var cupon_description = $scope.cupon.cupon_description;
                                 var cupon_points = $scope.cupon.cupon_points;
 
@@ -761,6 +812,7 @@ angular.module('starter.controllers', ['datatables', 'starter.services', 'ion-da
                                 form_data.append('img', new_image);
                                 form_data.append('cupon_name', cupon_name);
                                 form_data.append('cupon_description', cupon_description);
+                                form_data.append('cupon_cant', cupon_cant);
                                 //form_data.append('cupon_points', cupon_points);
                                 form_data.append('valid_thru', date);
                                 form_data.append('place_id', sessionStorage.getItem('place_id'));
