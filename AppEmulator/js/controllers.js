@@ -1126,7 +1126,7 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
                 var colour = localStorage.getItem('th_home_square_color'), new_col = colour.replace(/rgb/i, "rgba");
                 // $( "<style>.new-color {background-color : "+"#D30712"+"}</style>" ).appendTo( "ion-view" )
                 new_col = new_col.replace(/\)/i, ',0.6)');
-                $('#innerCard').css("background-color", new_col)
+                //$('#innerCard').css("background-color", new_col)
                 $('buttonUI').css('background', localStorage.getItem('th_button_color_theme'))
                 $(".bar").css("background-color", localStorage.getItem('th_home_square_color'))  
                 $(".bar").css("border-color", localStorage.getItem('th_home_square_color')) 
