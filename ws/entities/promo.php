@@ -300,9 +300,12 @@ function create_cupon($parameters) {
                 '$parameters->cupon_cant',
                 '$namelFotoV'
             );";
-echo $query;
+
     $result = mysqli_query($con, $query);
     if ($result === true) {
+        echo "entro al result";
+        generarCupones($parameters->cupon_cant,$parameters->cupon_code);
+        
         return 1;
     } 
     
@@ -310,6 +313,31 @@ echo $query;
     
 }
 
+
+function generarCupones($cant,$cupon_code){
+            global $con;
+            echo "va al for";
+       for ($i = 0; $i < $cant; $i++){
+       $code_generated = $cupon_code.'-'.$i;
+        $query = "
+            INSERT INTO `cupon_generated` (
+                
+                `cupon_code`
+                ) 
+            VALUES (                
+                '$code_generated'
+            );";
+
+            $result = mysqli_query($con, $query);
+            echo $query;
+            echo $result;
+
+        }
+
+        echo "paso del for";
+        return mysqli_error($con);
+
+}
 
 function generate_cupon_code($parameters){
     global $con;
