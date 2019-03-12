@@ -62,6 +62,57 @@ function insert_cupon_redeem($parameters) {
     
 }
 
+function asign_uuid_generated($parameters) {
+    global $con;
+    //query para obtener los cupones existentes a utilizar su cupon_code
+    $query = "SELECT * FROM cupon_code WHERE place_id = '$parameters->place_id' ORDER BY 1 DESC";
+    $sth = mysqli_query($con, $query);
+    $asigned = 0;
+  
+    // por cada cupon_code se recorre 
+    while ($r = mysqli_fetch_assoc($sth)) {
+        // se obtiene una fila si existe un cupon generado asignado a un uuid para validarlo como ya asignado
+        $cuponcode = $r["cupon_code"] ;
+        $prequery = "SELECT * FROM cupon_generated WHERE '$cuponcode' LIKE LEFT(cupon_code,5)  AND uuid = '$parameters->uuid' ORDER BY cupon_generated.id_generated ASC LIMIT 1";
+        $presth = mysqli_query($con, $prequery);
+
+        // Si no devuelve filas entonces se puede asignar uno con uuid vacio y cupon_code 
+        
+        if ($presth->num_rows === 0) {
+                // Se obtiene el id_generated que se asignara el uuid
+                $query2 = "SELECT * FROM cupon_generated WHERE '$cuponcode' like LEFT(cupon_code,5)  AND uuid IS NULL ORDER BY cupon_generated.id_generated ASC LIMIT 1";
+                $sth2 = mysqli_query($con, $query2);
+                // se recorre para poder actualizarlo y asignarle el uuid
+                 while ($r2 = mysqli_fetch_assoc($sth2)) {
+                    // Se actualiza el uuid enviado como parametro
+                    $idgenerated = $r2["id_generated"];
+                    $query = "UPDATE cupon_generated 
+                              SET uuid = '$parameters->uuid' 
+                              WHERE id_generated = '$idgenerated'
+                              ";
+
+                    $result = mysqli_query($con, $query);
+                    // se haecho del resultado
+                    if ($result === true) {
+                            echo 1;
+                            $asigned += 1;
+                    } 
+                    else {
+                            echo mysqli_error($con);
+                    }
+
+                 }// Fin del while de asignación y actualización del uuid
+                 
+        }// fin del if si no se retorno alguna fila con el uuid ya asignado
+
+    }// Fin del while de recorrido en cupon_generated por cada cupon_code existente en cupon_code
+    
+    
+    
+   return $asigned;
+}
+
+
 function select_promotions($parameters){
     global $con;
 
@@ -79,6 +130,22 @@ function select_cupon_code($parameters){
     global $con;
 
     $query = "SELECT * FROM cupon_code WHERE place_id = '$parameters->place_id' ORDER BY 1 DESC";
+    $sth = mysqli_query($con, $query);
+
+    while ($r = mysqli_fetch_assoc($sth)) {
+        $rows[] = $r;
+    }
+
+    return $rows;
+}
+
+function select_cupon_code_uuid($parameters){
+
+    asign_uuid_generated($parameters);
+
+    global $con;
+
+    $query = "SELECT * FROM cupon_code LEFT JOIN  cupon_generated on cupon_code.cupon_code like LEFT(cupon_generated.cupon_code , 5) WHERE cupon_code.place_id = '$parameters->place_id' and cupon_generated.uuid = '$parameters->uuid' ORDER BY 1 DESC";
     $sth = mysqli_query($con, $query);
 
     while ($r = mysqli_fetch_assoc($sth)) {

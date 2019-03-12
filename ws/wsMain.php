@@ -1442,6 +1442,15 @@ break;
         $result = select_cupon_code($parameters);
         print json_encode($result);
         break;
+
+    case 'select_cupon_code_uuid'://CONSUMIDO
+        $parameters = new stdClass();
+        $parameters->place_id = isset($_GET["place_id"]) ? $_GET["place_id"] : (isset($_POST["place_id"]) ? $_POST["place_id"] : "0");
+        $parameters->uuid = isset($_GET["uuid"]) ? $_GET["uuid"] : (isset($_POST["uuid"]) ? $_POST["uuid"] : "0");
+        
+        $result = select_cupon_code_uuid($parameters);
+        print json_encode($result);
+        break;
     case 'create_cupon'://CONSUMIDO
         $parameters = new stdClass();
         $parameters->place_id = isset($_GET["place_id"]) ? $_GET["place_id"] : (isset($_POST["place_id"]) ? $_POST["place_id"] : "0");

@@ -211,7 +211,7 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
                 $scope.modal.show();
             });
 
-        };
+        }; 
 
         $scope.closeModal = function () {
             $scope.modal.hide();
@@ -233,8 +233,9 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
         $scope.couponInit = function(){
             console.log('coupon init');
             $.getJSON(getServerPath(), {
-            action: 'select_cupon_code',
-            place_id: Theme_id
+            action: 'select_cupon_code_uuid',
+            place_id: Theme_id ,
+            uuid: 4
             }, function (r) {
                 console.log('r: '+JSON.stringify(r));
                 $scope.coupons = r.filter(f => f.cupon_type == 1 && f.cupon_status == 0);

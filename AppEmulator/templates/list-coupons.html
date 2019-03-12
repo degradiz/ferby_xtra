@@ -18,7 +18,7 @@
         <div ng-if="wi > 800" style="height:auto;max-width:1200px;display:block;margin:auto;" >
             <div  ng-repeat="c in coupons" ng-if='$index % 4 == 0' class="row responsive-md" >
                 <div class="col-25">
-                        <img style="width:100%" ng-src="{{basePath}}{{coupons[$index].cupon_img}}" ng-click="modalImage(coupons[$index].cupon_img)" >
+                    <img style="width:100%" ng-src="{{basePath}}{{coupons[$index].cupon_img}}" ng-click="modalImage(coupons[$index].cupon_img)" >
                 </div>
                 <div class="col-25">
                     <img  style="width:100%" ng-src="{{basePath}}{{coupons[$index + 1].cupon_img}}" ng-click="modalImage(coupons[$index + 1].cupon_img)" > 
@@ -36,7 +36,7 @@
                 <div ng-if='coupons.length < $index + 4' class="col-25">
                 </div>
             </div>
-        </div>
+        </div> 
 </div>                                                                              
 </ion-content>
 </ion-view>
