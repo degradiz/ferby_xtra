@@ -94,7 +94,7 @@ function asign_uuid_generated($parameters) {
                     $result = mysqli_query($con, $query);
                     // se haecho del resultado
                     if ($result === true) {
-                            echo 1;
+                            
                             $asigned += 1;
                     } 
                     else {

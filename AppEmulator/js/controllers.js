@@ -197,6 +197,9 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
 
     })    
     .controller('listCouponsCtrl', function($scope, $state, $rootScope, $ionicModal){
+
+
+             
         checkKey($state);
         $scope.wi = $(document).width();
         buildScopeStyleSettings($scope);
@@ -232,18 +235,31 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
 
         $scope.couponInit = function(){
             console.log('coupon init');
+            //asignar si no tiene asignado
             $.getJSON(getServerPath(), {
             action: 'select_cupon_code_uuid',
             place_id: Theme_id ,
-            uuid: 4
+            uuid: 300
             }, function (r) {
                 console.log('r: '+JSON.stringify(r));
                 $scope.coupons = r.filter(f => f.cupon_type == 1 && f.cupon_status == 0);
                 $scope.$apply();
+
+                setTimeout(function(){
+                    for (var i = 0; i < $scope.coupons.length;  i++ ){
+                        console.log($scope.coupons)
+                           console.log($scope.coupons[i].cupon_code)
+                           var cuponcd = "#" + $scope.coupons[i].cupon_code
+                           console.log(cuponcd);
+                           JsBarcode("#barcd" + i , $scope.coupons[i].cupon_code, {displayValue: false});
+
+                    }
+                },3000)
+                $scope.$apply();
             });    
         }
-
     })
+
     .controller('listPromosCtrl', function($scope, $state, $rootScope, $ionicModal){
         checkKey($state);
         $scope.wi = $(document).width();
