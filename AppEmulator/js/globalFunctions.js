@@ -1,7 +1,7 @@
 function getServerPath() {
-    var serverPath = 'http://localhost/ferby_xtra/ws/wsMain.php';
+    //var serverPath = 'http://localhost/ferby_xtra/ws/wsMain.php';
     //var serverPath = 'https://xtra.myferby.com/ws/wsMain.php';
-    //var serverPath = 'https://xtra.myferby.com/ws/wsMain.php'; 
+    var serverPath = 'https://xtra.myferby.com/ws/wsMain.php'; 
     return serverPath;
 }
 
@@ -33,8 +33,8 @@ function generateToken() {
 }
 
 function baseUrl(){
-    return 'http://localhost/ferby_xtra/';
-    //return 'https://xtra.myferby.com/';
+    //return 'http://localhost/ferby_xtra/';
+    return 'https://xtra.myferby.com/';
 }
 
 function imgPath(img){
@@ -208,9 +208,9 @@ function validateEmail(x) {//
 }
 
 function getImgPath() {
-    var img = 'http://localhost/ferby_xtra/img/'
+    //var img = 'http://localhost/ferby_xtra/img/'
     // var img = 'http://192.168.1.67/img/'
-    //var img = 'https://xtra.myferby.com/img/'
+    var img = 'https://xtra.myferby.com/img/'
     return img
 }
 
