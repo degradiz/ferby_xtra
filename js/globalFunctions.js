@@ -1,12 +1,12 @@
 function getServerPath() {
-    var serverPath = 'http://localhost/ferby_xtra/ws/wsMain.php';
-   //var serverPath = 'https://xtra.myferby.com/ws/wsMain.php';
+    //var serverPath = 'http://localhost/ferby_xtra/ws/wsMain.php';
+   var serverPath = 'https://xtra.myferby.com/ws/wsMain.php';
     return serverPath;
 }
 
 function baseUrl(){
-    return 'http://localhost/ferby_xtra/';
-    //return 'https://xtra.myferby.com/';
+    //return 'http://localhost/ferby_xtra/';
+    return 'https://xtra.myferby.com/';
 }
 
 function validateScope(scope){    
