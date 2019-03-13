@@ -1,17 +1,17 @@
 <?php
 
- $host = 'localhost';
- $user = 'root';
- $password = '';
- $db = 'ferby';
- $con = mysqli_connect($host, $user, $password, $db);                                               
+ //$host = 'localhost';
+ //$user = 'root';
+ //$password = '';
+ //$db = 'ferby';
+ //$con = mysqli_connect($host, $user, $password, $db);                                               
 
 
-//$host = 'localhost';
-//$user = 'ferbyadmin';
-//$password = 'Catedradefensa2018$';
-//$db = 'ferby';
-//$con = mysqli_connect($host, $user, $password, $db);
+$host = 'localhost';
+$user = 'ferbyadmin';
+$password = 'Catedradefensa2018$';
+$db = 'ferby';
+$con = mysqli_connect($host, $user, $password, $db);
 
 
 //$host = 'mysql.hostinger.mx';
