@@ -140,9 +140,9 @@ function select_cupon_code($parameters){
 }
 
 function select_cupon_code_uuid($parameters){
-
+    //asignar si no tiene asignado
     asign_uuid_generated($parameters);
-
+    // Obtener la lista de cupones
     global $con;
 
     $query = "SELECT * FROM cupon_code LEFT JOIN  cupon_generated on cupon_code.cupon_code like LEFT(cupon_generated.cupon_code , 5) WHERE cupon_code.place_id = '$parameters->place_id' and cupon_generated.uuid = '$parameters->uuid' ORDER BY 1 DESC";

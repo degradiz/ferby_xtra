@@ -241,20 +241,20 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
             place_id: Theme_id ,
             uuid: 300
             }, function (r) {
-                console.log('r: '+JSON.stringify(r));
+                //console.log('r: '+JSON.stringify(r));
                 $scope.coupons = r.filter(f => f.cupon_type == 1 && f.cupon_status == 0);
                 $scope.$apply();
 
                 setTimeout(function(){
                     for (var i = 0; i < $scope.coupons.length;  i++ ){
-                        console.log($scope.coupons)
-                           console.log($scope.coupons[i].cupon_code)
+                        //console.log($scope.coupons)
+                           //console.log($scope.coupons[i].cupon_code)
                            var cuponcd = "#" + $scope.coupons[i].cupon_code
-                           console.log(cuponcd);
+                           //console.log(cuponcd);
                            JsBarcode("#barcd" + i , $scope.coupons[i].cupon_code, {displayValue: false});
 
                     }
-                },3000)
+                },2000)
                 $scope.$apply();
             });    
         }
