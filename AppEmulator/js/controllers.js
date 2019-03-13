@@ -4,8 +4,8 @@ var isOnline = 0;
 var membership = '1';
 var menuType = '';
 var chatmode = 0;
-var auth_place_id = '';
-var Theme_id = 58;
+var auth_place_id = '4';
+var Theme_id = 4;
 var loaded = 0;
 var myPopup = {};
 var rev = 0;
@@ -1003,7 +1003,7 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
         });
 
         $scope.loadThemeLoginBill = function () {
-            Theme_id = getParameterByName("store_id");
+          //  Theme_id = getParameterByName("store_id");
             auth_place_id = '[{"place_id": "'+ Theme_id +'"}]'; 
             $scope.getSpecialCategories();            
             $scope.getTypes();           
