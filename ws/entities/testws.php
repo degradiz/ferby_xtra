@@ -2,7 +2,7 @@
 
 
 
-require_once '../../AppEmulator/nusoap/lib/nusoap.php';
+require_once '../../nusoap/lib/nusoap.php';
 
 $wsdl="http://localhost:53168/operaciones.asmx?WSDL";
 

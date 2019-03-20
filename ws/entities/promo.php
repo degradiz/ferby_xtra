@@ -370,7 +370,7 @@ function create_cupon($parameters) {
 
     $result = mysqli_query($con, $query);
     if ($result === true) {
-        echo "entro al result";
+        //echo "entro al result";
         generarCupones($parameters->cupon_cant,$parameters->cupon_code);
         generarCuponesXtra($parameters->cupon_cant,$parameters->cupon_code,$parameters->cupon_name,$parameters->cupon_description);
         return 1;
@@ -410,7 +410,9 @@ function generarCupones($cant,$cupon_code){
 
 function generarCuponesXtra($cant,$cupon_code,$cupon_name,$cupon_description){
     
-    require_once '../../AppEmulator/nusoap/lib/nusoap.php';
+
+
+    require_once '../nusoap/lib/nusoap.php';
 
         $wsdl="http://localhost:53168/operaciones.asmx?WSDL";
 
@@ -423,9 +425,10 @@ function generarCuponesXtra($cant,$cupon_code,$cupon_name,$cupon_description){
        //var_dump($result);
 
         //echo $result['InsertResult'];
-        echo "<script> console.log('PHP: tres');</script>";
+    print_r($result['InsertResult']) ;
 
-    return $result['InsertResult'];
+
+
 
 }
 
