@@ -1,3 +1,4 @@
 <?php
 $salt = "pae1320lakeside";
-$ip = "https://xtra.myferby.com";
+//$ip = "https://xtra.myferby.com";
+$ip = "localhost";

@@ -8,8 +8,10 @@
 
 
 $host = 'localhost';
-$user = 'ferbyadmin';
-$password = 'Catedradefensa2018$';
+//$user = 'ferbyadmin';
+$user = 'root';
+$password = '';
+//$password = 'Catedradefensa2018$';
 $db = 'ferby';
 $con = mysqli_connect($host, $user, $password, $db);
 
