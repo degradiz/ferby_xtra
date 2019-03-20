@@ -372,7 +372,7 @@ function create_cupon($parameters) {
     if ($result === true) {
         echo "entro al result";
         generarCupones($parameters->cupon_cant,$parameters->cupon_code);
-        
+        generarCuponesXtra($parameters->cupon_cant,$parameters->cupon_code,$parameters->cupon_name,$parameters->cupon_description);
         return 1;
     } 
     
@@ -382,8 +382,9 @@ function create_cupon($parameters) {
 
 
 function generarCupones($cant,$cupon_code){
-            global $con;
-            echo "va al for";
+    
+    global $con;
+            //echo "va al for";
        for ($i = 0; $i < $cant; $i++){
        $code_generated = $cupon_code.'-'.$i;
         $query = "
@@ -396,13 +397,35 @@ function generarCupones($cant,$cupon_code){
             );";
 
             $result = mysqli_query($con, $query);
-            echo $query;
-            echo $result;
+           // echo $query;
+           // echo $result;
 
         }
 
-        echo "paso del for";
+       // echo "paso del for";
         return mysqli_error($con);
+
+}
+
+
+function generarCuponesXtra($cant,$cupon_code,$cupon_name,$cupon_description){
+    
+    require_once '../../AppEmulator/nusoap/lib/nusoap.php';
+
+        $wsdl="http://localhost:53168/operaciones.asmx?WSDL";
+
+        $client=new nusoap_client($wsdl,true);
+
+        $result=$client->call('Insert',array('cupon_code'=>$cupon_code,'nombre'=>$cupon_name,'descuento'=>$cupon_description,'cantidad'=>$cant));
+
+        //$result=$client->call('Exist',array('cupon_code'=>'a001'));
+
+       //var_dump($result);
+
+        //echo $result['InsertResult'];
+        echo "<script> console.log('PHP: tres');</script>";
+
+    return $result['InsertResult'];
 
 }
 

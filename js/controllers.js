@@ -744,8 +744,8 @@ angular.module('starter.controllers', ['datatables', 'starter.services', 'ion-da
                 myPopup = $ionicPopup.show({
                     template:  "<label style='margin-top: 1rem;display: block;font-size: 1.5rem;' for='title;'>Título del cupón</label> \
                                 <input ng-model='cupon.cupon_name' id='title' placeholder='Título'/><br/> \
-                                <label style='margin-top: 1rem;display: block;font-size: 1.5rem;' for='expiration;'>Descripción o mensaje del cupón</label> \
-                                <textarea ng-model='cupon.cupon_description' value='' placeholder='Descripción'/>\
+                                <label style='margin-top: 1rem;display: block;font-size: 1.5rem;' for='expiration;'>Descuento en porcentaje</label> \
+                                <textarea ng-model='cupon.cupon_description' value='' placeholder='10'/>\
                                 <label style='margin-top: 1rem;display: block;font-size: 1.5rem;' for='expiration;'>Fecha de expiración</label> \
                                 <div id='expirationDate' class='item' date ion-datetime-picker ng-model='cupon.expiration'>{{cupon.expiration| date: 'yyyy-MM-dd'}}</div> \
                                 <label style='display: block;font-size: 1rem;'>*El cupón será vigente hasta la fecha que elijas.</label> \
@@ -773,6 +773,11 @@ angular.module('starter.controllers', ['datatables', 'starter.services', 'ion-da
                                 // date = date.toISOString().substring(0,10);
                                 if($scope.cupon.cupon_name == '' || $scope.cupon.cupon_name == undefined ){
                                     alert('Debes ingresar un título al registro.');
+                                    return;
+                                }
+
+                                if($scope.cupon.cupon_description == '' || $scope.cupon.cupon_description == undefined ){
+                                    alert('Debes porcentaje de descuento.');
                                     return;
                                 }
 
@@ -807,7 +812,7 @@ angular.module('starter.controllers', ['datatables', 'starter.services', 'ion-da
                                 });
 
                                 var form_data = new FormData();
-                                console.log(new_image);
+                                //console.log(new_image);
                                 form_data.append('action', 'create_cupon');
                                 form_data.append('img', new_image);
                                 form_data.append('cupon_name', cupon_name);
