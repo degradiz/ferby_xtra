@@ -1,8 +1,10 @@
 <?php
 if(isset($_GET['cupon_code'])){
 $host = "localhost";
-$user = "root";
-$password = "";
+//$user = "root";
+$user = 'ferbyadmin';
+//$password = "";
+$password = 'Catedradefensa2018$';
 $db = 'ferby';
 $con = mysqli_connect($host, $user, $password, $db);
 
