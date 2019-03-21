@@ -4,7 +4,7 @@
 
 require_once '../../nusoap/lib/nusoap.php';
 
-$wsdl="http://localhost:53168/operaciones.asmx?WSDL";
+$wsdl="http://138.0.230.5:53168/operaciones.asmx?WSDL";
 
 $client=new nusoap_client($wsdl,true);
 $cupon_code = "de001";
