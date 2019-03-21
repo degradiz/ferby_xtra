@@ -1,12 +1,13 @@
 <?php
 if(isset($_GET['cupon_code'])){
-$host = "localhost";
+require 'ws/classes/connection.php';	
+//$host = "localhost";
 //$user = "root";
-$user = 'ferbyadmin';
+//$user = 'ferbyadmin';
 //$password = "";
-$password = 'Catedradefensa2018$';
-$db = 'ferby';
-$con = mysqli_connect($host, $user, $password, $db);
+//$password = 'Catedradefensa2018$';
+//$db = 'ferby';
+//$con = mysqli_connect($host, $user, $password, $db);
 
 // Check connection
 if ($con->connect_error) {
