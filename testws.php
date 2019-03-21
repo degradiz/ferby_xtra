@@ -1,8 +1,8 @@
 <?php 
 require_once 'AppEmulator/nusoap/lib/nusoap.php';
 
-$wsdl="http://192.168.0.10:53168/operaciones.asmx?WSDL";
-
+//$wsdl="http://192.168.0.10:53168/operaciones.asmx?WSDL";
+$wsdl="http://138.0.230.5:53168/operaciones.asmx?WSDL";
 $client=new nusoap_client($wsdl,true);
 $cupon_code = "de001";
 $cupon_name = "Prueba Dennis";
