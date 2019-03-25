@@ -16,7 +16,8 @@ if ($con->connect_error) {
 $codigo = $_GET['cupon_code'];
 $status = "No";
 
-$sql = "SELECT id_generated, cupon_code, state FROM cupon_generated WHERE cupon_code='$codigo' ";
+$sql = "SELECT id_generated, cupon_code, state FROM cupon_generated WHERE cupon_code='$codigo' and uuid is not null";
+
 $result = $con->query($sql);
 
 if ($result->num_rows > 0) {
@@ -26,8 +27,8 @@ if ($result->num_rows > 0) {
         echo "id: " . $row["id_generated"]. " - cupon_code: " . $row["cupon_code"]. " - Consumido: " . $status . "<br>";
     }
 
-    $sqlu = "UPDATE cupon_generated SET state=1 WHERE cupon_code='$codigo'";
-
+    $sqlu = "UPDATE cupon_generated SET state=1 WHERE cupon_code='$codigo' and uuid is not null";
+    
     if($row["state"]==1){
 		if ($con->query($sqlu) === TRUE) {
 		    echo "Consumo de cupón registrado.";
