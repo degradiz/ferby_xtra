@@ -386,7 +386,7 @@ function generarCupones($cant,$cupon_code){
     global $con;
             //echo "va al for";
        for ($i = 0; $i < $cant; $i++){
-       $code_generated = $cupon_code.'-'.$i;
+       $code_generated = $cupon_code.'-'.$i.rand();
         $query = "
             INSERT INTO `cupon_generated` (
                 
