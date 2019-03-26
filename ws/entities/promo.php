@@ -380,13 +380,24 @@ function create_cupon($parameters) {
     
 }
 
+function random_strings($length_of_string) 
+{ 
+  
+    // String of all alphanumeric character 
+    $str_result = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'; 
+  
+    // Shufle the $str_result and returns substring 
+    // of specified length 
+    return substr(str_shuffle($str_result),  
+                       0, $length_of_string); 
+} 
 
 function generarCupones($cant,$cupon_code){
     
     global $con;
             //echo "va al for";
        for ($i = 0; $i < $cant; $i++){
-       $code_generated = $cupon_code.'-'.$i.rand();
+       $code_generated = $cupon_code.'-'.$i.random_strings(3);
         $query = "
             INSERT INTO `cupon_generated` (
                 
@@ -446,8 +457,9 @@ function generate_cupon_code($parameters){
 
     $code = md5($salt.$parameters->place_id);
     $code = substr($code, 0, 3);
-
-    $new_code = $code.'-'.$result['id'];
+    $strcode = strtoupper($code);
+//echo $str;
+    $new_code = $strcode.'-'.$result['id'];
 
     return $new_code;
 }
