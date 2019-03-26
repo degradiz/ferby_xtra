@@ -42,7 +42,15 @@ if ($result->num_rows > 0) {
     echo "0 resultados del código de cupon enviado, este no existe o ya venció.";
 }
 
+if(isset($_GET['clean'])){
+$sqld = "UPDATE cupon_generated SET state=0 WHERE cupon_code='$codigo' and uuid is not null";
 
+        if ($con->query($sqld) === TRUE) {
+            echo "Limpieza efectuada.";
+        } else {
+            echo "Error limpiando: " . $con->error;
+        }
+}
 
 $con->close();
 }
