@@ -29,7 +29,7 @@ if ($result->num_rows > 0) {
 
     $sqlu = "UPDATE cupon_generated SET state=1 WHERE cupon_code='$codigo' and uuid is not null";
     
-    if($row["state"]==1){
+    if($row["state"]==0){
 		if ($con->query($sqlu) === TRUE) {
 		    echo "Consumo de cupón registrado.";
 		} else {
