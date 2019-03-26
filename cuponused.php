@@ -39,7 +39,7 @@ if ($result->num_rows > 0) {
 		echo "Cupon ya consumido.";
 	}
 } else {
-    echo "0 resultados del código de cupon enviado.";
+    echo "0 resultados del código de cupon enviado, este no existe o ya venció.";
 }
 
 
