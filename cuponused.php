@@ -46,7 +46,7 @@ if(isset($_GET['clean'])){
 $sqld = "UPDATE cupon_generated SET state=0 WHERE cupon_code='$codigo' and uuid is not null";
 
         if ($con->query($sqld) === TRUE) {
-            echo "Limpieza efectuada.";
+            echo "<br><br> Limpieza efectuada.";
         } else {
             echo "Error limpiando: " . $con->error;
         }
