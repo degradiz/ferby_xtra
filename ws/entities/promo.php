@@ -145,7 +145,7 @@ function select_cupon_code_uuid($parameters){
     // Obtener la lista de cupones
     global $con;
 
-    $query = "SELECT * FROM cupon_code LEFT JOIN  cupon_generated on cupon_code.cupon_code like LEFT(cupon_generated.cupon_code , 5) WHERE cupon_code.place_id = '$parameters->place_id' and cupon_generated.uuid = '$parameters->uuid' and cupon_generated.state = 0 ORDER BY 1 DESC";
+    $query = "SELECT * FROM cupon_code LEFT JOIN  cupon_generated on cupon_code.cupon_code like LEFT(cupon_generated.cupon_code , 7) WHERE cupon_code.place_id = '$parameters->place_id' and cupon_generated.uuid = '$parameters->uuid' and cupon_generated.state = 0 ORDER BY 1 DESC";
     $sth = mysqli_query($con, $query);
 
     while ($r = mysqli_fetch_assoc($sth)) {
