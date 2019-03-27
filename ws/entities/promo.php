@@ -73,14 +73,14 @@ function asign_uuid_generated($parameters) {
     while ($r = mysqli_fetch_assoc($sth)) {
         // se obtiene una fila si existe un cupon generado asignado a un uuid para validarlo como ya asignado
         $cuponcode = $r["cupon_code"] ;
-        $prequery = "SELECT * FROM cupon_generated WHERE '$cuponcode' LIKE LEFT(cupon_code,5)  AND uuid = '$parameters->uuid' ORDER BY cupon_generated.id_generated ASC LIMIT 1";
+        $prequery = "SELECT * FROM cupon_generated WHERE '$cuponcode' LIKE LEFT(cupon_code,7)  AND uuid = '$parameters->uuid' ORDER BY cupon_generated.id_generated ASC LIMIT 1";
         $presth = mysqli_query($con, $prequery);
 
         // Si no devuelve filas entonces se puede asignar uno con uuid vacio y cupon_code 
         
         if ($presth->num_rows === 0) {
                 // Se obtiene el id_generated que se asignara el uuid
-                $query2 = "SELECT * FROM cupon_generated WHERE '$cuponcode' like LEFT(cupon_code,5)  AND uuid IS NULL ORDER BY cupon_generated.id_generated ASC LIMIT 1";
+                $query2 = "SELECT * FROM cupon_generated WHERE '$cuponcode' like LEFT(cupon_code,7)  AND uuid IS NULL ORDER BY cupon_generated.id_generated ASC LIMIT 1";
                 $sth2 = mysqli_query($con, $query2);
                 // se recorre para poder actualizarlo y asignarle el uuid
                  while ($r2 = mysqli_fetch_assoc($sth2)) {
