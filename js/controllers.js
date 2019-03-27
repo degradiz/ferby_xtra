@@ -743,16 +743,18 @@ angular.module('starter.controllers', ['datatables', 'starter.services', 'ion-da
             $scope.createCupon = function () {
                 myPopup = $ionicPopup.show({
                     template:  "<label style='margin-top: 1rem;display: block;font-size: 1.5rem;' for='title;'>Título del cupón</label> \
-                                <input ng-model='cupon.cupon_name' id='title' placeholder='Título'/><br/> \
+                                <input ng-model='cupon.cupon_name' id='title' type='text' placeholder='Título'/><br/> \
                                 <label style='margin-top: 1rem;display: block;font-size: 1.5rem;' for='expiration;'>Descuento en porcentaje</label> \
-                                <textarea ng-model='cupon.cupon_description' value='' placeholder='10'/>\
+                                <input ng-model='cupon.cupon_description' type='number' value='' placeholder='10'/>\
+                                <label style='margin-top: 1rem;display: block;font-size: 1.5rem;' for='expiration;'>Código de departamento</label> \
+                                <input ng-model='cupon.cupon_id_departamento' type='number' value='' placeholder='1'/>\
                                 <label style='margin-top: 1rem;display: block;font-size: 1.5rem;' for='expiration;'>Fecha de expiración</label> \
                                 <div id='expirationDate' class='item' date ion-datetime-picker ng-model='cupon.expiration'>{{cupon.expiration| date: 'yyyy-MM-dd'}}</div> \
                                 <label style='display: block;font-size: 1rem;'>*El cupón será vigente hasta la fecha que elijas.</label> \
                                 <label style='margin-top: 1rem;display: block;font-size: 1.5rem;' for='ccImage;'>Imagen o arte</label> \
                                 <input id='new_image' name='file_image' type='file' accept='image/*'/>\
                                 <label style='margin-top: 1rem;display: block;font-size: 1.5rem;' for='cant;'>Cantidad de cupones</label> \
-                                <input ng-model='cupon.cupon_cant' id='cant' placeholder='1000'/><br/>" 
+                                <input ng-model='cupon.cupon_cant' type='number'  id='cant' placeholder='1000'/><br/>" 
                                 ,
                     title: 'Crear Cupón',
                     subTitle: 'Llena los campos del cupón',
@@ -781,6 +783,11 @@ angular.module('starter.controllers', ['datatables', 'starter.services', 'ion-da
                                     return;
                                 }
 
+                                 if($scope.cupon.cupon_id_departamento == undefined){
+                                    alert('Debes ingresar el código del departamento.');
+                                    return;
+                                }
+
                                 if($scope.cupon.expiration == undefined){
                                     alert('Debes ingresar una fecha de expiración.');
                                     return;
@@ -796,6 +803,7 @@ angular.module('starter.controllers', ['datatables', 'starter.services', 'ion-da
                                 var cupon_name = $scope.cupon.cupon_name;
                                 var cupon_cant = $scope.cupon.cupon_cant;
                                 var cupon_description = $scope.cupon.cupon_description;
+                                var cupon_id_departamento = $scope.cupon.cupon_id_departamento;
                                 var cupon_points = $scope.cupon.cupon_points;
 
                                 var new_image = $.trim($('#new_image').val()).length != 0 ? $('#new_image').prop('files')[0] : " ";
@@ -817,6 +825,7 @@ angular.module('starter.controllers', ['datatables', 'starter.services', 'ion-da
                                 form_data.append('img', new_image);
                                 form_data.append('cupon_name', cupon_name);
                                 form_data.append('cupon_description', cupon_description);
+                                form_data.append('cupon_id_departamento', cupon_id_departamento);
                                 form_data.append('cupon_cant', cupon_cant);
                                 //form_data.append('cupon_points', cupon_points);
                                 form_data.append('valid_thru', date);

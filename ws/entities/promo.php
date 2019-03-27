@@ -352,7 +352,8 @@ function create_cupon($parameters) {
                 `cupon_code`,
                 `cupon_type`,
                 `cupon_cant`, 
-                `cupon_img`
+                `cupon_img`,
+                `cupon_id_departamento`
                 ) 
             VALUES (
                 NULL, 
@@ -365,14 +366,15 @@ function create_cupon($parameters) {
                 '$parameters->cupon_code',
                 '$parameters->cupon_type',
                 '$parameters->cupon_cant',
-                '$namelFotoV'
+                '$namelFotoV',
+                '$parameters->cupon_id_departamento'
             );";
 
     $result = mysqli_query($con, $query);
     if ($result === true) {
         //echo "entro al result";
         generarCupones($parameters->cupon_cant,$parameters->cupon_code);
-        generarCuponesXtra($parameters->cupon_cant,$parameters->cupon_code,$parameters->cupon_name,$parameters->cupon_description);
+        generarCuponesXtra($parameters->cupon_cant,$parameters->cupon_code,$parameters->cupon_name,$parameters->cupon_description,$parameters->cupon_id_departamento);
         return 1;
     } 
     
@@ -384,7 +386,7 @@ function random_strings($length_of_string)
 { 
   
     // String of all alphanumeric character 
-    $str_result = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'; 
+    $str_result = '0123456789'; 
   
     // Shufle the $str_result and returns substring 
     // of specified length 
@@ -419,7 +421,7 @@ function generarCupones($cant,$cupon_code){
 }
 
 
-function generarCuponesXtra($cant,$cupon_code,$cupon_name,$cupon_description){
+function generarCuponesXtra($cant,$cupon_code,$cupon_name,$cupon_description,$department){
     
 
 
@@ -429,7 +431,7 @@ function generarCuponesXtra($cant,$cupon_code,$cupon_name,$cupon_description){
         $wsdl="http://138.0.230.5:53168/operaciones.asmx?WSDL";
         $client=new nusoap_client($wsdl,true);
 
-        $result=$client->call('Insert',array('cupon_code'=>$cupon_code,'nombre'=>$cupon_name,'descuento'=>$cupon_description,'cantidad'=>$cant));
+        $result=$client->call('Insert',array('cupon_code'=>$cupon_code,'nombre'=>$cupon_name,'descuento'=>$cupon_description,'cantidad'=>$cant,'id_departamento'=>$department));
 
         //$result=$client->call('Exist',array('cupon_code'=>'a001'));
 
@@ -455,11 +457,11 @@ function generate_cupon_code($parameters){
     $sth = mysqli_query($con, $aIQuery);
     $result = mysqli_fetch_assoc($sth);
 
-    $code = md5($salt.$parameters->place_id);
-    $code = substr($code, 0, 3);
-    $strcode = strtoupper($code);
+    $code = random_strings(5);
+    //$code = substr($code, 0, 3);
+    //$strcode = strtoupper($code);
 //echo $str;
-    $new_code = $strcode.'-'.$result['id'];
+    $new_code = $code.'-'.$result['id'];
 
     return $new_code;
 }

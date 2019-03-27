@@ -1461,6 +1461,7 @@ break;
         $parameters->cupon_points = isset($_GET["cupon_points"]) ? $_GET["cupon_points"] : (isset($_POST["cupon_points"]) ? $_POST["cupon_points"] : "0");
         $parameters->cupon_type = isset($_GET["cupon_type"]) ? $_GET["cupon_type"] : (isset($_POST["cupon_type"]) ? $_POST["cupon_type"] : "1");
           $parameters->cupon_cant = isset($_GET["cupon_cant"]) ? $_GET["cupon_cant"] : (isset($_POST["cupon_cant"]) ? $_POST["cupon_cant"] : "0");
+        $parameters->cupon_id_departamento = isset($_GET["cupon_id_departamento"]) ? $_GET["cupon_id_departamento"] : (isset($_POST["cupon_id_departamento"]) ? $_POST["cupon_id_departamento"] : "0");
         ///$parameters->cupon_code = isset($_GET["cupon_code"]) ? $_GET["cupon_code"] : (isset($_POST["cupon_code"]) ? $_POST["cupon_code"] : "");
         $parameters->img = isset($_FILES["img"]) ? $_FILES["img"] : (isset($_FILES["img"]) ? $_FILES["img"] : "");
         if ($parameters->img != "") {
