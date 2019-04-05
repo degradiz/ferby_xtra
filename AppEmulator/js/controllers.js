@@ -239,7 +239,7 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
             $.getJSON(getServerPath(), {
             action: 'select_cupon_code_uuid',
             place_id: Theme_id ,
-            uuid: device.uuid
+            uuid: 123
             }, function (r) {
                 //console.log('r: '+JSON.stringify(r));
                 $scope.coupons = r.filter(f => f.cupon_type == 1 && f.cupon_status == 0);

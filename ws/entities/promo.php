@@ -1,5 +1,5 @@
 <?php
-
+ 
 function username_cupon_redeems($parameters){
     global $con;
     $query = "
@@ -339,7 +339,7 @@ function create_cupon($parameters) {
     }
 
     $parameters->cupon_code = generate_cupon_code($parameters);
-
+    echo $parameters->cupon_discount;
     $query = "
             INSERT INTO `cupon_code` (
                 `cupon_id`, 
@@ -353,7 +353,8 @@ function create_cupon($parameters) {
                 `cupon_type`,
                 `cupon_cant`, 
                 `cupon_img`,
-                `cupon_id_departamento`
+                `cupon_id_departamento`,
+                `cupon_discount`
                 ) 
             VALUES (
                 NULL, 
@@ -367,14 +368,16 @@ function create_cupon($parameters) {
                 '$parameters->cupon_type',
                 '$parameters->cupon_cant',
                 '$namelFotoV',
-                '$parameters->cupon_id_departamento'
+                '$parameters->cupon_id_departamento',
+                '$parameters->cupon_discount'
             );";
 
     $result = mysqli_query($con, $query);
     if ($result === true) {
         //echo "entro al result";
         generarCupones($parameters->cupon_cant,$parameters->cupon_code);
-        generarCuponesXtra($parameters->cupon_cant,$parameters->cupon_code,$parameters->cupon_name,$parameters->cupon_description,$parameters->cupon_id_departamento);
+       // generarCuponesXtra($parameters->cupon_cant,$parameters->cupon_code,$parameters->cupon_name,$parameters->cupon_discount,$parameters->cupon_id_departamento);
+        
         return 1;
     } 
     
@@ -421,7 +424,7 @@ function generarCupones($cant,$cupon_code){
 }
 
 
-function generarCuponesXtra($cant,$cupon_code,$cupon_name,$cupon_description,$department){
+function generarCuponesXtra($cant,$cupon_code,$cupon_name,$cupon_discount,$department){
     
 
 
@@ -431,7 +434,7 @@ function generarCuponesXtra($cant,$cupon_code,$cupon_name,$cupon_description,$de
         $wsdl="http://138.0.230.5:53168/operaciones.asmx?WSDL";
         $client=new nusoap_client($wsdl,true);
 
-        $result=$client->call('Insert',array('cupon_code'=>$cupon_code,'nombre'=>$cupon_name,'descuento'=>$cupon_description,'cantidad'=>$cant,'id_departamento'=>$department));
+        $result=$client->call('Insert',array('cupon_code'=>$cupon_code,'nombre'=>$cupon_name,'descuento'=>$cupon_discount,'cantidad'=>$cant,'id_departamento'=>$department));
 
         //$result=$client->call('Exist',array('cupon_code'=>'a001'));
 

@@ -10,11 +10,13 @@
               <center>
                  <svg id="barcd{{$index}}"></svg>
                  <h2>{{c.cupon_code}}</h2>
-                  <h2>{{c.cupon_name}}</h2>
-                  <p>Descuento: {{c.cupon_description}}%</p>
+                  <h2 style="color: red;font-style: oblique;font-family: fantasy;font-size: 1.2em;">{{c.cupon_name}}</h2>
+              
+                <h2 style="font-weight: bold;" >Valido hasta: {{ c.valid_thru | date:'dd/MM/y' }} </h2>
+
+                <h2 style="color: red;font-style: oblique;font-family: fantasy;font-size: 1.4em;">{{c.cupon_description}}</h2>
+
               </center>
-              <span>Valido hasta: {{c.valid_thru}}</span>
-           
             </div>
         </div>
         <div ng-if="wi > 800" style="height:auto;max-width:1200px;display:block;margin:auto;" >

@@ -323,7 +323,7 @@ angular.module('starter.controllers', ['datatables', 'starter.services', 'ion-da
                     template:  "<label style='margin-top: 1rem;display: block;font-size: .8rem;' for='title;'>Título del evento</label> \
                                 <input ng-model='cupon.cupon_name' id='title' placeholder='Título'/><br/> \
                                 <label style='margin-top: 1rem;display: block;font-size: .8rem;' for='expiration;'>Descripción o mensaje del evento</label> \
-                                <textarea ng-model='cupon.cupon_description' value='' placeholder='Descripción'/>\
+                                <textarea ng-model='cupon.cupon_description' value='' placeholder='descuento'/>\
                                 <label style='margin-top: 1rem;display: block;font-size: .8rem;' for='expiration;'>Fecha de expiración</label> \
                                 <div id='expirationDate' class='item' date ion-datetime-picker ng-model='cupon.expiration'>{{cupon.expiration| date: 'yyyy-MM-dd'}}</div> \
                                 <label style='display: block;font-size: .7rem;'>*El evento tendrá que ser desactivado manualmente.</label> \
@@ -744,8 +744,10 @@ angular.module('starter.controllers', ['datatables', 'starter.services', 'ion-da
                 myPopup = $ionicPopup.show({
                     template:  "<label style='margin-top: 1rem;display: block;font-size: 1.5rem;' for='title;'>Título del cupón</label> \
                                 <input ng-model='cupon.cupon_name' id='title' type='text' placeholder='Título'/><br/> \
+                                <label style='margin-top: 1rem;display: block;font-size: 1.5rem;' for='expiration;'>Descripción</label> \
+                                <input ng-model='cupon.cupon_description' type='text' value='' placeholder='mensaje'/>\
                                 <label style='margin-top: 1rem;display: block;font-size: 1.5rem;' for='expiration;'>Descuento en porcentaje</label> \
-                                <input ng-model='cupon.cupon_description' type='number' value='' placeholder='10'/>\
+                                <input ng-model='cupon.cupon_discount' type='number' value='' placeholder='10'/>\
                                 <label style='margin-top: 1rem;display: block;font-size: 1.5rem;' for='expiration;'>Código de departamento</label> \
                                 <input ng-model='cupon.cupon_id_departamento' type='number' value='' placeholder='1'/>\
                                 <label style='margin-top: 1rem;display: block;font-size: 1.5rem;' for='expiration;'>Fecha de expiración</label> \
@@ -778,10 +780,13 @@ angular.module('starter.controllers', ['datatables', 'starter.services', 'ion-da
                                     return;
                                 }
 
-                                if($scope.cupon.cupon_description == '' || $scope.cupon.cupon_description == undefined ){
-                                    alert('Debes porcentaje de descuento.');
+                                
+                                if($scope.cupon.cupon_discount == '' || $scope.cupon.cupon_discount == undefined ){
+                                    alert('Debes ingresar porcentaje de descuento.');
                                     return;
                                 }
+
+                                
 
                                  if($scope.cupon.cupon_id_departamento == undefined){
                                     alert('Debes ingresar el código del departamento.');
@@ -803,6 +808,7 @@ angular.module('starter.controllers', ['datatables', 'starter.services', 'ion-da
                                 var cupon_name = $scope.cupon.cupon_name;
                                 var cupon_cant = $scope.cupon.cupon_cant;
                                 var cupon_description = $scope.cupon.cupon_description;
+                                var cupon_discount = $scope.cupon.cupon_discount;
                                 var cupon_id_departamento = $scope.cupon.cupon_id_departamento;
                                 var cupon_points = $scope.cupon.cupon_points;
 
@@ -825,6 +831,7 @@ angular.module('starter.controllers', ['datatables', 'starter.services', 'ion-da
                                 form_data.append('img', new_image);
                                 form_data.append('cupon_name', cupon_name);
                                 form_data.append('cupon_description', cupon_description);
+                                form_data.append('cupon_discount', cupon_discount);
                                 form_data.append('cupon_id_departamento', cupon_id_departamento);
                                 form_data.append('cupon_cant', cupon_cant);
                                 //form_data.append('cupon_points', cupon_points);
