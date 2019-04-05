@@ -15,7 +15,7 @@
             background-image: url(bg-clouds.png);
             background-position: 0px 0px;
             background-repeat: repeat-x;
-            animation: animatedBackground 40s linear infinite;
+         /*  animation: animatedBackground 40s linear infinite; */
         }
     </style>
     <ion-content ng-init="loadThemeLoginBill()" overflow-scroll="true">
@@ -28,10 +28,10 @@
                 height: 100%;
                 width: 100%;
                 background-size: cover;
-                position: absolute;
-                overflow:scroll !important;
+            /*  position: absolute; 
+                  overflow:scroll !important;
                 -webkit-overflow-scrolling:touch !important
-                
+             */   
             }
 
             .innerShell {
@@ -41,11 +41,13 @@
             }
         </style>
         <div id="myRadHeight">
-            <div id="thmBackground" class="animate-area outerShell">
-                <div class="innerShell"  style="max-width: 500px;display: block;margin: auto">
-                    <div>
+            <div >
+                <div >
+                    <div id="thmBackground" class="animate-area outerShell">
                         <br><br>
-                        <img id="logoImg2" style="width:50%;margin-left:25%;margin-top:5px;" />
+                        <br><br>
+                        <img id="logoImg2" style="width:50%;margin-left:25%;margin-top:8px;" />
+                        <br>
                         <div id="innerCard" style="height:50%;width:100%; background-color: rgba(230, 0, 0, 0) !important;">
                             <div class="wrapper" >
                                 <div class="grisubshel" ng-click="openHelpLink(place.help_link)"  ng-if="place.show_help_link == 1" >
@@ -147,7 +149,8 @@
                                         <img ng-src="{{baseImgUrl}}{{checkinOptions.checkin_icon}}"  style="width:100%"  />
                                         <p class="textsubshelblack">Visitas</p>
                                 </div>-->
-                            
+                            <br><br>
+                            <br><br>
                             </div>
                             <p style="color:black;width:100%;text-align: center"></p>
                             <br><br>
