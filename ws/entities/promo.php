@@ -226,7 +226,7 @@ function add_cupon_cant($parameters) {
     }
 
 
-    echo $rest;
+    //echo $rest;
     
 
 
@@ -571,10 +571,10 @@ function adicionarCupones($cant,$cupon_code,$lastgenerated){
         }
         
 
-        if ($result === true) {
+       // if ($result === true) {
             //echo "entro al result";
-            echo json_encode($result);
-        } 
+        //    echo json_encode($result);
+        //} 
         //update_asignados($cupon_code);
 
        // echo "paso del for";
