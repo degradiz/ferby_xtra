@@ -218,7 +218,8 @@ function add_cupon_cant($parameters) {
         // output data of each row
         while($row = $result->fetch_assoc()) {
           //  echo "cupon_code: " . $row["cupon_code"]."<br>";
-            $rest = substr($row["cupon_code"], 8,-3);
+           // $rest = substr($row["cupon_code"], 8,-3);
+            $rest = substr($row["cupon_code"], 8);
         }
     } else {
         echo "0 results";
