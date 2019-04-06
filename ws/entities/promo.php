@@ -551,7 +551,8 @@ function adicionarCupones($cant,$cupon_code,$lastgenerated){
        $correlativo = $lastgenerated + 1;
             //echo "va al for";
        for ($i = 0; $i < $cant; $i++){
-       $code_generated = $cupon_code.'-'.$correlativo.random_strings(3);
+       //$code_generated = $cupon_code.'-'.$correlativo.random_strings(3);
+        $code_generated = $cupon_code.'-'.$correlativo;
         $query = "
             INSERT INTO `cupon_generated` (
                 
