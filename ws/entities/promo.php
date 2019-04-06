@@ -226,13 +226,13 @@ function add_cupon_cant($parameters) {
     }
 
 
-    //echo $rest;
+    echo $rest;
     
 
 
     if($rest>0){
         adicionarCupones($parameters->cupon_cant,$parameters->cupon_code,$rest);
-        echo "se adicionaron los cupones";
+       // echo "se adicionaron los cupones";
     }
 
 
