@@ -231,6 +231,7 @@ function add_cupon_cant($parameters) {
 
     if($rest>0){
         adicionarCupones($parameters->cupon_cant,$parameters->cupon_code,$rest);
+        echo "se adicionaron los cupones";
     }
 
 
@@ -434,7 +435,7 @@ function create_cupon($parameters) {
     }
 
     $parameters->cupon_code = generate_cupon_code($parameters);
-    echo $parameters->cupon_discount;
+    //echo $parameters->cupon_discount;
     $query = "
             INSERT INTO `cupon_code` (
                 `cupon_id`, 
@@ -567,7 +568,12 @@ function adicionarCupones($cant,$cupon_code,$lastgenerated){
            // echo $result;
             $correlativo += 1;
         }
+        
 
+        if ($result === true) {
+            //echo "entro al result";
+            echo json_encode($result);
+        } 
         //update_asignados($cupon_code);
 
        // echo "paso del for";
