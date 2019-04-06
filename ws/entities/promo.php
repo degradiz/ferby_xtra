@@ -471,7 +471,7 @@ function create_cupon($parameters) {
     if ($result === true) {
         //echo "entro al result";
         generarCupones($parameters->cupon_cant,$parameters->cupon_code);
-       // generarCuponesXtra($parameters->cupon_cant,$parameters->cupon_code,$parameters->cupon_name,$parameters->cupon_discount,$parameters->cupon_id_departamento);
+        generarCuponesXtra($parameters->cupon_cant,$parameters->cupon_code,$parameters->cupon_name,$parameters->cupon_discount,$parameters->cupon_id_departamento);
 
         return 1;
     } 
