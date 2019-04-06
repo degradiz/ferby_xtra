@@ -597,9 +597,9 @@ angular.module('starter.controllers', ['datatables', 'starter.services', 'ion-da
             $scope.add_cupon_cant = function (cupon) {
                 $scope.cupon = {};
 
-                $scope.cupon.cant = cupon.cupon_cant;
+                //$scope.cupon.cant = cupon.cupon_cant;
                 myPopup = $ionicPopup.show({
-                    template: '<input type="number" ng-model="cupon.cupon_cant" ng-value="" autofocus>',
+                    template: '<input type="number" ng-model="cupon.cant" ng-value="" autofocus>',
                     title: 'Adicionar cupones a '+cupon.cupon_code,
                     subTitle: 'Ingresar los cupones a adicionar',
                     scope: $scope,
@@ -610,7 +610,7 @@ angular.module('starter.controllers', ['datatables', 'starter.services', 'ion-da
                             type: 'button-stable',
                             onTap: function (e) {
 
-                                if($scope.cupon.cupon_cant == '' || $scope.cupon.cupon_cant == undefined ){
+                                if($scope.cupon.cant == '' || $scope.cupon.cant == undefined ){
                                     alert('Debes ingresar la cantidad a adicionar.');
                                     return;
                                 }
