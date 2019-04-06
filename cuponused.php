@@ -32,6 +32,23 @@ if ($result->num_rows > 0) {
     if($status != "Si"){
 		if ($con->query($sqlu) === TRUE) {
 		    echo "Consumo de cupón registrado.";
+
+            $query = "
+            UPDATE cupon_code 
+            SET redimidos = (select count(cupon_code) from cupon_generated where SUBSTRING(cupon_code, 1, 7) =  SUBSTRING('$codigo', 1, 7) and state = 1) 
+            WHERE cupon_code = SUBSTRING('$codigo', 1, 7)
+            ";
+
+            $result = mysqli_query($con, $query);
+            if ($result === true) {
+                echo 1;
+            } else {
+                echo mysqli_error($con);
+            }
+
+
+
+
 		} else {
 		    echo "Error actualizando: " . $con->error;
 		}

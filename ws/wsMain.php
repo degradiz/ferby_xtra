@@ -1397,11 +1397,11 @@ break;
         set_cupon_name($parameters);
         break;
 
-    case 'set_cupon_cant':
+    case 'add_cupon_cant':
         $parameters = new stdClass();
         $parameters->cupon_code = $_GET["cupon_code"];
         $parameters->cupon_cant = $_GET["cupon_cant"];
-        set_cupon_cant($parameters);
+        add_cupon_cant($parameters);
         break;
 
     case 'update_valid_thru':

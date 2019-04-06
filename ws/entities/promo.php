@@ -96,6 +96,7 @@ function asign_uuid_generated($parameters) {
                     if ($result === true) {
                             
                             $asigned += 1;
+                            update_asignados($cuponcode);
                     } 
                     else {
                             echo mysqli_error($con);
@@ -206,6 +207,64 @@ function set_cupon_description($parameters) {
     }
 }
 
+function add_cupon_cant($parameters) {
+    global $con;
+
+    $query = " SELECT cupon_code FROM `cupon_generated` where cupon_code LIKE '" . $parameters->cupon_code . "%' order by id_generated DESC LIMIT 1";
+
+    $result = $con->query($query);
+    $rest = 0;
+    if ($result->num_rows > 0) {
+        // output data of each row
+        while($row = $result->fetch_assoc()) {
+          //  echo "cupon_code: " . $row["cupon_code"]."<br>";
+            $rest = substr($row["cupon_code"], 8,-3);
+        }
+    } else {
+        echo "0 results";
+    }
+
+
+    //echo $rest;
+    
+
+
+    if($rest>0){
+        adicionarCupones($parameters->cupon_cant,$parameters->cupon_code,$rest);
+    }
+
+
+    $query2 = " SELECT count(cupon_code) total FROM `cupon_generated` where cupon_code like '" . $parameters->cupon_code . "%'";
+
+    $result2 = $con->query($query2);
+    $total = 0;
+    if ($result2->num_rows > 0) {
+        // output data of each row
+        while($row = $result2->fetch_assoc()) {
+          //  echo "total: " . $row["total"]."<br>";
+            $total = $row["total"];
+        }
+    } else {
+        echo "0 results";
+    }
+
+    $query3 = "
+    UPDATE cupon_code 
+    SET cupon_cant = $total 
+    WHERE cupon_code = '$parameters->cupon_code'
+    ";
+
+    $result = mysqli_query($con, $query3);
+    if ($result === true) {
+        echo 1;
+    } else {
+        echo mysqli_error($con);
+    }
+    
+
+
+}
+
 
 function set_cupon_name($parameters) {
     global $con;
@@ -259,6 +318,42 @@ function set_cupon_image($parameters) {
     } else {
         echo mysqli_error($con);
     }
+}
+
+function update_redimidos($cupon_code){
+    global $con;
+
+    $query = "
+    UPDATE cupon_code 
+    SET redimidos = (select count(cupon_code) from cupon_generated where SUBSTRING(cupon_code, 1, 7) =  '$cupon_code' and state = 1) 
+    WHERE cupon_code = '$cupon_code'
+    ";
+
+    $result = mysqli_query($con, $query);
+    if ($result === true) {
+        return 1;
+    } else {
+        echo mysqli_error($con);
+    }
+
+}
+
+function update_asignados($cupon_code){
+    global $con;
+
+    $query = "
+    UPDATE cupon_code 
+    SET asignados = (select count(cupon_code) from cupon_generated where SUBSTRING(cupon_code, 1, 7) =  '$cupon_code' and uuid is not null) 
+    WHERE cupon_code = '$cupon_code'
+    ";
+
+    $result = mysqli_query($con, $query);
+    if ($result === true) {
+        return 1;
+    } else {
+        echo mysqli_error($con);
+    }
+
 }
 
 function add_cupon_redeem($parameters){
@@ -377,7 +472,7 @@ function create_cupon($parameters) {
         //echo "entro al result";
         generarCupones($parameters->cupon_cant,$parameters->cupon_code);
        // generarCuponesXtra($parameters->cupon_cant,$parameters->cupon_code,$parameters->cupon_name,$parameters->cupon_discount,$parameters->cupon_id_departamento);
-        
+
         return 1;
     } 
     
@@ -445,6 +540,36 @@ function generarCuponesXtra($cant,$cupon_code,$cupon_name,$cupon_discount,$depar
 
 
 
+
+}
+
+function adicionarCupones($cant,$cupon_code,$lastgenerated){
+    
+    global $con;
+
+       $correlativo = $lastgenerated + 1;
+            //echo "va al for";
+       for ($i = 0; $i < $cant; $i++){
+       $code_generated = $cupon_code.'-'.$correlativo.random_strings(3);
+        $query = "
+            INSERT INTO `cupon_generated` (
+                
+                `cupon_code`
+                ) 
+            VALUES (                
+                '$code_generated'
+            );";
+
+            $result = mysqli_query($con, $query);
+           // echo $query;
+           // echo $result;
+            $correlativo += 1;
+        }
+
+        //update_asignados($cupon_code);
+
+       // echo "paso del for";
+        return mysqli_error($con);
 
 }
 

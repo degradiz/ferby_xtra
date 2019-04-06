@@ -553,47 +553,6 @@ angular.module('starter.controllers', ['datatables', 'starter.services', 'ion-da
             };
 
 
-             $scope.set_cupon_cant = function (cupon) {
-                $scope.cupon = {};
-
-                $scope.cupon.name = cupon.cupon_cant;
-                myPopup = $ionicPopup.show({
-                    template: '<input type="text" ng-model="cupon.name" ng-value="cupon.name" autofocus>',
-                    title: 'Editar '+cupon.cupon_cant,
-                    subTitle: 'Actualizar el texto del boton',
-                    scope: $scope,
-                    buttons: [
-                        {text: 'Cancelar'},
-                        {
-                            text: '<b>Actualizar</b>',
-                            type: 'button-stable',
-                            onTap: function (e) {
-                                $ionicLoading.show({ templateUrl: 'dialogs/loader.html'});
-                                return $scope.cupon;
-                            }
-                        }
-                    ]
-                });
-              
-                myPopup.then(function(res){
-                    $.get(getServerPath(), {
-                        action: 'set_cupon_cant',
-                        cupon_code: cupon.cupon_code,
-                        cupon_cant: res.cant
-                    }, function (r) {
-                        $ionicLoading.hide()
-                        if(r==1)
-                        {
-                            alert('Texto actualizado correctamente');
-                            $scope.getCupones();
-                            return;
-                        }
-
-                        alert('Ocurrio un problema, si el registro no guardo intenta nuevamente o contacta a administracion.');
-                    });
-                });
-            };
-
             $scope.set_cupon_description = function (cupon) {
                 $scope.cupon = {};
 
@@ -626,6 +585,53 @@ angular.module('starter.controllers', ['datatables', 'starter.services', 'ion-da
                         if(r==1)
                         {
                             alert('Texto actualizado correctamente');
+                            $scope.getCupones();
+                            return;
+                        }
+
+                        alert('Ocurrio un problema, si el registro no guardo intenta nuevamente o contacta a administracion.');
+                    });
+                });
+            };
+
+            $scope.add_cupon_cant = function (cupon) {
+                $scope.cupon = {};
+
+                $scope.cupon.cant = cupon.cupon_cant;
+                myPopup = $ionicPopup.show({
+                    template: '<input type="number" ng-model="cupon.cant" ng-value="" autofocus>',
+                    title: 'Adicionar cupones a '+cupon.cupon_code,
+                    subTitle: 'Ingresar los cupones a adicionar',
+                    scope: $scope,
+                    buttons: [
+                        {text: 'Cancelar'},
+                        {
+                            text: '<b>Adicionar</b>',
+                            type: 'button-stable',
+                            onTap: function (e) {
+
+                                if($scope.cupon.cupon_cant == '' || $scope.cupon.cupon_cant == undefined ){
+                                    alert('Debes ingresar la cantidad a adicionar.');
+                                    return;
+                                }
+
+                                $ionicLoading.show({ templateUrl: 'dialogs/loader.html'});
+                                return $scope.cupon;
+                            }
+                        }
+                    ]
+                });
+              
+                myPopup.then(function(res){
+                    $.get(getServerPath(), {
+                        action: 'add_cupon_cant',
+                        cupon_code: cupon.cupon_code,
+                        cupon_cant: res.cant
+                    }, function (r) {
+                        $ionicLoading.hide()
+                        if(r==1)
+                        {
+                            alert('Cupones adicionados correctamente');
                             $scope.getCupones();
                             return;
                         }
