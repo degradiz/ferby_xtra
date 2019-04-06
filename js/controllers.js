@@ -599,7 +599,7 @@ angular.module('starter.controllers', ['datatables', 'starter.services', 'ion-da
 
                 $scope.cupon.cant = cupon.cupon_cant;
                 myPopup = $ionicPopup.show({
-                    template: '<input type="number" ng-model="cupon.cant" ng-value="" autofocus>',
+                    template: '<input type="number" ng-model="cupon.cupon_cant" ng-value="" autofocus>',
                     title: 'Adicionar cupones a '+cupon.cupon_code,
                     subTitle: 'Ingresar los cupones a adicionar',
                     scope: $scope,
