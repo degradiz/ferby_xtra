@@ -7271,6 +7271,27 @@ angular.module('starter.controllers', ['datatables', 'starter.services', 'ion-da
                 });
             }
 
+            $scope.switch_show_scanner = function(turn, p){
+                console.log('SWITCH: '+JSON.stringify(+ turn));
+                console.log('PLACE: '+JSON.stringify(p));
+                $.get(getServerPath(), {
+                        action: 'switch_show_scanner',
+                        place_id: p.place_id,
+                        show_scanner: + turn
+                    }, function (r) {
+                        if(r==1)
+                        {
+                            setTimeout(function () {
+                                $scope.getPersonalizeSettings();
+                            }, 500)
+                            return;
+                        }
+
+                        alert('Ocurrio un problema, si el registro no guardo intenta nuevamente o contacta a administracion.');
+                        console.log('error: '+JSON.stringify(r));
+                });
+            }
+
 
 
             $scope.set_img_locations = function (place_id) {
@@ -8249,6 +8270,62 @@ angular.module('starter.controllers', ['datatables', 'starter.services', 'ion-da
 
                                 var form_data = new FormData();
                                 form_data.append('action', 'set_messenger_img');
+                                form_data.append('img', new_image);
+                                form_data.append('place_id', place_id);
+                                $.ajax({
+                                    url: getServerPath(),
+                                    dataType: 'text',
+                                    cache: false,
+                                    contentType: false,
+                                    processData: false,
+                                    data: form_data,
+                                    type: 'post',
+                                    success: function (data) {
+                                        $ionicLoading.hide()
+                                        var d = $.trim(data);
+                                        if (d == '1') {
+                                            alert('Registrado Correctamente');
+                                            $scope.getPersonalizeSettings();
+                                        } else {
+                                            alert(data);
+                                        }
+                                    }
+                                });
+                            }
+                        }
+                    ]
+                });
+            }
+
+            $scope.set_scanner_img = function (place_id) {
+                var MAX_SIZE = LOGO_MAX_SIZE;
+                myPopup = $ionicPopup.show({
+                    templateUrl: 'dialogs/insert_background.html',
+                    title: 'Inserte una Imagen',
+                    subTitle: 'Elige una nueva imagen (De preferencia con arte simple y plano).<br>*Su imagen no debe exceder a ' + MAX_SIZE / 1048576 + 'MB',
+                    scope: $scope,
+                    buttons: [
+                        {text: 'Cancelar'},
+                        {
+                            text: '<b>Actualizar</b>',
+                            type: 'button-stable',
+                            onTap: function () {
+                                $ionicLoading.show({
+                                    templateUrl: 'dialogs/loader.html',
+                                });
+                                var new_image = $.trim($('#new_image').val()).length != 0 ? $('#new_image').prop('files')[0] : " ";
+
+                                var IMAGE_SIZE = new_image.size;
+                                if (IsValidSize(IMAGE_SIZE, MAX_SIZE) === false) {
+                                    alert('La imagen seleccionada es mayor a ' + MAX_SIZE / 1048576 + "MB, debe elegir una imagen de menor tamaño.");
+                                    $ionicLoading.hide()
+                                    return;
+                                }
+
+                                console.log('size image: ' + new_image.size);
+
+                                var form_data = new FormData();
+                                form_data.append('action', 'set_scanner_img');
                                 form_data.append('img', new_image);
                                 form_data.append('place_id', place_id);
                                 $.ajax({

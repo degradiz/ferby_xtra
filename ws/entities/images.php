@@ -176,6 +176,22 @@ function set_messenger_img($img, $place_id) {
     }
 }
 
+function set_scanner_img($img, $place_id) {
+    global $con;
+
+
+    $fileRoute = uploadedFileUrl($img);
+    $namelFotoV = $fileRoute['name'];
+
+    $query = "UPDATE place SET scanner_img = '$namelFotoV' WHERE place_id = '$place_id'";
+    $result = mysqli_query($con, $query);
+    if ($result === true) {
+        echo 1;
+    } else {
+        echo mysqli_error($con);
+    }
+}
+
 function set_facebook_img($img, $place_id) {
     global $con;
 

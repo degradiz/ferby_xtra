@@ -220,6 +220,13 @@ switch ($action) {
         $result = switch_show_messenger($parameters);
         print json_encode($result);
         break;
+    case 'switch_show_scanner':
+        $parameters = new stdClass();
+        $parameters->place_id = $_GET["place_id"];
+        $parameters->show_scanner = $_GET["show_scanner"];
+        $result = switch_show_scanner($parameters);
+        print json_encode($result);
+        break;
     case 'switch_show_phone':
         $parameters = new stdClass();
         $parameters->place_id = $_GET["place_id"];
@@ -2029,6 +2036,17 @@ break;
             break;
         }
         set_messenger_img($img, $place_id);
+        break;
+
+    case 'set_scanner_img':
+        $img = isset($_FILES["img"]) ? $_FILES["img"] : (isset($_FILES["img"]) ? $_FILES["img"] : "0");
+        $place_id = isset($_GET["place_id"]) ? $_GET["place_id"] : (isset($_POST["place_id"]) ? $_POST["place_id"] : "0");
+
+        if (valid_image($img) == 'false') {
+            echo -1;
+            break;
+        }
+        set_scanner_img($img, $place_id);
         break;
 
     case 'set_facebook_img':

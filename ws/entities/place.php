@@ -222,6 +222,24 @@ function switch_show_messenger($parameters) {//
 
 }
 
+function switch_show_scanner($parameters) {//
+    global $con;
+
+    $query = "
+    UPDATE place 
+    SET show_scanner = '$parameters->show_scanner' 
+    WHERE place_id = '$parameters->place_id'
+    ";
+
+    $result = mysqli_query($con, $query);
+    if ($result === true) {
+        return 1;
+    } 
+    
+    return 0; //mysqli_error($con);
+
+}
+
 function switch_show_facebook($parameters) {//
     global $con;
 
