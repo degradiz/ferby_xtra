@@ -444,6 +444,26 @@
                                         <div class="container" style="margin-bottom: 0px">
                                             <center>
                                                 
+                                                <img style="width:100%" src="img/{{p.scanner_img}}" alt="Edit" class="image" />
+                                                <div class="overlay">
+                                                    <div ng-click="set_scanner_img(p.place_id)" class="text">Actualizar</div>
+                                                </div>
+                                            </center>
+                                        </div>
+                                        <div  style="margin: 0; padding: -5" class="container">
+                                            <input type="checkbox"  ng-checked="{{p.show_scanner}}" ng-model="p.show_scanner" ng-click='switch_show_scanner($event.target.checked, p)'  id="switch_show_scanner{{p.place_id}}" class="switch-input">
+                                            <label for="switch_show_scanner{{p.place_id}}" class="switch-label"><span class="toggle--on">On</span><span class="toggle--off">Off</span></label>
+                                        </div>
+                                        <span style="font-size: 12px">
+                                            Botón Escaner
+                                            </span>
+                                    </div>
+
+                                    <div class="grisubshel">
+                                       
+                                        <div class="container" style="margin-bottom: 0px">
+                                            <center>
+                                                
                                                 <img style="width:100%" src="img/{{p.messenger_img}}" alt="Edit" class="image" />
                                                 <div class="overlay">
                                                     <div ng-click="set_messenger_img(p.place_id)" class="text">Actualizar</div>

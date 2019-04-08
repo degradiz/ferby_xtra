@@ -108,9 +108,9 @@
                                         <p class="textsubshelblack">Eventos</p>
                                 </div>
                                
-                                <div class="grisubshel" ng-click="openME();" ng-if="0 == 0" >
-                                        <img ng-src="{{baseImgUrl}}{{place.messenger_img}}" style="width:100%" />
-                                        <p class="textsubshelblack">Usuario</p>
+                                <div class="grisubshel" ng-click="openME();" ng-if="place.show_scanner == 1" >
+                                        <img ng-src="{{baseImgUrl}}{{place.scanner_img}}" style="width:100%" />
+                                        <p class="textsubshelblack">Escaner</p>
                                 </div>
                             
                                 <div class="grisubshel" ng-click="openME();" ng-if="place.show_messenger == 1" >
