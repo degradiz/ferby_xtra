@@ -232,6 +232,7 @@ function add_cupon_cant($parameters) {
 
     if($rest>0){
         adicionarCupones($parameters->cupon_cant,$parameters->cupon_code,$rest);
+        adicionarCuponesXtra($parameters->cupon_cant,$parameters->cupon_code,$parameters->cupon_name,$parameters->cupon_discount,$parameters->cupon_id_departamento,$rest);
        // echo "se adicionaron los cupones";
     }
 
@@ -280,9 +281,35 @@ function set_cupon_name($parameters) {
     $result = mysqli_query($con, $query);
     if ($result === true) {
         echo 1;
+        //como se actualizo entonces enviamos a Xtra a actualizar igual
+        set_cupon_nameXtra($parameters->cupon_code,$parameters->cupon_name);
     } else {
         echo mysqli_error($con);
     }
+}
+
+function set_cupon_nameXtra($cupon_code,$cupon_name){
+    
+
+
+    require_once '../nusoap/lib/nusoap.php';
+
+        //$wsdl="http://localhost:53168/operaciones.asmx?WSDL";
+        $wsdl="http://138.0.230.5:53168/operaciones.asmx?WSDL";
+        $client=new nusoap_client($wsdl,true);
+
+        $result=$client->call('nombre',array('cupon_code'=>$cupon_code,'nombre'=>$cupon_name));
+
+        //$result=$client->call('Exist',array('cupon_code'=>'a001'));
+
+       //var_dump($result);
+
+        //echo $result['InsertResult'];
+   // print_r($result['nombreResult']) ;
+
+
+
+
 }
 
 
@@ -540,6 +567,30 @@ function generarCuponesXtra($cant,$cupon_code,$cupon_name,$cupon_discount,$depar
 
         //echo $result['InsertResult'];
     print_r($result['InsertResult']) ;
+
+
+
+
+}
+
+function adicionarCuponesXtra($cant,$cupon_code,$cupon_name,$cupon_discount,$department,$lastgenerated){
+    
+
+
+    require_once '../nusoap/lib/nusoap.php';
+
+        //$wsdl="http://localhost:53168/operaciones.asmx?WSDL";
+        $wsdl="http://138.0.230.5:53168/operaciones.asmx?WSDL";
+        $client=new nusoap_client($wsdl,true);
+
+        $result=$client->call('add',array('cupon_code'=>$cupon_code,'nombre'=>$cupon_name,'descuento'=>$cupon_discount,'cantidad'=>$cant,'id_departamento'=>$department,'last'=>$lastgenerated));
+
+        //$result=$client->call('Exist',array('cupon_code'=>'a001'));
+
+       //var_dump($result);
+
+        //echo $result['InsertResult'];
+   // print_r($result['addResult']) ;
 
 
 

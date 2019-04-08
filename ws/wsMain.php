@@ -1400,6 +1400,9 @@ break;
     case 'add_cupon_cant':
         $parameters = new stdClass();
         $parameters->cupon_code = $_GET["cupon_code"];
+        $parameters->cupon_name = $_GET["cupon_name"];
+        $parameters->cupon_discount = $_GET["cupon_discount"];
+        $parameters->cupon_id_departamento = $_GET["cupon_id_departamento"];
         $parameters->cupon_cant = $_GET["cupon_cant"];
         add_cupon_cant($parameters);
         break;

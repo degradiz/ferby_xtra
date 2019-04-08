@@ -598,8 +598,19 @@ angular.module('starter.controllers', ['datatables', 'starter.services', 'ion-da
                 $scope.cupon = {};
 
                 //$scope.cupon.cant = cupon.cupon_cant;
+                $scope.cupon.name = cupon.cupon_name;
+                $scope.cupon.id_departamento = cupon.cupon_id_departamento;
+                $scope.cupon.discount = cupon.cupon_discount;
                 myPopup = $ionicPopup.show({
-                    template: '<input type="number" ng-model="cupon.cant" ng-value="" autofocus>',
+                    template:  '<label style="margin-top: 1rem;display: block;font-size: 1.5rem;" for="title;">Título del cupón</label> \
+                                <input type="text" readonly ng-model="cupon.name" ng-value="cupon.name"><br/> \
+                                <label style="margin-top: 1rem;display: block;font-size: 1.5rem;" for="expiration;">Descuento en porcentaje</label> \
+                                <input ng-model="cupon.discount" readonly type="number" ng-value="cupon.discount"/>\
+                                <label style="margin-top: 1rem;display: block;font-size: 1.5rem;" for="expiration;">Código de departamento</label> \
+                                <input ng-model="cupon.id_departamento" readonly type="number" ng-value="cupon.id_departamento"/>\
+                                <label style="margin-top: 1rem;display: block;font-size: 1.5rem;" for="cant;">Cantidad de cupones a adicionar</label> \
+                                <input ng-model="cupon.cant" type="number"  id="cant" placeholder="1000" autofocus/><br/>'
+                    ,
                     title: 'Adicionar cupones a '+cupon.cupon_code,
                     subTitle: 'Ingresar los cupones a adicionar',
                     scope: $scope,
@@ -626,6 +637,10 @@ angular.module('starter.controllers', ['datatables', 'starter.services', 'ion-da
                     $.get(getServerPath(), {
                         action: 'add_cupon_cant',
                         cupon_code: cupon.cupon_code,
+                        cupon_name: cupon.cupon_name,
+                        cupon_id_departamento: cupon.cupon_id_departamento,
+                        cupon_discount: cupon.cupon_discount,
+
                         cupon_cant: res.cant
                     }, function (r) {
                         $ionicLoading.hide()
