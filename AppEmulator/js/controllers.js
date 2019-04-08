@@ -251,7 +251,7 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
                            //console.log($scope.coupons[i].cupon_code)
                            var cuponcd = "#" + $scope.coupons[i].cupon_code
                            //console.log(cuponcd);
-                           JsBarcode("#barcd" + i , $scope.coupons[i].cupon_code, {displayValue: false});
+                           JsBarcode("#barcd" + i , $scope.coupons[i].cupon_code, {format: "CODE128",displayValue: false});
 
                     }
                 },2000)
