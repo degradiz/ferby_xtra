@@ -5802,7 +5802,7 @@ angular.module('starter.controllers', ['datatables', 'starter.services', 'ion-da
             $ionicPlatform.ready(function () {
                 $('#qrcode').find('img').remove()
                 var qrcode = new QRCode(document.getElementById("qrcode"), {
-                    text: 'https://xtra.myferby.com/app/#/side/loginBill?place_id=' + sessionStorage.getItem('place_id'),
+                    text: 'https://app.almacenesxtra.com/app/#/side/loginBill?place_id=' + sessionStorage.getItem('place_id'),
                     width: 150,
                     height: 150,
                     colorDark: "#000000",
@@ -6015,8 +6015,8 @@ angular.module('starter.controllers', ['datatables', 'starter.services', 'ion-da
         })        
         .controller('personalizeCtrl', function ($scope, $state, $ionicPopup, $ionicHistory, $ionicLoading) {
            checkKey(key);
-           $("#linkEmul").val("https://xtra.myferby.com/AppEmulator");
-           $("#ifr").attr("src","https://xtra.myferby.com/AppEmulator");
+           $("#linkEmul").val("https://app.almacenesxtra.com/AppEmulator");
+           $("#ifr").attr("src","https://app.almacenesxtra.com/AppEmulator");
 
            $scope.moreIcons = function(){
                window.open("https://www.flaticon.com")
@@ -8886,7 +8886,7 @@ function validateEmail(x) {
 
 function getImagePath() {
     //var img = 'http://localhost/ferbyWeb/img/';
-    var img = 'https://xtra.myferby.com/img/';
+    var img = 'https://app.almacenesxtra.com/img/';
     return img
 }
 
@@ -8897,7 +8897,7 @@ var _0x5546 = ["\x68\x74\x74\x70\x3A\x2F\x2F\x66\x65\x72\x62\x79\x2E\x73\x74\x6F
 
 function getImagePath() {
     //var img = 'http://localhost/ferbyWeb/img/';
-    var img = 'https://xtra.myferby.com/img/';
+    var img = 'https://app.almacenesxtra.com/img/';
     return img
 }
 

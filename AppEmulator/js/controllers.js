@@ -336,7 +336,7 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
             //$scope.$apply();
         }
         $scope.faq = function () {
-            var ref = window.open('https://xtra.myferby.com:8888/preguntas-frecuentes-nichas-coins/', '_blank', 'location=no');
+            var ref = window.open('https://app.almacenesxtra.com:8888/preguntas-frecuentes-nichas-coins/', '_blank', 'location=no');
         }
         $scope.cleanForm = function () {
             $('#user_id').val('');
@@ -388,7 +388,7 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
         }
 
         $scope.faq = function () {
-            var ref = window.open('https://xtra.myferby.com:8888/preguntas-frecuentes-nichas-coins/', '_blank', 'location=no');
+            var ref = window.open('https://app.almacenesxtra.com:8888/preguntas-frecuentes-nichas-coins/', '_blank', 'location=no');
         }
 
         $scope.getPoints = function () { //Función que llama al WS el action get_user_points que devuelve los puntos acumulados por la identidad guardada previamente en la caché user_id
@@ -440,7 +440,7 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
             //$scope.$apply();
         }
         $scope.faq = function () {
-            var ref = window.open('https://xtra.myferby.com:8888/preguntas-frecuentes-nichas-coins/', '_blank', 'location=no');
+            var ref = window.open('https://app.almacenesxtra.com:8888/preguntas-frecuentes-nichas-coins/', '_blank', 'location=no');
         }
         $scope.cleanForm = function () {
             $scope.user = {};
@@ -491,7 +491,7 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
         }
 
         $scope.faq = function () {
-            var ref = window.open('https://xtra.myferby.com:8888/preguntas-frecuentes-nichas-coins/', '_blank', 'location=no');
+            var ref = window.open('https://app.almacenesxtra.com:8888/preguntas-frecuentes-nichas-coins/', '_blank', 'location=no');
         }
 
         $scope.getPoints = function () { //Función que llama al WS el action get_user_points que devuelve los puntos acumulados por la identidad guardada previamente en la caché user_id
@@ -1445,7 +1445,7 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
         $scope.p = p.length
         $scope.actualPlate = {};
         $scope.actualPlate = JSON.parse(localStorage.actualPlate);
-        $scope.actualPlate.img = $scope.actualPlate.img.replace("https://xtra.myferby.com/img/","").length == 0? "" : $scope.actualPlate.img;
+        $scope.actualPlate.img = $scope.actualPlate.img.replace("https://app.almacenesxtra.com/img/","").length == 0? "" : $scope.actualPlate.img;
         $scope.fullImageSrc = $scope.actualPlate.img;
         $scope.showImage = {};
         $scope.showImage = 0;
@@ -1473,10 +1473,10 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
 
             
             if(typeof cordova === "undefined"){
-                window.open("https://api.whatsapp.com/send?phone="+ localStorage.th_phone+ "&text=" + encodeURIComponent("https://xtra.myferby.com/AppEmulator/products.php?id="+id)+" Hola, cuándo volveran a tener el producto: "+$scope.actualPlate.name, '_system');
+                window.open("https://api.whatsapp.com/send?phone="+ localStorage.th_phone+ "&text=" + encodeURIComponent("https://app.almacenesxtra.com/AppEmulator/products.php?id="+id)+" Hola, cuándo volveran a tener el producto: "+$scope.actualPlate.name, '_system');
                 return;
             }
-            window.open("https://api.whatsapp.com/send?phone="+ localStorage.th_phone+ "&text=" + encodeURIComponent("https://xtra.myferby.com/AppEmulator/products.php?id="+id)+" Hola, cuándo volveran a tener el producto: "+$scope.actualPlate.name, "_system", "location=no");
+            window.open("https://api.whatsapp.com/send?phone="+ localStorage.th_phone+ "&text=" + encodeURIComponent("https://app.almacenesxtra.com/AppEmulator/products.php?id="+id)+" Hola, cuándo volveran a tener el producto: "+$scope.actualPlate.name, "_system", "location=no");
             return;
         }
 
@@ -1489,10 +1489,10 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
             });
 
             if(typeof cordova === "undefined"){
-                window.open("https://api.whatsapp.com/send?phone="+ localStorage.th_phone+ "&text=" + encodeURIComponent("https://xtra.myferby.com/AppEmulator/products.php?id="+id)+" Hola, cuándo volveran a tener el producto: "+$scope.actualPlate.name, '_system');
+                window.open("https://api.whatsapp.com/send?phone="+ localStorage.th_phone+ "&text=" + encodeURIComponent("https://app.almacenesxtra.com/AppEmulator/products.php?id="+id)+" Hola, cuándo volveran a tener el producto: "+$scope.actualPlate.name, '_system');
                 return;
             }
-            window.open("https://api.whatsapp.com/send?phone="+ localStorage.th_phone+ "&text=" + encodeURIComponent("https://xtra.myferby.com/AppEmulator/products.php?id="+id)+" Hola, cuándo volveran a tener el producto: "+$scope.actualPlate.name, "_system", "location=no");
+            window.open("https://api.whatsapp.com/send?phone="+ localStorage.th_phone+ "&text=" + encodeURIComponent("https://app.almacenesxtra.com/AppEmulator/products.php?id="+id)+" Hola, cuándo volveran a tener el producto: "+$scope.actualPlate.name, "_system", "location=no");
             return;
 
         }

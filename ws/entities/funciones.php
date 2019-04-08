@@ -284,7 +284,7 @@ function massive_emails_place($place_id, $message, $image, $subject, $logo) {
         $fileRoute = uploadedFileUrl($image);
         $namelFotoV = $fileRoute['name'];
         $imgoption = 1;
-        $imgurl = 'https://xtra.myferby.com/img/' . $namelFotoV;
+        $imgurl = 'https://app.almacenesxtra.com/img/' . $namelFotoV;
     } else {
         $imgoption = 0;
         $imgurl = '';
