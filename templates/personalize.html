@@ -361,7 +361,7 @@
                                             Botón Tienda
                                         </span>
                                     </div>
-                                    -->
+                                -->
                                     <div class="grisubshel">
                                         
                                         <div class="container" style="margin-bottom: 0px">
@@ -421,28 +421,28 @@
                                             </span>
                                     </div>
             
-                                    <div class="grisubshel">
-                                      
-                                        <div class="container" style="margin-bottom: 0px">
-                                            <center>
-                                                
-                                                <img style="width:100%" src="{{settingImg}}" alt="Edit" class="image" />
-                                                <div class="overlay">
-                                                    <div ng-click="set_img_addon_puntos(p.place_id)" class="text">Actualizar</div>
-                                                </div>
-                                            </center>
+                                     <div class="grisubshel">
+                                          
+                                            <div class="container" style="margin-bottom: 0px">
+                                                <center>
+                                                    
+                                                    <img style="width:100%" src="{{settingImg}}" alt="Edit" class="image" />
+                                                    <div class="overlay">
+                                                        <div ng-click="set_img_addon_puntos(p.place_id)" class="text">Actualizar</div>
+                                                    </div>
+                                                </center>
+                                            </div>
+                                            <div  style="margin: 0; padding: -5" class="container">
+                                                <input type="checkbox"  ng-checked="{{p.addon_puntos}}" ng-model="p.addon_puntos" ng-click='switch_addon_puntos($event.target.checked, p)'  id="switch_addon_puntos{{p.place_id}}" class="switch-input">
+                                                <label for="switch_addon_puntos{{p.place_id}}" class="switch-label"><span class="toggle--on">On</span><span class="toggle--off">Off</span></label>
+                                            </div>
+                                            <span style="font-size: 12px" ng-click="set_redeem_name(setting)">
+                                                <a> <i class="ion-edit"><u>{{setting.redeem_name}}</u></i> </a>
+                                            </span>
+                                            <!-- <span style="font-size: 12px">
+                                                Botón Puntos
+                                                </span> -->
                                         </div>
-                                        <div  style="margin: 0; padding: -5" class="container">
-                                            <input type="checkbox"  ng-checked="{{p.addon_puntos}}" ng-model="p.addon_puntos" ng-click='switch_addon_puntos($event.target.checked, p)'  id="switch_addon_puntos{{p.place_id}}" class="switch-input">
-                                            <label for="switch_addon_puntos{{p.place_id}}" class="switch-label"><span class="toggle--on">On</span><span class="toggle--off">Off</span></label>
-                                        </div>
-                                        <span style="font-size: 12px" ng-click="set_redeem_name(setting)">
-                                            <a> <i class="ion-edit"><u>{{setting.redeem_name}}</u></i> </a>
-                                        </span>
-                                        <!-- <span style="font-size: 12px">
-                                            Botón Puntos
-                                            </span> -->
-                                    </div>
             
                                     <div class="grisubshel">
                                        
