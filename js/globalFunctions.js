@@ -1,12 +1,12 @@
 function getServerPath() {
-    var serverPath = 'http://localhost/ferby_xtra/ws/wsMain.php';
-   //var serverPath = 'https://app.almacenesxtra.com/ws/wsMain.php';
+    //var serverPath = 'http://localhost/ferby_xtra/ws/wsMain.php';
+   var serverPath = 'https://app.almacenesxtra.com/ws/wsMain.php';
     return serverPath;
 }
 
 function baseUrl(){
-    return 'http://localhost/ferby_xtra/';
-    //return 'https://app.almacenesxtra.com/';
+    //return 'http://localhost/ferby_xtra/';
+    return 'https://app.almacenesxtra.com/';
 }
 
 function validateScope(scope){    
