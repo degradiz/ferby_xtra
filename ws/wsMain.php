@@ -485,7 +485,8 @@ switch ($action) {
         $factura = $_GET['factura'];
         $place_id = $_GET['place_id'];
         $amt = $_GET['amt'];
-        insertPoints_manually($username,$factura,$place_id,$amt);
+        $tienda = $_GET['tienda'];
+        insertPoints_manually($username,$factura,$place_id,$amt,$tienda);
         break;    
 
     case 'get_place_points':

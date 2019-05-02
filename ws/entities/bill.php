@@ -774,16 +774,19 @@ function notifyEmail($place_loc_id, $nombre, $telefono1, $email, $direccion, $bi
 }
 
 
-function insertPoints_manually($username,$factura,$place_loc_id,$amt) {
+function insertPoints_manually($username,$factura,$place_loc_id,$amt,$tienda) {
     global $con;
     $prequery = "select place_id from place_location where place_location_id = $place_loc_id LIMIT 1";
     $presth = mysqli_query($con, $prequery);
     while ($rPre = mysqli_fetch_assoc($presth)) {
         $place_id = $rPre['place_id'];
-        $query = "INSERT INTO `gift_points` (`gift_point_id`, `gift_place_id`, `gift_username`, `gift_points`, `gift_bill_id`, `gift_time`) VALUES (NULL, '$place_id', '$username', '$amt', '$factura', CURRENT_TIMESTAMP);"; 
+
+        $query = "INSERT INTO `gift_points` (`gift_point_id`, `gift_place_id`, `gift_username`, `gift_points`, `gift_bill_id`, `gift_time`, `idtienda`) VALUES (NULL, '$place_id', '$username', '$amt', '$factura', CURRENT_TIMESTAMP, '$tienda');"; 
         $result = mysqli_query($con, $query);
+
         $otroQuery = "INSERT INTO `receipt_points` (`receipt_points_id`, `receipt_gift_points`, `receipt_username`, `receipt_place_id`, `receipt_place_location_id`, `receipt_name`, `receipt_place`, `receipt_date`, `deleted`) VALUES (NULL, '$amt', '$username', '$place_id', '$place_loc_id', '', '', CURRENT_TIMESTAMP, '0');";
         mysqli_query($con, $otroQuery);
+        
         if ($result === TRUE) {
             echo 1;
         } else {
