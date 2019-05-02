@@ -782,6 +782,9 @@ function insertPoints_manually($username,$factura,$place_loc_id,$amt,$tienda) {
         $place_id = $rPre['place_id'];
 
         $query = "INSERT INTO `gift_points` (`gift_point_id`, `gift_place_id`, `gift_username`, `gift_points`, `gift_bill_id`, `gift_time`, `idtienda`) VALUES (NULL, '$place_id', '$username', '$amt', '$factura', CURRENT_TIMESTAMP, '$tienda');"; 
+
+        echo $query;
+
         $result = mysqli_query($con, $query);
 
         $otroQuery = "INSERT INTO `receipt_points` (`receipt_points_id`, `receipt_gift_points`, `receipt_username`, `receipt_place_id`, `receipt_place_location_id`, `receipt_name`, `receipt_place`, `receipt_date`, `deleted`) VALUES (NULL, '$amt', '$username', '$place_id', '$place_loc_id', '', '', CURRENT_TIMESTAMP, '0');";
