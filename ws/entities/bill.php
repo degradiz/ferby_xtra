@@ -783,7 +783,6 @@ function insertPoints_manually($username,$factura,$place_loc_id,$amt,$tienda) {
 
         $query = "INSERT INTO `gift_points` (`gift_point_id`, `gift_place_id`, `gift_username`, `gift_points`, `gift_bill_id`, `gift_time`, `idtienda`) VALUES (NULL, '$place_id', '$username', '$amt', '$factura', CURRENT_TIMESTAMP, '$tienda');"; 
 
-        echo $query;
 
         $result = mysqli_query($con, $query);
 
