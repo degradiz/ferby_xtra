@@ -99,6 +99,34 @@ function get_user_pointsJSON($username, $place_id){
     }else{echo -1;}
 }
 
+
+function get_alliance_points($username, $place_id){
+    global $con;
+    $preQuery = "SELECT * From xtraClientes WHERE identidad  =  '$username'";
+    $presth = mysqli_query($con, $preQuery);
+    $num2 = mysqli_num_rows($presth);
+    if($num2 > 0){
+    $query = "
+    SELECT IFNULL( SUM(gp.gift_points), 0 ) AS puntos
+    FROM gift_points gp
+    JOIN (
+            SELECT pa.place_id FROM place_alliance pa 
+            WHERE pa.alliance_id IN (SELECT alliance_id FROM place_alliance WHERE place_id = '$place_id')
+         ) p ON (gp.gift_place_id = p.place_id)
+    WHERE gp.gift_username = '$username' ";
+    $sth = mysqli_query($con, $query);
+    $num = mysqli_num_rows($sth);
+    //echo $num;
+    if ($num > 0) {
+        $result = mysqli_fetch_assoc($sth);
+        //print_r($result);
+        echo $result['puntos'];
+    } else {
+        echo 0;
+    }    
+    }else{echo -1;}
+}
+
 function redeem_points($parameters){
     global $con;
     $query = "INSERT INTO `gift_points` (
