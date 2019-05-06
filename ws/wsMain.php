@@ -479,6 +479,12 @@ switch ($action) {
         $place_id = $_GET['place_id'];
         get_alliance_points($username, $place_id);
         break;
+        
+      case 'get_user_pointsJSON':
+        $username = $_GET['username'];
+        $place_id = $_GET['place_id'];
+        get_user_pointsJSON($username, $place_id);
+        break;    
 
     case 'insertPoints_manually':
         $username = $_GET['identidad'];

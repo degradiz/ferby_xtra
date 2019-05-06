@@ -65,8 +65,9 @@ function get_place_points($username, $place_id){
 
 }
 
-function get_alliance_points($username, $place_id){
+function get_user_pointsJSON($username, $place_id){
     global $con;
+    $array = array();
     $preQuery = "SELECT * From xtraClientes WHERE identidad  =  '$username'";
     $presth = mysqli_query($con, $preQuery);
     $num2 = mysqli_num_rows($presth);
@@ -84,8 +85,14 @@ function get_alliance_points($username, $place_id){
     //echo $num;
     if ($num > 0) {
         $result = mysqli_fetch_assoc($sth);
-        //print_r($result);
-        echo $result['puntos'];
+        $array['puntos'] = $result['puntos'];
+        $queryCliente = "SELECT * FROM xtraClientes WHERE identidad = ".$username;
+        $sth3 = mysqli_query($con, $queryCliente);
+        $result2 = mysqli_fetch_assoc($sth);
+        $array['nombre'] = $result2['nombre'];
+        $array['celular'] = $result2['celular'];
+        $array['email'] = $result2['email'];
+         print json_encode($array);
     } else {
         echo 0;
     }    
