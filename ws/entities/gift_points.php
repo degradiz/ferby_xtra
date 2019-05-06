@@ -67,9 +67,9 @@ function get_place_points($username, $place_id){
 
 function get_alliance_points($username, $place_id){
     global $con;
-    $preQuery = "SELECT * From xtraClientes WHERE identidad  =  '$username'"
-    $presth = mysqli_query($con, $query);
-    $num2 = mysqli_num_rows($sth);
+    $preQuery = "SELECT * From xtraClientes WHERE identidad  =  '$username'";
+    $presth = mysqli_query($con, $preQuery);
+    $num2 = mysqli_num_rows($presth);
     if($num2 > 0){
     $query = "
     SELECT IFNULL( SUM(gp.gift_points), 0 ) AS puntos
@@ -79,7 +79,6 @@ function get_alliance_points($username, $place_id){
             WHERE pa.alliance_id IN (SELECT alliance_id FROM place_alliance WHERE place_id = '$place_id')
          ) p ON (gp.gift_place_id = p.place_id)
     WHERE gp.gift_username = '$username' ";
-
     $sth = mysqli_query($con, $query);
     $num = mysqli_num_rows($sth);
     //echo $num;
