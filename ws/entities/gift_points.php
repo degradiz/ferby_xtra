@@ -67,6 +67,10 @@ function get_place_points($username, $place_id){
 
 function get_alliance_points($username, $place_id){
     global $con;
+    $preQuery = "SELECT * From xtraClientes WHERE identidad  =  '$username'"
+    $presth = mysqli_query($con, $query);
+    $num2 = mysqli_num_rows($sth);
+    if($num2 > 0){
     $query = "
     SELECT IFNULL( SUM(gp.gift_points), 0 ) AS puntos
     FROM gift_points gp
@@ -86,6 +90,7 @@ function get_alliance_points($username, $place_id){
     } else {
         echo 0;
     }    
+    }else{echo -1;}
 }
 
 function redeem_points($parameters){
