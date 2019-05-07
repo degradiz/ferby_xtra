@@ -872,7 +872,21 @@ $scope.obtenerServicio = function (category) {
         }
 
         $scope.openWeb = function(h){
-            window.open(encodeURI(h), '_system');
+              if(typeof cordova === "undefined"){
+            localStorage.setItem("urlStore",h);
+                //window.open(encodeURI(h), '_system');
+                $state.go("contactUs");
+                return;
+            }           
+
+            document.addEventListener("deviceready", onDeviceReady, false);
+            function onDeviceReady() {
+                var target = "_blank";
+                let color = rgbToHex(localStorage.th_home_square_color);
+                var ref = cordova.InAppBrowser.open(encodeURI(h), target, 'location=yes,hideurlbar=yes,toolbarcolor='+color);
+                //ref.addEventListener('loadstart', function(event) { alert(event.url); });                
+
+            }
         }
 
         $scope.openHelpLink = function(h){
