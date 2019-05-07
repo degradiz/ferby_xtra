@@ -2195,7 +2195,7 @@ $scope.obtenerServicio = function (category) {
 
     })
 .controller('enterClientCtrl', function ($scope, $ionicPopup, $state, $ionicHistory, $ionicPlatform, $rootScope, $ionicLoading) {
-    buildScopeStyleSettings($scope);
+   
     Waves.attach('button')
     Waves.attach('.waves-block')
     Waves.init();
