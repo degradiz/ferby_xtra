@@ -589,7 +589,7 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
 })
 .controller('sideCtrl', function ($scope, $state, $ionicHistory, $rootScope, $ionicSideMenuDelegate, $ionicPopover) {
 
- $scope.popover3 = $ionicPopover.fromTemplate('<ion-popover-view><div style="width:100%;background-color:red;color:white">Xtra Cash</div><div style="width:100%"><p style="width:100%;text-align:center">Actualmente tienes</p><br><div style="width:90%"><p id="puntos" style="width:100%;font-size:38px;text-align:center"></p></div><br><img style="width:50%;margin-left:25%" src="https://app.almacenesxtra.com/img/2-8e293d88bb21d6cd.png" /></div><p style="text-align:center;font-size:12px">1 Xtra Cash equivale a 1 Lempira</p><ul class="list"><li class="item"><a href="#/enterClient" class="button button-assertive">Cambiar de Usuario</a></li></ul></ion-popover-view>');
+ $scope.popover3 = $ionicPopover.fromTemplate('<ion-popover-view><div style="width:100%;background-color:red;color:white">Xtra Cash</div><div style="width:100%"><p style="width:100%;text-align:center">Actualmente tienes</p><br><div style="width:100%"><p id="puntos" style="width:100%;font-size:38px;text-align:center"></p></div><br><img style="width:50%;margin-left:25%" src="https://app.almacenesxtra.com/img/2-8e293d88bb21d6cd.png" /></div><p style="text-align:center;font-size:12px">1 Xtra Cash equivale a 1 Lempira</p><ul class="list"><li class="item"><a href="#/enterClient" class="button button-assertive">Cambiar de Usuario</a></li></ul></ion-popover-view>');
    $scope.openPopover = function($event) {
   
       $scope.popover3.show($event);
