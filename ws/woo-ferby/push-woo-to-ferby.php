@@ -89,8 +89,8 @@ function sendFcmFerbyStore($parameters){
           (
 		"body" 	=> "$parameters->message",
 		"title"	=> "$title",
-      	"sound" => "notify",
-        "android_channel_id" => "channel1"
+      	"sound" => "notify" 
+        //"android_channel_id" => "channel1"
           );
 
 

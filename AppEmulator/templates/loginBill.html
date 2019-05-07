@@ -1,5 +1,7 @@
-﻿<ion-view overflow-scroll="true" view-title="" style="background-color:#2b252c">
-   
+﻿<ion-view overflow-scroll="true"  style="background-color:black">
+    <ion-nav-title>
+        {{nombre}}
+    </ion-nav-title>
     <style>
         @keyframes animatedBackground {
             from {
@@ -40,7 +42,10 @@
                 vertical-align: middle;
             }
         </style>
-        <div id="myRadHeight">
+    
+    
+
+        <div id="myRadHeight" style="display:none">
             <div >
                 <div >
                     <div id="thmBackground" class="animate-area outerShell">
@@ -90,10 +95,7 @@
                                     <img ng-src="{{baseImgUrl}}{{checkinOptions.checkin_icon}}"  style="width:100%"  />
                                     <p class="textsubshelblack">Visitas</p>
                                 </a>
-                                <div class="grisubshel" ng-click="loginPoints()" ng-if="place.addon_puntos == 1" >
-                                        <img ng-src="{{settings.redeem_icon_url}}"  style="width:100%"  />
-                                        <p class="textsubshelblack">{{settings.redeem_name}}</p>
-                                </div>
+                                
 
                                 <div class="grisubshel" ng-click="openCoupons()" ng-if="place.show_coupons == 1" >
                                         <img ng-src="{{baseImgUrl}}{{place.img_coupons}}"  style="width:100%"  />
@@ -108,7 +110,7 @@
                                         <p class="textsubshelblack">Eventos</p>
                                 </div>
                                
-                                <div class="grisubshel" ng-click="openME();" ng-if="place.show_scanner == 1" >
+                                <div class="grisubshel" ng-click="scan();" ng-if="place.show_scanner == 1" >
                                         <img ng-src="{{baseImgUrl}}{{place.scanner_img}}" style="width:100%" />
                                         <p class="textsubshelblack">Escaner</p>
                                 </div>
@@ -149,8 +151,7 @@
                                         <img ng-src="{{baseImgUrl}}{{checkinOptions.checkin_icon}}"  style="width:100%"  />
                                         <p class="textsubshelblack">Visitas</p>
                                 </div>-->
-                            <br><br>
-                            <br><br>
+                            
                             </div>
                             <br><br>
                              <img ng-src="{{baseImgUrl}}{{place.background_app}}"  style="width:100%"  />
@@ -169,7 +170,7 @@
                     display: grid;
                    
                     width:100% !important;
-                    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+                    grid-template-columns: repeat(auto-fill, minmax(98px, 1fr));
                 }
                 .textsubshel {
                     text-align: center;

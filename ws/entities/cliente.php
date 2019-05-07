@@ -1,5 +1,30 @@
 <?php
 
+function insert_xtraCliente($identdad, $nombre, $numero, $email){
+    global $con;
+    $prequery = "SELECT * FROM xtraclientes WHERE identidad = '$identdad'";
+    $fisrtResult = mysqli_query($con, $prequery);
+    $num = mysqli_num_rows($fisrtResult);
+    if($num == 0 ){
+        $query = "INSERT INTO `xtraclientes` (`id`, `identidad`, `nombre`, `celular`, `email`) VALUES (NULL, '$identdad', '$nombre', '$numero', '$email');";
+          $secondResult = mysqli_query($con, $query);
+           if ($secondResult === TRUE) {
+                    echo 1;
+                } else {
+                    echo mysqli_error($con);
+                 }
+    }else{
+        $queryth = "UPDATE `xtraclientes` SET `email` = '$email', nombre = '$nombre', celular = '$numero' WHERE `xtraclientes`.`identidad` = $identdad;";
+         $thResult = mysqli_query($con, $queryth);
+           if ($thResult === TRUE) {
+                    echo 1;
+                } else {
+                    echo mysqli_error($con);
+                 }
+    }
+}
+
+
 function insert_Client($username, $password, $name, $email, $sex, $bday, $profile_picture, $recieve_notification, $mcId) {
     global $con;
     global $salt;

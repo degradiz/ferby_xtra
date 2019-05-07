@@ -12,65 +12,65 @@ var rev = 0;
 var modo = 0;
 
 angular.module('starter.controllers', ["ion-datetime-picker"])
-    .controller('trackOrdersCtrl', function($scope, $ionicLoading, $state, $ionicPopup){
-        if(loaded==0)
-            $state.go('loginBill');
-        $scope.logoImage = getImgPath() + localStorage.getItem('th_business_logo')
-        $scope.orders = [];
+.controller('trackOrdersCtrl', function($scope, $ionicLoading, $state, $ionicPopup){
+    if(loaded==0)
+        $state.go('loginBill');
+    $scope.logoImage = getImgPath() + localStorage.getItem('th_business_logo')
+    $scope.orders = [];
 
-        buildScopeStyleSettings($scope);
+    buildScopeStyleSettings($scope);
 
-        $scope.untrackOrder = function(b){
-            myPopup = $ionicPopup.show({
-                    title: 'Eliminar registro',
-                    subTitle: 'La orden no será eliminada, solamente el registro de forma permanente a este dispositivo.',
-                    scope: $scope,
-                    buttons: [
-                        {text: 'Cancelar'},
-                        {
-                            text: '<b>Ok</b>',
-                            type: 'button-stable',
-                            onTap: function (e) {
-                                $ionicLoading.show({ templateUrl: 'dialogs/loader.html' });
-                                
-                                $.get(getServerPath(), {
-                                    action: 'untrack_order',
-                                    bill_id: b.bill_id
-                                }, function (r) {
-                                    $ionicLoading.hide()
-                                    console.log(r);
-                                    var resp = $.trim(r)
-                                    if (resp==1) {
-                                        alert('Registro eliminado correctamente');
-                                        $scope.getTrackinOrders();
-                                        return;
-                                    }
-                
-                                    alert('Ocurrio un problema con el servidor');
-                                })
-                            }
+    $scope.untrackOrder = function(b){
+        myPopup = $ionicPopup.show({
+            title: 'Eliminar registro',
+            subTitle: 'La orden no será eliminada, solamente el registro de forma permanente a este dispositivo.',
+            scope: $scope,
+            buttons: [
+            {text: 'Cancelar'},
+            {
+                text: '<b>Ok</b>',
+                type: 'button-stable',
+                onTap: function (e) {
+                    $ionicLoading.show({ templateUrl: 'dialogs/loader.html' });
+
+                    $.get(getServerPath(), {
+                        action: 'untrack_order',
+                        bill_id: b.bill_id
+                    }, function (r) {
+                        $ionicLoading.hide()
+                        console.log(r);
+                        var resp = $.trim(r)
+                        if (resp==1) {
+                            alert('Registro eliminado correctamente');
+                            $scope.getTrackinOrders();
+                            return;
                         }
-                    ]
-                });
+
+                        alert('Ocurrio un problema con el servidor');
+                    })
+                }
             }
+            ]
+        });
+    }
     
-        $scope.goToHome = function(){
-            $state.go('side.loginBill');
-        }
+    $scope.goToHome = function(){
+        $state.go('side.loginBill');
+    }
 
-        $scope.openwa = function () {
-            window.location = "https://api.whatsapp.com/send?phone=" + localStorage.th_phone
-        }
+    $scope.openwa = function () {
+        window.location = "https://api.whatsapp.com/send?phone=" + localStorage.th_phone
+    }
 
-        setTimeout(function () {
-            $('.banner').css("background-image", "url(" + getImgPath() + localStorage.getItem('th_business_background1') + ")")
-        }, 200)
-        setTimeout(function () {
-            $('#floating-menu').addClass('active');
-        }, 2000)
-        
-        $('.buttonUI').css('background', localStorage.getItem('th_button_color_theme'))
-        $('#crcButton').css('background', localStorage.getItem('th_button_color_theme'))
+    setTimeout(function () {
+        $('.banner').css("background-image", "url(" + getImgPath() + localStorage.getItem('th_business_background1') + ")")
+    }, 200)
+    setTimeout(function () {
+        $('#floating-menu').addClass('active');
+    }, 2000)
+
+    $('.buttonUI').css('background', localStorage.getItem('th_button_color_theme'))
+    $('#crcButton').css('background', localStorage.getItem('th_button_color_theme'))
 
         $scope.getTrackinOrders = function () { //Función que llama al WS el action get_user_points que devuelve los puntos acumulados por la identidad guardada previamente en la caché user_id
             $ionicLoading.show({
@@ -95,33 +95,33 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
         }
 
     })
-    .controller('stampsCtrl', function($scope, $ionicLoading, $state){
-        if(loaded==0)
-            $state.go('loginBill');
-        $scope.logoImage = getImgPath() + localStorage.getItem('th_business_logo')
-        $scope.stamps = [];
-        $scope.user = {}
+.controller('stampsCtrl', function($scope, $ionicLoading, $state){
+    if(loaded==0)
+        $state.go('loginBill');
+    $scope.logoImage = getImgPath() + localStorage.getItem('th_business_logo')
+    $scope.stamps = [];
+    $scope.user = {}
 
 
-        buildScopeStyleSettings($scope);
+    buildScopeStyleSettings($scope);
     
-        $scope.goToHome = function(){
-            $state.go('loginBill');
-        }
+    $scope.goToHome = function(){
+        $state.go('loginBill');
+    }
 
-        $scope.openwa = function () {
-            window.location = "https://api.whatsapp.com/send?phone=" + localStorage.th_phone
-        }
+    $scope.openwa = function () {
+        window.location = "https://api.whatsapp.com/send?phone=" + localStorage.th_phone
+    }
 
-        setTimeout(function () {
-            $('.banner').css("background-image", "url(" + getImgPath() + localStorage.getItem('th_business_background1') + ")")
-        }, 200)
-        setTimeout(function () {
-            $('#floating-menu').addClass('active');
-        }, 2000)
-        
-        $('.buttonUI').css('background', localStorage.getItem('th_button_color_theme'))
-        $('#crcButton').css('background', localStorage.getItem('th_button_color_theme'))
+    setTimeout(function () {
+        $('.banner').css("background-image", "url(" + getImgPath() + localStorage.getItem('th_business_background1') + ")")
+    }, 200)
+    setTimeout(function () {
+        $('#floating-menu').addClass('active');
+    }, 2000)
+
+    $('.buttonUI').css('background', localStorage.getItem('th_button_color_theme'))
+    $('#crcButton').css('background', localStorage.getItem('th_button_color_theme'))
 
         $scope.getStamps = function () { //Función que llama al WS el action get_user_points que devuelve los puntos acumulados por la identidad guardada previamente en la caché user_id
             $ionicLoading.show({
@@ -149,97 +149,97 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
         }
 
     })
-    .controller('listEventsCtrl', function($scope, $state, $rootScope, $ionicModal){
-        checkKey($state);
-        $scope.wi = $(document).width();
-        buildScopeStyleSettings($scope);
-        $scope.events = [];
-        $scope.fullImageSrc = {};
-        $scope.openModal = function (scope) {
-            $ionicModal.fromTemplateUrl('dialogs/image-modal.html', {
-                scope: $scope,
-                animation: 'slide-in-up'
-            }).then(function (modal) {
-                $scope.modal = modal;
-                $scope.modal.show();
-            });
+.controller('listEventsCtrl', function($scope, $state, $rootScope, $ionicModal){
+    checkKey($state);
+    $scope.wi = $(document).width();
+    buildScopeStyleSettings($scope);
+    $scope.events = [];
+    $scope.fullImageSrc = {};
+    $scope.openModal = function (scope) {
+        $ionicModal.fromTemplateUrl('dialogs/image-modal.html', {
+            scope: $scope,
+            animation: 'slide-in-up'
+        }).then(function (modal) {
+            $scope.modal = modal;
+            $scope.modal.show();
+        });
 
-        };
+    };
 
-        $scope.closeModal = function () {
-            $scope.modal.hide();
-        };
+    $scope.closeModal = function () {
+        $scope.modal.hide();
+    };
 
 
-        $scope.modalImage = function(img) {
-            $scope.fullImageSrc = $rootScope.basePath+img;
+    $scope.modalImage = function(img) {
+        $scope.fullImageSrc = $rootScope.basePath+img;
 
-            $scope.openModal();
-        }
+        $scope.openModal();
+    }
 
-        setTimeout(function () {
-            $('.buttonUI').css('background-color', localStorage.getItem('th_button_color_theme'))
+    setTimeout(function () {
+        $('.buttonUI').css('background-color', localStorage.getItem('th_button_color_theme'))
 
-            $('#bck3cat').css("background-image", "url(" + getImgPath() + localStorage.getItem('th_business_background1') + ")")
-        }, 500)
+        $('#bck3cat').css("background-image", "url(" + getImgPath() + localStorage.getItem('th_business_background1') + ")")
+    }, 500)
 
-        $scope.eventInit = function(){
-            console.log('coupon init');
-            $.getJSON(getServerPath(), {
+    $scope.eventInit = function(){
+        console.log('coupon init');
+        $.getJSON(getServerPath(), {
             action: 'select_cupon_code',
             place_id: Theme_id
-            }, function (r) {
-                console.log('r: '+JSON.stringify(r));
-                $scope.events = r.filter(f => f.cupon_type == 2 && f.cupon_status == 0);
-                $scope.$apply();
-            });    
-        }
+        }, function (r) {
+            console.log('r: '+JSON.stringify(r));
+            $scope.events = r.filter(f => f.cupon_type == 2 && f.cupon_status == 0);
+            $scope.$apply();
+        });    
+    }
 
-    })    
-    .controller('listCouponsCtrl', function($scope, $state, $rootScope, $ionicModal){
-
-
-             
-        checkKey($state);
-        $scope.wi = $(document).width();
-        buildScopeStyleSettings($scope);
-        $scope.coupons = [];
-        $scope.fullImageSrc = {};
-        $scope.openModal = function (scope) {
-            $ionicModal.fromTemplateUrl('dialogs/image-modal.html', {
-                scope: $scope,
-                animation: 'slide-in-up'
-            }).then(function (modal) {
-                $scope.modal = modal;
-                $scope.modal.show();
-            });
-
-        }; 
-
-        $scope.closeModal = function () {
-            $scope.modal.hide();
-        };
+})    
+.controller('listCouponsCtrl', function($scope, $state, $rootScope, $ionicModal){
 
 
-        $scope.modalImage = function(img) {
-            $scope.fullImageSrc = $rootScope.basePath+img;
 
-            $scope.openModal();
-        }
+    checkKey($state);
+    $scope.wi = $(document).width();
+    buildScopeStyleSettings($scope);
+    $scope.coupons = [];
+    $scope.fullImageSrc = {};
+    $scope.openModal = function (scope) {
+        $ionicModal.fromTemplateUrl('dialogs/image-modal.html', {
+            scope: $scope,
+            animation: 'slide-in-up'
+        }).then(function (modal) {
+            $scope.modal = modal;
+            $scope.modal.show();
+        });
 
-        setTimeout(function () {
-            $('.buttonUI').css('background-color', localStorage.getItem('th_button_color_theme'))
+    }; 
 
-            $('#bck3cat').css("background-image", "url(" + getImgPath() + localStorage.getItem('th_business_background1') + ")")
-        }, 500)
+    $scope.closeModal = function () {
+        $scope.modal.hide();
+    };
 
-        $scope.couponInit = function(){
-            console.log('coupon init');
+
+    $scope.modalImage = function(img) {
+        $scope.fullImageSrc = $rootScope.basePath+img;
+
+        $scope.openModal();
+    }
+
+    setTimeout(function () {
+        $('.buttonUI').css('background-color', localStorage.getItem('th_button_color_theme'))
+
+        $('#bck3cat').css("background-image", "url(" + getImgPath() + localStorage.getItem('th_business_background1') + ")")
+    }, 500)
+
+    $scope.couponInit = function(){
+        console.log('coupon init');
             //asignar si no tiene asignado
             $.getJSON(getServerPath(), {
-            action: 'select_cupon_code_uuid',
-            place_id: Theme_id ,
-            uuid: device.uuid
+                action: 'select_cupon_code_uuid',
+                place_id: Theme_id ,
+                uuid: localStorage.user_id
             }, function (r) {
                 //console.log('r: '+JSON.stringify(r));
                 $scope.coupons = r.filter(f => f.cupon_type == 1 && f.cupon_status == 0);
@@ -253,86 +253,86 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
                            //console.log(cuponcd);
                            JsBarcode("#barcd" + i , $scope.coupons[i].cupon_code, {format: "CODE128",displayValue: false});
 
-                    }
-                },2000)
+                       }
+                   },2000)
                 $scope.$apply();
             });    
         }
     })
 
-    .controller('listPromosCtrl', function($scope, $state, $rootScope, $ionicModal){
-        checkKey($state);
-        $scope.wi = $(document).width();
-        buildScopeStyleSettings($scope);
-        $scope.promos = [];
-        $scope.fullImageSrc = {};
-        $scope.openModal = function (scope) {
-            $ionicModal.fromTemplateUrl('dialogs/image-modal.html', {
-                scope: $scope,
-                animation: 'slide-in-up'
-            }).then(function (modal) {
-                $scope.modal = modal;
-                $scope.modal.show();
-            });
+.controller('listPromosCtrl', function($scope, $state, $rootScope, $ionicModal){
+    checkKey($state);
+    $scope.wi = $(document).width();
+    buildScopeStyleSettings($scope);
+    $scope.promos = [];
+    $scope.fullImageSrc = {};
+    $scope.openModal = function (scope) {
+        $ionicModal.fromTemplateUrl('dialogs/image-modal.html', {
+            scope: $scope,
+            animation: 'slide-in-up'
+        }).then(function (modal) {
+            $scope.modal = modal;
+            $scope.modal.show();
+        });
 
-        };
+    };
 
-        $scope.closeModal = function () {
-            $scope.modal.hide();
-        };
-
-
-        $scope.modalImage = function(img) {
-            $scope.fullImageSrc = $rootScope.basePath+img;
-
-            $scope.openModal();
-        }
+    $scope.closeModal = function () {
+        $scope.modal.hide();
+    };
 
 
-        setTimeout(function () {
-            $('.buttonUI').css('background-color', localStorage.getItem('th_button_color_theme'))
+    $scope.modalImage = function(img) {
+        $scope.fullImageSrc = $rootScope.basePath+img;
 
-            $('#bck3cat').css("background-image", "url(" + getImgPath() + localStorage.getItem('th_business_background1') + ")")
-        }, 500)
+        $scope.openModal();
+    }
 
-        $scope.promoInit = function(){
-            console.log('promo init');
-            $.getJSON(getServerPath(), {
+
+    setTimeout(function () {
+        $('.buttonUI').css('background-color', localStorage.getItem('th_button_color_theme'))
+
+        $('#bck3cat').css("background-image", "url(" + getImgPath() + localStorage.getItem('th_business_background1') + ")")
+    }, 500)
+
+    $scope.promoInit = function(){
+        console.log('promo init');
+        $.getJSON(getServerPath(), {
             action: 'select_promotions',
             place_id: Theme_id
-            }, function (r) {
-                console.log('r: '+JSON.stringify(r));
-                $scope.promos = r;
-                $scope.$apply();
-            });    
-        }
-        
-    })
-    .controller('add_user_idCtrl', function ($scope, $state) {
-        if(loaded==0)
-            $state.go('loginBill');
-        localStorage.place_location = '{}';
-        buildScopeStyleSettings($scope);
-        
-        $scope.goToHome = function(){
-            $state.go('loginBill');
-        }
+        }, function (r) {
+            console.log('r: '+JSON.stringify(r));
+            $scope.promos = r;
+            $scope.$apply();
+        });    
+    }
 
-        $scope.openwa = function () {
-            window.location = "https://api.whatsapp.com/send?phone=" + localStorage.th_phone
-        }
-        setTimeout(function () {
-            $('.banner').css("background-image", "url(" + getImgPath() + localStorage.getItem('th_business_background1') + ")")
-        }, 200)
-        setTimeout(function () {
-            $('#floating-menu').addClass('active');
-        }, 2000)
+})
+.controller('add_user_idCtrl', function ($scope, $state) {
+    if(loaded==0)
+        $state.go('loginBill');
+    localStorage.place_location = '{}';
+    buildScopeStyleSettings($scope);
 
-        $('.buttonUI').css('background', localStorage.getItem('th_button_color_theme'))
-        $('#crcButton').css('background', localStorage.getItem('th_button_color_theme'))
-        
-        $scope.add_user_id_init = function () {
-            $scope.identidad = localStorage.user_id;
+    $scope.goToHome = function(){
+        $state.go('loginBill');
+    }
+
+    $scope.openwa = function () {
+        window.location = "https://api.whatsapp.com/send?phone=" + localStorage.th_phone
+    }
+    setTimeout(function () {
+        $('.banner').css("background-image", "url(" + getImgPath() + localStorage.getItem('th_business_background1') + ")")
+    }, 200)
+    setTimeout(function () {
+        $('#floating-menu').addClass('active');
+    }, 2000)
+
+    $('.buttonUI').css('background', localStorage.getItem('th_button_color_theme'))
+    $('#crcButton').css('background', localStorage.getItem('th_button_color_theme'))
+
+    $scope.add_user_id_init = function () {
+        $scope.identidad = localStorage.user_id;
             //$scope.$apply();
         }
         $scope.faq = function () {
@@ -343,14 +343,14 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
         }
 
         $scope.updateUserId = function () {
-            
+
             var user_id = $('#user_id').val(); //Captura el número de identidad
 
             var validate = validateGiftUser(user_id);
-                if (validate != true) {
-                    alert(validate);
-                    return;
-                }
+            if (validate != true) {
+                alert(validate);
+                return;
+            }
             localStorage.identidad = user_id;
             localStorage.user_id = user_id;
 
@@ -359,37 +359,37 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
 
 
     })
-    .controller('view_user_pointsCtrl', function ($scope, $state, $ionicLoading) {
-        if(loaded==0)
-            $state.go('loginBill');
-        buildScopeStyleSettings($scope);
+.controller('view_user_pointsCtrl', function ($scope, $state, $ionicLoading) {
+    if(loaded==0)
+        $state.go('loginBill');
+    buildScopeStyleSettings($scope);
     
-        $scope.goToHome = function(){
-            $state.go('loginBill');
-        }
+    $scope.goToHome = function(){
+        $state.go('loginBill');
+    }
 
-        $scope.openwa = function () {
-            window.location = "https://api.whatsapp.com/send?phone=" + localStorage.th_phone
-        }
+    $scope.openwa = function () {
+        window.location = "https://api.whatsapp.com/send?phone=" + localStorage.th_phone
+    }
 
-        setTimeout(function () {
-            $('.banner').css("background-image", "url(" + getImgPath() + localStorage.getItem('th_business_background1') + ")")
-        }, 200)
-        setTimeout(function () {
-            $('#floating-menu').addClass('active');
-        }, 2000)
+    setTimeout(function () {
+        $('.banner').css("background-image", "url(" + getImgPath() + localStorage.getItem('th_business_background1') + ")")
+    }, 200)
+    setTimeout(function () {
+        $('#floating-menu').addClass('active');
+    }, 2000)
 
-        $('.buttonUI').css('background', localStorage.getItem('th_button_color_theme'))
-        $('#crcButton').css('background', localStorage.getItem('th_button_color_theme'))
+    $('.buttonUI').css('background', localStorage.getItem('th_button_color_theme'))
+    $('#crcButton').css('background', localStorage.getItem('th_button_color_theme'))
 
-        $scope.view_user_points_init = function () {
-            $scope.identidad = localStorage.user_id;
-            $scope.getPoints();         
-        }
+    $scope.view_user_points_init = function () {
+        $scope.identidad = localStorage.user_id;
+        $scope.getPoints();         
+    }
 
-        $scope.faq = function () {
-            var ref = window.open('https://app.almacenesxtra.com:8888/preguntas-frecuentes-nichas-coins/', '_blank', 'location=no');
-        }
+    $scope.faq = function () {
+        var ref = window.open('https://app.almacenesxtra.com:8888/preguntas-frecuentes-nichas-coins/', '_blank', 'location=no');
+    }
 
         $scope.getPoints = function () { //Función que llama al WS el action get_user_points que devuelve los puntos acumulados por la identidad guardada previamente en la caché user_id
             $ionicLoading.show({
@@ -411,32 +411,32 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
             $state.go('side.add_user_id');
         }
     })
-    .controller('queryCheckinCtrl', function ($scope, $state) {
-        if(loaded==0)
-            $state.go('loginBill');
-        localStorage.place_location = '{}';
-        $scope.user = {}
-        buildScopeStyleSettings($scope);
-        
-        $scope.goToHome = function(){
-            $state.go('loginBill');
-        }
+.controller('queryCheckinCtrl', function ($scope, $state) {
+    if(loaded==0)
+        $state.go('loginBill');
+    localStorage.place_location = '{}';
+    $scope.user = {}
+    buildScopeStyleSettings($scope);
 
-        $scope.openwa = function () {
-            window.location = "https://api.whatsapp.com/send?phone=" + localStorage.th_phone
-        }
-        setTimeout(function () {
-            $('.banner').css("background-image", "url(" + getImgPath() + localStorage.getItem('th_business_background1') + ")")
-        }, 200)
-        setTimeout(function () {
-            $('#floating-menu').addClass('active');
-        }, 2000)
+    $scope.goToHome = function(){
+        $state.go('loginBill');
+    }
 
-        $('.buttonUI').css('background', localStorage.getItem('th_button_color_theme'))
-        $('#crcButton').css('background', localStorage.getItem('th_button_color_theme'))
-        
-        $scope.queryCheckinInit = function () {
-            $scope.user.identidad = localStorage.user_id;
+    $scope.openwa = function () {
+        window.location = "https://api.whatsapp.com/send?phone=" + localStorage.th_phone
+    }
+    setTimeout(function () {
+        $('.banner').css("background-image", "url(" + getImgPath() + localStorage.getItem('th_business_background1') + ")")
+    }, 200)
+    setTimeout(function () {
+        $('#floating-menu').addClass('active');
+    }, 2000)
+
+    $('.buttonUI').css('background', localStorage.getItem('th_button_color_theme'))
+    $('#crcButton').css('background', localStorage.getItem('th_button_color_theme'))
+
+    $scope.queryCheckinInit = function () {
+        $scope.user.identidad = localStorage.user_id;
             //$scope.$apply();
         }
         $scope.faq = function () {
@@ -447,13 +447,13 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
         }
 
         $scope.queryUserCheckins = function () {
-            
+
 
             var validate = validateCheckinUser($scope.user.identidad);
-                if (validate != true) {
-                    alert(validate);
-                    return;
-                }
+            if (validate != true) {
+                alert(validate);
+                return;
+            }
             localStorage.identidad = $scope.user.identidad;
             localStorage.user_id = $scope.user.identidad;
 
@@ -462,37 +462,37 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
 
 
     })
-    .controller('viewUserCheckinsCtrl', function ($scope, $state, $ionicLoading) {
-        if(loaded==0)
-            $state.go('loginBill');
-        buildScopeStyleSettings($scope);
+.controller('viewUserCheckinsCtrl', function ($scope, $state, $ionicLoading) {
+    if(loaded==0)
+        $state.go('loginBill');
+    buildScopeStyleSettings($scope);
     
-        $scope.goToHome = function(){
-            $state.go('loginBill');
-        }
+    $scope.goToHome = function(){
+        $state.go('loginBill');
+    }
 
-        $scope.openwa = function () {
-            window.location = "https://api.whatsapp.com/send?phone=" + localStorage.th_phone
-        }
+    $scope.openwa = function () {
+        window.location = "https://api.whatsapp.com/send?phone=" + localStorage.th_phone
+    }
 
-        setTimeout(function () {
-            $('.banner').css("background-image", "url(" + getImgPath() + localStorage.getItem('th_business_background1') + ")")
-        }, 200)
-        setTimeout(function () {
-            $('#floating-menu').addClass('active');
-        }, 2000)
-        
-        $('.buttonUI').css('background', localStorage.getItem('th_button_color_theme'))
-        $('#crcButton').css('background', localStorage.getItem('th_button_color_theme'))
+    setTimeout(function () {
+        $('.banner').css("background-image", "url(" + getImgPath() + localStorage.getItem('th_business_background1') + ")")
+    }, 200)
+    setTimeout(function () {
+        $('#floating-menu').addClass('active');
+    }, 2000)
 
-        $scope.viewUserCheckinsInit = function () {
-            $scope.identidad = localStorage.user_id;
-            $scope.getPoints();         
-        }
+    $('.buttonUI').css('background', localStorage.getItem('th_button_color_theme'))
+    $('#crcButton').css('background', localStorage.getItem('th_button_color_theme'))
 
-        $scope.faq = function () {
-            var ref = window.open('https://app.almacenesxtra.com:8888/preguntas-frecuentes-nichas-coins/', '_blank', 'location=no');
-        }
+    $scope.viewUserCheckinsInit = function () {
+        $scope.identidad = localStorage.user_id;
+        $scope.getPoints();         
+    }
+
+    $scope.faq = function () {
+        var ref = window.open('https://app.almacenesxtra.com:8888/preguntas-frecuentes-nichas-coins/', '_blank', 'location=no');
+    }
 
         $scope.getPoints = function () { //Función que llama al WS el action get_user_points que devuelve los puntos acumulados por la identidad guardada previamente en la caché user_id
             $ionicLoading.show({
@@ -514,24 +514,24 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
             $state.go('side.query-checkin');
         }
     })
-    .controller('contactUsCtrl', function ($scope, $state) {
-  
-     
-        var h = $(window).height() * 0.93;
-        var w = $(window).width();
-        $('#mContact').css('height', h);
-        $('#mContact').css('width', w);
-        $('#mContact').attr("src", localStorage.getItem("urlStore"));
-    })
-    .controller('placeMapCtrl', function ($scope, $state) {
-        Waves.attach('button')
-        Waves.attach('.waves-block')
-        Waves.init();
-        var geoUrl = ""
-        $scope.openPureMap = function () {
-            window.location = geoUrl;
-        }
-        $scope.inicio = function () {
+.controller('contactUsCtrl', function ($scope, $state) {
+
+
+    var h = $(window).height() * 0.93;
+    var w = $(window).width();
+    $('#mContact').css('height', h);
+    $('#mContact').css('width', w);
+    $('#mContact').attr("src", localStorage.getItem("urlStore"));
+})
+.controller('placeMapCtrl', function ($scope, $state) {
+    Waves.attach('button')
+    Waves.attach('.waves-block')
+    Waves.init();
+    var geoUrl = ""
+    $scope.openPureMap = function () {
+        window.location = geoUrl;
+    }
+    $scope.inicio = function () {
             //lat = 1;
             //lon = 1;
             $scope.latitude = lat;
@@ -549,88 +549,119 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
             })
         }
     })
-    .controller('homeOrderPlacesCtrl', function ($scope, $state, $ionicLoading) {
-        Waves.attach('button')
-        Waves.attach('.waves-block')
-        Waves.init();
-        $scope.getPlaces = function () {
+.controller('homeOrderPlacesCtrl', function ($scope, $state, $ionicLoading) {
+    Waves.attach('button')
+    Waves.attach('.waves-block')
+    Waves.init();
+    $scope.getPlaces = function () {
 
-            xhr = $.ajax({
-                url: getServerPath() + "?action=select_Filt_Locations&filt=" + auth_place_id,
-                dataType: 'json',
-                cache: false,
-                contentType: false,
-                processData: false,
-                type: 'get',
-                success: function (data) {
-                    var res = alasql('SELECT * FROM ? WHERE home_order = "1" ', [data]);
-                    $scope.places = res;
-                    $scope.$apply();
-                },
-                error: function (d) {
-                    $ionicLoading.hide();
-                },
-            });
-        }
-
-        $scope.goToRest = function (place_loc, terms) {
-            localStorage.setItem('place_loc', place_loc)
-            menuType = 'HOMEDELIVERY';
-            politics = terms;
-            $state.go('welcome');
-        }
-
-        $scope.goToMap = function (latitud, longitud, id) {
-            lat = latitud;
-            lon = longitud;
-            plName = $("#plName" + id).text();
-            $state.go('side.placeMap')
-        }
-    })
-    .controller('sideCtrl', function ($scope, $state, $ionicHistory, $rootScope, $ionicSideMenuDelegate) {
-        Waves.attach('button')
-        Waves.attach('.waves-block')
-        Waves.init();
-        $scope.id = localStorage.getItem('id');
-        $scope.wa = {};
-        $scope.wa.phone = (localStorage.th_phone !== undefined && localStorage.th_phone !== 'undefined')? localStorage.th_phone : '';
-
-        $rootScope.$on("getSide", function () {
-            $scope.init();
+        xhr = $.ajax({
+            url: getServerPath() + "?action=select_Filt_Locations&filt=" + auth_place_id,
+            dataType: 'json',
+            cache: false,
+            contentType: false,
+            processData: false,
+            type: 'get',
+            success: function (data) {
+                var res = alasql('SELECT * FROM ? WHERE home_order = "1" ', [data]);
+                $scope.places = res;
+                $scope.$apply();
+            },
+            error: function (d) {
+                $ionicLoading.hide();
+            },
         });
+    }
 
-        $scope.$watch(function () {
-            return $ionicSideMenuDelegate.getOpenRatio();
-        }, function (value) {
-            if ($ionicSideMenuDelegate.getOpenRatio() == '1') {
+    $scope.goToRest = function (place_loc, terms) {
+        localStorage.setItem('place_loc', place_loc)
+        menuType = 'HOMEDELIVERY';
+        politics = terms;
+        $state.go('welcome');
+    }
 
-            } else {
-            }
-        })
+    $scope.goToMap = function (latitud, longitud, id) {
+        lat = latitud;
+        lon = longitud;
+        plName = $("#plName" + id).text();
+        $state.go('side.placeMap')
+    }
+})
+.controller('sideCtrl', function ($scope, $state, $ionicHistory, $rootScope, $ionicSideMenuDelegate, $ionicPopover) {
 
-        setTimeout(function () {
-            $('#floating-menu').addClass('active');
-        }, 2000)
+ $scope.popover3 = $ionicPopover.fromTemplate('<ion-popover-view><div style="width:100%;background-color:red;color:white">Xtra Cash</div><div style="width:100%"><p style="width:100%;text-align:center">Actualmente tienes</p><br><div style="width:90%"><p id="puntos" style="width:100%;font-size:38px;text-align:center"></p></div><br><img style="width:50%;margin-left:25%" src="https://app.almacenesxtra.com/img/2-8e293d88bb21d6cd.png" /></div><p style="text-align:center;font-size:12px">1 Xtra Cash equivale a 1 Lempira</p><ul class="list"><li class="item"><a href="#/enterClient" class="button button-assertive">Cambiar de Usuario</a></li></ul></ion-popover-view>');
+   $scope.openPopover = function($event) {
+  
+      $scope.popover3.show($event);
+      setTimeout(function(){
+        $("#puntos").empty();
+        $("#puntos").text(localStorage.puntosActuales);
+      },150)
+  };
 
-        $scope.openwa = function () {
-            window.location = "https://api.whatsapp.com/send?phone=" + localStorage.th_phone
-        }
+  
 
-        $scope.back = function(){
-            $state.go('loginBill');
-        }
+  $scope.closePopover = function() {
+      $scope.popover3.hide();
+  };
 
-        $scope.goToHome = function(){
-            $state.go('loginBill');
-        }
+   //Cleanup the popover when we're done with it!
+   $scope.$on('$destroy', function() {
+      $scope.popover3.remove();
+  });
 
-        $scope.init = function () {
-            var fbProfile = "https://graph.facebook.com/" + localStorage.getItem('id') + "/picture?type=large"
-            $scope.name = localStorage.getItem('name');
-            $("#fbProfileImage").attr('src', fbProfile);
-            $scope.unread = localStorage.getItem('unreadTotal');
-            $scope.getServices();
-            getPoints($scope);
+   // Execute action on hide popover
+   $scope.$on('popover.hidden', function() {
+      // Execute action
+  });
+
+   // Execute action on remove popover
+   $scope.$on('popover.removed', function() {
+      // Execute action
+  });
+   Waves.attach('button')
+   Waves.attach('.waves-block')
+   Waves.init();
+   $scope.id = localStorage.getItem('id');
+   $scope.wa = {};
+   $scope.wa.phone = (localStorage.th_phone !== undefined && localStorage.th_phone !== 'undefined')? localStorage.th_phone : '';
+
+   $rootScope.$on("getSide", function () {
+    $scope.init();
+});
+
+   $scope.$watch(function () {
+    return $ionicSideMenuDelegate.getOpenRatio();
+}, function (value) {
+    if ($ionicSideMenuDelegate.getOpenRatio() == '1') {
+
+    } else {
+    }
+})
+
+   setTimeout(function () {
+    $('#floating-menu').addClass('active');
+}, 2000)
+
+   $scope.openwa = function () {
+    window.location = "https://api.whatsapp.com/send?phone=" + localStorage.th_phone
+}
+
+$scope.back = function(){
+    $state.go('loginBill');
+}
+
+$scope.goToHome = function(){
+    $state.go('loginBill');
+}
+
+$scope.init = function () {
+    var fbProfile = "https://graph.facebook.com/" + localStorage.getItem('id') + "/picture?type=large"
+    $scope.name = localStorage.getItem('name');
+    $("#fbProfileImage").attr('src', fbProfile);
+    $scope.unread = localStorage.getItem('unreadTotal');
+    $scope.getServices();
+    getPoints($scope);
 
             //$scope.getPoints(); // Obtener puntos para mostrarlos en el SideBar
             //$scope.$apply();
@@ -674,14 +705,6 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
         }
 
 
-        $scope.logOut = function () {
-            localStorage.setItem('id', '0');
-            $ionicHistory.nextViewOptions({
-                disableAnimate: true,
-                disableBack: true
-            });
-            $state.go('enterClient');
-        }
         $scope.chat = function () {
             chatmode = 1
             localStorage.setItem('openMode', 1);
@@ -701,110 +724,126 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
 
 
     })
-    .controller('loginBillCtrl', function ($scope, $ionicPopup, $state, $ionicHistory, $ionicModal, $ionicBackdrop, $ionicLoading, $rootScope, $ionicPlatform) {
-        Waves.attach('button')
-        Waves.attach('.waves-block')
-        Waves.init();
-        $scope.place = {};
-        $scope.imagesUrl = {};
-        $scope.settings = {};
-        $scope.addon_puntos = {};
-        $scope.addon_check_in = {};
-        $scope.desk_order = {};
-        $scope.pick_order = {};
-        $scope.home_order = {};
-        $scope.map = {};
-        $scope.wa = {};
-        $scope.fb = {};
-        $scope.baseImgUrl = baseUrl()+"img/";
-        $scope.specialCategories = [];
+.controller('loginBillCtrl', function ($ionicPopover,$scope, $ionicPopup, $state, $ionicHistory, $ionicModal, $ionicBackdrop, $ionicLoading, $rootScope, $ionicPlatform) {
+   
+    Waves.attach('button')
+    Waves.attach('.waves-block')
+    Waves.init();
+    $scope.place = {};
+    $scope.imagesUrl = {};
+    $scope.settings = {};
+    $scope.addon_puntos = {};
+    $scope.addon_check_in = {};
+    $scope.desk_order = {};
+    $scope.pick_order = {};
+    $scope.home_order = {};
+    $scope.map = {};
+    $scope.wa = {};
+    $scope.fb = {};
+
+    $scope.baseImgUrl = baseUrl()+"img/";
+    $scope.specialCategories = [];
+
+    var nombreCl = localStorage.nombreDelCliente;
+    var miniarr = nombreCl.split(" ");
+    $scope.nombre = "Bienvenido, " + miniarr[0]  
+
+    $rootScope.basePath = $scope.baseImgUrl;
+
+  
+            $.get(getServerPath(), {
+                action: 'get_user_points',
+                username: localStorage.user_id,
+                place_id: Theme_id
+            }, function (resp) {
+                localStorage.puntosActuales = resp;
+            });
         
 
-        $rootScope.basePath = $scope.baseImgUrl;
 
-        $scope.trackOrders = function(){
-            $state.go('side.track_orders');
-        }
+    $scope.trackOrders = function(){
+        $state.go('side.track_orders');
+    }
 
-        $scope.validateToken = function(){
-            if(localStorage.track_id == null || localStorage.track_id == undefined || localStorage.track_id == 'undefined' || localStorage.track_id == '')
-              localStorage.track_id = generateToken();
-        }
+    $scope.validateToken = function(){
+        if(localStorage.track_id == null || localStorage.track_id == undefined || localStorage.track_id == 'undefined' || localStorage.track_id == '')
+          localStorage.track_id = generateToken();
+  }
 
-        $scope.fullImageSrc = {};
-        $scope.openModal = function (scope) {
-            $ionicModal.fromTemplateUrl('dialogs/image-modal.html', {
-                scope: scope,
-                animation: 'slide-in-up'
-            }).then(function (modal) {
-                $scope.modal = modal;
-                $scope.modal.show();
-            });
+  $scope.fullImageSrc = {};
+  $scope.openModal = function (scope) {
+    $ionicModal.fromTemplateUrl('dialogs/image-modal.html', {
+        scope: scope,
+        animation: 'slide-in-up'
+    }).then(function (modal) {
+        $scope.modal = modal;
+        $scope.modal.show();
+    });
 
-        };
+};
 
-        $scope.closeModal = function () {
-            $scope.modal.hide();
-        };
+$scope.closeModal = function () {
+    $scope.modal.hide();
+};
 
-        $scope.modalImage = function(img) {
-            $scope.fullImageSrc = $rootScope.basePath+img;
+$scope.modalImage = function(img) {
+    $scope.fullImageSrc = $rootScope.basePath+img;
 
-            $scope.openModal($scope);
-        }
+    $scope.openModal($scope);
+}
 
-        var myPopup;
-        rev = 1;
-        $scope.cancelLoad = function () {
-            $ionicPopup.hide()
-        };
+var myPopup;
+rev = 1;
+$scope.cancelLoad = function () {
+    $ionicPopup.hide()
+};
 
-        $rootScope.$on("getServices", function () {
-            $scope.getServices();
-        });
+$rootScope.$on("getServices", function () {
+    $scope.getServices();
+});
 
-        $scope.getSpecialCategories = function(){
-            console.log('promo init');
-            $.getJSON(getServerPath(), {
-            action: 'select_category',
-            place_id: Theme_id
-            }, function (r) {
-                
-                $scope.specialCategories = r.filter(function(s){ return (s.category_home == 1 && s.status == 1)});
-                $scope.specialCategories.sort(function (a, b) {
-                    if (a.category_id < b.category_id) {
-                      return 1;
-                    }
-                    if (a.category_id > b.category_id) {
-                      return -1;
-                    }
+$scope.getSpecialCategories = function(){
+    console.log('promo init');
+    $.getJSON(getServerPath(), {
+        action: 'select_category',
+        place_id: Theme_id
+    }, function (r) {
+
+        $scope.specialCategories = r.filter(function(s){ return (s.category_home == 1 && s.status == 1)});
+        $scope.specialCategories.sort(function (a, b) {
+            if (a.category_id < b.category_id) {
+              return 1;
+          }
+          if (a.category_id > b.category_id) {
+              return -1;
+          }
                     // a must be equal to b
                     return 0;
-                  });
-                specialCatArray = $scope.specialCategories;
-                console.log('special categories: '+JSON.stringify($scope.specialCategories));
-                $scope.$apply();
-            });    
-        }
+                });
+        specialCatArray = $scope.specialCategories;
+        console.log('special categories: '+JSON.stringify($scope.specialCategories));
+        $scope.$apply();
+    });    
+}
 
-        $scope.getTypes = function(){
-            console.log('promo init');
-            $.getJSON(getServerPath(), {
-            action: 'get_types'
-            }, function (r) {
-                
-                $scope.types = r;
-                typeActionArray = $scope.types
-                console.log('types: : '+JSON.stringify($scope.types));
-                $scope.$apply();
-            });    
-        }
+$scope.getTypes = function(){
+    console.log('promo init');
+    $.getJSON(getServerPath(), {
+        action: 'get_types'
+    }, function (r) {
 
-        $scope.obtenerServicio = function (category) {
-            console.log('categorySelected: '+JSON.stringify(category));
-            localStorage.category_id = category.category_id;
-            let type = typeActionArray.find(f => f.type_code == category.category_type && f.type_category == "CATEGORY");
-            $scope.getPlacesLocation('HOMEDELIVERY', 0, 'domicilio',type.type_action);
+        $scope.types = r;
+        typeActionArray = $scope.types
+        console.log('types: : '+JSON.stringify($scope.types));
+        $scope.$apply();
+    });    
+}
+
+$scope.obtenerServicio = function (category) {
+    console.log('categorySelected: '+JSON.stringify(category));
+    localStorage.category_id = category.category_id;
+    let type = typeActionArray.find(f => f.type_code == category.category_type && f.type_category == "CATEGORY");
+    $scope.getPlacesLocation('HOMEDELIVERY', 0, 'domicilio',type.type_action);
             //$state.go(type.type_action);
         }
 
@@ -838,8 +877,8 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
 
         $scope.openHelpLink = function(h){
 
-             if(typeof cordova === "undefined"){
-                localStorage.setItem("urlStore",h);
+           if(typeof cordova === "undefined"){
+            localStorage.setItem("urlStore",h);
                 //window.open(encodeURI(h), '_system');
                 $state.go("contactUs");
                 return;
@@ -881,6 +920,30 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
             window.open("http://m.me/"+localStorage.facebook_id, '_system');
         }
 
+             $scope.scan = function(){
+                            cordova.plugins.barcodeScanner.scan(
+                                function (result) {
+                                    var ref = cordova.InAppBrowser.open(result.text, '_blank', 'location=no');
+                                                },
+                                  function (error) {
+                                        alert("Scanning failed: " + error);
+                                             },
+                                    {
+                                preferFrontCamera : false, // iOS and Android
+                                showFlipCameraButton : false, // iOS and Android
+                                showTorchButton : true, // iOS and Android
+                                torchOn: true, // Android, launch with the torch switched on (if available)
+                                saveHistory: true, // Android, save scan history (default false)
+                                prompt : "Place a barcode inside the scan area", // Android
+                                resultDisplayDuration: 500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
+                                formats : "QR_CODE", // default: all but PDF_417 and RSS_EXPANDED
+                                orientation : "portrait", // Android only (portrait|landscape), default unset so it rotates with the device
+                                disableAnimations : true, // iOS
+                                disableSuccessBeep: false // iOS and Android
+                             }
+                );
+            }
+
         $scope.getReservations = function(){
 
             $ionicLoading.show({
@@ -909,7 +972,7 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
                     subTitle: '',
                     scope: $scope,
                     buttons: [
-                        { text: 'Cancel' }
+                    { text: 'Cancel' }
                     ]
                 });
             }).fail(function () {
@@ -995,40 +1058,50 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
             function onDeviceReady() {
                 console.log('WS: '+getServerPath() + '?action=update_place_token&uuid=' + device.uuid + '&token=' + localStorage.gcmToken+"&place_id="+Theme_id+"&platform="+device.platform);
                 $.get(getServerPath() + '?action=update_place_token&uuid=' + device.uuid + '&token=' + localStorage.gcmToken+"&place_id="+Theme_id+"&platform="+device.platform,
-                
-                function (resp) {
-                    console.log('token updated: '+resp);
-                });
+                    function (resp) {
+                        console.log('token updated: '+resp);
+                    });
             }
         });
 
         $scope.loadThemeLoginBill = function () {
+    
+       $("#myRadHeight").hide();
+       $("ion-content").css("filter","brightness(0%)")
+        $ionicLoading.show({templateUrl: 'dialogs/loader.html'})
+        setTimeout(function(){
+       
+            $("ion-content").css("filter","brightness(100%)")
+            $("#myRadHeight").show();
+            $ionicLoading.hide();
+        },3000)
+          
           //  Theme_id = getParameterByName("store_id");
-            auth_place_id = '[{"place_id": "'+ Theme_id +'"}]'; 
-            $scope.getSpecialCategories();            
-            $scope.getTypes();           
-            if (loaded == 0) {
-                $ionicLoading.show({
-                    templateUrl: 'dialogs/loader.html'
-                })
-                xhr = $.ajax({
-                    url: getServerPath() + "?action=select_theme&place_id=" + Theme_id,
-                    dataType: 'json',
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    type: 'get',
-                    success: function (d) {
-                        $scope.place = d[0];
-                        localStorage.placeTheme = JSON.stringify(d[0]);
-                        localStorage.setItem('th_business_name', d[0].business_name)
-                        localStorage.setItem('th_business_logo', d[0].business_logo)
-                        localStorage.setItem('th_business_background1', d[0].business_background1)
-                        localStorage.setItem('th_business_background2', d[0].business_background2)
-                        localStorage.setItem('th_button_color_theme', d[0].button_color_theme)
-                        localStorage.setItem('th_home_square_color', d[0].home_square_color) 
-                        localStorage.setItem('th_phone', d[0].business_phone) 
-                        localStorage.background_app = d[0].background_app;
+          auth_place_id = '[{"place_id": "'+ Theme_id +'"}]'; 
+          $scope.getSpecialCategories();            
+          $scope.getTypes();
+          loaded = 0;           
+          if (loaded == 0) {
+         
+            
+            xhr = $.ajax({
+                url: getServerPath() + "?action=select_theme&place_id=" + Theme_id,
+                dataType: 'json',
+                cache: false,
+                contentType: false,
+                processData: false,
+                type: 'get',
+                success: function (d) {
+                    $scope.place = d[0];
+                    localStorage.placeTheme = JSON.stringify(d[0]);
+                    localStorage.setItem('th_business_name', d[0].business_name)
+                    localStorage.setItem('th_business_logo', d[0].business_logo)
+                    localStorage.setItem('th_business_background1', d[0].business_background1)
+                    localStorage.setItem('th_business_background2', d[0].business_background2)
+                    localStorage.setItem('th_button_color_theme', d[0].button_color_theme)
+                    localStorage.setItem('th_home_square_color', d[0].home_square_color) 
+                    localStorage.setItem('th_phone', d[0].business_phone) 
+                    localStorage.background_app = d[0].background_app;
                         localStorage.addon_puntos = d[0].addon_puntos; //Guarda en caché si la tienda admite Sistema de Puntos
                         localStorage.addon_check_in = d[0].addon_check_in; //Guarda en caché si la tienda admite Sistema de Checkins
                         localStorage.desk_order = d[0].desk_order; //Guarda en caché si la tienda admite Reservar en Mesa
@@ -1042,16 +1115,13 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
                         localStorage.pick_text = d[0].pick_text;
                         localStorage.map_directions = d[0].map_directions; //Guarda en caché si la tienda admite Conducir al Local
                         localStorage.map_text = d[0].map_text;
-
                         localStorage.whatsapp_order = d[0].whatsapp_order;
                         localStorage.stock_order = d[0].stock_order;
                         localStorage.facebook_id = d[0].facebook_id;
-
                         localStorage.phone_icon_url = imgPath(d[0].phone_img);
                         localStorage.promo_icon_url = imgPath(d[0].promo_img);
                         localStorage.fb_icon_url = imgPath(d[0].facebook_img);
                         localStorage.me_icon_url = imgPath(d[0].messenger_img);
-
                         $scope.addon_puntos.visible = d[0].addon_puntos;
                         $scope.addon_check_in.visible = d[0].addon_check_in;
                         $scope.desk_order.visible = localStorage.desk_order;
@@ -1072,7 +1142,7 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
                         loaded = 1;
                         //$scope.$apply();
                         $rootScope.$emit("getSide", {});
-                        $ionicLoading.hide()    
+                      
 
                     },
                     error: function (d) {
@@ -1134,10 +1204,10 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
                 $scope.fb.facebook_img = localStorage.fb_icon_url;
                 $scope.fb.messenger_img = localStorage.me_icon_url;
 
-          
+
                 var h = $(window).height() * 0.93;
                 $('#myRadHeight').css('height', h);
-                $('ion-content').css("background-image", "url(" + getImgPath() + localStorage.background_app + ")")
+              //  $('ion-content').css("background-image", "url(" + getImgPath() + localStorage.background_app + ")")
                 $('#thmBackground').css("background-image", "url(" + getImgPath() + localStorage.getItem('th_business_background2') + ")")
                 $('#logoImg2').attr("src", getImgPath() + localStorage.getItem('th_business_logo'))
                 var colour = localStorage.getItem('th_home_square_color'), new_col = colour.replace(/rgb/i, "rgba");
@@ -1153,7 +1223,7 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
                 setTimeout(function(){  $(window).height() * 0.93; },700)
             }, 1000)
             $scope.$apply();
-      
+
         };
 
         $scope.getPlacesLocation = function (type, filter, sType, type_action) {
@@ -1201,7 +1271,7 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
                         subTitle: '',
                         scope: $scope,
                         buttons: [
-                            { text: 'Cancel' }
+                        { text: 'Cancel' }
                         ]
                     });
                 }).fail(function () {
@@ -1223,7 +1293,7 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
                     filt: auth_place_id
 
                 }, function (json) {
-                   
+
                     $scope.placesLocation = json;
                     places = json;
                     
@@ -1235,7 +1305,7 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
                         subTitle: '',
                         scope: $scope,
                         buttons: [
-                            { text: 'Cancel' }
+                        { text: 'Cancel' }
                         ]
                     });
                 }).fail(function () {
@@ -1367,39 +1437,39 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
         }
 
     })
-    .controller('welcomeCtrl', function ($scope, $state, $ionicLoading, $rootScope, $ionicPopup) {
-        Waves.attach('button')
-        Waves.attach('.waves-block')
-        Waves.init();
-        
+.controller('welcomeCtrl', function ($scope, $state, $ionicLoading, $rootScope, $ionicPopup) {
+    Waves.attach('button')
+    Waves.attach('.waves-block')
+    Waves.init();
 
-        $scope.getServices = function () {
-            $scope.logoImage = getImgPath() + localStorage.getItem('place_logo')
 
-            xhr = $.ajax({
-                url: getServerPath() + "?action=getAllServices&tipo_menu=" + GetTipoMenu(menuType) + "&place_id=" + localStorage.getItem('place_id'),
-                dataType: 'text',
-                cache: false,
-                contentType: false,
-                processData: false,
-                type: 'get',
-                success: function (resp) {
-                    var obj = JSON.parse(resp);
-                    catarray = obj.getCatMenu;
-                    menuarray = obj.select_menu_rest;
-                    promoarray = obj.getPromos;
-                    galleryArray = obj.select_place_images;
-                    optionsArray = obj.select_options;
-                    $rootScope.$emit("getPromos", {});
-                    $rootScope.$emit("getCategories", {});
-                    $rootScope.$emit("getMenuDet", {});
-                    $ionicLoading.hide();
-                    if (menuType == "HOMEDELIVERY")
-                        if ($.trim(politics) != "") {
-                            if (deliveryType == 0) {
-                                customizeAlert(politics);
-                            }
+    $scope.getServices = function () {
+        $scope.logoImage = getImgPath() + localStorage.getItem('place_logo')
+
+        xhr = $.ajax({
+            url: getServerPath() + "?action=getAllServices&tipo_menu=" + GetTipoMenu(menuType) + "&place_id=" + localStorage.getItem('place_id'),
+            dataType: 'text',
+            cache: false,
+            contentType: false,
+            processData: false,
+            type: 'get',
+            success: function (resp) {
+                var obj = JSON.parse(resp);
+                catarray = obj.getCatMenu;
+                menuarray = obj.select_menu_rest;
+                promoarray = obj.getPromos;
+                galleryArray = obj.select_place_images;
+                optionsArray = obj.select_options;
+                $rootScope.$emit("getPromos", {});
+                $rootScope.$emit("getCategories", {});
+                $rootScope.$emit("getMenuDet", {});
+                $ionicLoading.hide();
+                if (menuType == "HOMEDELIVERY")
+                    if ($.trim(politics) != "") {
+                        if (deliveryType == 0) {
+                            customizeAlert(politics);
                         }
+                    }
                     $scope.navTo(1)
 
                 },
@@ -1412,116 +1482,116 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
                 },
                 timeout: 7000
             });
-        }
+    }
 
-        $scope.navTo = function (navCase) {
-            switch (navCase) {
-                case 1:
-                    $state.go('tab.categories');
-                    break;
-                case 2:
-                    $state.go('tab.promos');
-                    break;
-                case 3:
-                    $state.go('tab.cupon');
-                    break;
-                case 4:
-                    $state.go('tab.survey');
-                    break;
-                case 5:
-                    $state.go('searchMenu');
-                    break;
-                case 6:
-                    $state.go('tab.cuenta');
-                    break;
-            }
+    $scope.navTo = function (navCase) {
+        switch (navCase) {
+            case 1:
+            $state.go('tab.categories');
+            break;
+            case 2:
+            $state.go('tab.promos');
+            break;
+            case 3:
+            $state.go('tab.cupon');
+            break;
+            case 4:
+            $state.go('tab.survey');
+            break;
+            case 5:
+            $state.go('searchMenu');
+            break;
+            case 6:
+            $state.go('tab.cuenta');
+            break;
         }
-    })
-    .controller('menuDetCtrl', function ($scope, $state, $ionicPopup, $ionicBackdrop, $ionicModal, $ionicPlatform, $ionicLoading, $rootScope, $ionicHistory, $ionicScrollDelegate) {
-        checkKey($state);
-        $scope.wi = $(document).width();
-        buildScopeStyleSettings($scope);
-        var p = alasql('SELECT * FROM ? WHERE type = "1"', [promoarray]);
-        $scope.p = p.length
-        $scope.actualPlate = {};
-        $scope.actualPlate = JSON.parse(localStorage.actualPlate);
-        $scope.actualPlate.img = $scope.actualPlate.img.replace("https://app.almacenesxtra.com/img/","").length == 0? "" : $scope.actualPlate.img;
-        $scope.fullImageSrc = $scope.actualPlate.img;
-        $scope.showImage = {};
-        $scope.showImage = 0;
-        $scope.hide = false;
-        $scope.zoomMin = 1;
-        $scope.whatsapp_order = localStorage.whatsapp_order;
-        $scope.stock_order = localStorage.stock_order;
-        $scope.promo_day = localStorage.promo_day;
-        $scope.stock = {};
-        $scope.menu_options = optionsArray.filter(function(f){ return f.menu_id == $scope.actualPlate.id; });
-        var optionsSelected = [];
+    }
+})
+.controller('menuDetCtrl', function ($scope, $state, $ionicPopup, $ionicBackdrop, $ionicModal, $ionicPlatform, $ionicLoading, $rootScope, $ionicHistory, $ionicScrollDelegate) {
+    checkKey($state);
+    $scope.wi = $(document).width();
+    buildScopeStyleSettings($scope);
+    var p = alasql('SELECT * FROM ? WHERE type = "1"', [promoarray]);
+    $scope.p = p.length
+    $scope.actualPlate = {};
+    $scope.actualPlate = JSON.parse(localStorage.actualPlate);
+    $scope.actualPlate.img = $scope.actualPlate.img.replace("https://app.almacenesxtra.com/img/","").length == 0? "" : $scope.actualPlate.img;
+    $scope.fullImageSrc = $scope.actualPlate.img;
+    $scope.showImage = {};
+    $scope.showImage = 0;
+    $scope.hide = false;
+    $scope.zoomMin = 1;
+    $scope.whatsapp_order = localStorage.whatsapp_order;
+    $scope.stock_order = localStorage.stock_order;
+    $scope.promo_day = localStorage.promo_day;
+    $scope.stock = {};
+    $scope.menu_options = optionsArray.filter(function(f){ return f.menu_id == $scope.actualPlate.id; });
+    var optionsSelected = [];
 
-        $scope.hideImage = function(){
-            $scope.showImage = 1;
-        }
+    $scope.hideImage = function(){
+        $scope.showImage = 1;
+    }
 
-        $scope.cotizarPorWhatsApp = function (id) {
-            
-            $.get( getServerPath(), {
-                action: "add_whatsapp_click",
-                id: id
-            }, function( resp ) {
+    $scope.cotizarPorWhatsApp = function (id) {
+
+        $.get( getServerPath(), {
+            action: "add_whatsapp_click",
+            id: id
+        }, function( resp ) {
                 //console.log('shared whatsapp: '+resp ); 
             });
 
-            
-            if(typeof cordova === "undefined"){
-                window.open("https://api.whatsapp.com/send?phone="+ localStorage.th_phone+ "&text=" + encodeURIComponent("https://app.almacenesxtra.com/AppEmulator/products.php?id="+id)+" Hola, cuándo volveran a tener el producto: "+$scope.actualPlate.name, '_system');
-                return;
-            }
-            window.open("https://api.whatsapp.com/send?phone="+ localStorage.th_phone+ "&text=" + encodeURIComponent("https://app.almacenesxtra.com/AppEmulator/products.php?id="+id)+" Hola, cuándo volveran a tener el producto: "+$scope.actualPlate.name, "_system", "location=no");
+
+        if(typeof cordova === "undefined"){
+            window.open("https://api.whatsapp.com/send?phone="+ localStorage.th_phone+ "&text=" + encodeURIComponent("https://app.almacenesxtra.com/AppEmulator/products.php?id="+id)+" Hola, cuándo volveran a tener el producto: "+$scope.actualPlate.name, '_system');
             return;
         }
+        window.open("https://api.whatsapp.com/send?phone="+ localStorage.th_phone+ "&text=" + encodeURIComponent("https://app.almacenesxtra.com/AppEmulator/products.php?id="+id)+" Hola, cuándo volveran a tener el producto: "+$scope.actualPlate.name, "_system", "location=no");
+        return;
+    }
 
-        $scope.informacionExistenciasWhatsApp = function (id) {
-            $.get( getServerPath(), {
-                action: "add_whatsapp_click",
-                id: id
-            }, function( resp ) {
+    $scope.informacionExistenciasWhatsApp = function (id) {
+        $.get( getServerPath(), {
+            action: "add_whatsapp_click",
+            id: id
+        }, function( resp ) {
                 //console.log('shared whatsapp: '+resp ); 
             });
 
-            if(typeof cordova === "undefined"){
-                window.open("https://api.whatsapp.com/send?phone="+ localStorage.th_phone+ "&text=" + encodeURIComponent("https://app.almacenesxtra.com/AppEmulator/products.php?id="+id)+" Hola, cuándo volveran a tener el producto: "+$scope.actualPlate.name, '_system');
-                return;
-            }
-            window.open("https://api.whatsapp.com/send?phone="+ localStorage.th_phone+ "&text=" + encodeURIComponent("https://app.almacenesxtra.com/AppEmulator/products.php?id="+id)+" Hola, cuándo volveran a tener el producto: "+$scope.actualPlate.name, "_system", "location=no");
+        if(typeof cordova === "undefined"){
+            window.open("https://api.whatsapp.com/send?phone="+ localStorage.th_phone+ "&text=" + encodeURIComponent("https://app.almacenesxtra.com/AppEmulator/products.php?id="+id)+" Hola, cuándo volveran a tener el producto: "+$scope.actualPlate.name, '_system');
             return;
-
         }
+        window.open("https://api.whatsapp.com/send?phone="+ localStorage.th_phone+ "&text=" + encodeURIComponent("https://app.almacenesxtra.com/AppEmulator/products.php?id="+id)+" Hola, cuándo volveran a tener el producto: "+$scope.actualPlate.name, "_system", "location=no");
+        return;
 
-        
-        setTimeout(function () {
-            $('.buttonUI').css('background-color', localStorage.getItem('th_button_color_theme'))
+    }
 
-            $('#bck3cat').css("background-image", "url(" + getImgPath() + localStorage.getItem('th_business_background1') + ")")
-        }, 500);
 
-        $scope.showPedir = false;
-        $scope.cancelLoad = function () {
-            $ionicPopup.hide()
-        };
-       setTimeout(function () {
-            $('.banner').css("background-image", "url(" + getImgPath() + localStorage.getItem('th_business_background1') + ")")
-        }, 200)
+    setTimeout(function () {
+        $('.buttonUI').css('background-color', localStorage.getItem('th_button_color_theme'))
 
-        $scope.hideNavBar = function(){
-            return $scope.hide;
-        }
+        $('#bck3cat').css("background-image", "url(" + getImgPath() + localStorage.getItem('th_business_background1') + ")")
+    }, 500);
 
-        $scope.promocionPar = function(id){
-            $state.go('tab.promoPair');
-        }
+    $scope.showPedir = false;
+    $scope.cancelLoad = function () {
+        $ionicPopup.hide()
+    };
+    setTimeout(function () {
+        $('.banner').css("background-image", "url(" + getImgPath() + localStorage.getItem('th_business_background1') + ")")
+    }, 200)
 
-        $scope.scrollEvent = function() {
-            var scrollamount = $ionicScrollDelegate.$getByHandle('scrollHandle').getScrollPosition().top;
+    $scope.hideNavBar = function(){
+        return $scope.hide;
+    }
+
+    $scope.promocionPar = function(id){
+        $state.go('tab.promoPair');
+    }
+
+    $scope.scrollEvent = function() {
+        var scrollamount = $ionicScrollDelegate.$getByHandle('scrollHandle').getScrollPosition().top;
             if (scrollamount > 10) { // Would hide nav-bar immediately when scrolled and show it only when all the way at top. You can fiddle with it to find the best solution for you
                 $scope.hide = true;                
                 $scope.$apply();
@@ -1625,68 +1695,68 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
                 subTitle: '(Extras no incluidos en la promoción)',
                 scope: $scope,
                 buttons: [
-                    { text: 'Cancel' },
-                    {
-                        text: '<b>Elegir Siguiente</b>',
-                        type: 'button-positive',
-                        onTap: function (e) {
+                { text: 'Cancel' },
+                {
+                    text: '<b>Elegir Siguiente</b>',
+                    type: 'button-positive',
+                    onTap: function (e) {
 
-                            var options = "";
-                            var optPrice = 0;
-                            menuComment = $('#comment').val();
-                            menuQuantity = 1;
+                        var options = "";
+                        var optPrice = 0;
+                        menuComment = $('#comment').val();
+                        menuQuantity = 1;
 
-                            $ionicLoading.show({
-                                templateUrl: 'dialogs/loader.html'
-                            })
-                            if (sz == 0) {
-                                var firstUpload = {};
-                                firstUpload.plate = $scope.actualPlate;
-                                firstUpload.options = options;
-                                firstUpload.comment = menuComment;
-                                firstUpload.optionPrice = 0;
-                                localStorage.firstUpload = JSON.stringify(firstUpload);
-                                $ionicLoading.hide();
-                                $state.go('tab.promoPair');
-                                
-                            } else {
-                                for (var i = 0; i < sz; i++) {
-                                    if (i == (sz - 1)) {
-                                        if ($('#' + i + "sel").val() == 't123876t') {
-                                            customizeAlert('Selecciona todas tus opciones.');
-                                            $ionicLoading.hide();
-                                            break;
-                                        } else {
-                                            var selValArr = String($('#' + i + "sel").val()).split('@%')
-                                            options += selValArr[0] + ', ';
-                                            optPrice = optPrice + parseFloat(selValArr[1]);
+                        $ionicLoading.show({
+                            templateUrl: 'dialogs/loader.html'
+                        })
+                        if (sz == 0) {
+                            var firstUpload = {};
+                            firstUpload.plate = $scope.actualPlate;
+                            firstUpload.options = options;
+                            firstUpload.comment = menuComment;
+                            firstUpload.optionPrice = 0;
+                            localStorage.firstUpload = JSON.stringify(firstUpload);
+                            $ionicLoading.hide();
+                            $state.go('tab.promoPair');
 
-                                        }
-                                        var firstUpload = {};
-                                        firstUpload.plate = $scope.actualPlate;
-                                        firstUpload.options = options;
-                                        firstUpload.comment = menuComment;
-                                        firstUpload.optionPrice = optPrice;
-                                        localStorage.firstUpload = JSON.stringify(firstUpload);
+                        } else {
+                            for (var i = 0; i < sz; i++) {
+                                if (i == (sz - 1)) {
+                                    if ($('#' + i + "sel").val() == 't123876t') {
+                                        customizeAlert('Selecciona todas tus opciones.');
                                         $ionicLoading.hide();
-                                        $state.go('tab.promoPair');
-
-                                        
+                                        break;
                                     } else {
-                                        if ($('#' + i + "sel").val() == 't123876t') {
-                                            customizeAlert('Selecciona todas tus opciones.');
-                                            $ionicLoading.hide();
-                                            break;
-                                        } else {
-                                            var selValArr = String($('#' + i + "sel").val()).split('@%')
-                                            options += selValArr[0] + ', ';
-                                            optPrice = optPrice + parseFloat(selValArr[1]);
-                                        }
+                                        var selValArr = String($('#' + i + "sel").val()).split('@%')
+                                        options += selValArr[0] + ', ';
+                                        optPrice = optPrice + parseFloat(selValArr[1]);
+
+                                    }
+                                    var firstUpload = {};
+                                    firstUpload.plate = $scope.actualPlate;
+                                    firstUpload.options = options;
+                                    firstUpload.comment = menuComment;
+                                    firstUpload.optionPrice = optPrice;
+                                    localStorage.firstUpload = JSON.stringify(firstUpload);
+                                    $ionicLoading.hide();
+                                    $state.go('tab.promoPair');
+
+
+                                } else {
+                                    if ($('#' + i + "sel").val() == 't123876t') {
+                                        customizeAlert('Selecciona todas tus opciones.');
+                                        $ionicLoading.hide();
+                                        break;
+                                    } else {
+                                        var selValArr = String($('#' + i + "sel").val()).split('@%')
+                                        options += selValArr[0] + ', ';
+                                        optPrice = optPrice + parseFloat(selValArr[1]);
                                     }
                                 }
                             }
                         }
                     }
+                }
                 ]
             });
         }
@@ -1780,9 +1850,9 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
                     $scope.menu_options = response.menu_options;
                 },
                 error: function (d) {console.log('No pudimos conectarnos a Ferby, revisa tu conexión de internet.');
-                },
-                timeout: 7000
-            });
+            },
+            timeout: 7000
+        });
 
 
 
@@ -1836,14 +1906,14 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
                 title: 'Escanea el código QR en la mesa o pidele a un mesero un código ferby',
                 scope: $scope,
                 buttons: [
-                    { text: 'Cancel' },
-                    {
-                        text: '<b>Escanear</b>',
-                        type: 'button-positive',
-                        onTap: function (e) {
-                            $scope.scan();
-                        }
+                { text: 'Cancel' },
+                {
+                    text: '<b>Escanear</b>',
+                    type: 'button-positive',
+                    onTap: function (e) {
+                        $scope.scan();
                     }
+                }
                 ]
             });
         }
@@ -1911,66 +1981,66 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
                 subTitle: '',
                 scope: $scope,
                 buttons: [
-                    { text: 'Cancel' },
-                    {
-                        text: '<b>Ok</b>',
-                        type: 'button-positive',
-                        onTap: function (e) {
-                            var options = "";
-                            var optPrice = 0;
-                            menuComment = $('#comment').val();
-                            menuQuantity = $('#quantity').val();
-                            if($scope.stock_order == 1){
-                                if(parseInt(menuQuantity) > $scope.actualPlate.menu_stock){
-                                    alert('Unidades insuficientes');
-                                    return;
-                                }
+                { text: 'Cancel' },
+                {
+                    text: '<b>Ok</b>',
+                    type: 'button-positive',
+                    onTap: function (e) {
+                        var options = "";
+                        var optPrice = 0;
+                        menuComment = $('#comment').val();
+                        menuQuantity = $('#quantity').val();
+                        if($scope.stock_order == 1){
+                            if(parseInt(menuQuantity) > $scope.actualPlate.menu_stock){
+                                alert('Unidades insuficientes');
+                                return;
                             }
+                        }
 
-                            if(menuQuantity == null || menuQuantity == undefined)
-                                menuQuantity = '1';
+                        if(menuQuantity == null || menuQuantity == undefined)
+                            menuQuantity = '1';
 
-                            $ionicLoading.show({
-                                templateUrl: 'dialogs/loader.html'
-                            })
-                            if (sz == 0) {
-                                startUpload(illegalChar(options), illegalChar(menuComment), illegalChar(menuQuantity), 0)
-                                console.log('sz==0');
-                            } else {
-                                for (var i = 0; i < sz; i++) {
-                                    if (i == (sz - 1)) {
-                                        if ($('#' + i + "sel").val() == 't123876t') {
-                                            customizeAlert('Selecciona todas tus opciones.');
-                                            $ionicLoading.hide();
-                                            break;
-                                        } else {
-                                            var selValArr = String($('#' + i + "sel").val()).split('@%')
-                                            options += selValArr[0] + ', ';
-                                            optPrice = optPrice + parseFloat(selValArr[1]);
-                                            var cod_option = $("#"+i+"sel option:selected").attr("id");
-                                            console.log('agregarProducto cod_option: '+cod_option);
-                                            optionsSelected.push(cod_option);
-
-                                        }
-                                        startUpload(illegalChar(options), illegalChar(menuComment), illegalChar(menuQuantity), optPrice)
+                        $ionicLoading.show({
+                            templateUrl: 'dialogs/loader.html'
+                        })
+                        if (sz == 0) {
+                            startUpload(illegalChar(options), illegalChar(menuComment), illegalChar(menuQuantity), 0)
+                            console.log('sz==0');
+                        } else {
+                            for (var i = 0; i < sz; i++) {
+                                if (i == (sz - 1)) {
+                                    if ($('#' + i + "sel").val() == 't123876t') {
+                                        customizeAlert('Selecciona todas tus opciones.');
+                                        $ionicLoading.hide();
+                                        break;
                                     } else {
-                                        if ($('#' + i + "sel").val() == 't123876t') {
-                                            customizeAlert('Selecciona todas tus opciones.');
-                                            $ionicLoading.hide();
-                                            break;
-                                        } else {
-                                            var selValArr = String($('#' + i + "sel").val()).split('@%')
-                                            options += selValArr[0] + ', ';
-                                            optPrice = optPrice + parseFloat(selValArr[1]);
-                                            var cod_option = $("#"+i+"sel option:selected").attr("id");
-                                            console.log('agregarProducto cod_option: '+cod_option);
-                                            optionsSelected.push(cod_option);
-                                        }
+                                        var selValArr = String($('#' + i + "sel").val()).split('@%')
+                                        options += selValArr[0] + ', ';
+                                        optPrice = optPrice + parseFloat(selValArr[1]);
+                                        var cod_option = $("#"+i+"sel option:selected").attr("id");
+                                        console.log('agregarProducto cod_option: '+cod_option);
+                                        optionsSelected.push(cod_option);
+
+                                    }
+                                    startUpload(illegalChar(options), illegalChar(menuComment), illegalChar(menuQuantity), optPrice)
+                                } else {
+                                    if ($('#' + i + "sel").val() == 't123876t') {
+                                        customizeAlert('Selecciona todas tus opciones.');
+                                        $ionicLoading.hide();
+                                        break;
+                                    } else {
+                                        var selValArr = String($('#' + i + "sel").val()).split('@%')
+                                        options += selValArr[0] + ', ';
+                                        optPrice = optPrice + parseFloat(selValArr[1]);
+                                        var cod_option = $("#"+i+"sel option:selected").attr("id");
+                                        console.log('agregarProducto cod_option: '+cod_option);
+                                        optionsSelected.push(cod_option);
                                     }
                                 }
                             }
                         }
                     }
+                }
                 ]
             });
 
@@ -1998,7 +2068,7 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
                             customizeAlert('Se agregó ' + menuQuantity + ' ' + op + ' ' + $scope.actualPlate.name + ' ' + menuComment)
                             $('.ion-ios-cart').removeClass('animated bounce');
                             setTimeout(function(){
-                            $('.ion-ios-cart').addClass('animated bounce');
+                                $('.ion-ios-cart').addClass('animated bounce');
                             },500)
                             $('#seecart').show('slow')
                         } else if (d == -1) {
@@ -2101,7 +2171,7 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
                 function (error) {
                     customizeAlert("Error de Scan");
                 }
-            );
+                );
         }
 
         $scope.openModal = function () {
@@ -2124,283 +2194,121 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
         }
 
     })
-    .controller('enterClientCtrl', function ($scope, $ionicPopup, $state, $ionicHistory, $ionicPlatform, $rootScope, $ionicLoading) {
-        buildScopeStyleSettings($scope);
-        Waves.attach('button')
-        Waves.attach('.waves-block')
-        Waves.init();
-
-        $scope.loadTheme = function () {
-
-            $ionicLoading.show({
-                templateUrl: 'dialogs/loader.html'
-            })
-            xhr = $.ajax({
-                url: getServerPath() + "?action=select_theme&place_id=" + Theme_id,
-                dataType: 'json',
-                cache: false,
-                contentType: false,
-                processData: false,
-                type: 'get',
-                success: function (d) {
-
-                    localStorage.setItem('th_business_name', d[0].business_name)
-                    localStorage.setItem('th_business_logo', d[0].business_logo)
-                    localStorage.setItem('th_business_background1', d[0].business_background1)
-                    localStorage.setItem('th_business_background2', d[0].business_background2)
-                    localStorage.setItem('th_button_color_theme', d[0].button_color_theme)
-                    localStorage.setItem('th_home_square_color', d[0].home_square_color)
-                    $('#myRefHeight').css("background-image", "url(" + getImgPath() + localStorage.getItem('th_business_background1') + ")")
-                    $('#logoImg').attr("src", getImgPath() + localStorage.getItem('th_business_logo'))
-                    $ionicLoading.hide()
-                    loaded = 1;
-                },
-                error: function (d) {
-                    $('#ctLoader').hide();
-                    if (d.statusText == 'abort') {
-                        return;
-                    }
-                    customizeAlert('Ocurrio un error no pudimos cargar tus pedidos. Asegurate que estas correctamento conectado a Internet')
-                },
-                //  timeout: 7000
-            });
-        }
-
-        $scope.invited = function () {
-            localStorage.setItem('id', '100015899701211');
-            localStorage.setItem('name', 'Invitado');
-            $ionicHistory.nextViewOptions({
-                disableAnimate: true,
-                disableBack: true
-            });
-            $state.go('loginBill');
-            $rootScope.$emit("getSide", {});
-        }
-
-        $scope.showTerms = function () {
-            myPopup = $ionicPopup.show({
-                templateUrl: 'dialogs/terms.html',
-                title: 'Termino de Uso',
-                scope: $scope,
-                buttons: [
-                    { text: 'Entendido' },
-                ]
-            });
-        }
-
-        var h = $(window).height() * 1;
-        $('#myRefHeight').height(h);
-        $scope.fblogout = function () {
-            facebookConnectPlugin.logout(function () { console.log('SUCCESS') }, function () { console.log('FAIL') });
-
-        }
-
-        $scope.logStat = function () {
-            facebookConnectPlugin.getLoginStatus(function (userData) {
-                if (userData.status == 'connected') {
-                    facebookConnectPlugin.api("/" + userData.authResponse.userID + '/?fields=id,name,birthday,gender,picture,email', null,
-                        function (response) {
-                            initfb(response);
-                        });
-                } else {
-                    $scope.fb();
-                }
-            }, function () { customizeAlert('FB ERROR') });
-        }
+.controller('enterClientCtrl', function ($scope, $ionicPopup, $state, $ionicHistory, $ionicPlatform, $rootScope, $ionicLoading) {
+    buildScopeStyleSettings($scope);
+    Waves.attach('button')
+    Waves.attach('.waves-block')
+    Waves.init();
 
 
-        $scope.fb = function () {
-            var fbLoginSuccess = function (userData) {
-                if (userData.authResponse) {
-                    facebookConnectPlugin.api("/" + userData.authResponse.userID + '/?fields=id,name,birthday,gender,picture,email', null,
-                        function (response) {
-                            initfb(response)
-                        });
-                }
-            }
-            facebookConnectPlugin.login(["public_profile", "email", "user_birthday"],
-                fbLoginSuccess,
-                function (error) { customizeAlert("Intenta hacer login con FB de nuevo o entra como invitado.") }
-            );
-        }
 
-        function initfb(response) {
-            var str
+    $scope.ingresar = function(){
 
-            var name = response.name
-            var id = response.id
-            //var birthday = response.birthday
-            var birthday = '1993-12-12'
-            var gender = response.gender
-            var email = response.email
-            var pic = 'picture'
-            localStorage.setItem('name', name);
-            localStorage.setItem('id', id);
-            insertClient(id, name, gender, birthday, pic, '1', email)
-        }
+        if($("#nomIdentidad").val() == ""){alert("Debes llenar el campo identidad con el numero de tu identidad del registro nacional de las personas."); return;}
+        if($("#nomReg").val() == ""){alert("Debes llenar el campo nombre."); return;}
+        if($("#celReg").val() == ""){alert("Debes llenar el celular con tu numero actual de celular."); return;}
+        if($("#nomEmail").val() == ""){alert("Debes llenar el celular con tu email."); return;}
+        if($.trim($("#nomIdentidad").val()).length != 13){alert("El numero de identidad debe contener 13 numeros."); return;}
+        if($.trim($("#celReg").val()).length != 8){alert("El numero de celular debe contener 8 numeros."); return;}
 
-        function extractEmails(text) {
-            return text.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi);
-        }
+        $ionicLoading.show({
+            templateUrl: 'dialogs/loader.html'
+        })
 
-        function insertClient(user, name, gender, bday, profilePicture, receiveNotification, mail) {
-            $.get(getServerPath(),
-                {
-                    action: 'insert_Client',
-                    username: user,
-                    password: '1',
-                    sex: gender,
-                    bday: bday,
-                    name: name,
-                    email: mail,
-                    profile_picture: profilePicture,
-                    recieve_notification: receiveNotification,
-                    gcm: localStorage.getItem('gcmToken')
-                },
-                function (resp) {
-                    $ionicHistory.nextViewOptions({
-                        disableAnimate: true,
-                        disableBack: true
-                    });
-                    $state.go('loginBill');
-                    $rootScope.$emit("getSide", {});
-                }).fail(function () {
-                    customizeAlert('No pudimos conectarnos a Ferby, revisa tu conexión de internet.');
-                })
-        }
-        function insertMail(emails, user) {
-            $.get(getServerPath() + '?action=insert_emails&emailStr=' + emails + '&userId=' + user,
-                {
-                },
-                function (resp) {
-                }).fail(function () {
-                    //customizeAlert('No pudimos conectarnos a Ferby, revisa tu conexión de internet.');
-                })
-        }
-        var h = $(window).height() * 0.9;
-        $('#header').css('height', h);
-        $scope.gotoTestView = function () {
-            $state.go('tab.galleryProduct3');
-        }
-        $scope.register = function () {
-            myPopup = $ionicPopup.show({
-                templateUrl: 'dialogs/newClient.html',
-                title: 'Welcome, thanks for registering. Complete the form',
-                subTitle: 'Complete the form',
-                scope: $scope,
-                buttons: [
-                    { text: 'Cancel' },
-                    {
-                        text: '<b>Save</b>',
-                        type: 'button-positive',
-                        onTap: function (e) {
-                            var name = $('#clientFirstName').val() + ' ' + $('#clientLastName').val();
-                            var user = $('#clientUserName').val();
-                            var password = $('#clientPassword').val();
-                            var confirmPassword = $('#confirmClientPassword').val();
-                            var sex = $('#clientSex').val();
-                            var month = $('#clientMonth').val();
-                            var year = $('#clientYear').val();
+        $.get(getServerPath() + "?action=insert_xtraCliente&identidad=" + $("#nomIdentidad").val()  + "&nombre=" + $("#nomReg").val() + "&numero=" + $("#celReg").val() + "&email=" + $("#nomEmail").val() ,{},function(resp){
+         $ionicLoading.hide();
+         if($.trim(resp == "1")){
+            localStorage.nombreDelCliente = $("#nomReg").val();
+            localStorage.celularDelCliente = $("#celReg").val();
+            localStorage.emailDelCliente = $("#nomEmail").val();
+            localStorage.user_id = $("#nomIdentidad").val();
+            $state.go("side.loginBill");
 
-                            if (validateEmail(user) == false) {
-                                customizeAlert('Correo incorrecto');
-                                e.preventDefault();
-                                return;
-                            }
-
-                            if ($.trim(password).length == 0 || $.trim(confirmPassword).length == 0) {
-                                customizeAlert('Tienes que agregar tu password')
-                                e.preventDefault();
-                                return;
-                            }
-                            var fecha = year + "-" + month + "-01"
-                            $.get(getServerPath(),
-                                {
-                                    action: 'insert_Client_Manual',
-                                    username: user,
-                                    name: name,
-                                    password: password,
-                                    sex: sex,
-                                    bday: fecha,
-                                    recieve_notification: '1'
-                                }, function (resp) {
-                                    switch (resp) {
-                                        case '1':
-                                            customizeAlert('Usuario ingresado correctamente.')
-                                            break;
-                                        case '2':
-                                            customizeAlert('El usuario ya existe.')
-                                            break;
-
-                                        default:
-                                            customizeAlert('Ha ocurrido un error, se ha enviado un correo para resolverlo.')
-                                            break;
-                                    }
-                                    customizeAlert(resp + ' insert_Client_Manual')
-                                }).fail(function () {
-                                    customizeAlert('No pudimos conectarnos a Ferby, revisa tu conexión de internet.');
-                                })
-
-                        }
-                    }
-                ]
-            });
-
-            setTimeout(function () {
-                fillYear()
-            }, 500);
-
-            function fillMonth() {
-                var x = 1;
-                var html = '';
-                for (var i = 0; i < 12; i++) {
-                    html += "<option value=" + x + ">" + x + "</option>";
-                    if (x == 12) {
-                        $('#clientMonth').append(html);
-
-                    }
-                    x++
-                }
-            }
-
-            function fillYear() {
-                var x = 1940;
-                var html = '';
-                for (var i = 0; i < 65; i++) {
-                    html += "<option value=" + x + ">" + x + "</option>";
-                    if (i == 65 - 1) {
-                        $('#clientYear').append(html);
-                        fillMonth()
-                    }
-                    x++
-                }
-            }
-
+        }else{
+            alert("ocurrio un error");
         }
     })
-    .controller('menuCtrl', function ($scope, $ionicPopup, $state, $ionicHistory, $rootScope, $ionicScrollDelegate) {
-        checkKey($state);
-        $scope.logoImage = getImgPath() + localStorage.getItem('place_logo')
-        $scope.actualCategory = localStorage.actualCategory;
-        buildScopeStyleSettings($scope);
-        $scope.hide = false;
-        setTimeout(function () {
+    }
+
+    $scope.loadTheme = function () {
+        $ionicLoading.show({
+            templateUrl: 'dialogs/loader.html'
+        })
+        xhr = $.ajax({
+            url: getServerPath() + "?action=select_theme&place_id=" + Theme_id,
+            dataType: 'json',
+            cache: false,
+            contentType: false,
+            processData: false,
+            type: 'get',
+            success: function (d) {
+                localStorage.setItem('th_business_logo', d[0].business_logo)
+                $('#logoImg').attr("src", getImgPath() + localStorage.getItem('th_business_logo'))
+                $ionicLoading.hide()
+            },
+            error: function (d) {
+                $('#ctLoader').hide();
+                if (d.statusText == 'abort') {
+                    return;
+                }
+                customizeAlert('Ocurrio un error no pudimos cargar los datos del app. Asegurate que estas correctamento conectado a Internet')
+            },
+        });
+    }
+
+
+    var h = $(window).height() * 1;
+    $('#myRefHeight').height(h);
+    $scope.fblogout = function () {
+        facebookConnectPlugin.logout(function () { console.log('SUCCESS') }, function () { console.log('FAIL') });
+
+    }
+
+    $scope.logStat = function () {
+        facebookConnectPlugin.getLoginStatus(function (userData) {
+            if (userData.status == 'connected') {
+                facebookConnectPlugin.api("/" + userData.authResponse.userID + '/?fields=id,name,birthday,gender,picture,email', null,
+                    function (response) {
+                        initfb(response);
+                    });
+            } else {
+                $scope.fb();
+            }
+        }, function () { customizeAlert('FB ERROR') });
+    }
+
+
+    
+    var h = $(window).height() * 0.9;
+    $('#header').css('height', h);
+    $scope.gotoTestView = function () {
+        $state.go('tab.galleryProduct3');
+    }
+
+})
+.controller('menuCtrl', function ($scope, $ionicPopup, $state, $ionicHistory, $rootScope, $ionicScrollDelegate) {
+    checkKey($state);
+    $scope.logoImage = getImgPath() + localStorage.getItem('place_logo')
+    $scope.actualCategory = localStorage.actualCategory;
+    buildScopeStyleSettings($scope);
+    $scope.hide = false;
+    setTimeout(function () {
 
         // $('.banner').css("background-image", "url(" + getImgPath() + localStorage.getItem('th_business_background1') + ")")
-        }, 200)
-        var p = alasql('SELECT * FROM ? WHERE type = "1"', [promoarray]);
-        $scope.p = p.length
-        Waves.attach('button')
-        Waves.attach('.waves-block')
-        Waves.init();
-        $scope.wi = $(document).width();
+    }, 200)
+    var p = alasql('SELECT * FROM ? WHERE type = "1"', [promoarray]);
+    $scope.p = p.length
+    Waves.attach('button')
+    Waves.attach('.waves-block')
+    Waves.init();
+    $scope.wi = $(document).width();
 
-        $scope.hideNavBar = function(){
-            return $scope.hide;
-        }
+    $scope.hideNavBar = function(){
+        return $scope.hide;
+    }
 
-        $scope.scrollEvent = function() {
-            var scrollamount = $ionicScrollDelegate.$getByHandle('scrollHandle').getScrollPosition().top;
+    $scope.scrollEvent = function() {
+        var scrollamount = $ionicScrollDelegate.$getByHandle('scrollHandle').getScrollPosition().top;
             if (scrollamount > 70) { // Would hide nav-bar immediately when scrolled and show it only when all the way at top. You can fiddle with it to find the best solution for you
                 $scope.hide = true;                
                 $scope.$apply();
@@ -2472,7 +2380,7 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
                 subTitle: '',
                 scope: $scope,
                 buttons: [
-                    { text: 'OK' }
+                { text: 'OK' }
                 ]
             });
 
@@ -2519,158 +2427,158 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
             $scope.$apply();
         }
     })
-    .controller('searchMenuCtrl', function ($scope, $state) {
-        checkKey($state);
-        buildScopeStyleSettings($scope);
-        Waves.attach('button')
-        Waves.attach('.waves-block')
-        Waves.init();
-        var p = alasql('SELECT * FROM ? WHERE type = "1"', [promoarray]);
-        $scope.p = p.length
-        $scope.wi = $(document).width();
-        setTimeout(function () {
-            $('.banner').css("background-image", "url(" + getImgPath() + localStorage.getItem('th_business_background1') + ")")
-        }, 200)
-        setTimeout(function () {
-            $('.buttonUI').css('background', localStorage.getItem('th_button_color_theme'))
-        }, 250)
+.controller('searchMenuCtrl', function ($scope, $state) {
+    checkKey($state);
+    buildScopeStyleSettings($scope);
+    Waves.attach('button')
+    Waves.attach('.waves-block')
+    Waves.init();
+    var p = alasql('SELECT * FROM ? WHERE type = "1"', [promoarray]);
+    $scope.p = p.length
+    $scope.wi = $(document).width();
+    setTimeout(function () {
+        $('.banner').css("background-image", "url(" + getImgPath() + localStorage.getItem('th_business_background1') + ")")
+    }, 200)
+    setTimeout(function () {
+        $('.buttonUI').css('background', localStorage.getItem('th_button_color_theme'))
+    }, 250)
 
-        $scope.qryCount = 1;
+    $scope.qryCount = 1;
 
-        $scope.getImagePath = function(img){
-            if(img.length < 28){
-                return imgPath(localStorage.th_business_logo);
-            }
-
-            return img;
+    $scope.getImagePath = function(img){
+        if(img.length < 28){
+            return imgPath(localStorage.th_business_logo);
         }
 
-        $scope.searchMenu = function () {
-            var platesArr = []
-            var qry = $('#search').val()
+        return img;
+    }
 
-            if ($.trim(qry) != "") {
-                for (var i = 0; i < menuarray.length; i++) {
-                    platesArr.push(menuarray[i].plates)
-                    if (i == menuarray.length - 1) {
-                        var merged = [].concat.apply([], platesArr);
-                        var res = alasql('SELECT * FROM ? WHERE name LIKE "%' + qry + '%" OR description LIKE "%' + qry + '%" OR category_name LIKE "%'+ qry + '%"', [merged]);
-                        $scope.qryCount = res.length;
-                        $scope.plates = res;
-                        $scope.$apply();
-                    }
+    $scope.searchMenu = function () {
+        var platesArr = []
+        var qry = $('#search').val()
+
+        if ($.trim(qry) != "") {
+            for (var i = 0; i < menuarray.length; i++) {
+                platesArr.push(menuarray[i].plates)
+                if (i == menuarray.length - 1) {
+                    var merged = [].concat.apply([], platesArr);
+                    var res = alasql('SELECT * FROM ? WHERE name LIKE "%' + qry + '%" OR description LIKE "%' + qry + '%" OR category_name LIKE "%'+ qry + '%"', [merged]);
+                    $scope.qryCount = res.length;
+                    $scope.plates = res;
+                    $scope.$apply();
                 }
-            } else {
-                customizeAlert('No has buscado nada :(')
             }
+        } else {
+            customizeAlert('No has buscado nada :(')
+        }
+    }
+
+    $scope.navDetails = function(plate){
+        localStorage.actualPlate = JSON.stringify(plate);
+        menuImg = $('#imgMenu' + plate.id).attr('src');
+        $state.go('tab.menuDet')
+    }
+
+
+})
+.controller('promoPairCtrl', function ($scope, $state, $ionicPopup, $ionicLoading, $rootScope) {
+    checkKey($state);
+    buildScopeStyleSettings($scope);
+    Waves.attach('button')
+    Waves.attach('.waves-block')
+    Waves.init();
+    var p = alasql('SELECT * FROM ? WHERE type = "1"', [promoarray]);
+    $scope.p = p.length;
+    $scope.wi = $(document).width();
+    var optionsSelected = [];
+    setTimeout(function () {
+        $('.banner').css("background-image", "url(" + getImgPath() + localStorage.getItem('th_business_background1') + ")")
+    }, 200)
+    setTimeout(function () {
+        $('.buttonUI').css('background', localStorage.getItem('th_button_color_theme'))
+    }, 250)
+    var sz = 0;
+
+    var platesArr = [];
+    for (var i = 0; i < menuarray.length; i++) {
+        platesArr.push(menuarray[i].plates)
+        if (i == menuarray.length - 1) {
+            var merged = [].concat.apply([], platesArr);
+            var res = alasql('SELECT * FROM ? WHERE name LIKE "%' + '' + '%" OR description LIKE "%' + '' + '%" OR category_name LIKE "%'+ '' + '%"', [merged]);
+            $scope.plates = res.filter(function(f){ return f.menu_promotion == 1;});
+        }
+    }
+
+
+
+    $scope.qryCount = 1;
+
+    $scope.getImagePath = function(img){
+        if(img.length < 28){
+            return imgPath(localStorage.th_business_logo);
         }
 
-        $scope.navDetails = function(plate){
-            localStorage.actualPlate = JSON.stringify(plate);
-            menuImg = $('#imgMenu' + plate.id).attr('src');
-            $state.go('tab.menuDet')
-        }
+        return img;
+    }
 
+    $scope.searchMenu = function () {
+        var platesArr = []
+        var qry = $('#search').val()
 
-    })
-    .controller('promoPairCtrl', function ($scope, $state, $ionicPopup, $ionicLoading, $rootScope) {
-        checkKey($state);
-        buildScopeStyleSettings($scope);
-        Waves.attach('button')
-        Waves.attach('.waves-block')
-        Waves.init();
-        var p = alasql('SELECT * FROM ? WHERE type = "1"', [promoarray]);
-        $scope.p = p.length;
-        $scope.wi = $(document).width();
-        var optionsSelected = [];
-        setTimeout(function () {
-            $('.banner').css("background-image", "url(" + getImgPath() + localStorage.getItem('th_business_background1') + ")")
-        }, 200)
-        setTimeout(function () {
-            $('.buttonUI').css('background', localStorage.getItem('th_button_color_theme'))
-        }, 250)
-        var sz = 0;
-
-        var platesArr = [];
-        for (var i = 0; i < menuarray.length; i++) {
-            platesArr.push(menuarray[i].plates)
-            if (i == menuarray.length - 1) {
-                var merged = [].concat.apply([], platesArr);
-                var res = alasql('SELECT * FROM ? WHERE name LIKE "%' + '' + '%" OR description LIKE "%' + '' + '%" OR category_name LIKE "%'+ '' + '%"', [merged]);
-                $scope.plates = res.filter(function(f){ return f.menu_promotion == 1;});
+        if ($.trim(qry) != "") {
+            for (var i = 0; i < menuarray.length; i++) {
+                platesArr.push(menuarray[i].plates)
+                if (i == menuarray.length - 1) {
+                    var merged = [].concat.apply([], platesArr);
+                    var res = alasql('SELECT * FROM ? WHERE name LIKE "%' + qry + '%" OR description LIKE "%' + qry + '%" OR category_name LIKE "%'+ qry + '%"', [merged]);
+                    $scope.qryCount = res.length;
+                    $scope.plates = res;
+                    $scope.$apply();
+                }
             }
+        } else {
+            customizeAlert('No has buscado nada :(')
+        }
+    }
+
+    $scope.navDetails = function(plate){
+        localStorage.actualPlate = JSON.stringify(plate);
+        menuImg = $('#imgMenu' + plate.id).attr('src');
+        $state.go('tab.menuDet')
+    }
+
+    $scope.joinPromoPairOptions = function(actualPlate){
+
+        var res = alasql('SELECT * FROM ? WHERE menu_id = "' + actualPlate.id + '"', [optionsArray]);
+
+        for (i = 0; i < res.length; i++) {
+            res[i].group = String(res[i].group).toLowerCase()
+            res[i].group = String(res[i].group).replace(/ /g, "")
+        }
+        var group = groupBy(res, 'group')
+        var arr = []
+        for (var key in group) {
+            var proto = group[key];
+            arr.push({ group: proto })
+        }
+        sz = objectSize(group);
+        $scope.options = arr;
+        function groupBy(xs, key) {
+            return xs.reduce(function (rv, x) {
+                (rv[x[key]] = rv[x[key]] || []).push(x);
+                return rv;
+            }, {});
         }
 
+    }
 
-
-        $scope.qryCount = 1;
-
-        $scope.getImagePath = function(img){
-            if(img.length < 28){
-                return imgPath(localStorage.th_business_logo);
-            }
-
-            return img;
-        }
-
-        $scope.searchMenu = function () {
-            var platesArr = []
-            var qry = $('#search').val()
-
-            if ($.trim(qry) != "") {
-                for (var i = 0; i < menuarray.length; i++) {
-                    platesArr.push(menuarray[i].plates)
-                    if (i == menuarray.length - 1) {
-                        var merged = [].concat.apply([], platesArr);
-                        var res = alasql('SELECT * FROM ? WHERE name LIKE "%' + qry + '%" OR description LIKE "%' + qry + '%" OR category_name LIKE "%'+ qry + '%"', [merged]);
-                        $scope.qryCount = res.length;
-                        $scope.plates = res;
-                        $scope.$apply();
-                    }
-                }
-            } else {
-                customizeAlert('No has buscado nada :(')
-            }
-        }
-
-        $scope.navDetails = function(plate){
-            localStorage.actualPlate = JSON.stringify(plate);
-            menuImg = $('#imgMenu' + plate.id).attr('src');
-            $state.go('tab.menuDet')
-        }
-
-        $scope.joinPromoPairOptions = function(actualPlate){
-
-                var res = alasql('SELECT * FROM ? WHERE menu_id = "' + actualPlate.id + '"', [optionsArray]);
-    
-                for (i = 0; i < res.length; i++) {
-                    res[i].group = String(res[i].group).toLowerCase()
-                    res[i].group = String(res[i].group).replace(/ /g, "")
-                }
-                var group = groupBy(res, 'group')
-                var arr = []
-                for (var key in group) {
-                    var proto = group[key];
-                    arr.push({ group: proto })
-                }
-                sz = objectSize(group);
-                $scope.options = arr;
-                function groupBy(xs, key) {
-                    return xs.reduce(function (rv, x) {
-                        (rv[x[key]] = rv[x[key]] || []).push(x);
-                        return rv;
-                    }, {});
-                }
-
-        }
-
-        $scope.elegirOpcionesSecondUpload = function (secondPlate) {
-            $scope.joinPromoPairOptions(secondPlate);
-            var firstUpload = JSON.parse(localStorage.firstUpload);
-            $scope.uploads = [];
-            $scope.platesSelected = [];
-            $scope.platesSelected.push(secondPlate);
-            $scope.platesSelected.push(firstUpload.plate);
+    $scope.elegirOpcionesSecondUpload = function (secondPlate) {
+        $scope.joinPromoPairOptions(secondPlate);
+        var firstUpload = JSON.parse(localStorage.firstUpload);
+        $scope.uploads = [];
+        $scope.platesSelected = [];
+        $scope.platesSelected.push(secondPlate);
+        $scope.platesSelected.push(firstUpload.plate);
             //$scope.uploads.push(firstUpload);
             localStorage.plates = JSON.stringify($scope.platesSelected);
             var id = localStorage.getItem('menuId')
@@ -2679,25 +2587,25 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
                 title: 'Confirmar 2x1',
                 scope: $scope,
                 buttons: [
-                    { text: 'Cancel' },
-                    {
-                        text: '<b>Agregar 2x1</b>',
-                        type: 'button-positive',
-                        onTap: function (e) {
-                            var options = "";
-                            var optPrice = 0;
-                            menuComment = $('#comment').val();
-                            menuQuantity = 1;
-                            $ionicLoading.show({
-                                templateUrl: 'dialogs/loader.html'
-                            })
-                            if (sz == 0) {
-                                var secondUpload = {};
-                                secondUpload.plate = secondPlate;
-                                secondUpload.options = options;
-                                secondUpload.comment = menuComment;
-                                secondUpload.optionPrice = 0;
-                                localStorage.secondUpload = JSON.stringify(secondUpload);
+                { text: 'Cancel' },
+                {
+                    text: '<b>Agregar 2x1</b>',
+                    type: 'button-positive',
+                    onTap: function (e) {
+                        var options = "";
+                        var optPrice = 0;
+                        menuComment = $('#comment').val();
+                        menuQuantity = 1;
+                        $ionicLoading.show({
+                            templateUrl: 'dialogs/loader.html'
+                        })
+                        if (sz == 0) {
+                            var secondUpload = {};
+                            secondUpload.plate = secondPlate;
+                            secondUpload.options = options;
+                            secondUpload.comment = menuComment;
+                            secondUpload.optionPrice = 0;
+                            localStorage.secondUpload = JSON.stringify(secondUpload);
                                 //$ionicLoading.hide();
                                 console.log('salio a cuenta');
                                 $scope.agregarProductosPromoPair();
@@ -2752,34 +2660,34 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
                             }
                         }
                     }
-                ]
-            });
-        }
+                    ]
+                });
+}
 
-        $scope.agregarProductosPromoPair = function(){
-            $scope.uploads = [];
-            var first = JSON.parse(localStorage.firstUpload);
-            var second = JSON.parse(localStorage.secondUpload);
-            if(first.plate.menu_price > second.plate.menu_price){
-                second.plate.menu_price = 0;
-            }else{
-                first.plate.menu_price = 0;
-            }
+$scope.agregarProductosPromoPair = function(){
+    $scope.uploads = [];
+    var first = JSON.parse(localStorage.firstUpload);
+    var second = JSON.parse(localStorage.secondUpload);
+    if(first.plate.menu_price > second.plate.menu_price){
+        second.plate.menu_price = 0;
+    }else{
+        first.plate.menu_price = 0;
+    }
 
-            $scope.uploads.push(first);
-            $scope.uploads.push(second);
+    $scope.uploads.push(first);
+    $scope.uploads.push(second);
 
-            localStorage.finalUploads = JSON.stringify($scope.uploads);
+    localStorage.finalUploads = JSON.stringify($scope.uploads);
 
-            for(var u in $scope.uploads){
-                var upload = $scope.uploads[u];
-                console.log(u+': '+JSON.stringify(upload));
-                startUpload(upload.options, upload.comment+' Promo: 2x1 '+first.plate.name+' y '+second.plate.name, upload.plate, 1, upload);
-            }
-            $state.go('tab.cuenta');
-        }
+    for(var u in $scope.uploads){
+        var upload = $scope.uploads[u];
+        console.log(u+': '+JSON.stringify(upload));
+        startUpload(upload.options, upload.comment+' Promo: 2x1 '+first.plate.name+' y '+second.plate.name, upload.plate, 1, upload);
+    }
+    $state.go('tab.cuenta');
+}
 
-        function startUpload(op, menuComment, plate, menuQuantity, upload) {
+function startUpload(op, menuComment, plate, menuQuantity, upload) {
             //console.log('upload startupload: '+JSON.stringify(upload));
             var precioTotal = parseFloat(parseFloat(plate.menu_price) + upload.optionPrice) * 1;
             var stringCodOptions = JSON.stringify(optionsSelected);
@@ -2802,7 +2710,7 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
                         //customizeAlert('Se agregó ' + menuQuantity + ' ' + op + ' ' + $scope.actualPlate.name + ' ' + menuComment)
                         $('.ion-ios-cart').removeClass('animated bounce');
                         setTimeout(function(){
-                        $('.ion-ios-cart').addClass('animated bounce');
+                            $('.ion-ios-cart').addClass('animated bounce');
                         },500)
                         $('#seecart').show('slow')
                     } else if (d == -1) {
@@ -2830,103 +2738,103 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
 
 
     })
-    .controller('promosCtrl', function ($scope, $state, $ionicPopup, $ionicHistory, $rootScope) {
-        checkKey($state);
-        buildScopeStyleSettings($scope);
-        $scope.wi = $(document).width();
-        setTimeout(function () {
-            $('.banner').css("background-image", "url(" + getImgPath() + localStorage.getItem('th_business_background1') + ")")
-        }, 200)
+.controller('promosCtrl', function ($scope, $state, $ionicPopup, $ionicHistory, $rootScope) {
+    checkKey($state);
+    buildScopeStyleSettings($scope);
+    $scope.wi = $(document).width();
+    setTimeout(function () {
+        $('.banner').css("background-image", "url(" + getImgPath() + localStorage.getItem('th_business_background1') + ")")
+    }, 200)
 
-        $rootScope.$on("getPromos", function () {
-            $scope.getPromos();
+    $rootScope.$on("getPromos", function () {
+        $scope.getPromos();
+    });
+
+    var val = localStorage.getItem('customLan');
+
+    $scope.exit = function () {
+        $.get(getServerPath(), { action: 'updateOnlinePlace', username: localStorage.getItem('id'), value: 0 }, function (data) {
         });
-
-        var val = localStorage.getItem('customLan');
-
-        $scope.exit = function () {
-            $.get(getServerPath(), { action: 'updateOnlinePlace', username: localStorage.getItem('id'), value: 0 }, function (data) {
-            });
-            $ionicHistory.nextViewOptions({
-                disableAnimate: false,
-                disableBack: true
-            });
-            $state.go('loginBill');
-        }
-
-        $scope.doRefresh = function () {
-            $scope.getPromos();
-            $scope.$broadcast('scroll.refreshComplete');
-
-        };
-
-        $scope.getPromos = function () {
-            var res = alasql('SELECT * FROM ? WHERE type = "1"', [promoarray]);
-            $scope.promociones = res;
-            setTimeout(function () {
-                $('.buttonUI').css('background', localStorage.getItem('th_button_color_theme'))
-            }, 250)
-        };
-
-        $scope.largeImage = function (id) {
-            myPopup = $ionicPopup.alert({
-                templateUrl: 'dialogs/largeImage.html',
-                title: '',
-                subTitle: '',
-                scope: $scope,
-                buttons: [
-                    { text: 'Ordena en Menú' }
-                ]
-            });
-            setTimeout(function () {
-                var imgSrc = $('#imgPromo' + id).attr('src');
-                var title = $('#textId' + id).text();
-
-                $('#recieveImage').attr('src', imgSrc)
-                $('#recieveTitle').text(title)
-                var w = $(window).height();
-                $('.popup').css('width', w);
-            }, 500)
-        }
-
-        $scope.translate = function () {
-            $state.go('translate');
-        }
-    })
-    .controller('categoriesCtrl', function ($scope, $state, $rootScope, $ionicScrollDelegate, $ionicNavBarDelegate, $ionicHistory) {
-        checkKey($state);
-        buildScopeStyleSettings($scope);
-        var p = alasql('SELECT * FROM ? WHERE type = "1"', [promoarray]);
-        $scope.p = p.length
-        $scope.wi = $(document).width();
-        Waves.attach('button')
-        Waves.attach('.waves-block')
-        Waves.init();
-        $scope.hide = false;
-        
-        setTimeout(function () {
-            $rootScope.$emit("updateCart");
-            $('.banner').css("background-image", "url(" + getImgPath() + localStorage.getItem('th_business_background1') + ")")
-            $(".tabs").css("border-color", localStorage.getItem('th_home_square_color')) 
-            $(".tabs").css("background-color", localStorage.getItem('th_home_square_color')) 
-            $(".bar").css("background-color", localStorage.getItem('th_home_square_color'))  
-            $(".bar").css("border-color", localStorage.getItem('th_home_square_color'))             
-        }, 200)
-        $scope.baseImgUrl = getImgPath();
-        $('.buttonUI').css('background', localStorage.getItem('th_button_color_theme'))
-        $('.color-button').css('background-color', localStorage.getItem('th_button_color_theme'));
-        $('#crcButton').css('background', localStorage.getItem('th_button_color_theme'))
-        $rootScope.$on("getCategories", function () {
-
-            $scope.getCategories();
+        $ionicHistory.nextViewOptions({
+            disableAnimate: false,
+            disableBack: true
         });
+        $state.go('loginBill');
+    }
 
-        $scope.hideNavBar = function(){
-            return $scope.hide;
-        }
+    $scope.doRefresh = function () {
+        $scope.getPromos();
+        $scope.$broadcast('scroll.refreshComplete');
 
-        $scope.scrollEvent = function() {
-            var scrollamount = $ionicScrollDelegate.$getByHandle('scrollHandle').getScrollPosition().top;
+    };
+
+    $scope.getPromos = function () {
+        var res = alasql('SELECT * FROM ? WHERE type = "1"', [promoarray]);
+        $scope.promociones = res;
+        setTimeout(function () {
+            $('.buttonUI').css('background', localStorage.getItem('th_button_color_theme'))
+        }, 250)
+    };
+
+    $scope.largeImage = function (id) {
+        myPopup = $ionicPopup.alert({
+            templateUrl: 'dialogs/largeImage.html',
+            title: '',
+            subTitle: '',
+            scope: $scope,
+            buttons: [
+            { text: 'Ordena en Menú' }
+            ]
+        });
+        setTimeout(function () {
+            var imgSrc = $('#imgPromo' + id).attr('src');
+            var title = $('#textId' + id).text();
+
+            $('#recieveImage').attr('src', imgSrc)
+            $('#recieveTitle').text(title)
+            var w = $(window).height();
+            $('.popup').css('width', w);
+        }, 500)
+    }
+
+    $scope.translate = function () {
+        $state.go('translate');
+    }
+})
+.controller('categoriesCtrl', function ($scope, $state, $rootScope, $ionicScrollDelegate, $ionicNavBarDelegate, $ionicHistory) {
+    checkKey($state);
+    buildScopeStyleSettings($scope);
+    var p = alasql('SELECT * FROM ? WHERE type = "1"', [promoarray]);
+    $scope.p = p.length
+    $scope.wi = $(document).width();
+    Waves.attach('button')
+    Waves.attach('.waves-block')
+    Waves.init();
+    $scope.hide = false;
+
+    setTimeout(function () {
+        $rootScope.$emit("updateCart");
+        $('.banner').css("background-image", "url(" + getImgPath() + localStorage.getItem('th_business_background1') + ")")
+        $(".tabs").css("border-color", localStorage.getItem('th_home_square_color')) 
+        $(".tabs").css("background-color", localStorage.getItem('th_home_square_color')) 
+        $(".bar").css("background-color", localStorage.getItem('th_home_square_color'))  
+        $(".bar").css("border-color", localStorage.getItem('th_home_square_color'))             
+    }, 200)
+    $scope.baseImgUrl = getImgPath();
+    $('.buttonUI').css('background', localStorage.getItem('th_button_color_theme'))
+    $('.color-button').css('background-color', localStorage.getItem('th_button_color_theme'));
+    $('#crcButton').css('background', localStorage.getItem('th_button_color_theme'))
+    $rootScope.$on("getCategories", function () {
+
+        $scope.getCategories();
+    });
+
+    $scope.hideNavBar = function(){
+        return $scope.hide;
+    }
+
+    $scope.scrollEvent = function() {
+        var scrollamount = $ionicScrollDelegate.$getByHandle('scrollHandle').getScrollPosition().top;
             if (scrollamount > 100) { // Would hide nav-bar immediately when scrolled and show it only when all the way at top. You can fiddle with it to find the best solution for you
                 $scope.hide = true;                
                 $scope.$apply();
@@ -2945,7 +2853,7 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
 
 
             $('#bckcat').css("background-image", "url(" + getImgPath() + localStorage.getItem('th_business_background1') + ")")
-                     
+
 
         };
 
@@ -2981,11 +2889,11 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
         $scope.goToView = function () {
             switch (menuType) {
                 case 'GUESTMENU':
-                    $state.go('side.submenu');
-                    break;
+                $state.go('side.submenu');
+                break;
                 default:
-                    $state.go('loginBill');
-                    break;
+                $state.go('loginBill');
+                break;
             }
         };
 
@@ -3001,9 +2909,9 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
     .controller('cuentaCtrl', function ($scope, $ionicPopup, $state, $ionicLoading, $rootScope, $ionicScrollDelegate) {
         checkKey($state);
         buildScopeStyleSettings($scope);
-           $scope.wi = $(document).width();
+        $scope.wi = $(document).width();
         $scope.hide = false;
-          $scope.logoImage = getImgPath() + localStorage.getItem('place_logo')
+        $scope.logoImage = getImgPath() + localStorage.getItem('place_logo')
         var totalLoc = 0;
         var p = alasql('SELECT * FROM ? WHERE type = "1"', [promoarray]);
         $scope.p = p.length
@@ -3036,15 +2944,15 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
 
         $scope.getBill = function () { // Función que retorna un detalle de la bill y así mismo el cálculo de puntos
             $.get(getServerPath(),
-                {
-                    action: 'get_bill',
-                    bill_id: localStorage.getItem('bill_id')
-                }, function (data) {
+            {
+                action: 'get_bill',
+                bill_id: localStorage.getItem('bill_id')
+            }, function (data) {
 
                     $scope.bill = JSON.parse(data); //Scope (bill) utilizado en el template para mostrar los puntos que acumula con la compra
                     localStorage.bill = data;
                 }
-            );
+                );
         };
 
         setTimeout(function () {
@@ -3071,16 +2979,16 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
                 title: 'Este boton es nada mas para crear una nueva cuenta de pedidos, Los pedidos que ya enviaste no podran ser eliminados. Deseas Continuar?',
                 scope: $scope,
                 buttons: [
-                    { text: 'Cancel' },
-                    {
-                        text: '<b>OK</b>',
-                        type: 'button-positive',
-                        onTap: function (e) {
-                            localStorage.setItem('bill_id', '')
-                            hasOrder = 'false'
-                            $state.go('tab.categories');
-                        }
+                { text: 'Cancel' },
+                {
+                    text: '<b>OK</b>',
+                    type: 'button-positive',
+                    onTap: function (e) {
+                        localStorage.setItem('bill_id', '')
+                        hasOrder = 'false'
+                        $state.go('tab.categories');
                     }
+                }
                 ]
             });
         }
@@ -3198,14 +3106,14 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
                 title: 'Escanea el código QR en la mesa o pidele a un mesero un código ferby',
                 scope: $scope,
                 buttons: [
-                    { text: 'Cancel' },
-                    {
-                        text: '<b>Escanear</b>',
-                        type: 'button-positive',
-                        onTap: function (e) {
-                            $scope.scan();
-                        }
+                { text: 'Cancel' },
+                {
+                    text: '<b>Escanear</b>',
+                    type: 'button-positive',
+                    onTap: function (e) {
+                        $scope.scan();
                     }
+                }
                 ]
             });
         }
@@ -3361,45 +3269,45 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
             return $scope.style.texture.height.slice(0,-1)>20;
         }
     })
-   
-    .controller('ctrlTab', function ($scope, $ionicHistory, $state, $rootScope) {
-        $('#floating-menu').addClass('active');
-        $scope.data = {
-            cart: 0,
-        };
-        $scope.wa = {};
-        $scope.wa.phone = localStorage.th_phone;
-        $scope.openwa = function () {
-            window.location = "https://api.whatsapp.com/send?phone=" + localStorage.th_phone
-        }
 
-        $scope.searchPlate = function () {
-            $state.go('tab.searchMenu')
-        }
+.controller('ctrlTab', function ($scope, $ionicHistory, $state, $rootScope) {
+    $('#floating-menu').addClass('active');
+    $scope.data = {
+        cart: 0,
+    };
+    $scope.wa = {};
+    $scope.wa.phone = localStorage.th_phone;
+    $scope.openwa = function () {
+        window.location = "https://api.whatsapp.com/send?phone=" + localStorage.th_phone
+    }
 
-        $scope.exit = function () {
-            if (localStorage.getItem('id') != '100015899701211') {
-                $.get(getServerPath(), { action: 'updateOnlinePlace', username: localStorage.getItem('id'), value: 0 }, function (data) {
-                });
-            }
-            $ionicHistory.nextViewOptions({
-                disableAnimate: false,
-                disableBack: true
+    $scope.searchPlate = function () {
+        $state.go('tab.searchMenu')
+    }
+
+    $scope.exit = function () {
+        if (localStorage.getItem('id') != '100015899701211') {
+            $.get(getServerPath(), { action: 'updateOnlinePlace', username: localStorage.getItem('id'), value: 0 }, function (data) {
             });
-
-            $state.go('loginBill');
         }
+        $ionicHistory.nextViewOptions({
+            disableAnimate: false,
+            disableBack: true
+        });
 
-        setTimeout(function () {
-            $('#floating-menu').removeClass('active');
-        }, 2000)
+        $state.go('loginBill');
+    }
 
-        $scope.tabInit = function () {
-            var c = alasql('SELECT * FROM ? WHERE type = "2"', [promoarray]);
-            var p = alasql('SELECT * FROM ? WHERE type = "1"', [promoarray]);
-            $scope.p = p.length
-            $scope.c = c.length
-            $scope.type = menuType;
+    setTimeout(function () {
+        $('#floating-menu').removeClass('active');
+    }, 2000)
+
+    $scope.tabInit = function () {
+        var c = alasql('SELECT * FROM ? WHERE type = "2"', [promoarray]);
+        var p = alasql('SELECT * FROM ? WHERE type = "1"', [promoarray]);
+        $scope.p = p.length
+        $scope.c = c.length
+        $scope.type = menuType;
             //$scope.$apply();
         }
 
@@ -3430,28 +3338,28 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
         }
 
     })
-    .controller('confirmCtrl', function ($scope, $state, $ionicPlatform, $ionicLoading, $ionicHistory, $ionicPopup) {
-        checkKey($state);
-        Waves.attach('button')
-        Waves.attach('.waves-block')
-        Waves.init();
-        buildScopeStyleSettings($scope);
-		$scope.politics = politics;
-        $scope.confirm = {
-            identidad: '',
-            username: ''
-        };
-        $scope.delivery = {};
-        $scope.calendar_order = 0;
+.controller('confirmCtrl', function ($scope, $state, $ionicPlatform, $ionicLoading, $ionicHistory, $ionicPopup) {
+    checkKey($state);
+    Waves.attach('button')
+    Waves.attach('.waves-block')
+    Waves.init();
+    buildScopeStyleSettings($scope);
+    $scope.politics = politics;
+    $scope.confirm = {
+        identidad: '',
+        username: ''
+    };
+    $scope.delivery = {};
+    $scope.calendar_order = 0;
 
-        setTimeout(function () {
-            $('.banner').css("background-image", "url(" + getImgPath() + localStorage.getItem('th_business_background1') + ")")
-            if(localStorage.user_id.length == 13){
-                $scope.confirm.identidad = localStorage.user_id;
-                $scope.confirm.username = localStorage.user_id;
-            }
+    setTimeout(function () {
+        $('.banner').css("background-image", "url(" + getImgPath() + localStorage.getItem('th_business_background1') + ")")
+        if(localStorage.user_id.length == 13){
+            $scope.confirm.identidad = localStorage.user_id;
+            $scope.confirm.username = localStorage.user_id;
+        }
 
-        }, 200)
+    }, 200)
 
         //$scope.confirm.identidad = localStorage.user_id; //Scope utilizado para  mostrar la identidad si se guardó previamente en caché.
 
@@ -3462,33 +3370,33 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
                 return;
 
             setTimeout(function () {
-            
-            if(localStorage.user_id.length!=13){
-                myPopup = $ionicPopup.show({
-                    templateUrl: 'dialogs/update_id.html',
-                    title: $scope.settings.title,
-                    subTitle: $scope.settings.redeem_instruction+$scope.settings.redeem_name+', '+$scope.settings.redeem_description,
-                    scope: $scope,
-                    buttons: [
+
+                if(localStorage.user_id.length!=13){
+                    myPopup = $ionicPopup.show({
+                        templateUrl: 'dialogs/update_id.html',
+                        title: $scope.settings.title,
+                        subTitle: $scope.settings.redeem_instruction+$scope.settings.redeem_name+', '+$scope.settings.redeem_description,
+                        scope: $scope,
+                        buttons: [
                         {text: 'Cancelar'},
                         {
                             text: '<b>OK</b>',
                             type: 'button-stable',
                             onTap: function (e) {
                                 var validate = validateGiftUser($scope.confirm.username);
-                                    if (validate != true) {
-                                        alert(validate);
-                                        $scope.acumulatePoints();
-                                        return;
-                                    }
+                                if (validate != true) {
+                                    alert(validate);
+                                    $scope.acumulatePoints();
+                                    return;
+                                }
 
                                 localStorage.user_id = $scope.confirm.username;
 
                             }
                         }
-                    ]
-                });
-            }
+                        ]
+                    });
+                }
                 $scope.$apply;
             }, 1000)
         }
@@ -3590,31 +3498,31 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
                 }
                 localStorage.identidad = user_id;
             }
-	
+
             setTimeout(function () {
-				 if (sendType == 'domicilio') {
-                     if ($.trim(dirText) != 0) {
-					} else {
-						$ionicLoading.hide();
-						customizeAlert('Debes darnos una direccion escrita con referencias')
-					 }
-				}
-                if ($.trim(tel) != 0) {
-                    if ($.trim(nom) != 0) {
-                            if (validateEmail(mail) == true) {
-                                if($scope.placeTheme.addon_cupones == 1){
-                                    if($scope.confirm.cupon)
-                                        dirText += " | Cupon: "+$scope.confirm.cupon;
-                                }
-                                xhr = $.ajax({
-                                    url: getServerPath() + "?action=update_bill_home_order&bill_id=" + localStorage.getItem('bill_id')
-                                    + "&longitud=" + lng
-                                    + "&latitud=" + lat
-                                    + "&nombre=" + illegalChar(nom)
-                                    + "&telefono1=" + illegalChar(tel)
-                                    + "&email=" + illegalChar(mail)
-                                    + "&direccion=" + illegalChar(dirText)
-                                    + "&place_loc_id=" + place_id
+               if (sendType == 'domicilio') {
+                   if ($.trim(dirText) != 0) {
+                   } else {
+                      $ionicLoading.hide();
+                      customizeAlert('Debes darnos una direccion escrita con referencias')
+                  }
+              }
+              if ($.trim(tel) != 0) {
+                if ($.trim(nom) != 0) {
+                    if (validateEmail(mail) == true) {
+                        if($scope.placeTheme.addon_cupones == 1){
+                            if($scope.confirm.cupon)
+                                dirText += " | Cupon: "+$scope.confirm.cupon;
+                        }
+                        xhr = $.ajax({
+                            url: getServerPath() + "?action=update_bill_home_order&bill_id=" + localStorage.getItem('bill_id')
+                            + "&longitud=" + lng
+                            + "&latitud=" + lat
+                            + "&nombre=" + illegalChar(nom)
+                            + "&telefono1=" + illegalChar(tel)
+                            + "&email=" + illegalChar(mail)
+                            + "&direccion=" + illegalChar(dirText)
+                            + "&place_loc_id=" + place_id
                                     + "&uuid=" + ""//+ device.uuid,
                                     + "&track_id=" + localStorage.track_id
                                     + "&deliveryDate=" + date
@@ -3644,133 +3552,133 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
                                     }
                                 });
 
-                            } else {
-                                $ionicLoading.hide();
-                                customizeAlert('Debes darnos un formato valido de email')
-                            }
-
                     } else {
                         $ionicLoading.hide();
-                        customizeAlert('Debes digitar tu nombre')
+                        customizeAlert('Debes darnos un formato valido de email')
                     }
+
                 } else {
                     $ionicLoading.hide();
-                    customizeAlert('Debes digitar tu numero telefonico')
+                    customizeAlert('Debes digitar tu nombre')
                 }
-            }, 250)
+            } else {
+                $ionicLoading.hide();
+                customizeAlert('Debes digitar tu numero telefonico')
+            }
+        }, 250)
         }
     })
 
-    .controller('sentCtrl', function ($scope, $state) {
-        buildScopeStyleSettings($scope);
-    })
-    .controller('domiciliosCtrl', function ($scope, $state) {
-        Waves.attach('button')
-        Waves.attach('.waves-block')
-        Waves.init();
-        $scope.init = function () {
+.controller('sentCtrl', function ($scope, $state) {
+    buildScopeStyleSettings($scope);
+})
+.controller('domiciliosCtrl', function ($scope, $state) {
+    Waves.attach('button')
+    Waves.attach('.waves-block')
+    Waves.init();
+    $scope.init = function () {
 
-            xhr = $.ajax({
-                url: getServerPath() + "?action=selectDomiciliouuid&uuid=" + device.uuid,
-                dataType: 'json',
-                cache: false,
-                contentType: false,
-                processData: false,
-                type: 'GET',
-                success: function (json) {
+        xhr = $.ajax({
+            url: getServerPath() + "?action=selectDomiciliouuid&uuid=" + device.uuid,
+            dataType: 'json',
+            cache: false,
+            contentType: false,
+            processData: false,
+            type: 'GET',
+            success: function (json) {
 
-                    var js = JSON.parse(auth_place_id)
-                    var cnc = '';
-                    for (var i = 0; i < js.length; i++) {
-                        if (i == 0) {
-                            cnc += ' WHERE place_id = "' + js[i].place_id + '"';
-                        } else {
-                            cnc += ' OR place_id = "' + js[i].place_id + '"';
-                        }
-                        if (i == js.length - 1) {
-                            var res = alasql('SELECT * FROM ? ' + cnc, [json]);
-                            selectDomicilio = res;
-                            $scope.bills = res;
-                            $scope.$apply()
-                            $scope.$broadcast('scroll.refreshComplete');
-                        }
+                var js = JSON.parse(auth_place_id)
+                var cnc = '';
+                for (var i = 0; i < js.length; i++) {
+                    if (i == 0) {
+                        cnc += ' WHERE place_id = "' + js[i].place_id + '"';
+                    } else {
+                        cnc += ' OR place_id = "' + js[i].place_id + '"';
                     }
-                },
-                fail: function (d) {
-                    $ionicLoading.hide();
-                    $scope.$broadcast('scroll.refreshComplete');
+                    if (i == js.length - 1) {
+                        var res = alasql('SELECT * FROM ? ' + cnc, [json]);
+                        selectDomicilio = res;
+                        $scope.bills = res;
+                        $scope.$apply()
+                        $scope.$broadcast('scroll.refreshComplete');
+                    }
                 }
-            });
+            },
+            fail: function (d) {
+                $ionicLoading.hide();
+                $scope.$broadcast('scroll.refreshComplete');
+            }
+        });
 
-        }
-        $scope.goToDetalle = function (bill_id) {
-            sessionStorage.setItem('bill_id', bill_id)
-            $state.go('side.domiciliosDetalle')
-        }
-    })
+    }
+    $scope.goToDetalle = function (bill_id) {
+        sessionStorage.setItem('bill_id', bill_id)
+        $state.go('side.domiciliosDetalle')
+    }
+})
 
-    .controller('taxiCtrl',function($scope,$state,$ionicPopup,$ionicLoading, $ionicScrollDelegate ){
-        $scope.loading = {}
-        $scope.catServices = []
-        $scope.service = { value: "" };
-        $scope.confirm = { qty: 1, comment: '', instrucciones: '', tel: '', mail: '', nombre: ''};
-        $scope.addon_puntos = 0;
-        $scope.settings = {};
-        var zoom = 12;
-        var accuracy = 500;
+.controller('taxiCtrl',function($scope,$state,$ionicPopup,$ionicLoading, $ionicScrollDelegate ){
+    $scope.loading = {}
+    $scope.catServices = []
+    $scope.service = { value: "" };
+    $scope.confirm = { qty: 1, comment: '', instrucciones: '', tel: '', mail: '', nombre: ''};
+    $scope.addon_puntos = 0;
+    $scope.settings = {};
+    var zoom = 12;
+    var accuracy = 500;
 
 
-        $scope.getCatMenuServices = function(){
-            console.log('getCatMenuServices init');
-            $.getJSON(getServerPath(), {
+    $scope.getCatMenuServices = function(){
+        console.log('getCatMenuServices init');
+        $.getJSON(getServerPath(), {
             action: 'get_category_menu',
             category_id: localStorage.category_id
-            }, function (r) {
-                console.log('r: '+JSON.stringify(r));
-                $scope.catServices = r;
-                $scope.$apply();
+        }, function (r) {
+            console.log('r: '+JSON.stringify(r));
+            $scope.catServices = r;
+            $scope.$apply();
 
-                if(r == null)
-                {
-                    alert('Por los momentos el servicio seleccionado está en mantenimiento, favor contactenos o utilice otro.');
-                    $state.go('loginBill');
-                    return;
-                }
-            });    
-        }
-
-        $scope.pedirTaxi = function () {
-            $('#map').height($(document).height() * 1);
-            $('#sigBtn').show('slow');
-            $scope.getCatMenuServices();
-            $scope.loadDefaults();
-            if(localStorage.placeSettings != undefined || localStorage.placeSettings != 'undefined')
-                $scope.settings = JSON.parse(localStorage.placeSettings);
-            $scope.addon_puntos = localStorage.addon_puntos;
-
-            $ionicLoading.show({
-                templateUrl: 'dialogs/loader.html'
-            })
-
-            var latitude = localStorage.place_lat;
-            var longitud = localStorage.place_lon;
-
-            if(typeof cordova === "undefined"){
-                $ionicLoading.hide();
-                $scope.drawMap(latitude, longitud, accuracy, zoom);
-                $scope.updateHtml();
+            if(r == null)
+            {
+                alert('Por los momentos el servicio seleccionado está en mantenimiento, favor contactenos o utilice otro.');
+                $state.go('loginBill');
                 return;
             }
+        });    
+    }
 
-            cordova.plugins.diagnostic.isGpsLocationEnabled(function (enabled) {
+    $scope.pedirTaxi = function () {
+        $('#map').height($(document).height() * 1);
+        $('#sigBtn').show('slow');
+        $scope.getCatMenuServices();
+        $scope.loadDefaults();
+        if(localStorage.placeSettings != undefined || localStorage.placeSettings != 'undefined')
+            $scope.settings = JSON.parse(localStorage.placeSettings);
+        $scope.addon_puntos = localStorage.addon_puntos;
 
-                var onSuccess = function(position) {
-                    console.log('aqui sin error');
-                    latitude = position.coords.latitude;
-                    longitud = position.coords.longitude;
-                    accuracy = position.coords.accuracy;
-                    zoom = 16;
-                    
+        $ionicLoading.show({
+            templateUrl: 'dialogs/loader.html'
+        })
+
+        var latitude = localStorage.place_lat;
+        var longitud = localStorage.place_lon;
+
+        if(typeof cordova === "undefined"){
+            $ionicLoading.hide();
+            $scope.drawMap(latitude, longitud, accuracy, zoom);
+            $scope.updateHtml();
+            return;
+        }
+
+        cordova.plugins.diagnostic.isGpsLocationEnabled(function (enabled) {
+
+            var onSuccess = function(position) {
+                console.log('aqui sin error');
+                latitude = position.coords.latitude;
+                longitud = position.coords.longitude;
+                accuracy = position.coords.accuracy;
+                zoom = 16;
+
                     // Add the circle for this city to the map.
                     //circle = new google.maps.Circle(mapOpt);
                     $ionicLoading.hide()
@@ -3806,39 +3714,39 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
 
 
 
+    }
+
+    $scope.updateHtml = function(){
+        if (modo == "encomienda") {
+            $('#sectionA').hide('slow');
+            $('#sectionB').show('slow');
+            $('#sectionF').show('slow');
+        } else {
+            $('#sectionA').hide('slow');
+            $('#sectionB').show('slow');
+            $('#sectionD').show('slow');
         }
+    }
 
-        $scope.updateHtml = function(){
-            if (modo == "encomienda") {
-                $('#sectionA').hide('slow');
-                $('#sectionB').show('slow');
-                $('#sectionF').show('slow');
-            } else {
-                $('#sectionA').hide('slow');
-                $('#sectionB').show('slow');
-                $('#sectionD').show('slow');
-            }
-        }
+    $scope.drawMap = function(lat, long, accuracy, zoom){
+        var circle;
+        var latFixed = parseFloat(lat).toFixed(5);
+        var longFixed = parseFloat(long).toFixed(5);
 
-        $scope.drawMap = function(lat, long, accuracy, zoom){
-            var circle;
-            var latFixed = parseFloat(lat).toFixed(5);
-            var longFixed = parseFloat(long).toFixed(5);
+        localStorage.lat = latFixed;
+        localStorage.lng = longFixed;
 
-            localStorage.lat = latFixed;
-            localStorage.lng = longFixed;
-
-            var point = new google.maps.LatLng(latFixed, longFixed);
-            var mapOptions = {
-                zoom: zoom,
-                center: point,                
-                mapTypeId: google.maps.MapTypeId.ROADMAP,
-                radius: accuracy,
-                mapTypeControl: false,
-                streetViewControl: false,
-                fullScreenControl: false
-            };
-            var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+        var point = new google.maps.LatLng(latFixed, longFixed);
+        var mapOptions = {
+            zoom: zoom,
+            center: point,                
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            radius: accuracy,
+            mapTypeControl: false,
+            streetViewControl: false,
+            fullScreenControl: false
+        };
+        var map = new google.maps.Map(document.getElementById('map'), mapOptions);
             // Construct the circle for each value in citymap.
             // Note: We scale the area of the circle based on the population.
             console.log('point: '+JSON.stringify(point));
@@ -3885,27 +3793,27 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
                             title: $scope.settings.redeem_title,
                             scope: $scope,
                             buttons: [
-                                { text: 'Cancelar' },
-                                {
-                                    text: '<b>Actualizar</b>',
-                                    type: 'button-stable',
-                                    onTap: function (e) {
+                            { text: 'Cancelar' },
+                            {
+                                text: '<b>Actualizar</b>',
+                                type: 'button-stable',
+                                onTap: function (e) {
 
-                                        var validate = validateIdentidad($scope.confirm.username);
-                                        if (validate != true) {
-                                            alert(validate);
-                                            $scope.acumulatePoints();
-                                            return;
-                                        }
-
-                                        localStorage.user_id = $scope.confirm.username;
+                                    var validate = validateIdentidad($scope.confirm.username);
+                                    if (validate != true) {
+                                        alert(validate);
+                                        $scope.acumulatePoints();
+                                        return;
                                     }
+
+                                    localStorage.user_id = $scope.confirm.username;
                                 }
+                            }
                             ]
                         });
                     } else $scope.confirm.username = localStorage.user_id;
                     $scope.$apply();
-            }, 1000)
+                }, 1000)
         }
 
         $scope.step2 = function () {
@@ -3923,75 +3831,75 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
             $('#sigBtn').hide('slow');
             $('#sectionE').show('slow');
           //  $('#map').hide('slow');
-            $ionicScrollDelegate.scrollTop();
+          $ionicScrollDelegate.scrollTop();
+      }
+
+      $scope.create_order = function(){
+        console.log('create_order init');
+
+        if($scope.service.value.trim() == ""){
+            alert('Debes elegir un servicio antes de continuar.')
+            return;
         }
 
-        $scope.create_order = function(){
-            console.log('create_order init');
+        if($scope.validFormConfirm() == false){
+            alert('Debes llenar correctamente los campos.');
+            return;
+        }
 
-            if($scope.service.value.trim() == ""){
-                alert('Debes elegir un servicio antes de continuar.')
-                return;
-            }
+        if($scope.confirm.username != ''){
+            localStorage.user_id = $scope.confirm.username;
+            localStorage.identidad = $scope.confirm.username;
+        }
 
-            if($scope.validFormConfirm() == false){
-                alert('Debes llenar correctamente los campos.');
-                return;
-            }
+        var menu_id = $scope.service.value;
 
-            if($scope.confirm.username != ''){
-                localStorage.user_id = $scope.confirm.username;
-                localStorage.identidad = $scope.confirm.username;
-            }
+        var order = {
+            latitud: localStorage.lat,
+            longitud: localStorage.lng,
+            store_id: localStorage.store_id,
+            nombre: $scope.confirm.nombre,
+            telefono1: $scope.confirm.tel,
+            email: $scope.confirm.mail,
+            direccion: zoom == 12 ? "GPS NO DETECTADO: "+$scope.confirm.instrucciones : $scope.confirm.instrucciones,
+            comment: $scope.confirm.comment,
+            bill_username: $scope.confirm.username,
+            bill_points: localStorage.bill_points,
+            qty: $scope.confirm.qty,
+            place_id: Theme_id,
+            menu_id: menu_id,
+            track_id: localStorage.track_id,
+            bill_token: localStorage.gcmToken
 
-            var menu_id = $scope.service.value;
-            
-            var order = {
-                latitud: localStorage.lat,
-                longitud: localStorage.lng,
-                store_id: localStorage.store_id,
-                nombre: $scope.confirm.nombre,
-                telefono1: $scope.confirm.tel,
-                email: $scope.confirm.mail,
-                direccion: zoom == 12 ? "GPS NO DETECTADO: "+$scope.confirm.instrucciones : $scope.confirm.instrucciones,
-                comment: $scope.confirm.comment,
-                bill_username: $scope.confirm.username,
-                bill_points: localStorage.bill_points,
-                qty: $scope.confirm.qty,
-                place_id: Theme_id,
-                menu_id: menu_id,
-                track_id: localStorage.track_id,
-                bill_token: localStorage.gcmToken
+        };
 
-            };
+        order.action = "create_order";
 
-            order.action = "create_order";
+        $ionicLoading.show({
+            templateUrl: 'dialogs/loader.html'
+        })
 
-            $ionicLoading.show({
-                templateUrl: 'dialogs/loader.html'
-            })
-
-            $.getJSON(getServerPath(), order, function (r) {
-                console.log('r: '+JSON.stringify(r));
-                alert('Solicitud enviada, atento al celular que proximamente te contactaremos!');
-                $ionicLoading.hide();
-                $scope.setNewDefaults(order);
-                $state.go('loginBill');
+        $.getJSON(getServerPath(), order, function (r) {
+            console.log('r: '+JSON.stringify(r));
+            alert('Solicitud enviada, atento al celular que proximamente te contactaremos!');
+            $ionicLoading.hide();
+            $scope.setNewDefaults(order);
+            $state.go('loginBill');
                 //$scope.$apply();
             }); 
+    }
+
+    $scope.validFormConfirm = function(){
+
+        var nombre = $('#nombre').val(); $scope.confirm.nombre = nombre;
+        var tel = $('#tel').val(); $scope.confirm.tel = tel;
+        var comment = $('#comment').val(); $scope.confirm.comment = comment;
+        var instrucciones = $('#instrucciones').val(); $scope.confirm.instrucciones = instrucciones;
+
+        if($scope.confirm.nombre.length < 2 ){
+            alert('Ingrese correctamente el nombre')
+            return false;
         }
-
-        $scope.validFormConfirm = function(){
-
-            var nombre = $('#nombre').val(); $scope.confirm.nombre = nombre;
-            var tel = $('#tel').val(); $scope.confirm.tel = tel;
-            var comment = $('#comment').val(); $scope.confirm.comment = comment;
-            var instrucciones = $('#instrucciones').val(); $scope.confirm.instrucciones = instrucciones;
-
-            if($scope.confirm.nombre.length < 2 ){
-                alert('Ingrese correctamente el nombre')
-                return false;
-            }
 
             //alert('esta malo el nombre '+$scope.confirm.nombre);
 
@@ -4016,353 +3924,353 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
 
                 //alert('esta malo el instrucciones: '+$scope.confirm.instrucciones)
 
-            return true;
-        }
+                return true;
+            }
 
-        $scope.setNewDefaults = function(order){
-            
-            localStorage.nombre = order.nombre;
-            localStorage.telefono1 = order.telefono1;
-            localStorage.email = (order.email == undefined  || order.email == "undefined" )? '': order.email;
+            $scope.setNewDefaults = function(order){
 
-        
-            localStorage.lat = undefined;
-            localStorage.lon = undefined;
-        }
+                localStorage.nombre = order.nombre;
+                localStorage.telefono1 = order.telefono1;
+                localStorage.email = (order.email == undefined  || order.email == "undefined" )? '': order.email;
 
-        $scope.loadDefaults = function(){
-        
-            if(localStorage.nombre !== undefined)
-              $scope.confirm.nombre = localStorage.nombre;
-        
-            if(localStorage.telefono1 !== undefined)
-              $scope.confirm.tel = localStorage.telefono1;
-        
-            if(localStorage.email !== undefined)
-              $scope.confirm.mail = localStorage.email;                    
-            
+
+                localStorage.lat = undefined;
+                localStorage.lon = undefined;
+            }
+
+            $scope.loadDefaults = function(){
+
+                if(localStorage.nombre !== undefined)
+                  $scope.confirm.nombre = localStorage.nombre;
+
+              if(localStorage.telefono1 !== undefined)
+                  $scope.confirm.tel = localStorage.telefono1;
+
+              if(localStorage.email !== undefined)
+                  $scope.confirm.mail = localStorage.email;                    
+
           }
-    })
+      })
 
-    .controller('domiciliosDetalleCtrl', function ($scope, $state) {
-        Waves.attach('button')
-        Waves.attach('.waves-block')
-        Waves.init();
-        $scope.inicio = function () {
-            var lat, lon, zoom;
-            var res = alasql('SELECT * FROM ? WHERE bill_id = "' + sessionStorage.getItem('bill_id') + '"', [selectDomicilio]);
-            $.getJSON(getServerPath(), { action: "selectDomicilio", place_id: "1" }, function (json) {
+.controller('domiciliosDetalleCtrl', function ($scope, $state) {
+    Waves.attach('button')
+    Waves.attach('.waves-block')
+    Waves.init();
+    $scope.inicio = function () {
+        var lat, lon, zoom;
+        var res = alasql('SELECT * FROM ? WHERE bill_id = "' + sessionStorage.getItem('bill_id') + '"', [selectDomicilio]);
+        $.getJSON(getServerPath(), { action: "selectDomicilio", place_id: "1" }, function (json) {
                 //var res = alasql('SELECT * FROM ? WHERE bill_id = "' + sessionStorage.getItem('bill_id') + '"', [selectDomicilio]);
                 $scope.orden = res;
                 $scope.$apply();
             })
 
-            $.getJSON(getServerPath(), {
-                action: 'queryBill',
-                bill_id: sessionStorage.getItem('bill_id')
-            }, function (json) {
-                $scope.detail = json;
-                $scope.$apply();
+        $.getJSON(getServerPath(), {
+            action: 'queryBill',
+            bill_id: sessionStorage.getItem('bill_id')
+        }, function (json) {
+            $scope.detail = json;
+            $scope.$apply();
+        })
+        if (res[0].latitud == 'x') {
+            $('#map').hide('slow');
+        } else {
+            $('#map').show('slow');
+            lat = res[0].latitud;
+            lon = res[0].longitud;
+            zoom = 16;
+            var e = new google.maps.LatLng(lat, lon), t = { zoom: zoom, center: e, panControl: !0, scrollwheel: !1, scaleControl: !0, overviewMapControl: !0, overviewMapControlOptions: { opened: !0 }, mapTypeId: google.maps.MapTypeId.HYBRID };
+            map = new google.maps.Map(document.getElementById("map"), t), geocoder = new google.maps.Geocoder, marker = new google.maps.Marker({ position: e, map: map }), map.streetViewControl = !1, infowindow = new google.maps.InfoWindow({ content: "(1.10, 1.10)" }), google.maps.event.addListener(map, "click", function (e) {
+                marker.setPosition(e.latLng);
+                var t = e.latLng, o = "(" + t.lat().toFixed(6) + ", " + t.lng().toFixed(6) + ")";
+                infowindow.setContent(o), document.getElementById("lat").value = t.lat().toFixed(6), document.getElementById("lng").value = t.lng().toFixed(6), document.getElementById("latlngspan").innerHTML = o, document.getElementById("coordinatesurl").value = "http://www.latlong.net/c/?lat=" + t.lat().toFixed(6) + "&long=" + t.lng().toFixed(6), document.getElementById("coordinateslink").innerHTML = '&lt;a href="http://www.latlong.net/c/?lat=' + t.lat().toFixed(6) + "&amp;long=" + t.lng().toFixed(6) + '" target="_blank"&gt;(' + t.lat().toFixed(6) + ", " + t.lng().toFixed(6) + ")&lt;/a&gt;", dec2dms()
+            }), google.maps.event.addListener(map, "mousemove", function (e) {
+                var t = e.latLng;
+                document.getElementById("mlat").innerHTML = "(" + t.lat().toFixed(6) + ", " + t.lng().toFixed(6) + ")"
             })
-            if (res[0].latitud == 'x') {
-                $('#map').hide('slow');
-            } else {
-                $('#map').show('slow');
-                lat = res[0].latitud;
-                lon = res[0].longitud;
-                zoom = 16;
-                var e = new google.maps.LatLng(lat, lon), t = { zoom: zoom, center: e, panControl: !0, scrollwheel: !1, scaleControl: !0, overviewMapControl: !0, overviewMapControlOptions: { opened: !0 }, mapTypeId: google.maps.MapTypeId.HYBRID };
-                map = new google.maps.Map(document.getElementById("map"), t), geocoder = new google.maps.Geocoder, marker = new google.maps.Marker({ position: e, map: map }), map.streetViewControl = !1, infowindow = new google.maps.InfoWindow({ content: "(1.10, 1.10)" }), google.maps.event.addListener(map, "click", function (e) {
-                    marker.setPosition(e.latLng);
-                    var t = e.latLng, o = "(" + t.lat().toFixed(6) + ", " + t.lng().toFixed(6) + ")";
-                    infowindow.setContent(o), document.getElementById("lat").value = t.lat().toFixed(6), document.getElementById("lng").value = t.lng().toFixed(6), document.getElementById("latlngspan").innerHTML = o, document.getElementById("coordinatesurl").value = "http://www.latlong.net/c/?lat=" + t.lat().toFixed(6) + "&long=" + t.lng().toFixed(6), document.getElementById("coordinateslink").innerHTML = '&lt;a href="http://www.latlong.net/c/?lat=' + t.lat().toFixed(6) + "&amp;long=" + t.lng().toFixed(6) + '" target="_blank"&gt;(' + t.lat().toFixed(6) + ", " + t.lng().toFixed(6) + ")&lt;/a&gt;", dec2dms()
-                }), google.maps.event.addListener(map, "mousemove", function (e) {
-                    var t = e.latLng;
-                    document.getElementById("mlat").innerHTML = "(" + t.lat().toFixed(6) + ", " + t.lng().toFixed(6) + ")"
-                })
-            }
         }
-    })
-
-    function checkKey(state){
-        if(rev==0)
-            state.go('loginBill');
     }
+})
 
-    function getParameterByName(name, url) {
-        if (!url)
-            url = window.location.href;
-        name = name.replace(/[\[\]]/g, "\\$&");
-        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-                results = regex.exec(url);
-        if (!results)
-            return null;
-        if (!results[2])
-            return '';
-        return decodeURIComponent(results[2].replace(/\+/g, " "));
+function checkKey(state){
+    if(rev==0)
+        state.go('loginBill');
+}
+
+function getParameterByName(name, url) {
+    if (!url)
+        url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+    results = regex.exec(url);
+    if (!results)
+        return null;
+    if (!results[2])
+        return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+
+var mapstyle = [
+{
+    "featureType": "administrative",
+    "elementType": "all",
+    "stylers": [
+    {
+        "visibility": "on"
+    },
+    {
+        "color": "#1d1d1d"
     }
-
-
-    var mapstyle = [
-        {
-            "featureType": "administrative",
-            "elementType": "all",
-            "stylers": [
-                {
-                    "visibility": "on"
-                },
-                {
-                    "color": "#1d1d1d"
-                }
-            ]
-        },
-        {
-            "featureType": "administrative",
-            "elementType": "labels.text.fill",
-            "stylers": [
-                {
-                    "color": "#626060"
-                },
-                {
-                    "weight": "1"
-                }
-            ]
-        },
-        {
-            "featureType": "administrative",
-            "elementType": "labels.text.stroke",
-            "stylers": [
-                {
-                    "color": "#181818"
-                }
-            ]
-        },
-        {
-            "featureType": "administrative.country",
-            "elementType": "all",
-            "stylers": [
-                {
-                    "visibility": "on"
-                }
-            ]
-        },
-        {
-            "featureType": "administrative.province",
-            "elementType": "all",
-            "stylers": [
-                {
-                    "visibility": "on"
-                }
-            ]
-        },
-        {
-            "featureType": "administrative.neighborhood",
-            "elementType": "all",
-            "stylers": [
-                {
-                    "visibility": "on"
-                }
-            ]
-        },
-        {
-            "featureType": "landscape",
-            "elementType": "all",
-            "stylers": [
-                {
-                    "color": "#181818"
-                },
-                {
-                    "weight": "1"
-                },
-                {
-                    "gamma": "1"
-                }
-            ]
-        },
-        {
-            "featureType": "poi",
-            "elementType": "all",
-            "stylers": [
-                {
-                    "visibility": "off"
-                }
-            ]
-        },
-        {
-            "featureType": "road",
-            "elementType": "all",
-            "stylers": [
-                {
-                    "saturation": -100
-                },
-                {
-                    "lightness": 45
-                },
-                {
-                    "color": "#000000"
-                },
-                {
-                    "visibility": "on"
-                }
-            ]
-        },
-        {
-            "featureType": "road",
-            "elementType": "labels",
-            "stylers": [
-                {
-                    "visibility": "on"
-                },
-                {
-                    "weight": "0.97"
-                },
-                {
-                    "color": "#7f8c8d"
-                }
-            ]
-        },
-        {
-            "featureType": "road",
-            "elementType": "labels.text",
-            "stylers": [
-                {
-                    "weight": "2"
-                },
-                {
-                    "visibility": "on"
-                },
-                {
-                    "color": "#696464"
-                }
-            ]
-        },
-        {
-            "featureType": "road",
-            "elementType": "labels.text.stroke",
-            "stylers": [
-                {
-                    "visibility": "on"
-                },
-                {
-                    "color": "#181818"
-                }
-            ]
-        },
-        {
-            "featureType": "road.highway",
-            "elementType": "all",
-            "stylers": [
-                {
-                    "visibility": "simplified"
-                }
-            ]
-        },
-        {
-            "featureType": "road.highway",
-            "elementType": "labels.icon",
-            "stylers": [
-                {
-                    "visibility": "off"
-                }
-            ]
-        },
-        {
-            "featureType": "road.arterial",
-            "elementType": "labels.icon",
-            "stylers": [
-                {
-                    "visibility": "off"
-                }
-            ]
-        },
-        {
-            "featureType": "road.local",
-            "elementType": "all",
-            "stylers": [
-                {
-                    "visibility": "on"
-                }
-            ]
-        },
-        {
-            "featureType": "transit",
-            "elementType": "all",
-            "stylers": [
-                {
-                    "visibility": "on"
-                }
-            ]
-        },
-        {
-            "featureType": "transit",
-            "elementType": "geometry",
-            "stylers": [
-                {
-                    "visibility": "on"
-                },
-                {
-                    "color": "#232222"
-                }
-            ]
-        },
-        {
-            "featureType": "transit",
-            "elementType": "labels.icon",
-            "stylers": [
-                {
-                    "visibility": "on"
-                }
-            ]
-        },
-        {
-            "featureType": "transit.station",
-            "elementType": "all",
-            "stylers": [
-                {
-                    "visibility": "on"
-                }
-            ]
-        },
-        {
-            "featureType": "transit.station",
-            "elementType": "geometry",
-            "stylers": [
-                {
-                    "visibility": "on"
-                },
-                {
-                    "color": "#000000"
-                }
-            ]
-        },
-        {
-            "featureType": "transit.station",
-            "elementType": "labels.text",
-            "stylers": [
-                {
-                    "visibility": "off"
-                }
-            ]
-        },
-        {
-            "featureType": "transit.station",
-            "elementType": "labels.icon",
-            "stylers": [
-                {
-                    "visibility": "on"
-                }
-            ]
-        },
-        {
-            "featureType": "water",
-            "elementType": "all",
-            "stylers": [
-                {
-                    "color": "#00202c"
-                },
-                {
-                    "visibility": "on"
-                }
-            ]
-        }
     ]
+},
+{
+    "featureType": "administrative",
+    "elementType": "labels.text.fill",
+    "stylers": [
+    {
+        "color": "#626060"
+    },
+    {
+        "weight": "1"
+    }
+    ]
+},
+{
+    "featureType": "administrative",
+    "elementType": "labels.text.stroke",
+    "stylers": [
+    {
+        "color": "#181818"
+    }
+    ]
+},
+{
+    "featureType": "administrative.country",
+    "elementType": "all",
+    "stylers": [
+    {
+        "visibility": "on"
+    }
+    ]
+},
+{
+    "featureType": "administrative.province",
+    "elementType": "all",
+    "stylers": [
+    {
+        "visibility": "on"
+    }
+    ]
+},
+{
+    "featureType": "administrative.neighborhood",
+    "elementType": "all",
+    "stylers": [
+    {
+        "visibility": "on"
+    }
+    ]
+},
+{
+    "featureType": "landscape",
+    "elementType": "all",
+    "stylers": [
+    {
+        "color": "#181818"
+    },
+    {
+        "weight": "1"
+    },
+    {
+        "gamma": "1"
+    }
+    ]
+},
+{
+    "featureType": "poi",
+    "elementType": "all",
+    "stylers": [
+    {
+        "visibility": "off"
+    }
+    ]
+},
+{
+    "featureType": "road",
+    "elementType": "all",
+    "stylers": [
+    {
+        "saturation": -100
+    },
+    {
+        "lightness": 45
+    },
+    {
+        "color": "#000000"
+    },
+    {
+        "visibility": "on"
+    }
+    ]
+},
+{
+    "featureType": "road",
+    "elementType": "labels",
+    "stylers": [
+    {
+        "visibility": "on"
+    },
+    {
+        "weight": "0.97"
+    },
+    {
+        "color": "#7f8c8d"
+    }
+    ]
+},
+{
+    "featureType": "road",
+    "elementType": "labels.text",
+    "stylers": [
+    {
+        "weight": "2"
+    },
+    {
+        "visibility": "on"
+    },
+    {
+        "color": "#696464"
+    }
+    ]
+},
+{
+    "featureType": "road",
+    "elementType": "labels.text.stroke",
+    "stylers": [
+    {
+        "visibility": "on"
+    },
+    {
+        "color": "#181818"
+    }
+    ]
+},
+{
+    "featureType": "road.highway",
+    "elementType": "all",
+    "stylers": [
+    {
+        "visibility": "simplified"
+    }
+    ]
+},
+{
+    "featureType": "road.highway",
+    "elementType": "labels.icon",
+    "stylers": [
+    {
+        "visibility": "off"
+    }
+    ]
+},
+{
+    "featureType": "road.arterial",
+    "elementType": "labels.icon",
+    "stylers": [
+    {
+        "visibility": "off"
+    }
+    ]
+},
+{
+    "featureType": "road.local",
+    "elementType": "all",
+    "stylers": [
+    {
+        "visibility": "on"
+    }
+    ]
+},
+{
+    "featureType": "transit",
+    "elementType": "all",
+    "stylers": [
+    {
+        "visibility": "on"
+    }
+    ]
+},
+{
+    "featureType": "transit",
+    "elementType": "geometry",
+    "stylers": [
+    {
+        "visibility": "on"
+    }, 
+    {
+        "color": "#232222"
+    }
+    ]
+},
+{
+    "featureType": "transit",
+    "elementType": "labels.icon",
+    "stylers": [
+    {
+        "visibility": "on"
+    }
+    ]
+},
+{
+    "featureType": "transit.station",
+    "elementType": "all",
+    "stylers": [
+    {
+        "visibility": "on"
+    }
+    ]
+},
+{
+    "featureType": "transit.station",
+    "elementType": "geometry",
+    "stylers": [
+    {
+        "visibility": "on"
+    },
+    {
+        "color": "#000000"
+    }
+    ]
+},
+{
+    "featureType": "transit.station",
+    "elementType": "labels.text",
+    "stylers": [
+    {
+        "visibility": "off"
+    }
+    ]
+},
+{
+    "featureType": "transit.station",
+    "elementType": "labels.icon",
+    "stylers": [
+    {
+        "visibility": "on"
+    }
+    ]
+},
+{
+    "featureType": "water",
+    "elementType": "all",
+    "stylers": [
+    {
+        "color": "#00202c"
+    },
+    {
+        "visibility": "on"
+    }
+    ]
+}
+]

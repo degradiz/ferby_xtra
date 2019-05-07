@@ -123,11 +123,14 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             }
         }
      })
-    .state('loginBill', {
+    .state('side.loginBill', {
         url: '/loginBill',
-
+          cache: true,
+     views: {
+            'menuContent': {
                 templateUrl: 'templates/loginBill.html',
-                controller: 'loginBillCtrl'
+                controller: 'loginBillCtrl'}
+            }
     
     })
     .state('side.stamps', {
@@ -353,6 +356,14 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     })
     // Each tab has its own nav history stack:
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('loginBill');
+    if(localStorage.user_id == null){
+            $urlRouterProvider.otherwise('enterClient');
+    }else{
+        if(localStorage.user_id == "0"){
+            $urlRouterProvider.otherwise('enterClient');
+        }else{
+              $urlRouterProvider.otherwise('/side/loginBill');
+        }
+    }
 });
 
