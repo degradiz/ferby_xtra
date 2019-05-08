@@ -3939,7 +3939,8 @@ angular.module('starter.controllers', ['datatables', 'starter.services', 'ion-da
                                     action: 'push_place_tokens',
                                     place_id: sessionStorage.getItem('place_id'),
                                     title: $scope.push.title,
-                                    body: $scope.push.body
+                                    body: $scope.push.body,
+                                    cType: $("#cType").val()
                                 }, function (r) {
                                     $ionicLoading.hide()
                                     if(r==9)

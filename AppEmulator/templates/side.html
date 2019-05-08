@@ -1,12 +1,15 @@
 ﻿<ion-side-menus enable-menu-with-back-views="true" ng-init="init()"  >
     <ion-side-menu-content>
         <ion-nav-bar class="bar-dark">
+            
+            <ion-nav-buttons side="left">
+                <img src="https://app.almacenesxtra.com/img/2-8e293d88bb21d6cd.png" ng-click="openPopover($event)" style="width:40px"  /><i ng-click="openPopover($event)" style="font-size:35px" class="ion-plus"></i>
+            </ion-nav-buttons>
             <ion-nav-back-button>
             </ion-nav-back-button>
-                        <ion-nav-buttons side="left">
-                <img src="https://app.almacenesxtra.com/img/2-8e293d88bb21d6cd.png" style="width:40px" ng-click="openPopover($event)" />
+            <ion-nav-buttons side="right">
+                <i ng-click="updatePuntos()" style="font-size:35px" class="ion-refresh"></i>
             </ion-nav-buttons>
-            
 
         </ion-nav-bar>
         <ion-nav-view name="menuContent"></ion-nav-view>

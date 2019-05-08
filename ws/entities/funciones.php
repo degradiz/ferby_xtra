@@ -69,19 +69,25 @@ function sendPushNotificationAndroidUser($token, $parameters) {
     $registrationIds = $token;
 
 #prep the bundle
-     $msg = array
+    $msg = array
           (
         "body"  => "$parameters->body",
         "title" => "$parameters->title",
-        "sound" => "notify",
-        "android_channel_id" => "channel1",
-        "additionalData" => "{ 'key': "c" }"
+        "sound" => "notify1",
+        "android_channel_id" => "channel1" 
           );
-
+$data = array(
+    "contentType" => "$parameters->cType",
+    "content-available" => "1",
+    "body"  => "$parameters->body",
+    "title" => "$parameters->title",
+    "sound" => "notify1",
+    //"android_channel_id" => "channel1",
+);
     $fields = array
             (
-                'to'        => $registrationIds,
-                'notification'  => $msg
+                "to"  => $registrationIds,
+                "data" => $data
             );
     
     

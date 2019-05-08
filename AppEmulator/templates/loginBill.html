@@ -98,33 +98,35 @@
                                 
 
                                 <div class="grisubshel" ng-click="openCoupons()" ng-if="place.show_coupons == 1" >
-                                        <img ng-src="{{baseImgUrl}}{{place.img_coupons}}"  style="width:100%"  />
+                                        <img id="showCuponBadge" style="width:20px;position: absolute;display: none" src="./images/cir.png"/>
+                                        <img id="cuponesIMG" ng-src="{{baseImgUrl}}{{place.img_coupons}}"  style="width:100%"  />
                                         <p class="textsubshelblack">Xtra Cupones</p>
                                 </div>
                                 <div class="grisubshel" ng-click="openPromos()" ng-if="place.show_promos == 1" >
-                                        <img ng-src="{{baseImgUrl}}{{place.img_promos}}"  style="width:100%"  />
+                                      <img id="showPromosBadge" style="width:20px;position: absolute;display: none" src="./images/cir.png"/>
+                                        <img id="promosIMG" ng-src="{{baseImgUrl}}{{place.img_promos}}"  style="width:100%"  />
                                         <p class="textsubshelblack">Promociones</p>
                                 </div>
                                 <div class="grisubshel" ng-click="openEvents()"  ng-if="place.show_events == 1" >
                                         <img ng-src="{{baseImgUrl}}{{place.img_events}}"  style="width:100%" />
                                         <p class="textsubshelblack">Eventos</p>
                                 </div>
-                               
-                                <div class="grisubshel" ng-click="scan();" ng-if="place.show_scanner == 1" >
-                                        <img ng-src="{{baseImgUrl}}{{place.scanner_img}}" style="width:100%" />
-                                        <p class="textsubshelblack">Escaner</p>
+                                <div class="grisubshel" ng-click="openWeb(place.rate_app_playstore)" ng-if="place.show_rate_app == 1" >
+                                      <img id="showNewBadge" style="width:20px;position: absolute;display:none" src="./images/cir.png"/>
+                                        <img id="newIMG" ng-src="{{baseImgUrl}}{{place.img_rate_app}}"  style="width:100%"  />
+                                        <p class="textsubshelblack">{{place.rate_app_text}}</p>
                                 </div>
-                            
+                                
                                 <div class="grisubshel" ng-click="openME();" ng-if="place.show_messenger == 1" >
                                         <img ng-src="{{baseImgUrl}}{{place.messenger_img}}" style="width:100%" />
                                         <p class="textsubshelblack">Messenger</p>
                                 </div>
                                 
-                                <div class="grisubshel"  ng-click="openFB();" ng-if="place.show_facebook == 1" >
-                                        <img ng-src="{{baseImgUrl}}{{place.facebook_img}}" style="width:100%" />
-                                        <!-- <p style="width:100%;text-align:center">Mis Tegupesos</p> -->
-                                        <p class="textsubshelblack">Facebook</p>
+                               <div class="grisubshel" ng-click="scan();" ng-if="place.show_scanner == 1" >
+                                        <img ng-src="{{baseImgUrl}}{{place.scanner_img}}" style="width:100%" />
+                                        <p class="textsubshelblack">Escaner</p>
                                 </div>
+                            
                                 <div class="grisubshel"  ng-click="openInstagram(place);" ng-if="place.show_instagram == 1" >
                                         <img ng-src="{{baseImgUrl}}{{place.img_instagram}}" style="width:100%" />
                                         <!-- <p style="width:100%;text-align:center">Mis Tegupesos</p> -->
@@ -136,17 +138,18 @@
                                         <p class="textsubshelblack">WhatsApp</p>
                                 </div>
                                 
-
+                                <div class="grisubshel"  ng-click="openFB();" ng-if="place.show_facebook == 1" >
+                                        <img ng-src="{{baseImgUrl}}{{place.facebook_img}}" style="width:100%" />
+                                        <!-- <p style="width:100%;text-align:center">Mis Tegupesos</p> -->
+                                        <p class="textsubshelblack">Facebook</p>
+                                </div>
 
                                 <div class="grisubshel" ng-if="place.show_track_orders == 1" ng-click="trackOrders();" ng-init="validateToken()">
                                     <img ng-src="{{baseImgUrl}}{{place.img_track_orders}}" style="width:100%" />
                                     <!-- <p style="width:100%;text-align:center">Mis Tegupesos</p> -->
                                     <p class="textsubshelblack">Mis pedidos</p>
                                 </div>
-                                <div class="grisubshel" ng-click="openWeb(place.rate_app_playstore)" ng-if="place.show_rate_app == 1" >
-                                        <img ng-src="{{baseImgUrl}}{{place.img_rate_app}}"  style="width:100%"  />
-                                        <p class="textsubshelblack">{{place.rate_app_text}}</p>
-                                </div>
+                               
                                <!-- <div class="grisubshel" ng-click="loginCheckins()" ng-if="place.addon_check_in == 1" >
                                         <img ng-src="{{baseImgUrl}}{{checkinOptions.checkin_icon}}"  style="width:100%"  />
                                         <p class="textsubshelblack">Visitas</p>

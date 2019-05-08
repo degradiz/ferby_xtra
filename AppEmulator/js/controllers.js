@@ -198,7 +198,7 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
 })    
 .controller('listCouponsCtrl', function($scope, $state, $rootScope, $ionicModal){
 
-
+   localStorage.showCuponBadge = 0;
 
     checkKey($state);
     $scope.wi = $(document).width();
@@ -261,6 +261,7 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
     })
 
 .controller('listPromosCtrl', function($scope, $state, $rootScope, $ionicModal){
+    localStorage.showPromosBadge = 0
     checkKey($state);
     $scope.wi = $(document).width();
     buildScopeStyleSettings($scope);
@@ -587,7 +588,7 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
         $state.go('side.placeMap')
     }
 })
-.controller('sideCtrl', function ($scope, $state, $ionicHistory, $rootScope, $ionicSideMenuDelegate, $ionicPopover) {
+.controller('sideCtrl', function ($scope, $state, $ionicHistory, $rootScope, $ionicSideMenuDelegate, $ionicPopover,$ionicLoading) {
 
  $scope.popover3 = $ionicPopover.fromTemplate('<ion-popover-view><div style="width:100%;background-color:red;color:white">Xtra Cash</div><div style="width:100%"><p style="width:100%;text-align:center">Actualmente tienes</p><br><div style="width:100%"><p id="puntos" style="width:100%;font-size:38px;text-align:center"></p></div><br><img style="width:50%;margin-left:25%" src="https://app.almacenesxtra.com/img/2-8e293d88bb21d6cd.png" /></div><p style="text-align:center;font-size:12px">1 Xtra Cash equivale a 1 Lempira</p><ul class="list"><li class="item"><a href="#/enterClient" class="button button-assertive">Cambiar de Usuario</a></li></ul></ion-popover-view>');
    $scope.openPopover = function($event) {
@@ -599,7 +600,20 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
       },150)
   };
 
-  
+  $scope.updatePuntos = function(){
+    $ionicLoading.show({
+                templateUrl: 'dialogs/loader.html'
+            })
+    $.get(getServerPath(), {
+                action: 'get_user_points',
+                username: localStorage.user_id,
+                place_id: Theme_id
+            }, function (resp) {
+                alert("Actualizado")
+                $ionicLoading.hide()
+                localStorage.puntosActuales = resp;
+            });
+  }
 
   $scope.closePopover = function() {
       $scope.popover3.hide();
@@ -725,7 +739,9 @@ $scope.init = function () {
 
     })
 .controller('loginBillCtrl', function ($ionicPopover,$scope, $ionicPopup, $state, $ionicHistory, $ionicModal, $ionicBackdrop, $ionicLoading, $rootScope, $ionicPlatform) {
-   
+   $ionicPlatform.registerBackButtonAction(function (event) {
+    event.preventDefault();
+}, 100);
     Waves.attach('button')
     Waves.attach('.waves-block')
     Waves.init();
@@ -747,6 +763,98 @@ $scope.init = function () {
     var nombreCl = localStorage.nombreDelCliente;
     var miniarr = nombreCl.split(" ");
     $scope.nombre = "Bienvenido, " + miniarr[0]  
+
+        setTimeout(function(){
+            
+                if(localStorage.showCuponBadge == 1){
+                      $("#showCuponBadge").show();
+                      $("#cuponesIMG").addClass("animated bounce");
+                }else{
+
+                    $("#showCuponBadge").hide();
+                      $("#cuponesIMG").removeClass("animated bounce");
+                }
+                if(localStorage.showPromosBadge == 1){
+                     $("#showPromosBadge").show();
+                      $("#promosIMG").addClass("animated bounce");
+                }else{
+                     $("#showPromosBadge").hide();
+                      $("#promosIMG").removeClass("animated bounce");
+                }
+                if(localStorage.showNewBadge == 1){
+                  $("#showNewBadge").show();
+                  $("#newIMG").addClass("animated bounce");
+                }else{
+                     $("#showNewBadge").hide();
+                  $("#newIMG").removeClass("animated bounce");
+                }
+        },3000)
+
+    setTimeout(function(){
+          var push = PushNotification.init({
+            "android": {},
+            browser: {
+                pushServiceURL: 'http://push.api.phonegap.com/v1/push'
+            },
+            "ios": { "alert": "true", "badge": "true", "sound": "true" }, "windows": {}
+        });
+        
+        push.on('registration', function (data) {
+     
+            localStorage.setItem('gcmToken', data.registrationId);
+        });
+
+        push.on('notification', function (data) {
+
+            if(data.additionalData.dismissed != undefined){
+              
+                if(data.additionalData.contentType == "c"){
+                   setTimeout(function(){$state.go("side.list-coupons")},1000);
+              }
+
+              if(data.additionalData.contentType == "p"){
+                 setTimeout(function(){$state.go("side.list-promos")},1000);
+              }
+
+              if(data.additionalData.contentType == "n"){
+                 setTimeout(function(){
+                     var target = "_blank";
+                     let color = rgbToHex(localStorage.th_home_square_color);
+                     var ref = cordova.InAppBrowser.open(encodeURI("https://www.google.com"), target, 'location=yes,hideurlbar=yes,toolbarcolor='+color);
+                 },1000);
+              }
+
+            }else{             
+                if(data.additionalData.contentType == "c"){
+                  setTimeout(function(){
+                  $("#showCuponBadge").show();
+                  $("#cuponesIMG").addClass("animated bounce");
+                  localStorage.showCuponBadge = 1
+                },1000)}
+                if(data.additionalData.contentType == "p"){
+                    setTimeout(function(){
+                      $("#showPromosBadge").show();
+                      $("#promosIMG").addClass("animated bounce");
+                      localStorage.showPromosBadge = 1
+                     },1000) 
+                  }
+                  if(data.additionalData.contentType == "n"){
+                    setTimeout(function(){
+                  $("#showNewBadge").show();
+                  $("#newIMG").addClass("animated bounce");
+                  localStorage.showNewBadge = 1
+                },1000)}
+              }
+            
+            
+        });
+
+        
+        push.on('error', function (e) {
+            console.log(e.message);
+            alert(e.message);
+        });
+    },3000)
 
     $rootScope.basePath = $scope.baseImgUrl;
 
@@ -872,6 +980,7 @@ $scope.obtenerServicio = function (category) {
         }
 
         $scope.openWeb = function(h){
+            
               if(typeof cordova === "undefined"){
             localStorage.setItem("urlStore",h);
                 //window.open(encodeURI(h), '_system');
@@ -884,7 +993,13 @@ $scope.obtenerServicio = function (category) {
                 var target = "_blank";
                 let color = rgbToHex(localStorage.th_home_square_color);
                 var ref = cordova.InAppBrowser.open(encodeURI(h), target, 'location=yes,hideurlbar=yes,toolbarcolor='+color);
-                //ref.addEventListener('loadstart', function(event) { alert(event.url); });                
+                ref.addEventListener('exit', function(event) { 
+                        localStorage.showNewBadge = 0;
+                           $("#showNewBadge").hide();
+                  $("#newIMG").removeClass("animated bounce");
+
+                 });  
+                       
 
             }
         }
@@ -940,7 +1055,7 @@ $scope.obtenerServicio = function (category) {
                                     var ref = cordova.InAppBrowser.open(result.text, '_blank', 'location=no');
                                                 },
                                   function (error) {
-                                        alert("Scanning failed: " + error);
+                                        console.log("Scanning failed: " + error);
                                              },
                                     {
                                 preferFrontCamera : false, // iOS and Android
@@ -2221,7 +2336,7 @@ $scope.obtenerServicio = function (category) {
         if($("#nomIdentidad").val() == ""){alert("Debes llenar el campo identidad con el numero de tu identidad del registro nacional de las personas."); return;}
         if($("#nomReg").val() == ""){alert("Debes llenar el campo nombre."); return;}
         if($("#celReg").val() == ""){alert("Debes llenar el celular con tu numero actual de celular."); return;}
-        if($("#nomEmail").val() == ""){alert("Debes llenar el celular con tu email."); return;}
+
         if($.trim($("#nomIdentidad").val()).length != 13){alert("El numero de identidad debe contener 13 numeros."); return;}
         if($.trim($("#celReg").val()).length != 8){alert("El numero de celular debe contener 8 numeros."); return;}
 

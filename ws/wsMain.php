@@ -1588,6 +1588,7 @@ break;
         $parameters->place_id = $_GET["place_id"];
         $parameters->body = $_GET["body"];
         $parameters->title = $_GET["title"];
+        $parameters->cType = $_GET["cType"];
         echo push_place_tokens($parameters);
         break;
 

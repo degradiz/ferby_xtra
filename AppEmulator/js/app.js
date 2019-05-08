@@ -20,30 +20,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             StatusBar.styleDefault();
         }
 
-        var push = PushNotification.init({
-            "android": {},
-            browser: {
-                pushServiceURL: 'http://push.api.phonegap.com/v1/push'
-            },
-            "ios": { "alert": "true", "badge": "true", "sound": "true" }, "windows": {}
-        });
-        console.log('push')
-        push.on('registration', function (data) {
-            //alert(data.registrationId);
-            console.log(data.registrationId);
-            localStorage.setItem('gcmToken', data.registrationId);// guarda el token registrandolo en cache
-            $rootScope.$emit("UpdateToken", {});
-        });
-
-        push.on('notification', function (data) {
-            alert(data.message);
-        });
-
-        
-        push.on('error', function (e) {
-            console.log(e.message);
-            alert(e.message);
-        });
+      
 
     });
 })
@@ -125,7 +102,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
      })
     .state('side.loginBill', {
         url: '/loginBill',
-          cache: true,
+          cache: false,
      views: {
             'menuContent': {
                 templateUrl: 'templates/loginBill.html',

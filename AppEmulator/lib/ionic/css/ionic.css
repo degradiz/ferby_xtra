@@ -4258,6 +4258,7 @@ a.subdued {
     border-color: #000;
     background-color: #262626; }
   .bar-dark .button.button-clear {
+    width:20px !important;
     border-color: transparent;
     background: none;
     box-shadow: none;
