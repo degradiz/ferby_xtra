@@ -74,7 +74,8 @@ function sendPushNotificationAndroidUser($token, $parameters) {
         "body"  => "$parameters->body",
         "title" => "$parameters->title",
         "sound" => "notify",
-        "android_channel_id" => "channel1"
+        "android_channel_id" => "channel1",
+        "tipo" => "c"
           );
 
     $fields = array
