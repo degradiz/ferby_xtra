@@ -791,6 +791,17 @@ function insertPoints_manually($username,$factura,$place_loc_id,$amt,$tienda) {
         
         if ($result === TRUE) {
             echo 1;
+            $queryUser = "SELECT fcmToken, platform FROM xtraClientes WHERE identidad = '$username' LIMIT 1";
+            $sth = mysqli_query($con, $queryUser);
+             while ($r = mysqli_fetch_assoc($sth)) {
+                $parameters = new stdClass();
+                $parameters->body = "Se Acreditaron $amt puntos a tu app";
+                $parameters->title = "Puntos Acreditados";
+                $parameters->cTyoe = "x";
+                if($r["platform"] == "Android"){
+                    sendPushNotificationAndroidUser($r["fcmToken"], $parameters);
+                }
+           }
         } else {
             mysqli_error($con);
         }
