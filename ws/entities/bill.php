@@ -778,6 +778,9 @@ function insertPoints_manually($username,$factura,$place_loc_id,$amt,$tienda) {
     global $con;
     $prequery = "select place_id from place_location where place_location_id = $place_loc_id LIMIT 1";
     $presth = mysqli_query($con, $prequery);
+    $StaringDate = date("Y-m-d");
+    $newEndingDate = date("Y-m-d", strtotime(date("Y-m-d", strtotime($StaringDate)) . " + 365 day"));
+    echo $newEndingDate;
     while ($rPre = mysqli_fetch_assoc($presth)) {
         $place_id = $rPre['place_id'];
 
