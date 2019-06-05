@@ -160,10 +160,10 @@ switch ($action) {
         insert_xtraCliente($identdad, $nombre, $numero, $email);
         break;
    case 'updateUserTokenIdentidad':
-        $identdad = $_GET['identidad'];
+        $identidad = $_GET['identidad'];
         $platform = $_GET['platform'];
         $token = $_GET['token'];
-        updateUserTokenIdentidad($identdad,$platform,$token);
+        updateUserTokenIdentidad($identidad,$platform,$token);
    break;
 
 //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬

@@ -24,7 +24,7 @@ function insert_xtraCliente($identdad, $nombre, $numero, $email){
     }
 }
 
-function updateUserTokenIdentidad($identdad,$platform,$token){
+function updateUserTokenIdentidad($identidad,$platform,$token){
     global $con;
     $query = "UPDATE xtraClientes SET fcmToken = '$token' , platform = '$platform' WHERE identidad = '$identidad'";
     mysqli_query($con,$query);
