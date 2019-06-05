@@ -797,7 +797,7 @@ function insertPoints_manually($username,$factura,$place_loc_id,$amt,$tienda) {
                 $parameters = new stdClass();
                 $parameters->body = "Se Acreditaron $amt puntos a tu app";
                 $parameters->title = "Puntos Acreditados";
-                $parameters->cType = "x";
+                $parameters->cType = "l";
                 $parameters->fcm_key = "AIzaSyCN9BOgTjBQTfMX2SOWT4gc14LzxpgMz3s";
                 if($r["platform"] == "Android"){
                     sendPushNotificationAndroidUser($r["fcmToken"], $parameters);
