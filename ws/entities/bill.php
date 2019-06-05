@@ -795,8 +795,13 @@ function insertPoints_manually($username,$factura,$place_loc_id,$amt,$tienda) {
             $sth = mysqli_query($con, $queryUser);
              while ($r = mysqli_fetch_assoc($sth)) {
                 $parameters = new stdClass();
-                $parameters->body = "Se Acreditaron $amt puntos a tu app";
-                $parameters->title = "Puntos Acreditados";
+                if($amt < 0){
+                     $parameters->title = "Puntos Acreditados";
+                    $parameters->body = "Se Acreditaron $amt puntos a tu app";
+                }else{
+                     $parameters->title = "Puntos Redimidos";
+                    $parameters->body = "Se Redimieron $amt puntos a tu app";
+                }
                 $parameters->cType = "l";
                 $parameters->fcm_key = "AIzaSyCN9BOgTjBQTfMX2SOWT4gc14LzxpgMz3s";
                 if($r["platform"] == "Android"){
