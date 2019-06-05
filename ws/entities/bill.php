@@ -796,10 +796,10 @@ function insertPoints_manually($username,$factura,$place_loc_id,$amt,$tienda) {
              while ($r = mysqli_fetch_assoc($sth)) {
                 $parameters = new stdClass();
                 if($amt < 0){
-                     $parameters->title = "Puntos Acreditados";
+                     $parameters->title = "Transacción de Puntos";
                     $parameters->body = "Se Acreditaron $amt puntos a tu app";
                 }else{
-                     $parameters->title = "Puntos Redimidos";
+                     $parameters->title = "Transacción de Puntos";
                     $parameters->body = "Se Redimieron $amt puntos a tu app";
                 }
                 $parameters->cType = "l";
