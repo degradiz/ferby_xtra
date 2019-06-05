@@ -780,11 +780,11 @@ function insertPoints_manually($username,$factura,$place_loc_id,$amt,$tienda) {
     $presth = mysqli_query($con, $prequery);
     $StaringDate = date("Y-m-d");
     $newEndingDate = date("Y-m-d", strtotime(date("Y-m-d", strtotime($StaringDate)) . " + 365 day"));
-    echo $newEndingDate;
+    //echo $newEndingDate;
     while ($rPre = mysqli_fetch_assoc($presth)) {
         $place_id = $rPre['place_id'];
 
-        $query = "INSERT INTO `gift_points` (`gift_point_id`, `gift_place_id`, `gift_username`, `gift_points`, `gift_bill_id`, `gift_time`, `idtienda`) VALUES (NULL, '$place_id', '$username', '$amt', '$factura', CURRENT_TIMESTAMP, '$tienda');"; 
+        $query = "INSERT INTO `gift_points` (`gift_point_id`, `gift_place_id`, `gift_username`, `gift_points`, `gift_bill_id`, `gift_time`, `idtienda`, `expires`) VALUES (NULL, '$place_id', '$username', '$amt', '$factura', CURRENT_TIMESTAMP, '$tienda', '$newEndingDate');"; 
 
 
         $result = mysqli_query($con, $query);
