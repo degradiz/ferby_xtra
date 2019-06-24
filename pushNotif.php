@@ -1,51 +1,57 @@
 <?php
-    // Replace with the real server API key from Google APIs
-    $apiKey = "AIzaSyBsOOsegOrDfjkQFRv47GksXwkmPV540u0";
-
-    // Replace with the real client registration IDs
-    $registrationIDs = array('ez5Yz1ZzNqc:APA91bH8yWHEPpk1-uBWqyy_rAalJAC_XAarWtPqMUG2uXbbPalnnbxRkDxXHy4hDgLyvwXGwhHqCfk2-VCArPN7cCiHu0O2TPPgkRMUgbE08tNDl6z09UaBFpfC680yMnpDdDR_b7B9');
-
-    // Message to be sent
-    $message = "Este es un mensaje de prueba";
-
-    // Set POST variables
-    $url = 'https://fcm.googleapis.com/fcm/send';
-
-    $fields = array(
-        'registration_ids' => $registrationIDs,
-        'data' => array(
-            "message" => $message, 
-            "sound" => "notify",
-            "priority" => "high",
-            'android_channel_id' => 'channel1'
-        ),
-    );
-    $headers = array(
-        'Authorization: key=' . $apiKey,
-        'Content-Type: application/json'
-    );
-
-    // Open connection
-    $ch = curl_init();
-
-    // Set the URL, number of POST vars, POST data
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    //curl_setopt( $ch, CURLOPT_POSTFIELDS, json_encode( $fields));
-
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    // curl_setopt($ch, CURLOPT_POST, true);
-    // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
-
-    // Execute post
-    $result = curl_exec($ch);
-
-    // Close connection
-    curl_close($ch);
-    echo $result;
-    //print_r($result);
-    //var_dump($result);
+  /* We are using the sandbox version of the APNS for development. For production
+        environments, change this to ssl://gateway.push.apple.com:2195 */
+        $apnsServer = 'ssl://gateway.push.apple.com:2195';
+        /* Make sure this is set to the password that you set for your private key
+        when you exported it to the .pem file using openssl on your OS X */
+        $privateKeyPassword = '';
+        /* Put your own message here if you want to */
+        $message = 'Has Recibido Una Nueva Orden';
+        /* Pur your device token here */
+        $deviceToken = "a366783c8790a68667345a18ff504ca4f6cc423c3979768eb47beb21d4e061af";
+        /* Replace this with the name of the file that you have placed by your PHP
+        script file, containing your private key and certificate that you generated
+        earlier */
+        $pushCertAndKeyPemFile = 'pushcert.pem';
+        $stream = stream_context_create();
+        stream_context_set_option($stream,
+        'ssl',
+        'passphrase',
+        $privateKeyPassword);
+        stream_context_set_option($stream,
+        'ssl',
+        'local_cert',
+        $pushCertAndKeyPemFile);
+        $connectionTimeout = 20;
+        $connectionType = STREAM_CLIENT_CONNECT | STREAM_CLIENT_PERSISTENT;
+        $connection = stream_socket_client($apnsServer,
+        $errorNumber,
+        $errorString,
+        $connectionTimeout,
+        $connectionType,
+        $stream);
+        if (!$connection){
+        //echo "Failed to connect to the APNS server. Error no = $errorNumber<br/>";
+        exit;
+        } else {
+        //echo "Successfully connected to the APNS. Processing...</br>";
+        }
+        $messageBody['aps'] = array('alert' => $message,
+        'sound' => 'default',
+        'badge' => 2,
+        );
+        $payload = json_encode($messageBody);
+        $notification = chr(0) .
+        pack('n', 32) .
+        pack('H*', $deviceToken) .
+        pack('n', strlen($payload)) .
+        $payload;
+        $wroteSuccessfully = fwrite($connection, $notification, strlen($notification));
+        if (!$wroteSuccessfully){
+        //echo "Could not send the message<br/>";
+        }
+        else {
+        //echo "Successfully sent the message<br/>";
+        }
+        fclose($connection);
 ?>
