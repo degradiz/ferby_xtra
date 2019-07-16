@@ -1,0 +1,15 @@
+<div>
+    <label>Ejemplo de Código QR</label>
+    <img style="width:33%;margin-left:33%" src="images/ejemplo.png" />
+    <p ng-if="showPedir==true" ng-click="showNumber()" style="float:right;text-decoration:underline">Ingresar Mesa</p>
+</div><br />
+<div id="hideInput" style="display:none">
+    <label style="width:100%">Selecciona una mesa</label>
+    <select style="width:100%" id="desk_Selected">
+        <option value="{{d.desk_id}}" ng-repeat="d in desks">{{d.desk_name}}</option>
+    </select>
+    <p style="float:right;width:100%">Clave Del Local</p>
+    <input style="border:solid 1px gray" type="password" id="pass" /><br />
+    <button ng-click="introNumber()" style="width:70%;margin-left:15%">Introducir Mesa</button>
+</div>
+

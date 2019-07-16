@@ -1,0 +1,49 @@
+﻿<ion-view view-title="" hide-nav-bar="true">
+    <style>
+    @keyframes animatedBackground {
+        from {
+            background-position: 0 0;
+        }
+
+        to {
+            background-position: 100% 50%;
+        }
+    }
+
+    .animate-area {
+        background-image: url(bg-clouds.png);
+        background-position: 0px 0px;
+        background-repeat: repeat-x;
+        animation: animatedBackground 40s linear infinite;
+    }
+</style>
+<ion-content  ng-init="loadTheme()">
+    <div id="myRefHeight" style="background-size:cover;background-image: url('./images/bckgrt.png')" >
+        <div class="padding" style="position:absolute;width:80%;margin-left:10%;">
+            <img id="logoImg" src="./images/maki.png" style="width:70%;margin-left:15%;margin-top:5px;" />
+        </div>
+        <div class="padding animated bounceInUp" style="position:absolute;margin-top:50%;width:100%;">
+            <div class="list">
+              <label class="item item-input item-stacked-label">
+                <span class="input-label">Tu Nombre y Apellido:</span>
+                <input id="nomReg" type="text" >
+            </label>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label">Tu Número de Celular</span>
+                <input id="celReg" type="tel" >
+            </label>
+                <input id="nomEmail" type="hidden" >
+          <label class="item item-input item-stacked-label">
+                <span class="input-label">Número de Identidad</span>
+                <input id="nomIdentidad" type="number" >
+            </label>
+                   <button ng-click="ingresar()" class="button button-assertive">Ingresar</button>
+                   <br><br>
+
+        </div>
+ <button ng-click="guester()" class="button button-positive">Entrar como Invitado</button>
+    </div>
+
+</div>
+</ion-content>
+</ion-view>

@@ -1,0 +1,33 @@
+﻿<ion-view ng-init="getPlaces()">
+
+    <ion-content >
+
+        <div style="width:100%" ng-repeat="p in places">
+            <div class="item item-divider">
+                <h3 style="color:white" id="plName{{p.place_location_id}}"> {{p.name}} </h3>
+            </div>
+            <div style="height:auto" class="item item-text-wrap">
+
+                <div style="display:none" class='row'>
+                    <div class='col'>
+                        <b>Politicas de la sucursal</b><br />
+                        <p>{{p.home_order_terms}}</p><br />
+                    </div>
+                </div>
+                <!--<button ng-click="goToRest({{p.place_location_id}},{{p.home_order_terms}})" class="button button-block button-positive">
+                    Seleccionar
+                </button>-->
+                <div style="width:100%;background-color:white;height:50px">
+                    <button style="width:50%; display:block; margin-left:25%" ng-click="goToMap({{p.lat}},{{p.lon}},{{p.place_location_id}})" class="button button-positive">
+                        &nbsp;&nbsp; Ver Ubicación &nbsp;&nbsp;
+                    </button>
+                </div>
+            </div>
+            <div style="width:100%" class="item item-divider">
+                &nbsp;
+            </div>
+        </div>
+
+
+    </ion-content>
+</ion-view>

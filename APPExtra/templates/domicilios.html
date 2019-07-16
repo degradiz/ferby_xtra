@@ -1,0 +1,27 @@
+﻿<ion-view>
+
+    <ion-content ng-init="init()" style="background-color:#D8D8D8">
+        <ion-refresher pulling-text="Pull to refresh..."
+                       on-refresh="init()">
+        </ion-refresher>
+        <div class="card animated bounceInLeft" style="overflow:visible;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); height:auto">
+
+            <div class="list">
+                <div ng-if="bills.length == 0" class="row">
+                    <p style="width:100%;text-align:center">Por los momentos no has hecho ningun pedido a domicilio :)</p>
+                </div>
+                <a ng-click="goToDetalle({{o.bill_id}})" ng-repeat="o in bills" class="item item-thumbnail-left item-icon-left">
+
+                    <img src="{{o.logo}}">
+                    {{o.name}}
+                    <p ng-if="o.status == 6">Aun no ha sido leido</p>
+                    <p ng-if="o.status == 7" style="color:darkgreen">Recibido y leido</p>
+                    <p ng-if="o.status == 8" style="color:darkgreen">Recibido y leido</p>
+                    <span class="item-note">
+                        {{o.days}} Dias
+                    </span>
+                </a>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

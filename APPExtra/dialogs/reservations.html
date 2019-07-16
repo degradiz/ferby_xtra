@@ -1,0 +1,16 @@
+﻿<h1 style="text-align:center">Reservaciones Disponibles.</h1>
+<p ng-if="placesLocation.length == 0">Por los momentos no hay sucursales disponibles. Esto ocurre por la disponibilidad de los horarios o capacidad de reservas de la sucursal.</p>
+<div class="card row" style="width: 93%" ng-repeat="pl in placesLocation" >
+    <center class="col">
+        <center  >
+            <span style="text-align-last: center; padding:0px;color:black; font-size: 18px">{{pl.name}}</span>
+        </center>
+
+        <div ng-click="openHelpLink(pl.order_site)" class="buttonUX animated" style="float: left; font-size: 12px; background-color: #f5f523 !important; color: black !important;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">Reservar</div>
+        <div ng-if="pl.whatsapp" ng-click="openWhatsApp(pl.whatsapp)" class="buttonUX animated" style="float: right; font-size: 12px; background-color: #25d366 !important; color: white !important;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">WhatsApp</div>
+        <!-- <div class="row">
+            <p ng-click="openWhatsApp({{place.business_phone}})" style="font-size: 12px"><img ng-click="openWhatsApp({{place.business_phone}})" ng-src="{{baseImgUrl}}{{place.phone_img}}" style="width:25px" /> Contactar</p>
+        </div> -->
+    </center>
+
+</div>

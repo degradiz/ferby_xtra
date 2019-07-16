@@ -1,0 +1,88 @@
+﻿<ion-view overflow-scroll="true"  ng-init="getCategories()"> 
+    <ion-nav-title>
+        Categorias
+    </ion-nav-title>
+
+    <ion-content overflow-scroll="true">
+        <ion-refresher pulling-text="Pull to refresh..."
+                       on-refresh="getCategories()">
+        </ion-refresher>
+         <div class="noneDisp banner waves-block shadow" style="height:{{style.texture.height}};width:100%;position:relative;top:0px;background-size:cover">
+            <div style="height:100%;width:100%;background-color:rgba(0,0,0,0.4);top:0px">
+                <div class="respoLogoPosition" style="padding-top:{{style.logo.position}}">
+                   
+                    <div class="row">
+                        <div class="col"  style="padding: 0px !important;">
+                         <img class="animated bounceIn bannerIMG" src="{{logoImage}}"  />
+                        </div>                           
+                        <div class="col" ng-if="wi > 768" >
+                            <div style="margin-top: 25px;float:right;">
+                                    <a class="menuActive menuColor" style="margin-left: 20px;" href="#/tab/categories" >Productos</a>
+                                    <a class="menuColor" style="margin-left: 20px;"  ng-if="p!=0" href="#/tab/promos" >Promociones</a>
+                                    <a class="menuColor" style="margin-left: 20px;" href="#/tab/cuenta" >Carrito</a>
+                            </div>    
+                        </div> 
+                    </div>
+                </div>
+            </div>  
+        </div>
+<div>
+       <!-- <div ng-if="wi < 800" style="height:auto;max-width:1200px;display:block;margin:auto;" >
+            <div  ng-repeat="x in categories" ng-if='$index % 2 == 0' class="row" >
+                <div class="col brStyleBox" style="background-image: url('{{baseImgUrl}}{{categories[$index].category_img}}');" ng-click="gotoMenu({{categories[$index].category_id}})"  >
+                    <span class="middletexter">{{categories[$index].name}}</span><br>
+                    <span class="lightWeigth">&nbsp;&nbsp;{{categories[$index].category_description}}</span>
+                </div>
+                <div  class="col brStyleBox" style="background-image: url('{{baseImgUrl}}{{categories[$index + 1].category_img}}');"  ng-click="gotoMenu({{categories[$index + 1].category_id}})" ng-if='categories.length > $index + 1' >
+                    <span class="middletexter">{{categories[$index+ 1].name}}</span><br>
+                    <span class="lightWeigth">&nbsp;&nbsp;{{categories[$index + 1].category_description}}</span>
+                </div>
+                <div ng-if='categories.length < $index + 1' class="col">
+                </div>
+            </div>
+        </div> -->
+
+        <div ng-if="wi < 800" style="height:auto;max-width:1200px;display:block;margin:auto;" >
+            <div  ng-repeat="x in categories" class="row" >
+                <div class="col brStyleBox" style="background-image: url('{{baseImgUrl}}{{categories[$index].category_img}}');" ng-click="gotoMenu({{categories[$index].category_id}})"  >
+                    <span class="middletexter">{{categories[$index].name}}</span><br>
+                    <span class="lightWeigth">&nbsp;&nbsp;{{categories[$index].category_description}}</span>
+                </div>
+               
+            </div>
+        </div>
+
+
+        <div ng-if="wi > 800" style="height:auto;max-width:1200px;display:block;margin:auto;" >
+            <div  ng-repeat="x in categories" ng-if='$index % 4 == 0' class="row responsive-md" >
+                <div class="col brStyleBox" style="background-image: url('{{baseImgUrl}}{{categories[$index].category_img}}');" ng-click="gotoMenu({{categories[$index].category_id}})"  >
+                    <span class="middletexter">{{categories[$index].name}}</span><br>
+                    <span class="lightWeigth">&nbsp;&nbsp;{{categories[$index].category_description}}</span>
+                </div>
+                  <div  class="col brStyleBox" style="background-image: url('{{baseImgUrl}}{{categories[$index + 1].category_img}}');"  ng-click="gotoMenu({{categories[$index + 1].category_id}})" ng-if='categories.length > $index + 1' >
+                    <span class="middletexter">{{categories[$index+ 1].name}}</span><br>
+                    <span class="lightWeigth">&nbsp;&nbsp;{{categories[$index + 1].category_description}}</span>
+                </div>
+                  <div  class="col brStyleBox" style="background-image: url('{{baseImgUrl}}{{categories[$index + 2].category_img}}');" ng-click="gotoMenu({{categories[$index + 2].category_id}})" ng-if='categories.length > $index + 2' >
+                    <span class="middletexter">{{categories[$index + 2].name}}</span><br>
+                    <span class="lightWeigth">&nbsp;&nbsp;{{categories[$index + 2].category_description}}</span>
+                </div>
+                  <div  class="col brStyleBox" style="background-image: url('{{baseImgUrl}}{{categories[$index + 3].category_img}}');" ng-click="gotoMenu({{categories[$index + 3].category_id}})" ng-if='categories.length > $index + 3' >
+                    <span class="middletexter">{{categories[$index + 3].name}}</span><br>
+                    <span class="lightWeigth">&nbsp;&nbsp;{{categories[$index + 3].category_description}}</span>
+                </div>
+                  <div ng-if='categories.length < $index + 2' class="col">
+
+                    </div>
+                    <div ng-if='categories.length < $index + 3' class="col">
+
+                    </div>
+                    <div ng-if='categories.length < $index + 4' class="col">
+
+                    </div>
+            </div>
+        </div>
+    <div>
+    </ion-content>
+  
+</ion-view>

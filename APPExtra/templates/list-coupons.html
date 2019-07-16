@@ -1,0 +1,44 @@
+<ion-view overflow-scroll="true" ng-init="couponInit()">
+   
+    <ion-content overflow-scroll="true">
+        
+        <div ng-if="wi < 800" class="list card" ng-repeat="c in coupons">
+            <div class="item item-body">
+              <img class="full-image" ng-src="{{basePath}}{{c.cupon_img}}" ng-click="modalImage(c.cupon_img)" >
+              <center>
+                 <svg id="barcd{{$index}}"></svg>
+                 <h2>{{c.cupon_code}}</h2>
+                  <h2 style="color: red;font-style: oblique;font-family: fantasy;font-size: 1.5em;">{{c.cupon_name}}</h2>
+              
+                <h2 style="font-weight: bold;" >Valido hasta: {{ c.valid_thru | date:'dd/MM/y' }} </h2>
+
+                <h2 style="color: red;font-style: oblique;font-size: 1em;">{{c.cupon_description}}</h2>
+
+              </center>
+            </div>
+        </div>
+        <div ng-if="wi > 800" style="height:auto;max-width:1200px;display:block;margin:auto;" >
+            <div  ng-repeat="c in coupons" ng-if='$index % 4 == 0' class="row responsive-md" >
+                <div class="col-25">
+                    <img style="width:100%" ng-src="{{basePath}}{{coupons[$index].cupon_img}}" ng-click="modalImage(coupons[$index].cupon_img)" >
+                </div>
+                <div class="col-25">
+                    <img  style="width:100%" ng-src="{{basePath}}{{coupons[$index + 1].cupon_img}}" ng-click="modalImage(coupons[$index + 1].cupon_img)" > 
+                </div>
+                 <div class="col-25">
+                 <img style="width:100%" ng-src="{{basePath}}{{coupons[$index + 2].cupon_img}}" ng-click="modalImage(coupons[$index + 2].cupon_img)" >
+                 </div>
+                 <div class="col-25">
+                  <img style="width:100%" ng-src="{{basePath}}{{coupons[$index + 3].cupon_img}}" ng-click="modalImage(coupons[$index + 3].cupon_img)"   >
+                </div>
+                <div ng-if='coupons.length < $index + 2' class="col-25">
+                </div>
+                <div ng-if='coupons.length < $index + 3' class="col-25">
+                </div>
+                <div ng-if='coupons.length < $index + 4' class="col-25">
+                </div>
+            </div>
+        </div> 
+</div>                                                                              
+</ion-content>
+</ion-view>

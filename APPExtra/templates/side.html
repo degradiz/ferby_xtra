@@ -1,0 +1,19 @@
+﻿<ion-side-menus enable-menu-with-back-views="true" ng-init="init()"  >
+    <ion-side-menu-content>
+        <ion-nav-bar class="bar-dark">
+            
+            <ion-nav-buttons  side="left">
+                <img ng-if="isguest == 0" src="./images/Iconos.png" ng-click="openPopover($event)" style="width:40px"  />
+            </ion-nav-buttons>
+            <ion-nav-back-button>
+            </ion-nav-back-button>
+            <ion-nav-buttons   side="right">
+                <i ng-if="isguest == 0" ng-click="updatePuntos()" style="font-size:35px" class="ion-refresh"></i>
+            </ion-nav-buttons>
+          
+        </ion-nav-bar>
+        <ion-nav-view name="menuContent"></ion-nav-view>
+    </ion-side-menu-content>
+    
+</ion-side-menus>
+

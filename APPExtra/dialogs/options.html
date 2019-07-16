@@ -1,0 +1,15 @@
+﻿<h1 style="text-align:center">Sucursales Disponibles.</h1>
+<p ng-if="placesLocation.length == 0">Por los momentos no hay sucursales disponibles. Esto ocurre por la disponibilidad de los horarios o capacidad de entrega de la sucursal.</p>
+<div class="card" ng-repeat="pl in placesLocation" ng-click="isNear({{pl}})" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);background-color:white!important">
+    <div class="row" style="width:100%;margin:0px 0px 0px 0px">
+        <h1 style="white-space:normal;text-align:center !important;width:100%;padding:0px;color:black">{{pl.business_name}}</h1>
+    </div>
+    <div class="row" style="width:100%;margin:0px 0px 0px 0px">
+        <p1 style="white-space:normal;text-align:center !important;width:100%;padding:0px;color:black">{{pl.name}}</p1>
+    </div>
+	    <div class="row" style="width:100%;margin:0px 0px 0px 0px">
+        <p1 style="white-space:normal;text-align:center !important;width:100%;padding:0px;color:black">{{pl.ciudad}}</p1>
+    </div>
+    <p id="politics{{pl.place_location_id}}" style="display:none">{{pl.home_order_terms}}</p>
+    <p id="min{{pl.place_location_id}}" style="display:none">{{pl.min}}</p>
+</div>

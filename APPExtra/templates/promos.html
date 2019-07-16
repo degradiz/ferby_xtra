@@ -1,0 +1,46 @@
+
+<ion-view  ng-init="getPromos()">
+
+    <ion-content overflow-scroll="true">
+          <div class="noneDisp banner waves-block shadow" style="height:{{style.texture.height}};width:100%;position:relative;top:0px;background-size:cover">
+            <div style="height:100%;width:100%;background-color:rgba(0,0,0,0.4);top:0px">
+                <div class="respoLogoPosition" style="padding-top:{{style.logo.position}}">
+                   
+                    <div class="row">
+                        <div class="col">
+                         <img class="animated bounceIn bannerIMG" src="{{logoImage}}"  />
+                        </div>                           
+                        <div class="col" ng-if="wi > 768" >
+                            <div style="margin-top: 25px;float:right;">
+                                    <a class="menuColor" style="margin-left: 20px;" href="#/tab/categories" >Poductos</a>
+                                    <a class="menuActive menuColor" style="margin-left: 20px;"  ng-if="p!=0" href="#/tab/promos" >Promociones</a>
+                                    <a class="menuColor" style="margin-left: 20px;" href="#/tab/cuenta" >Carrito</a>
+                            </div>    
+                        </div> 
+                    </div>
+                </div>
+            </div>  
+        </div>
+        <div class="card" ng-repeat="p in promociones" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);max-width: 600px; margin:auto; display:block;margin-top: 10px">
+            <div class="row">
+                <div class="col-50">
+                    <div class="square2" style="background-image:url({{p.img}});max-width: 200px;max-height: 200px">
+                        <div class="content2" style="max-width: 200px;max-height: 200px">
+                            <div class="table2" style="max-width: 200px;max-height: 200px">
+                                <div class="table-cell2" style="max-width: 200px;max-height: 200px">
+                                    <img style="max-width: 200px;max-height: 200px" class="rs animated bounceIn waves-block" id="imgPromo{{p.promo_id}}" src="{{p.img}}" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-50">
+                    <h1 style="text-align:center;" class="textColor" id="textId{{p.promo_id}}">{{p.title}}</h1>
+                     <p style="text-align:center;" class="textColor" >{{p.description}}</p>
+                    <button class="buttonUI" style="width:70%;margin-left: 15%;margin-top:20%;" ng-click="largeImage({{p.promo_id}})">Ver Imagen</button>
+                </div>
+            </div>
+           
+        </div>
+    </ion-content>
+</ion-view>

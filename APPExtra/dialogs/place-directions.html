@@ -1,0 +1,15 @@
+﻿<h1 style="text-align:center">Crear Ruta</h1>
+<p ng-if="placesLocation.length == 0">Por los momentos no hay sucursales disponibles. Esto ocurre por la disponibilidad de los horarios o capacidad de entrega de la sucursal.</p>
+<div class="card" ng-repeat="pl in placesLocation" ng-click="goTo({{pl}})" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);background-color:white!important">
+    <a ng-href="https://www.google.com/maps/dir/?api=1&destination={{pl.lat}},{{pl.lon}}">
+        <div class="row" style="width:100%;margin:0px 0px 0px 0px">
+            <h1 style="white-space:normal;text-align:center !important;width:100%;padding:0px;color:black !important">{{pl.business_name}}</h1>
+        </div>
+        <div class="row" style="width:100%;margin:0px 0px 0px 0px">
+            <p1 style="white-space:normal;text-align:center !important;width:100%;padding:0px;color:black !important">{{pl.name}}</p1>
+        </div>
+            <div class="row" style="width:100%;margin:0px 0px 0px 0px">
+            <p1 style="white-space:normal;text-align:center !important;width:100%;padding:0px;color:black !important">{{pl.ciudad}}</p1>
+        </div>    
+    </a>
+</div>

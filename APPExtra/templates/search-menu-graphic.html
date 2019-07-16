@@ -1,0 +1,125 @@
+﻿<ion-view >
+
+    <ion-content >
+                <div class="waves-block banner" style="height:33%;width:100%;position:relative;top:0px;background-size:cover ">
+            <div>
+                 <img class="animated bounceIn" src="{{logoImage}}" style="display: block;margin:auto;height:200px;" />
+            </div>
+          
+        </div>
+        <div class="list list-inset" style="height:auto;max-width: 1400px;display:block;margin:auto">
+            <label class="item item-input">
+                <i class="icon ion-search placeholder-icon"></i>
+                <input  id="searchQry" type="text" placeholder="Buscar">
+            </label>
+        </div>
+        <div>
+            <button class="buttonUI" ng-click="searchMenu()" style="width:50%;margin-left:25%;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">Buscar Producto</button>   
+        </div>
+        <div style="width:100%">
+            <p style="text-align:center;margin-top:40px" ng-if="qryCount == 0">No hay resultados para tu busqueda :( </p>
+        </div>
+
+       
+        <!--ng-click="navDetails({{plates[$index].id}})"-->
+        <div ng-if="wi < 800">
+        <div ng-if='$index % 2 == 0'  ng-repeat="p in plates" style="height:auto;max-width: 700px;display:block;margin:auto;">
+            <div class="row" style="width:100%;">
+
+                    <a ng-click="navDetails({{plates[$index].id}})" class="col" >
+ <div style="background-color:#232323">
+                            <p id="textId{{plates[$index].id}}" style="width:100%;text-align:center;margin-bottom: 0px;color:white" class="ng-binding">{{plates[$index].name}}</p>
+                        </div>
+                        <div>
+                            <img style="width:100%" id="imgMenu{{plates[$index].id}}" src="{{plates[$index].img}}" onerror="errorIMG(this)" />
+                            <p id="des{{plates[$index].id}}" style="display:none" class="ng-binding">{{plates[$index].description}}</p>
+                            <p id="pr{{plates[$index].id}}" style="width:100%;text-align:center;" class="ng-binding">{{plates[$index].price}}</p>
+                            <input type="hidden" id="menuPrice{{plates[$index].id}}" value="{{plates[$index].menu_price}}" />
+                            <input type="hidden" id="menuPuntos{{plates[$index].id}}" value="{{plates[$index].menu_points}}" />
+                            <span ng-if="plates[$index].menu_points > 0" class="notify-badge">{{plates[$index].menu_points}} Puntos</span>
+                            <img  ng-if="plates[$index].menu_points > 0"  style="width:20%;margin-left:40%;margin-top:10px" src="./images/whitePin.png" />
+                            
+                        </div>
+                    </a>
+                    <a ng-click="navDetails({{plates[$index + 1].id}})" ng-if='plates.length > $index + 1' class="col">
+         <div style="background-color:#232323">
+                            <p id="textId{{plates[$index + 1].id}}" style="width:100%;text-align:center;margin-bottom: 0px;color:white" class="ng-binding">{{plates[$index + 1].name}}</p>
+                        </div>
+                        <div>
+                            <img style="width:100%" id="imgMenu{{plates[$index + 1].id}}" src="{{plates[$index + 1].img}}" onerror="errorIMG(this)" />
+                            <p id="des{{plates[$index + 1].id}}" style="display:none" class="ng-binding">{{plates[$index + 1].description}}</p>
+                            <p id="pr{{plates[$index + 1].id}}" style="width:100%;text-align:center;" class="ng-binding">{{plates[$index + 1].price}}</p>
+                            <input type="hidden" id="menuPrice{{plates[$index + 1].id}}" value="{{plates[$index + 1].menu_price}}" />
+                            <input type="hidden" id="menuPuntos{{plates[$index + 1].id}}" value="{{plates[$index + 1].menu_points}}" />
+                            <span ng-if="plates[$index + 1].menu_points > 0" class="notify-badge">{{plates[$index + 1].menu_points}} Puntos</span>
+                            <img ng-if="plates[$index + 1].menu_points > 0" style="width:20%;margin-left:40%;margin-top:10px" src="./images/whitePin.png" />
+                        </div>
+                    </a>
+
+                    <div ng-if='plates.length < $index + 2' class="col">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div ng-repeat="p in plates" ng-if="wi > 800" style="height:auto;max-width:1200px;display:block;margin:auto;">
+            <div ng-if='$index % 4 == 0' class="row responsive-md"  style="width:100%;">
+
+                    <a ng-click="navDetails({{plates[$index].id}})" class="bxCard card col" >
+                        <div style="background-color:#232323">
+                            <p id="textId{{plates[$index].id}}" style="width:100%;text-align:center;margin-bottom: 0px;color:white" class="ng-binding">{{plates[$index].name}}</p>
+                        </div>
+                        <div>
+                            <img style="width:100%" id="imgMenu{{plates[$index].id}}" src="{{plates[$index].img}}" onerror="errorIMG(this)" />
+                            <p id="des{{plates[$index].id}}" style="display:none" class="ng-binding">{{plates[$index].description}}</p>
+                            <p id="pr{{plates[$index].id}}" style="width:100%;text-align:center;" class="ng-binding">{{plates[$index].price}}</p>
+                            <input type="hidden" id="menuPrice{{plates[$index].id}}" value="{{plates[$index].menu_price}}" />
+                        </div>
+                    </a>
+                    <a ng-click="navDetails({{plates[$index + 1].id}})" ng-if='plates.length > $index + 1' class="bxCard card col">
+                         <div style="background-color:#232323">
+                            <p id="textId{{plates[$index + 1].id}}" style="width:100%;text-align:center;margin-bottom: 0px;color:white" class="ng-binding">{{plates[$index + 1].name}}</p>
+                        </div>
+                        <div>
+                            <img style="width:100%" id="imgMenu{{plates[$index + 1].id}}" src="{{plates[$index + 1].img}}" onerror="errorIMG(this)" />
+                            <p id="des{{plates[$index + 1].id}}" style="display:none" class="ng-binding">{{plates[$index + 1].description}}</p>
+                            <p id="pr{{plates[$index + 1].id}}" style="width:100%;text-align:center;" class="ng-binding">{{plates[$index + 1].price}}</p>
+                            <input type="hidden" id="menuPrice{{plates[$index + 1].id}}" value="{{plates[$index + 1].menu_price}}" />
+                        </div>
+                    </a>
+                    <a ng-click="navDetails({{plates[$index + 2].id}})" ng-if='plates.length > $index + 2' class="bxCard card col">
+                        <div style="background-color:#232323">
+                            <p id="textId{{plates[$index + 2].id}}" style="width:100%;text-align:center;margin-bottom: 0px;color:white" class="ng-binding">{{plates[$index + 2].name}}</p>
+                        </div>
+                        <div>
+                            <img style="width:100%" id="imgMenu{{plates[$index + 2].id}}" src="{{plates[$index + 2].img}}" onerror="errorIMG(this)" />
+                            <p id="des{{plates[$index + 2].id}}" style="display:none" class="ng-binding">{{plates[$index + 2].description}}</p>
+                            <p id="pr{{plates[$index + 2].id}}" style="width:100%;text-align:center;" class="ng-binding">{{plates[$index + 2].price}}</p>
+                            <input type="hidden" id="menuPrice{{plates[$index + 2].id}}" value="{{plates[$index + 2].menu_price}}" />
+                        </div>
+                    </a>
+                    <a ng-click="navDetails({{plates[$index + 3].id}})" ng-if='plates.length > $index + 3' class="bxCard card col">
+                        <div style="background-color:#232323">
+                            <p id="textId{{plates[$index + 3].id}}" style="width:100%;text-align:center;margin-bottom: 0px;color:white" class="ng-binding">{{plates[$index + 3].name}}</p>
+                        </div>
+                        <div>
+                            <img style="width:100%" id="imgMenu{{plates[$index + 3].id}}" src="{{plates[$index + 3].img}}" onerror="errorIMG(this)" />
+                            <p id="des{{plates[$index + 3].id}}" style="display:none" class="ng-binding">{{plates[$index + 3].description}}</p>
+                            <p id="pr{{plates[$index + 3].id}}" style="width:100%;text-align:center" class="ng-binding">{{plates[$index + 3].price}}</p>
+                            <input type="hidden" id="menuPrice{{plates[$index + 3].id}}" value="{{plates[$index + 3].menu_price}}" />
+                        </div>
+                    </a>
+                    <div ng-if='plates.length < $index + 2' class="col">
+
+                    </div>
+                    <div ng-if='plates.length < $index + 3' class="col">
+
+                    </div>
+                    <div ng-if='plates.length < $index + 4' class="col">
+
+                    </div>
+                </div>
+
+        </div>
+</ion-content>
+</ion-view>

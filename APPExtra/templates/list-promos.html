@@ -1,0 +1,47 @@
+<ion-view overflow-scroll="true" ng-init="promoInit()">
+    
+    <ion-content overflow-scroll="true">
+        <div  ng-if="wi < 800" class="list card" ng-repeat="p in promos">
+            <div class="item item-body">
+              <img class="full-image" ng-src="{{basePath}}{{p.img}}" ng-click="modalImage(p.img)" >
+              <center>
+                  <h2>{{p.title}}</h2>
+                  <p>{{p.description}}</p>
+              </center>
+            <button class="buttonUI animated " ng-click="modalImage(p.img)" style="width:60%; margin-left:20%;margin-top:20px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">Expandir</button>
+            </div>
+        </div>
+
+        <div ng-if="wi > 800" style="height:auto;max-width:1200px;display:block;margin:auto;" >
+            <div  ng-repeat="p in promos" ng-if='$index % 4 == 0' class="row responsive-md" >
+                <div class="col-25">
+                        <img style="width:100%" ng-src="{{basePath}}{{promos[$index].img}}" ng-click="modalImage(promos[$index].img)" >
+                       
+                    
+                </div>
+                <div class="col-25">
+                    <img  style="width:100%" ng-src="{{basePath}}{{promos[$index + 1].img}}" ng-click="modalImage(promos[$index + 1].img)" >
+                   
+                 
+            </div>
+            <div class="col-25">
+                <img style="width:100%" ng-src="{{basePath}}{{promos[$index + 2].img}}" ng-click="modalImage(promos[$index + 2].img)" >
+               
+        </div>
+        <div class="col-25">
+            <img style="width:100%" ng-src="{{basePath}}{{promos[$index + 3].img}}" ng-click="modalImage(promos[$index + 3].img)" >
+           
+    </div>
+                  <div ng-if='promos.length < $index + 2' class="col-25">
+
+                    </div>
+                    <div ng-if='promos.length < $index + 3' class="col-25">
+
+                    </div>
+                    <div ng-if='promos.length < $index + 4' class="col-25">
+
+                    </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

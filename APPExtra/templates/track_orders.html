@@ -1,0 +1,67 @@
+<ion-view overflow-scroll="true" ng-init="getTrackinOrders()" hide-nav-bar="hideNavBar()">
+    <style>
+        .bxCard {
+            box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 8px 0px, rgba(0, 0, 0, 0.19) 0px 6px 20px 0px;
+            padding-left: 0px;
+            padding-top: 0px;
+            padding-right: 0px;
+        }
+
+
+        .notify-badge {
+            padding: 1px 7px 1px 7px;
+            color: white;
+            background-color: #E50023;
+            border-radius: 25px;
+            width: 100%;
+            text-align: center;
+            float: right;
+        }
+
+    </style>
+    <ion-content overflow-scroll="true">
+        <ion-refresher pulling-text="Pull to refresh..." on-refresh="getTrackinOrders()">
+        </ion-refresher>
+
+        <div class="card responsive-list-card"   style="height:auto;max-width:700px;display:block;margin:auto;"  ng-if="orders.length == 0" >
+               
+            <center class="row">
+                <div class="col-100">
+                    <span class="textColor hardWeigth">No tenemos registros de órdenes en este dispositivo.</span> 
+                    
+                </div>                
+                
+            </center> 
+
+        </div>
+
+        <div class="card responsive-list-card"   style="height:auto;max-width:700px;display:block;margin:auto;"  ng-repeat="order in orders" >
+   
+            <div class="row deezerRow">
+                <div class="col-50">
+                    <span class="textColor hardWeigth">Orden #{{order.bill_id}}</span> 
+                    
+                </div>                
+                <div class="col-40" ng-switch="order.status">
+                    <div ng-switch-when="6">Estado: <span class="textColor hardWeigth"  style="color: lightgray !important"> Recibido</span></div>
+                    <div ng-switch-when="7">Estado: <span class="textColor hardWeigth"  style="color: lightskyblue !important"> En proceso</span></div>
+
+                    <div ng-switch-when="8">Estado: <span class="textColor hardWeigth" style="color: lightgreen !important"> Finalizada</span></div>
+
+                    <div ng-switch-default>Estado: <span class="textColor hardWeigth"  style="color: lightgray !important"> Solicitud recibida</span></div>
+                </div>                
+                <div class="col-10" ng-click="untrackOrder(order)">
+                    <i class="ion-trash-a goIcon textColor" ></i>
+                </div>
+            </div> 
+            <div class="row" ng-repeat="item in order.bill_detail">
+                <span class="textColor" >&nbsp;&nbsp;{{item.product_name}} (Cantidad: {{item.qty}})</span>
+            </div> 
+        
+        </div>
+
+
+
+    </ion-content>
+
+</ion-view>

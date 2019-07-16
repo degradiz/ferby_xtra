@@ -1,0 +1,26 @@
+﻿<ion-view ng-init="add_user_id_init()">
+    <ion-floating-menu has-footer="true" class="active">
+        <ion-floating-item button-color="#580f0f" icon="ion-home"  ng-click="goToHome()" ></ion-floating-item>
+        <ion-floating-item button-color="#580f0f" ng-if="wa.phone" icon="ion-social-whatsapp-outline" ng-click="openwa()"></ion-floating-item>
+    </ion-floating-menu>
+    <ion-content  id="target">
+
+      
+        <ion-refresher pulling-text="Pull to refresh..."
+                       on-refresh="add_user_id_init()">
+        </ion-refresher>
+        <div class="card animated bounceInLeft" style="overflow:visible;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); height:auto;max-width: 600px; margin:auto; display:block;margin-top: 10px">
+            <h3 style="margin-left:14px;" class="textColor">{{settings.redeem_name}}</h3>
+
+            <label class="item item-input">
+                <input id="user_id" value="{{identidad}}" placeholder="Tu Numero de Identidad (solo numeros)"  maxlength="13" type="tel" pattern="[0-9]*" autofocus>
+            </label>
+            <button ng-click="updateUserId()" style="width:100%;display: block;margin: 10px 10px 10px 0px;" class="button button-dark">&nbsp;&nbsp;Consultar&nbsp;&nbsp;</button>
+            <br />
+            <p class="textColor" style="margin-left:15px;margin-right:15px;">Ingresa tu identidad para saber cuantos puntos tienes</p>
+
+            <br />
+            <p class="textColor" style="margin-left:15px;margin-right:15px;">{{settings.redeem_description}}</p>
+        </div>
+    </ion-content>
+</ion-view>

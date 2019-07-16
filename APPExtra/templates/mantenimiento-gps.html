@@ -1,0 +1,96 @@
+<ion-view ng-init="pedirTaxi();">
+        <style>
+            .btnJose {
+                border: none;
+                border-radius: 2px;
+                display: inline-block;
+                height: 36px;
+                line-height: 36px;
+                padding: 0 2rem;
+                text-transform: uppercase;
+                vertical-align: middle;
+                -webkit-tap-highlight-color: transparent;
+                color: white !important;
+            }
+           
+      .has-header {
+    top: 27px !important;
+}
+            
+        </style>
+          <ion-content  style="background-size: cover;">
+              <div>
+                  <!--<div>
+                      <div ng-click="cancel()" style="margin-left:16px; width:50%;background-color: black; color:white !important;" class="center waves-effect waves-light btn">Cancelar</div>
+                  </div>-->
+                  <div id="sectionA" class="nop">
+                  </div>
+                  <div id="sectionB" class="nop">
+                      <div class="section">
+                          <div id="sectionD" >
+                                <div  style="position:absolute;z-index: 99999;width:100%;margin:0px;">
+                                        <div id="sectionE" class="card" style="margin-bottom: 40px;display: none; background-color:rgba(255,255,255,0.8) !important;">
+                                                <div class="item item-divider">
+                                                        Datos Del Cliente
+                                                       </div>
+                                                <form  ng-submit="create_order()" novalidate>
+                                                <div class="row" >
+                                                            <div class="list" style="width: 100%; background-color:rgba(255,255,255,0.8) !important;">
+                                                                    <label class="item item-input">
+                                                                            <input placeholder="Nombre" ng-value="confirm.nombre" ng-model="confirm.nombre" id="nombre" type="text" required>
+                                                                    </label>
+                                                                    <label class="item item-input">
+                                                                            <input placeholder="N&uacute;mero de celular"  ng-value="confirm.tel" ng-model="confirm.tel" id="tel" type="tel" required>
+                                                                    </label>
+                                                                    <label class="item item-input">
+                                                                            <input placeholder="Email (opcional)" ng-value="confirm.mail" ng-model="confirm.mail" id="mail" type="email">
+                                                                    </label>
+                                                                <input ng-show="m != 'encomienda'" placeholder="Cantidad de pasajeros" ng-value="confirm.qty" ng-model="confirm.qty" id="qty" type="hidden" value="1">
+                                                                    <div class="item item-input">
+                                                                            
+                                                                        <select id="services" ng-model="service" ng-options="c as c.name for c in catServices track by c.menu_id" ng-change="serviceChange()" ng-hide="catServices.length == 0">
+                                                                            <option value="">Seleccione servicio: </option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <label ng-if="addon_puntos == 1" class="item item-input">
+                                                                          <input placeholder="{{settings.redeem_name_format}} Numero de Identidad para puntos" ng-value="confirm.username" ng-model="confirm.username" id="username" type="tel">
+                                                                    </label>
+                                                                    <input placeholder="Referencias de tu ubicacion" id="instrucciones" ng-value="confirm.instrucciones" ng-model="confirm.instrucciones" type="text" style="width:100%;height:100px">
+                                                                  </div>
+                                                      <!--   <input ng-show="m != 'encomienda'" placeholder="Cantidad de pasajeros" id="qty" type="number">
+                                                    <div ng-show="m != 'encomienda'" class="row">
+                                                            <p style='text-align: center;'><b>Tipo de servicio</b></p>
+                                                            <select id="menuId" class="browser-default">
+                                                                <option ng-repeat="t in taxi" value="{{t.menu_id}}">{{t.name}}</option>
+                                                            </select>
+                                                        </div>
+                                                        <input placeholder="Instrucciones y comentarios adicionales." id="instrucciones" ng-model="confirm.instrucciones" type="text" style="width:100%;height:100px"> -->
+                                                    </div>                                           
+                                                <button type="submit" style="width:50%;margin-left: 50%" class="button button-dark">Solicitar</button>
+                                    </div>
+                                    <div class="card padding" style="background-color:rgba(255,255,255,0.8) !important;" >
+                                                <div class="item item-divider">
+                                                Modelo y año de tu Vehículo
+                                                </div>
+                                                <textarea placeholder="Escribe Aquí" ng-model="confirm.comment" id="comment" type="text" style="width:100%;height:50px; background-color:rgba(255,255,255,0.8) !important;"></textarea>
+                                                <div ng-click="step2()" style="width:50%;margin-left: 50%" id="sigBtn" class="button button-dark">Siguiente</div>
+                                    </div>
+                                </form>
+                                </div>
+                                <div id="map" style="height:100%; width:100%;position: absolute;">
+                                </div>
+                          </div>
+                          <div ng-show="manual_address" class="card" style="margin-bottom: 40px;background-color:#83818e;background-size: cover;">
+                              <div class="center row">
+                                  <form class="col s12">
+                                      <p ng-show="manual_address">Estoy En: </p><p style="color: white !important">{{confirm.address}}</p>
+                                      <div ng-show="manual_address" ng-click="manualAddress()" style="width:50%;background-color: black" class="center waves-effect waves-light btn">Editar Ubicacion Actual</div>
+                                  </form>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </ion-content>
+      </ion-view>
+      
