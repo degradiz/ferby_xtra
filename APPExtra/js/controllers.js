@@ -46,7 +46,7 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
                             return;
                         }
 
-                        alert('Ocurrio un problema con el servidor');
+                        alert('Ocurrió un problema con el servidor');
                     })
                 }
             }
@@ -753,15 +753,44 @@ $scope.init = function () {
 .controller('notifCtrl',function($scope, $ionicPopup, $state, $ionicHistory,$ionicLoading){
     try{
             localStorage.contadorNotificaciones = 0; 
-            $scope.notif = JSON.parse(localStorage.notificaciones);
+            var jss = JSON.parse(localStorage.notificaciones);
+            $scope.notif = jss.reverse();
             $scope.$apply();
     }catch(e){
-//alert(e.message);
+        //alert(e.message);
     }
 
 })
 
 .controller('loginBillCtrl', function ($ionicPopover,$scope, $ionicPopup, $state, $ionicHistory, $ionicModal, $ionicBackdrop, $ionicLoading, $rootScope, $ionicPlatform) {
+
+$scope.rateme = function(){
+        setTimeout(function(){
+                $ionicPopup.show({
+                templateUrl: 'dialogs/rate.html',
+                title: 'Regálanos 5 estrellas',
+                scope: $scope,
+                buttons: [
+                { text: 'Después' },
+                {
+                    text: '<b>Claro!</b>',
+                    type: 'button-positive',
+                    onTap: function (e) {
+                        window.location = "https://play.google.com/store/apps/details?id=com.appxtra.rel";
+                        localStorage.rated = 1;
+                    }
+                }
+                ]
+            });
+        },3000)
+}
+
+if(localStorage.rated == null){
+        if (Math.random() >= 0.5) {
+    $scope.rateme();
+ }
+}
+
    $ionicPlatform.registerBackButtonAction(function (event) {
     event.preventDefault();
 }, 100);
@@ -1333,7 +1362,7 @@ $scope.obtenerServicio = function (category) {
             $("ion-content").css("filter","brightness(100%)")
             $("#myRadHeight").show();
             $ionicLoading.hide();
-        },3000)
+        },1000)
           
           //  Theme_id = getParameterByName("store_id");
           auth_place_id = '[{"place_id": "'+ Theme_id +'"}]'; 
@@ -1351,6 +1380,7 @@ $scope.obtenerServicio = function (category) {
                 processData: false,
                 type: 'get',
                 success: function (d) {
+                    console.log(JSON.stringify(d));
                     $scope.place = d[0];
                     localStorage.placeTheme = JSON.stringify(d[0]);
                     localStorage.setItem('th_business_name', d[0].business_name)
@@ -1409,7 +1439,7 @@ $scope.obtenerServicio = function (category) {
                         if (d.statusText == 'abort') {
                             return;
                         }
-                        customizeAlert('Ocurrio un error no pudimos cargar tus pedidos. Asegurate que estas correctamento conectado a Internet')
+                        customizeAlert(' Asegurate que estas correctamento conectado a Internet')
                     },
                 });
                 //$rootScope.$emit("getServices", {});
@@ -2337,7 +2367,7 @@ $scope.obtenerServicio = function (category) {
 
                             $scope.$apply()
                         } else {
-                            customizeAlert('Ocurrio un error, no pudimos agregar tu orden')
+                            customizeAlert('Ocurrió un error, no pudimos agregar tu orden')
 
                             $ionicLoading.hide();
                         }
@@ -2514,7 +2544,7 @@ $scope.obtenerServicio = function (category) {
             $state.go("politicas");
 
         }else{
-            alert("ocurrio un error");
+            alert("Ocurrió un error");
         }
     })
     }
@@ -2540,7 +2570,7 @@ $scope.obtenerServicio = function (category) {
                 if (d.statusText == 'abort') {
                     return;
                 }
-                customizeAlert('Ocurrio un error no pudimos cargar los datos del app. Asegurate que estas correctamento conectado a Internet')
+                customizeAlert('Ocurrió un error, Asegurate que estas correctamento conectado a Internet')
             },
         });
     }
@@ -3009,7 +3039,7 @@ function startUpload(op, menuComment, plate, menuQuantity, upload) {
 
                         $scope.$apply()
                     } else {
-                        customizeAlert('Ocurrio un error, no pudimos agregar tu orden')
+                        customizeAlert('Ocurrió un error, no pudimos agregar tu orden')
 
                         $ionicLoading.hide();
                     }
@@ -3346,7 +3376,7 @@ function startUpload(op, menuComment, plate, menuQuantity, upload) {
                         if (d.statusText == 'abort') {
                             return;
                         }
-                        customizeAlert('Ocurrio un error no pudimos cargar tus pedidos. Asegurate que estas correctamento conectado a Internet')
+                        customizeAlert(' Asegurate que estas correctamento conectado a Internet')
                     },
                     //  timeout: 7000
                 });
@@ -4299,7 +4329,7 @@ function getParameterByName(name, url) {
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
-   function alert(vr){
+  function alert(vr){
         navigator.notification.confirm(vr, null, "", "OK")
     }
 

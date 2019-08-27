@@ -49,14 +49,14 @@
                         <br><br>
                         <div class="row">
                             <div class="col-20" style="width:20%!important"></div>
-                            <div class="col" style="width:40%!important"><img id="logoImg2" style="width:100%;" /></div>
+                            <div class="col" style="width:40%!important"><img src="./images/logo.png" style="width:100%;" /></div>
                             <div class="col-20" style="width:20%!important">
                                 <div style="position:relative;">
                                         <div ng-if="contadorNotificaciones != 0" class="badgextra">
                                             <span>{{contadorNotificaciones}}</span>
                                         </div>
                                         <div ng-click="gotonotif()">
-                                         <img  ng-src="./images/campana.png"  style="width:70%;position: absolute;" />
+                                         <img  ng-src="./images/campana.png"  style="width:70%;margin-top:15px;position: absolute;" />
                                          </div>        
                                 </div>
                             
@@ -74,9 +74,9 @@
                                         <img ng-src="{{baseImgUrl}}{{place.img_help_link}}"  style="width:100%" />
                                         <p class="textsubshelblack">Tienda</p>
                                 </div>
-                                <div class="grisubshel" ng-click="openHelpLink(place.subscription_link)"  ng-if="place.show_subscription_link == 1" >
-                                        <img ng-src="{{baseImgUrl}}{{place.img_subscription_link}}"  style="width:100%" />
-                                        <p class="textsubshelblack">{{place.subscription_link_text}}</p>
+                                <div class="grisubshel" ng-click="openHelpLink(place.subscription_link)" >
+                                        <img ng-src="./images/basket.png"  style="width:100%" />
+                                        <p class="textsubshelblack">Departamentos</p>
                                 </div>
                                 <div class="grisubshel" ng-click="getReservations()" ng-if="place.show_reservar == 1" >
                                         <img ng-src="{{baseImgUrl}}{{place.img_reservar}}"  style="width:100%" />
@@ -90,7 +90,7 @@
                                         <img ng-src="./images/basket.png"  style="width:100%" />
                                         <p class="textsubshelblack">Departamentos</p>
                                 </div>
-                                <div class="grisubshel" ng-click="storesDirections()" ng-if="place.show_locations == 1" >
+                                <div class="grisubshel" ng-click="storesDirections()"  >
                                         <img ng-src="./images/marker.png"  style="width:100%"  />
                                         <p  class="textsubshelblack" style="width:100%;text-align:center">Ubicaciones</p>
                                 </div>
@@ -110,7 +110,7 @@
                                     <img ng-src="{{baseImgUrl}}{{checkinOptions.checkin_icon}}"  style="width:100%"  />
                                     <p class="textsubshelblack">Visitas</p>
                                 </a>
-                                <div class="grisubshel" ng-click="openCoupons()" ng-if="place.show_coupons == 1" >
+                                <div class="grisubshel" ng-click="openCoupons()"  >
                                         
                                         <div style="position:absolute;" ng-if="contadorCupones != 0" class="badgextra">
                                             <span>{{contadorCupones}}</span>
@@ -118,7 +118,7 @@
                                         <img id="cuponesIMG" ng-src="./images/cupones.png"  style="width:100%"  />
                                         <p class="textsubshelblack">Xtra Cupones</p>
                                 </div>
-                                <div class="grisubshel" ng-click="openPromos()" ng-if="place.show_promos == 1" >
+                                <div class="grisubshel" ng-click="openPromos()"  >
                                       <div style="position:absolute;" ng-if="contadorPromos != 0" class="badgextra">
                                             <span>{{contadorPromos}}</span>
                                         </div>
@@ -130,11 +130,11 @@
                                         <p class="textsubshelblack">Eventos</p>
                                 </div>
                                 <div class="grisubshel" ng-click="openWeb('https://storeapp.almacenesxtra.com/etiqueta-producto/producto-nuevo/')" >
-                                        <div style="position:absolute;" ng-if="contadorArrivals != 0" class="badgextra">
+                                        <div style="position:absolute;" ng-if="contadorCupones != 0"  class="badgextra">
                                             <span>{{contadorArrivals}}</span>
                                         </div>
                                         <img id="newIMG" ng-src="./images/new.png"  style="width:100%"  />
-                                        <p class="textsubshelblack">{{place.rate_app_text}}</p>
+                                        <p class="textsubshelblack">Nuevos Productos</p>
                                 </div>
                                 
                                 <div class="grisubshel" ng-click="openME();" ng-if="place.show_messenger == 1" >
@@ -142,20 +142,20 @@
                                         <p class="textsubshelblack">Messenger</p>
                                 </div>
                                 
-                               <div class="grisubshel" ng-click="scan();" ng-if="place.show_scanner == 1" >
+                               <div class="grisubshel" ng-click="scan();"  >
                                         <img ng-src="./images/qrcode.png" style="width:100%" />
                                         <p class="textsubshelblack">Escaner</p>
                                 </div>
-                                <div class="grisubshel"  ng-click="openInstagram(place);" ng-if="place.show_instagram == 1" >
+                                <div class="grisubshel"  ng-click="openInstagram(place);"  >
                                         <img ng-src="./images/ins.png" style="width:100%" />
                                         <!-- <p style="width:100%;text-align:center">Mis Tegupesos</p> -->
                                         <p class="textsubshelblack">Instagram</p>
                                 </div>
-                                <div class="grisubshel" ng-click="openwa();" ng-if="place.show_phone == 1" >
+                                <div class="grisubshel" ng-click="openwa();"  >
                                         <img ng-src="./images/wa.png" style="width:100%" />
                                         <p class="textsubshelblack">WhatsApp</p>
                                 </div>
-                                <div class="grisubshel"  ng-click="openFB();" ng-if="place.show_facebook == 1" >
+                                <div class="grisubshel"  ng-click="openFB();" >
                                         <img ng-src="./images/fb.png" style="width:100%" />
                                         <!-- <p style="width:100%;text-align:center">Mis Tegupesos</p> -->
                                         <p class="textsubshelblack">Facebook</p>
