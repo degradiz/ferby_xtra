@@ -776,7 +776,7 @@ $scope.rateme = function(){
                     text: '<b>Claro!</b>',
                     type: 'button-positive',
                     onTap: function (e) {
-                        window.location = "https://play.google.com/store/apps/details?id=com.appxtra.rel";
+                        window.location = "https://apps.apple.com/hn/app/almacenes-xtra/id1467840760?mt=8";
                         localStorage.rated = 1;
                     }
                 }
