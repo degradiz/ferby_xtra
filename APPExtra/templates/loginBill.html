@@ -118,6 +118,25 @@
                                         <img id="cuponesIMG" ng-src="./images/cupones.png"  style="width:100%"  />
                                         <p class="textsubshelblack">Xtra Cupones</p>
                                 </div>
+
+                                <div class="grisubshel" ng-click="openScratch()"  >
+                                        
+                                        <div style="position:absolute;" ng-if="contadorRaspables != 0" class="badgextra">
+                                            <span>{{contadorRaspables}}</span>
+                                        </div>
+                                        <img id="cuponesIMG" ng-src="./images/cupones.png"  style="width:100%"  />
+                                        <p class="textsubshelblack">Raspables</p>
+                                </div>
+
+                                <div class="grisubshel" ng-click="openLottery()"  >
+                                        
+                                        <div style="position:absolute;" ng-if="contadorRifas != 0" class="badgextra">
+                                            <span>{{contadorRifas}}</span>
+                                        </div>
+                                        <img id="cuponesIMG" ng-src="./images/cupones.png"  style="width:100%"  />
+                                        <p class="textsubshelblack">Rifas</p>
+                                </div>
+
                                 <div class="grisubshel" ng-click="openPromos()"  >
                                       <div style="position:absolute;" ng-if="contadorPromos != 0" class="badgextra">
                                             <span>{{contadorPromos}}</span>

@@ -21,8 +21,8 @@
                     <div class="nav-tabs-wrapper">
                       <ul class="nav nav-tabs" data-tabs="tabs">
                         <li class="nav-item">
-                          <a class="nav-link show" href="<?php echo base_url(); ?>index.php/rifas/show" >
-                             Rifas
+                          <a class="nav-link show" href="<?php echo base_url(); ?>index.php/sucursales/show" >
+                             Sucursales
                             <div class="ripple-container"></div>
                           </a>
                         </li>

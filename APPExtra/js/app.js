@@ -200,6 +200,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             }
         }
     })
+    .state('tab.scratch', {
+        url: '/scratch',
+        views: {
+            'tab-scratch': {
+                templateUrl: 'templates/scratch.html',
+                controller: 'scratchCtrl'
+            }
+        }
+    })
+
     .state('sent', {
         url: '/sent',
         cache: false,
@@ -319,6 +329,50 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             }
         }
     })
+    .state('side.list-scratch', {
+        url: '/list-scratch',
+        cache: false,
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/list-scratch.html',
+                controller: 'listScratchCtrl'
+            }
+        }
+    })
+
+    .state('side.list-scratch-assign', {
+        url: '/list-scratch-assign',
+        cache: false,
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/list-scratch-assign',
+                controller: 'listScratchCtrl'
+            }
+        }
+    })
+
+    .state('side.list-lottery', {
+        url: '/list-lottery',
+        cache: false,
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/list-lottery.html',
+                controller: 'listLotteryCtrl'
+            }
+        }
+    })
+
+    .state('side.list-number-lottery', {
+        url: '/list-number-lottery',
+        cache: false,
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/list-number-lottery.html',
+                controller: 'listLotteryCtrl'
+            }
+        }
+    })
+
         .state('side.notif', {
         url: '/notif',
         cache: false,

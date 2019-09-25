@@ -261,6 +261,285 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
         }
     })
 
+.controller('listScratchCtrl', function($scope, $ionicPopup,$ionicLoading, $state, $rootScope, $ionicModal){
+
+   localStorage.showRaspablesBadge = 0;
+   localStorage.contadorRaspables = 0;
+
+    checkKey($state);
+    $scope.wi = $(document).width();
+    buildScopeStyleSettings($scope);
+    $scope.raspables = [];
+    $scope.fullImageSrc = {};
+    $scope.openModal = function (scope) {
+        $ionicModal.fromTemplateUrl('dialogs/image-modal.html', {
+            scope: $scope,
+            animation: 'slide-in-up'
+        }).then(function (modal) {
+            $scope.modal = modal;
+            $scope.modal.show();
+        });
+
+    }; 
+
+    $scope.closeModal = function () {
+        $scope.modal.hide();
+    };
+
+
+
+    $scope.openScratch = function(){
+            if (localStorage.isguest == 0){
+                $state.go('side.list-scratch');
+            }else{
+                alert("Esta opcion es solo para usuarios registrados");
+            }
+            
+    }
+
+    $scope.openAssignScratch = function(scratch_id){
+        //console.log('number lottery init');
+            if (localStorage.isguest == 0){
+                localStorage.setItem('scratch_id', scratch_id);
+                $state.go('side.list-scratch-assign');
+            }else{
+                alert("Esta opcion es solo para usuarios registrados");
+            }
+            
+    }
+
+    $scope.reclamarscratch = function(scratch_id,generated_id){
+        console.log('Reclamar ' + scratch_id + ' - ' + generated_id);
+
+        var resp = 0;
+
+        myPopup = $ionicPopup.show({
+                template: '<label>Clave</label> <input type="password" id="passtienda" autofocus="true">',
+                title: 'Reclamar',
+                subTitle: '',
+                scope: $scope,
+                buttons: [
+                { text: 'Cancelar',type: 'button-assertive' },
+                {
+                    text: 'Aceptar',
+                    type: 'button button-balanced',
+                    onTap: function (e) {
+                        passtienda = $('#passtienda').val();
+                        
+
+                        $ionicLoading.show({
+                            templateUrl: 'dialogs/loader.html'
+                        })
+
+
+                        $.getJSON(getServerPath(), {
+                            action: 'reclamarscratch',
+                            identidad: localStorage.user_id,
+                            scratch_id: scratch_id,
+                            scratch_generated_id: generated_id,
+                            clave: passtienda
+                        }, function (r) {
+                            //console.log('r: '+JSON.stringify(r));
+                            $scope.reclamados = r;
+                            $scope.$apply();
+                            // console.log($scope.reclamados);
+                            resp = $.trim($scope.reclamados)
+                            $ionicLoading.hide()
+                            console.log('resp: ' + resp);
+                            if (resp == 1) {
+                                customizeAlert('Raspable reclamado correctamente');
+                                $scope.scratchassignInit();
+                                return;
+                            }
+
+                            customizeAlert('Error de validación');
+
+                        });  
+                        
+                    }
+                }
+                ]
+            });
+
+        
+        
+        
+       
+    }
+
+
+    $scope.modalImage = function(img) {
+
+        $scope.fullImageSrc = baseUrl()+'v2/assets/uploads/img/scratch/'+img;
+
+        $scope.openModal();
+    }
+
+    setTimeout(function () {
+        $('.buttonUI').css('background-color', localStorage.getItem('th_button_color_theme'))
+
+        $('#bck3cat').css("background-image", "url(" + getImgPath() + localStorage.getItem('th_business_background1') + ")")
+    }, 500)
+
+    $scope.scratchInit = function(){
+        $scope.basePath = baseUrl()+'v2/assets/uploads/img/scratch/';
+        console.log('scratch init');
+            //listar los que aun no ha raspado y los que tiene premiados sin reclamar
+            $.getJSON(getServerPath(), {
+                action: 'select_scratch',
+                identidad: localStorage.user_id
+            }, function (r) {
+                //console.log('r: '+JSON.stringify(r));
+                $scope.raspables = r;
+                $scope.$apply();
+
+                setTimeout(function(){
+                    for (var i = 0; i < $scope.raspables.length;  i++ ){
+                        //console.log($scope.raspables)
+                           //console.log($scope.raspables[i].generated_id)
+                           var raspablecd = "#" + $scope.raspables[i].generated_id
+                           //console.log(cuponcd);
+                           JsBarcode("#barcd" + i , $scope.raspables[i].generated_id, {format: "CODE128",displayValue: false});
+
+                       }
+                   },2000)
+                $scope.$apply();
+            });    
+        }
+
+    $scope.scratchassignInit = function(){
+        $scope.basePath = baseUrl()+'v2/assets/uploads/img/scratch/';
+        console.log('scratch assign init');
+            //listar los que aun no ha raspado y los que tiene premiados sin reclamar
+            $.getJSON(getServerPath(), {
+                action: 'select_scratch_identidad',
+                identidad: localStorage.user_id,
+                scratch_id: localStorage.getItem('scratch_id')
+            }, function (r) {
+                console.log('r: '+JSON.stringify(r));
+                $scope.raspables = r;
+                $scope.$apply();
+                document.querySelector('.scratchit').setAttribute('data-tap-disabled', 'true')
+                setTimeout(function(){
+                    for (var i = 0; i < $scope.raspables.length;  i++ ){
+                            var $scratchit = $('#scratchit'+i).scratchIt();
+                       }
+
+                   },1000)
+                $scope.$apply();
+            });    
+        }
+        
+
+    })
+
+.controller('listLotteryCtrl', function($scope, $state, $rootScope, $ionicModal){
+
+   localStorage.showRifasBadge = 0;
+   localStorage.contadorRifas = 0;
+
+    checkKey($state);
+    $scope.wi = $(document).width();
+    buildScopeStyleSettings($scope);
+    $scope.rifas = [];
+    $scope.fullImageSrc = {};
+    $scope.openModal = function (scope) {
+        $ionicModal.fromTemplateUrl('dialogs/image-modal.html', {
+            scope: $scope,
+            animation: 'slide-in-up'
+        }).then(function (modal) {
+            $scope.modal = modal;
+            $scope.modal.show();
+        });
+
+    }; 
+
+    $scope.closeModal = function () {
+        $scope.modal.hide();
+    };
+
+
+    $scope.modalImage = function(img) {
+        
+        $scope.fullImageSrc = baseUrl()+'v2/assets/uploads/img/scratch/'+img;
+
+        $scope.openModal();
+    }
+
+     $scope.openNumberLottery = function(lottery_id){
+        //console.log('number lottery init');
+            if (localStorage.isguest == 0){
+                localStorage.setItem('lottery_id', lottery_id);
+                $state.go('side.list-number-lottery');
+            }else{
+                alert("Esta opcion es solo para usuarios registrados");
+            }
+            
+    }
+
+    $scope.openLottery = function(){
+        //console.log('number lottery init');
+            if (localStorage.isguest == 0){
+                //localStorage.setItem('lottery_id', lottery_id);
+                $state.go('side.list-lottery');
+            }else{
+                alert("Esta opcion es solo para usuarios registrados");
+            }
+            
+    }
+
+    $scope.numberlotteryInit = function(){
+
+
+        $scope.basePath = baseUrl()+'v2/assets/uploads/img/lottery/';
+        console.log('number lottery init');
+            //listar los que aun no ha raspado y los que tiene premiados sin reclamar
+            $.getJSON(getServerPath(), {
+                action: 'select_number_lottery_identidad',
+                identidad: localStorage.user_id,
+                lottery: localStorage.getItem('lottery_id')
+            }, function (r) {
+                //console.log('r: '+JSON.stringify(r));
+                $scope.numeros_rifa = r;
+                $scope.$apply();
+
+            }); 
+
+    }
+
+    setTimeout(function () {
+        $('.buttonUI').css('background-color', localStorage.getItem('th_button_color_theme'))
+
+        $('#bck3cat').css("background-image", "url(" + getImgPath() + localStorage.getItem('th_business_background1') + ")")
+    }, 500)
+
+    $scope.lotteryInit = function(){
+        $scope.basePath = baseUrl()+'v2/assets/uploads/img/lottery/';
+        console.log('lottery init');
+            //listar los que aun no ha raspado y los que tiene premiados sin reclamar
+            $.getJSON(getServerPath(), {
+                action: 'select_lottery_identidad',
+                identidad: localStorage.user_id
+            }, function (r) {
+                //console.log('r: '+JSON.stringify(r));
+                $scope.rifas = r;
+                $scope.$apply();
+
+                setTimeout(function(){
+                    for (var i = 0; i < $scope.rifas.length;  i++ ){
+                        //console.log($scope.rifas)
+                         //  console.log($scope.rifas[i].rifa)
+                          // var rifacd = "#" + $scope.rifas[i].numero
+                         //  console.log(rifacd);
+                         //  JsBarcode("#barcd" + i ,  $scope.rifas[i].numero, {format: "CODE128",displayValue: false});
+
+                       }
+                   },2000)
+                $scope.$apply();
+            });    
+        }
+    })
+
 .controller('listPromosCtrl', function($scope, $state, $rootScope, $ionicModal){
     localStorage.showPromosBadge = 0
     checkKey($state);
@@ -1121,6 +1400,33 @@ $scope.obtenerServicio = function (category) {
         $scope.openCoupons = function(){
             if (localStorage.isguest == 0){
                 $state.go('side.list-coupons');
+            }else{
+                alert("Esta opcion es solo para usuarios registrados");
+            }
+            
+        }
+
+        $scope.openScratch = function(){
+            if (localStorage.isguest == 0){
+                $state.go('side.list-scratch');
+            }else{
+                alert("Esta opcion es solo para usuarios registrados");
+            }
+            
+        }
+
+        $scope.openLottery = function(){
+            if (localStorage.isguest == 0){
+                $state.go('side.list-lottery');
+            }else{
+                alert("Esta opcion es solo para usuarios registrados");
+            }
+            
+        }
+
+        $scope.openNumberLottery = function(){
+            if (localStorage.isguest == 0){
+                $state.go('side.list-number-lottery');
             }else{
                 alert("Esta opcion es solo para usuarios registrados");
             }
@@ -3120,6 +3426,76 @@ function startUpload(op, menuComment, plate, menuQuantity, upload) {
         $state.go('translate');
     }
 })
+
+
+.controller('scratchCtrl', function ($scope, $state, $ionicPopup, $ionicHistory, $rootScope) {
+    checkKey($state);
+    buildScopeStyleSettings($scope);
+    $scope.wi = $(document).width();
+    setTimeout(function () {
+        $('.banner').css("background-image", "url(" + getImgPath() + localStorage.getItem('th_business_background1') + ")")
+    }, 200)
+
+    $rootScope.$on("getScratch", function () {
+        $scope.getScratch();
+    });
+
+    var val = localStorage.getItem('customLan');
+
+    $scope.exit = function () {
+        $.get(getServerPath(), { action: 'updateOnlinePlace', username: localStorage.getItem('id'), value: 0 }, function (data) {
+        });
+        $ionicHistory.nextViewOptions({
+            disableAnimate: false,
+            disableBack: true
+        });
+        $state.go('loginBill');
+    }
+
+    $scope.doRefresh = function () {
+        $scope.getScratch();
+        $scope.$broadcast('scroll.refreshComplete');
+
+    };
+
+    $scope.getScratch = function () {
+        var res = alasql('SELECT * FROM ? WHERE type = "1"', [scratcharray]);
+        $scope.scratch = res;
+        setTimeout(function () {
+            $('.buttonUI').css('background', localStorage.getItem('th_button_color_theme'))
+        }, 250)
+    };
+
+    
+
+    $scope.largeImage = function (id) {
+        myPopup = $ionicPopup.alert({
+            templateUrl: 'dialogs/largeImage.html',
+            title: '',
+            subTitle: '',
+            scope: $scope,
+            buttons: [
+            { text: 'Ordena en Menú' }
+            ]
+        });
+        setTimeout(function () {
+            var imgSrc = $('#imgScratch' + id).attr('src');
+            var title = $('#textId' + id).text();
+
+            $('#recieveImage').attr('src', imgSrc)
+            $('#recieveTitle').text(title)
+            var w = $(window).height();
+            $('.popup').css('width', w);
+        }, 500)
+    }
+
+    $scope.translate = function () {
+        $state.go('translate');
+    }
+})
+
+
+
 .controller('categoriesCtrl', function ($scope, $state, $rootScope, $ionicScrollDelegate, $ionicNavBarDelegate, $ionicHistory) {
     checkKey($state);
     buildScopeStyleSettings($scope);
@@ -4329,9 +4705,9 @@ function getParameterByName(name, url) {
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
-  function alert(vr){
-        navigator.notification.confirm(vr, null, "", "OK")
-    }
+  // function alert(vr){
+  //       navigator.notification.confirm(vr, null, "", "OK")
+  //   }
 
 var mapstyle = [
 {

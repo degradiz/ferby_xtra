@@ -22,6 +22,7 @@ require 'entities/loyal_users.php';
 require 'entities/receipt_points.php'; 
 require 'entities/sale.php';
 require 'entities/promo.php';
+require 'entities/rifas.php';
 require 'entities/images.php';
 require 'entities/funciones.php';
 require 'entities/chats.php';
@@ -142,7 +143,7 @@ switch ($action) {
         change_admin_pass($old_pass, $new_pass, $user);
         break;
     case 'insert_gcm_admin':
-        $uuid = $_GET['uuid'];
+        $identidad = $_GET['uuid'];
         $gcmToken = $_GET['gcmToken'];
         $admin_id = $_GET['admin_id'];
         $platform = isset($_GET["platform"]) ? $_GET["platform"] : (isset($_POST["platform"]) ? $_POST["platform"] : "Android");
@@ -511,7 +512,25 @@ switch ($action) {
         $amt = $_GET['amt'];
         $tienda = $_GET['tienda'];
         insertPoints_manually($username,$factura,$place_id,$amt,$tienda);
-        break;    
+        assign_number_lottery_identidad($tienda,$username,$amt);
+        assign_scratch_identidad($tienda,$username,$amt);
+        break;   
+
+    case 'assign_number_lottery_uuid':
+        $username = $_GET['identidad'];
+        $amt = $_GET['amt'];
+        $tienda = $_GET['tienda'];
+        $asignados = assign_number_lottery_uuid($tienda,$username,$amt);
+        print json_encode($asignados);
+        break;  
+
+    case 'assign_scratch_uuid':
+        $username = $_GET['identidad'];
+        $amt = $_GET['amt'];
+        $tienda = $_GET['tienda'];
+        $asignados = assign_scratch_uuid($tienda,$username,$amt);
+        print json_encode($asignados);
+        break; 
 
     case 'get_place_points':
         $username = $_GET['username'];
@@ -1509,6 +1528,14 @@ break;
         $result = create_cupon($parameters);
         print json_encode($result);
         break;
+    case 'select_scratch_code_uuid'://CONSUMIDO
+        $parameters = new stdClass();
+        $parameters->place_id = isset($_GET["place_id"]) ? $_GET["place_id"] : (isset($_POST["place_id"]) ? $_POST["place_id"] : "0");
+        $parameters->uuid = isset($_GET["uuid"]) ? $_GET["uuid"] : (isset($_POST["uuid"]) ? $_POST["uuid"] : "0");
+        
+        $result = select_scratch_code_uuid($parameters);
+        print json_encode($result);
+        break;
     case'login_place_loc':
         $place_loc_id = isset($_GET["place_loc_id"]) ? $_GET["place_loc_id"] : (isset($_POST["place_loc_id"]) ? $_POST["place_loc_id"] : "0");
         $passkey = isset($_GET["passkey"]) ? $_GET["passkey"] : (isset($_POST["passkey"]) ? $_POST["passkey"] : "0");
@@ -2385,4 +2412,58 @@ case 'countReferidos'://CONSUMIDO
         $place_id = isset($_GET["place_id"]) ? $_GET["place_id"] : (isset($_POST["place_id"]) ? $_POST["place_id"] : "0");
         create_contacts_referred($uuid, $contact_username, $refnumber, $place_id);
     break; 
+
+
+//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+// RASPABLES
+//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+
+    case 'select_scratch'://asignados
+        $parameters = new stdClass();
+        $parameters->identidad = isset($_GET["identidad"]) ? $_GET["identidad"] : (isset($_POST["identidad"]) ? $_POST["identidad"] : "0");        
+        $result = select_scratch($parameters);
+        print json_encode($result);
+    break;
+
+    case 'select_scratch_identidad'://asignados
+        $parameters = new stdClass();
+        $parameters->identidad = isset($_GET["identidad"]) ? $_GET["identidad"] : (isset($_POST["identidad"]) ? $_POST["identidad"] : "0"); 
+        $parameters->scratch_id = isset($_GET["scratch_id"]) ? $_GET["scratch_id"] : (isset($_POST["scratch_id"]) ? $_POST["scratch_id"] : "0");         
+        $result = select_scratch_identidad($parameters);
+        print json_encode($result);
+    break;
+
+    case 'reclamarscratch'://asignados
+        $parameters = new stdClass();
+        $parameters->identidad = isset($_GET["identidad"]) ? $_GET["identidad"] : (isset($_POST["identidad"]) ? $_POST["identidad"] : "0"); 
+        $parameters->scratch_id = isset($_GET["scratch_id"]) ? $_GET["scratch_id"] : (isset($_POST["scratch_id"]) ? $_POST["scratch_id"] : "0");
+        $parameters->scratch_generated_id = isset($_GET["scratch_generated_id"]) ? $_GET["scratch_generated_id"] : (isset($_POST["scratch_generated_id"]) ? $_POST["scratch_generated_id"] : "0");
+        $parameters->clave = isset($_GET["clave"]) ? $_GET["clave"] : (isset($_POST["clave"]) ? $_POST["clave"] : "0");         
+        $result = reclamarscratch($parameters);
+        print json_encode($result);
+    break;
+
+
+//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+// RIFAS
+//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+
+    case 'select_lottery_identidad'://asignados
+        $parameters = new stdClass();
+        $parameters->identidad = isset($_GET["identidad"]) ? $_GET["identidad"] : (isset($_POST["identidad"]) ? $_POST["identidad"] : "0");        
+        $result = select_lottery_identidad($parameters);
+        print json_encode($result);
+    break;
+
+    case 'select_number_lottery_identidad'://asignados
+        $parameters = new stdClass();
+        $parameters->identidad = isset($_GET["identidad"]) ? $_GET["identidad"] : (isset($_POST["identidad"]) ? $_POST["identidad"] : "0"); 
+        $parameters->lottery = isset($_GET["lottery"]) ? $_GET["lottery"] : (isset($_POST["lottery"]) ? $_POST["lottery"] : "0");       
+        $result = select_number_lottery_identidad($parameters);
+        print json_encode($result);
+    break;
+
+
+
+
 }

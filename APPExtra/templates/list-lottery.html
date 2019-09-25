@@ -1,0 +1,74 @@
+
+
+<ion-view overflow-scroll="true" ng-init="lotteryInit()">
+
+    
+    <ion-content overflow-scroll="true" class="card-background-page">
+
+
+        
+        <div ng-if="wi < 800" class="list card" ng-repeat="c in rifas">
+
+
+            
+
+              <div class="item item-avatar">
+                <img src="./images/Iconos.png">
+                <h2>{{c.sucursal}}</h2>
+                <p>{{c.ciudad}}</p>
+              </div>
+
+              <div class="item item-image">
+                <img class="full-image" ng-src="{{basePath}}{{c.img}}" ng-click="openNumberLottery(c.rifa)" >
+                <center>
+                    <h2  ng-click="openNumberLottery(c.rifa)" style="color: white;font-style: oblique;font-family: fantasy;font-size: 3em; position: absolute;  top: 46%; left: 50%; transform: translate(-50%, -50%); white-space: normal; overflow: visible;">{{c.name}}</h2>
+                </center>
+              </div>
+
+              <a class="item item-icon-left assertive" ng-click="openNumberLottery(c.rifa)">
+                <i class="icon ion-filing"></i>
+                {{c.numeros}} Números asignados
+              </a>
+
+              <a class="item item-icon-left assertive" ng-click="openNumberLottery(c.rifa)">
+                <i class="icon ion-calendar"></i>
+                Sorteo: {{ c.sorteo | date:'dd/MM/y' }} 
+              </a>
+
+              <p class="item item-icon-left assertive" style="white-space: normal;" ng-click="openNumberLottery(c.rifa)">
+                <i class="icon ion-trophy"></i>
+                {{c.description}}
+              </p>
+
+            
+
+
+        </div>
+        <div ng-if="wi > 800" style="height:auto;max-width:1200px;display:block;margin:auto;" >
+            <div  ng-repeat="c in rifas" ng-if='$index % 4 == 0' class="row responsive-md" >
+                <div class="col-25">
+                    <img style="width:90%" ng-src="{{basePath}}{{rifas[$index].img}}" ng-click="openNumberLottery(rifas[$index].rifa)" >
+                </div>
+                <div class="col-25">
+                    <img  style="width:90%" ng-src="{{basePath}}{{rifas[$index + 1].img}}" ng-click="openNumberLottery(rifas[$index + 1].rifa)" > 
+                </div>
+                 <div class="col-25">
+                 <img style="width:90%" ng-src="{{basePath}}{{rifas[$index + 2].img}}" ng-click="openNumberLottery(rifas[$index + 2].rifa)" >
+                 </div>
+                 <div class="col-25">
+                  <img style="width:90%" ng-src="{{basePath}}{{rifas[$index + 3].img}}" ng-click="openNumberLottery(rifas[$index + 3].rifa)"   >
+                </div>
+                <div ng-if='rifas.length < $index + 2' class="col-25">
+                </div>
+                <div ng-if='rifas.length < $index + 3' class="col-25">
+                </div>
+                <div ng-if='rifas.length < $index + 4' class="col-25">
+                </div>
+            </div>
+        </div> 
+</div> 
+
+
+</ion-content>
+</ion-view>
+

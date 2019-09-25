@@ -28,6 +28,12 @@
               <p>Clientes</p>
             </a>
           </li>
+          <li class="nav-item ">
+            <a class="nav-link" href='<?php echo site_url('sucursales/show')?>'>
+              <i class="material-icons">store</i>
+              <p>Sucursales</p>
+            </a>
+          </li>
            <!-- <li class="nav-item ">
             <a class="nav-link" href='<?php echo site_url('cuponesredmin/show')?>'>
               <i class="material-icons">favorite</i>

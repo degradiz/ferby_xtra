@@ -24,21 +24,28 @@ class Raspables extends CI_Controller {
 	{
 			$crud = new grocery_CRUD();
 			$crud->set_table('scratch');
-			$crud->set_relation('place_location_id','place_location','{name} - {ciudad}');
+			$crud->set_relation('place_location_id','sucursales','{nombre} - {ciudad}');
 
-			$crud->add_fields('place_location_id','name','description','cant');
-			$crud->edit_fields('name','description');
+			$crud->add_fields('place_location_id','name','description','cant','requisito','img');
+			$crud->edit_fields('name','cant','activo','description','requisito','img');
+			$crud->set_field_upload('img','assets/uploads/img/scratch');
 			$crud->unset_delete();
 			$crud->unset_clone();
 			
-			$crud->display_as('place_location_id','Sucursal');
+			$crud->display_as('place_location_id','Tienda');
 			$crud->display_as('name','Titulo');
 			$crud->display_as('description','Descripción');
 			$crud->display_as('cant','Cantidad');
+			$crud->display_as('asigned','Asignados');	
+			$crud->display_as('redeems','Reclamados');		
+			$crud->display_as('created','Creado');
 
-			$crud->add_action('Generados', '', 'raspables/generated', 'redeem');
+			$crud->add_action('Generados', '', 'raspables/generated', 'list');
+			$crud->add_action('Asignados', '', 'raspables/asignados', 'get_app');
+			$crud->add_action('Reclamados', '', 'raspables/reclamados', 'redeem');
 			
 			$crud->callback_after_insert(array($this, 'generar'));
+			$crud->callback_before_update(array($this, 'plus'));
 
 			// $crud->columns(['gift_username','gift_points','gift_bill_id','gift_time','device','user']);
 			$output = $crud->render();
@@ -69,6 +76,51 @@ function generar($post_array,$primary_key)
     return true;
 }
 
+
+function plus($post_array,$primary_key)
+{
+
+	
+
+	$this->ion_auth_model->tables = array(
+				
+				'scratch_generated'				=> 'scratch_generated',
+	);
+
+	$query = $this->db->query("SELECT COUNT(scratch_id) AS total FROM scratch_generated WHERE scratch_generated.scratch_id=".$primary_key);
+
+	$total = 0;
+
+	$row = $query->row_array();
+
+	if (isset($row))
+	{
+	        $total = $row['total'];
+	}
+
+	$cantidad_a_generar = ($post_array['cant'] - $total);
+
+	$generar_scratch = array(
+        "scratch_id" => $primary_key,
+        "img" => ''
+    );
+
+	if ($cantidad_a_generar > 0) {
+		for ($i=0; $i < $cantidad_a_generar; $i++) { 
+			$this->db->insert('scratch_generated',$generar_scratch);
+		}
+
+		return true;
+	}elseif($cantidad_a_generar == 0){
+		return true;
+	}
+	else{
+		return false;
+	}
+
+    
+}
+
 public function generated(){
 
 			
@@ -80,7 +132,7 @@ public function generated(){
 			$array = explode("/", $actual_link);
 			$id= $array[7];
 
-			$crud->where('scratch_generated.scratch_id',$id);
+			$crud->where(array('scratch_generated.scratch_id'=> $id,'reclamado'=> 0	,'client_id' => null));
 
 			$crud->set_relation('scratch_id','scratch','{name}');
 			$crud->set_relation('client_id','xtraclientes','{nombre}');
@@ -93,15 +145,99 @@ public function generated(){
 			$crud->callback_column('state',array($this,'url_client'));
 			$crud->callback_column('img',array($this,'url_img'));
 
+
+			$crud->display_as('generated_id','Número');
 			$crud->display_as('scratch_id','Titulo');
 			$crud->display_as('state','Estado');
 			$crud->display_as('client_id','Cliente');
 			$crud->display_as('img','Imagen');		
 			
 			$crud->unset_fields('uuid');
-			$crud->columns('scratch_id','state','client_id','img');
+			$crud->columns('generated_id','scratch_id','state','client_id','img');
 
 			$crud->callback_before_update(array($this, 'estado'));
+
+			$output = $crud->render();
+
+			$this->_example_output($output);
+}
+
+public function reclamados(){
+
+			
+
+			$crud = new grocery_CRUD();
+			$crud->set_table('scratch_generated');
+
+			$actual_link = $_SERVER['REQUEST_URI'];
+			$array = explode("/", $actual_link);
+			$id= $array[7];
+
+			$crud->where(array('scratch_generated.scratch_id'=> $id,'scratch_generated.reclamado'=> 1	));
+
+			$crud->set_relation('scratch_id','scratch','{name}');
+			$crud->set_relation('client_id','xtraclientes','{nombre}');
+			$crud->set_field_upload('img','assets/uploads/img/scratch');
+			$crud->edit_fields('reclamado','fecha_reclamado');
+			$crud->field_type('reclamado','dropdown',array('1'=>'Si','0'=>'No'));
+			$crud->unset_add();
+			//$crud->unset_edit();
+			$crud->unset_delete();
+
+			$crud->callback_column('state',array($this,'url_client'));
+			$crud->callback_column('img',array($this,'url_img'));
+
+			$crud->required_fields('reclamado','fecha_reclamado');
+
+			$crud->display_as('generated_id','Número');
+			$crud->display_as('scratch_id','Titulo');
+			$crud->display_as('state','Estado');
+			$crud->display_as('client_id','Cliente');
+			$crud->display_as('img','Imagen');		
+			
+			$crud->unset_fields('uuid');
+			$crud->columns('generated_id','scratch_id','state','client_id','fecha_reclamado','img');
+
+			$output = $crud->render();
+
+			$this->_example_output($output);
+}
+
+public function asignados(){
+
+			
+
+			$crud = new grocery_CRUD();
+			$crud->set_table('scratch_generated');
+
+			$actual_link = $_SERVER['REQUEST_URI'];
+			$array = explode("/", $actual_link);
+			$id= $array[7];
+
+			$crud->where(array('scratch_generated.scratch_id'=> $id,'scratch_generated.client_id >'=> 0 ,'scratch_generated.reclamado' => 0	));
+
+			$crud->set_relation('scratch_id','scratch','{name}');
+			$crud->set_relation('client_id','xtraclientes','{nombre}');
+			$crud->set_field_upload('img','assets/uploads/img/scratch');
+			$crud->field_type('state','hidden');
+			$crud->unset_add();
+			$crud->unset_edit();
+			$crud->unset_delete();
+
+			$crud->callback_column('state',array($this,'url_client'));
+			$crud->callback_column('img',array($this,'url_img'));
+
+
+			$crud->display_as('generated_id','Número');
+			$crud->display_as('scratch_id','Titulo');
+			$crud->display_as('state','Estado');
+			$crud->display_as('client_id','Cliente');
+			$crud->display_as('img','Imagen');		
+			
+			$crud->unset_fields('uuid','reclamado');
+			$crud->columns('generated_id','scratch_id','state','client_id','img');
+
+			$crud->add_action('Reclamar', '', '','redeem',array($this,'reclamar'));
 
 			$output = $crud->render();
 
@@ -121,12 +257,17 @@ public function url_img($value, $row)
 }
 
 public function url_client($value, $row)
-{	if ($value == 2) {
+{	
+	
+	if ($value == 1 && $row->client_id != null && $row->reclamado == 0) {
 		return "<a class='btn btn-success' href='".site_url('clientes/show/read/'.$row->client_id)."'>Ganador</a>";
-	}elseif ($value == 3) {
+	}elseif ($row->reclamado == 1  ) {
 		return "<a class='btn btn-danger' href='".site_url('clientes/show/read/'.$row->client_id)."'>Reclamado</a>";
-	}elseif ($value == 1) {
+	}elseif ($value == 1 && $row->client_id == null) {
 		return "<a class='btn btn-info' href='#'>Premiado</a>";
+
+	}elseif ($value == 0 && $row->client_id != null) {
+		return "<a class='btn btn-info' href='".site_url('clientes/show/read/'.$row->client_id)."'>Asignado</a>";
 	}else{
 		
 		return "";
@@ -137,6 +278,9 @@ public function url_client($value, $row)
 
 function estado($post_array,$primary_key)
 {
+	//estado 0 esta generado pero sin asignar y no es premiado
+	//estado 1 es premiado
+
 	if($post_array['img'] != '')    {
 		$post_array['state'] = 1;
 	}else{
@@ -146,6 +290,16 @@ function estado($post_array,$primary_key)
     return $post_array;
 }
 
+
+function reclamar($primary_key , $row)
+{
+	if(strstr( $row->state, 'Ganador' )){
+		 return site_url('raspables/reclamados/'). $row->scratch_id .'/edit/'.$primary_key;
+		}else{
+			return "#";
+		}
+   
+}
 
 
 

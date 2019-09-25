@@ -12,7 +12,7 @@ $host = 'localhost';
 $user = 'root';
 $password = '';
 //$password = 'Catedradefensa2018$';
-$db = 'ferby';
+$db = 'ferby_xtra';
 $con = mysqli_connect($host, $user, $password, $db);
 
 

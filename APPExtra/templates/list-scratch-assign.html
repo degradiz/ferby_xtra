@@ -1,0 +1,62 @@
+
+
+<ion-view ng-init="scratchassignInit()">
+   
+    <ion-content scroll="false">
+<ion-refresher pulling-text="Pull to refresh..." on-refresh="scratchassignInit()"> </ion-refresher>
+
+        
+        <div ng-if="wi < 800" class="list card" ng-repeat="c in raspables">
+
+
+              <div class="item item-image">
+               <!--  <img class="full-image" ng-src="{{basePath}}{{c.img}}" ng-click="openScratch()" > -->
+               
+                <!-- <img style="position: absolute; padding: 70px; top: 70%; left: 70%; transform: translate(-50%, -50%); white-space: normal; overflow: visible;" class="full-image" ng-src="{{basePath}}entregado.png" ng-click="openScratch()" > -->
+               
+              </div>
+
+              <div class="scratchit" id="scratchit{{$index}}">
+                <img ng-src="{{basePath}}scratch.jpeg" width="400" height="200" />
+                <img ng-src="{{basePath}}{{c.img}}" width="400" height="200" />
+                <canvas width="400" height="200"></canvas>
+              </div>
+
+
+              <div ng-if="c.state == 1">
+                <a class="item item-icon-left assertive" ng-click="reclamarscratch(c.scratch_id, c.generated_id)">
+                  <i class="icon ion-filing"></i>
+                  Reclamar raspable # {{c.generated_id}}
+                </a>
+              </div>
+
+
+        </div>
+        <div ng-if="wi > 800" style="height:auto;max-width:1200px;display:block;margin:auto;" >
+            <div  ng-repeat="c in raspables" ng-if='$index % 4 == 0' class="row responsive-md" >
+                <div class="col-25">
+                    <img style="width:90%" ng-src="{{basePath}}{{raspables[$index].img}}" ng-click="modalImage(raspables[$index].img)" >
+                </div>
+                <div class="col-25">
+                    <img  style="width:90%" ng-src="{{basePath}}{{raspables[$index + 1].img}}" ng-click="modalImage(raspables[$index + 1].img)" > 
+                </div>
+                 <div class="col-25">
+                 <img style="width:90%" ng-src="{{basePath}}{{raspables[$index + 2].img}}" ng-click="modalImage(raspables[$index + 2].img)" >
+                 </div>
+                 <div class="col-25">
+                  <img style="width:90%" ng-src="{{basePath}}{{raspables[$index + 3].img}}" ng-click="modalImage(raspables[$index + 3].img)"   >
+                </div>
+                <div ng-if='raspables.length < $index + 2' class="col-25">
+                </div>
+                <div ng-if='raspables.length < $index + 3' class="col-25">
+                </div>
+                <div ng-if='raspables.length < $index + 4' class="col-25">
+                </div>
+            </div>
+        </div> 
+</div> 
+
+
+</ion-content>
+</ion-view>
+

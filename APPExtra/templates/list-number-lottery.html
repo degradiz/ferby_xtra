@@ -1,0 +1,49 @@
+
+
+<ion-view overflow-scroll="true" ng-init="numberlotteryInit()">
+   
+    <ion-content overflow-scroll="true">
+
+
+        
+        <div ng-if="wi < 800" class="list card" ng-repeat="c in numeros_rifa">
+
+
+              <div class="item item-image">
+                <img class="full-image" ng-src="{{basePath}}{{c.img}}" ng-click="openLottery()" >
+                <center>
+                    <h2  ng-click="openLottery()" style="color: white;font-style: oblique;font-family: fantasy;font-size: 3.5em; position: absolute;  top: 46%; left: 50%; transform: translate(-50%, -50%); white-space: normal; overflow: visible;">Número {{c.numero}}</h2>
+                </center>
+              </div>
+           
+
+
+        </div>
+        <div ng-if="wi > 800" style="height:auto;max-width:1200px;display:block;margin:auto;" >
+            <div  ng-repeat="c in numeros_rifa" ng-if='$index % 4 == 0' class="row responsive-md" >
+                <div class="col-25">
+                    <img style="width:90%" ng-src="{{basePath}}{{numeros_rifa[$index].img}}" ng-click="modalImage(numeros_rifa[$index].img)" >
+                </div>
+                <div class="col-25">
+                    <img  style="width:90%" ng-src="{{basePath}}{{numeros_rifa[$index + 1].img}}" ng-click="modalImage(numeros_rifa[$index + 1].img)" > 
+                </div>
+                 <div class="col-25">
+                 <img style="width:90%" ng-src="{{basePath}}{{numeros_rifa[$index + 2].img}}" ng-click="modalImage(numeros_rifa[$index + 2].img)" >
+                 </div>
+                 <div class="col-25">
+                  <img style="width:90%" ng-src="{{basePath}}{{numeros_rifa[$index + 3].img}}" ng-click="modalImage(numeros_rifa[$index + 3].img)"   >
+                </div>
+                <div ng-if='numeros_rifa.length < $index + 2' class="col-25">
+                </div>
+                <div ng-if='numeros_rifa.length < $index + 3' class="col-25">
+                </div>
+                <div ng-if='numeros_rifa.length < $index + 4' class="col-25">
+                </div>
+            </div>
+        </div> 
+</div> 
+
+
+</ion-content>
+</ion-view>
+
