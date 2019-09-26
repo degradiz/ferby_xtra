@@ -1,4 +1,0 @@
-AuthType Basic
-AuthName "Ingresar"
-AuthUserFile /var/www/html/ferby_xtra/v2/.htpasswd
-Require valid-user

@@ -75,7 +75,7 @@ $query_builder = TRUE;
 
 $host= $_SERVER["HTTP_HOST"]; 
 
-if($host == "localhost"){
+if($host == "xtrav2"){
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',

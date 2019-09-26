@@ -34,9 +34,9 @@ if($port == 80){
 	$config['base_url'] = "https://" .  $host . '/v2';
 } 
 
-if($host == "localhost"){
+if($host == "xtrav2"){
 	
-	$config['base_url'] = 'http://' .  $host . '/Github/ferby_xtra/v2';
+	$config['base_url'] = 'http://' .  $host ;
 }
 
 
