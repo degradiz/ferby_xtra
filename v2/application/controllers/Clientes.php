@@ -23,12 +23,12 @@ class Clientes extends CI_Controller {
 	public function show()
 	{
 			$crud = new grocery_CRUD();
-			$crud->set_table('xtraclientes');
+			$crud->set_table('xtraClientes');
 			$crud->unset_add();
 			$crud->unset_edit();
 			$crud->unset_delete();
 			$crud->unset_fields('fcmToken');
-			$crud->columns('identidad','nombre','celular','email','platform');
+			$crud->columns('identidad','nombre','email','platform');
 			
 			$output = $crud->render();
 			$this->_example_output($output);
