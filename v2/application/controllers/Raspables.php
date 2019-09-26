@@ -130,12 +130,12 @@ public function generated(){
 
 			$actual_link = $_SERVER['REQUEST_URI'];
 			$array = explode("/", $actual_link);
-			$id= $array[7];
+			$id= $array[6];
 
 			$crud->where(array('scratch_generated.scratch_id'=> $id,'reclamado'=> 0	,'client_id' => null));
 
 			$crud->set_relation('scratch_id','scratch','{name}');
-			$crud->set_relation('client_id','xtraclientes','{nombre}');
+			$crud->set_relation('client_id','xtraClientes','{nombre}');
 			$crud->set_field_upload('img','assets/uploads/img/scratch');
 			$crud->field_type('state','hidden');
 			$crud->unset_add();
@@ -171,12 +171,12 @@ public function reclamados(){
 
 			$actual_link = $_SERVER['REQUEST_URI'];
 			$array = explode("/", $actual_link);
-			$id= $array[7];
+			$id= $array[6];
 
 			$crud->where(array('scratch_generated.scratch_id'=> $id,'scratch_generated.reclamado'=> 1	));
 
 			$crud->set_relation('scratch_id','scratch','{name}');
-			$crud->set_relation('client_id','xtraclientes','{nombre}');
+			$crud->set_relation('client_id','xtraClientes','{nombre}');
 			$crud->set_field_upload('img','assets/uploads/img/scratch');
 			$crud->edit_fields('reclamado','fecha_reclamado');
 			$crud->field_type('reclamado','dropdown',array('1'=>'Si','0'=>'No'));
@@ -212,12 +212,12 @@ public function asignados(){
 
 			$actual_link = $_SERVER['REQUEST_URI'];
 			$array = explode("/", $actual_link);
-			$id= $array[7];
+			$id= $array[6];
 
 			$crud->where(array('scratch_generated.scratch_id'=> $id,'scratch_generated.client_id >'=> 0 ,'scratch_generated.reclamado' => 0	));
 
 			$crud->set_relation('scratch_id','scratch','{name}');
-			$crud->set_relation('client_id','xtraclientes','{nombre}');
+			$crud->set_relation('client_id','xtraClientes','{nombre}');
 			$crud->set_field_upload('img','assets/uploads/img/scratch');
 			$crud->field_type('state','hidden');
 			$crud->unset_add();

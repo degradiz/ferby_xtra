@@ -140,12 +140,12 @@ public function generated(){
 
 			$actual_link = $_SERVER['REQUEST_URI'];
 			$array = explode("/", $actual_link);
-			$id= $array[7];
+			$id= $array[6];
 
 			$crud->where(array('lottery_generated.lottery_id' => $id , 'reclamado' => '0' , 'ganador' => '0'));
 
 			$crud->set_relation('lottery_id','lottery','{name}');
-			$crud->set_relation('client_id','xtraclientes','{nombre}');
+			$crud->set_relation('client_id','xtraClientes','{nombre}');
 			
 			$crud->field_type('state','hidden');
 			$crud->unset_add();
@@ -183,14 +183,14 @@ public function ganadores(){
 
 			$actual_link = $_SERVER['REQUEST_URI'];
 			$array = explode("/", $actual_link);
-			$id= $array[7];
+			$id= $array[6];
 
 			$crud->where(array('lottery_generated.lottery_id'=> $id , 'ganador' => 1));
 			
 			$crud->field_type('ganador','dropdown',array('1'=>'Si','0'=>'No'));
 
 			$crud->set_relation('lottery_id','lottery','{name}');
-			$crud->set_relation('client_id','xtraclientes','{nombre}');
+			$crud->set_relation('client_id','xtraClientes','{nombre}');
 			
 			$crud->field_type('state','hidden');
 			$crud->unset_add();
@@ -227,14 +227,14 @@ public function reclamados(){
 
 			$actual_link = $_SERVER['REQUEST_URI'];
 			$array = explode("/", $actual_link);
-			$id= $array[7];
+			$id= $array[6];
 
 			$crud->where(array('lottery_generated.lottery_id'=> $id , 'reclamado' => 1));
 			
 			$crud->field_type('reclamado','dropdown',array('1'=>'Si','0'=>'No'));
 
 			$crud->set_relation('lottery_id','lottery','{name}');
-			$crud->set_relation('client_id','xtraclientes','{nombre}');
+			$crud->set_relation('client_id','xtraClientes','{nombre}');
 			
 			$crud->field_type('state','hidden');
 			$crud->unset_add();
