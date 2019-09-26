@@ -41,7 +41,7 @@
 
 
 
-					<button class="btn btn-round btn-info" data-toggle="modal" data-target="#loginModal<?php echo $i; ?>">
+					<button class="btn btn-round btn-danger" data-toggle="modal" data-target="#loginModal<?php echo $i; ?>">
                        <i class="material-icons">touch_app</i> Acciones
 
                   </button>		

@@ -5,15 +5,28 @@
  //$password = '';
  //$db = 'ferby';
  //$con = mysqli_connect($host, $user, $password, $db);                                               
+$host= $_SERVER["HTTP_HOST"]; 
+
+if($host == "localhost"){
 
 
 $host = 'localhost';
-//$user = 'ferbyadmin';
 $user = 'root';
 $password = '';
-//$password = 'Catedradefensa2018$';
 $db = 'ferby_xtra';
 $con = mysqli_connect($host, $user, $password, $db);
+
+}else{
+
+
+$host = 'localhost';
+$user = 'ferbyadmin';
+$password = 'Catedradefensa2018$';
+$db = 'ferby';
+$con = mysqli_connect($host, $user, $password, $db);
+
+}
+
 
 
 //$host = 'mysql.hostinger.mx';

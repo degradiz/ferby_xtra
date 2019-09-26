@@ -1,32 +1,43 @@
 
 
-<ion-view ng-init="scratchassignInit()">
+<ion-view overflow-scroll="true" ng-init="scratchassignInit()">
    
-    <ion-content scroll="false">
+    <ion-content overflow-scroll="true">
 <ion-refresher pulling-text="Pull to refresh..." on-refresh="scratchassignInit()"> </ion-refresher>
 
-        
         <div ng-if="wi < 800" class="list card" ng-repeat="c in raspables">
 
-
-              <div class="item item-image">
-               <!--  <img class="full-image" ng-src="{{basePath}}{{c.img}}" ng-click="openScratch()" > -->
-               
-                <!-- <img style="position: absolute; padding: 70px; top: 70%; left: 70%; transform: translate(-50%, -50%); white-space: normal; overflow: visible;" class="full-image" ng-src="{{basePath}}entregado.png" ng-click="openScratch()" > -->
-               
+              <div ng-if="c.raspado == 1">
+                <div class="item item-image">
+                  <img class="full-image" ng-src="{{basePath}}{{c.img2}}" ng-click="openScratch()" >
+                  <div ng-if="c.reclamado == 1">
+                    <img style="position: absolute;  top: 75%; left: 75%; transform: translate(-50%, -50%); padding: 70px;" ng-src="{{basePath}}entregado.png" ng-click="openScratch()" >
+                  </div> 
+                </div>
+                            
               </div>
 
-              <div class="scratchit" id="scratchit{{$index}}">
-                <img ng-src="{{basePath}}scratch.jpeg" width="400" height="200" />
-                <img ng-src="{{basePath}}{{c.img}}" width="400" height="200" />
-                <canvas width="400" height="200"></canvas>
+              <div ng-if="c.raspado == 0">
+                <div class="item item-image">
+                  <img class="full-image" ng-src="{{basePath}}{{c.img}}" ng-click="openScratchGenerated(c.scratch_id,c.generated_id)" >
+               
+                </div>  
+                         
               </div>
 
+              
 
-              <div ng-if="c.state == 1">
+              <div ng-if="c.state == 1 && c.raspado == 1 && c.reclamado == 0">
                 <a class="item item-icon-left assertive" ng-click="reclamarscratch(c.scratch_id, c.generated_id)">
                   <i class="icon ion-filing"></i>
                   Reclamar raspable # {{c.generated_id}}
+                </a>
+              </div>
+
+              <div ng-if="c.raspado == 0">
+                <a class="item item-icon-left assertive" ng-click="openScratchGenerated(c.scratch_id,c.generated_id)">
+                  <i class="icon ion-contrast"></i>
+                  Raspar
                 </a>
               </div>
 
@@ -59,4 +70,3 @@
 
 </ion-content>
 </ion-view>
-

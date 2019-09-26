@@ -1,8 +1,39 @@
-<div class="sidebar" data-color="purple" data-background-color="white" data-image="http://localhost/Github/salco/theme/assets/img/sidebar-1.jpg">
+<style type="text/css">
+  .sidebar .nav i {
+color: black;
+  }
+
+  .sidebar .nav li a, .sidebar .nav li .dropdown-menu a {
+color: black  ;
+
+  }
+
+  .sidebar {
+    width: 240px !important;
+  }
+
+  .card .card-header-success .card-icon, .card .card-header-success .card-text, .card .card-header-success:not(.card-header-icon):not(.card-header-text), .card.bg-success, .card.card-rotate.bg-success .front, .card.card-rotate.bg-success .back {
+    background: linear-gradient(60deg, #ff0000, #ef0000);
+}
+
+
+.flexigrid .btn-danger {
+  
+    background-image: -webkit-linear-gradient(top, #ff1100, #F44336);
+}
+
+.nav-tabs .nav-item .nav-link {
+    
+    font-size: 16px;
+}
+
+</style>
+
+<div class="sidebar" data-color="purple" data-background-color="white" data-image="<?php echo base_url()?>img/barra.jpg" style="background-image:url(<?php echo base_url()?>img/barra.jpg) !important">
       <div class="logo" style="padding:0px">
-       <img src="https://portal.myferby.com/logo.png" style="width:50%;margin-left: 25%" />
+       <img src="<?php echo base_url()?>img/logo.png" style="padding: 30px;     width: 100%;" />
       </div>
-      <div class="sidebar-wrapper">
+      <div class="sidebar-wrapper" >
         <ul class="nav">
            <li class="nav-item " >
             <a class="nav-link" href='<?php echo site_url('home')?>' >

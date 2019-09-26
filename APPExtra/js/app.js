@@ -200,16 +200,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             }
         }
     })
-    .state('tab.scratch', {
-        url: '/scratch',
-        views: {
-            'tab-scratch': {
-                templateUrl: 'templates/scratch.html',
-                controller: 'scratchCtrl'
-            }
-        }
-    })
-
+  
     .state('sent', {
         url: '/sent',
         cache: false,
@@ -329,6 +320,18 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             }
         }
     })
+
+    .state('side.scratch', {
+        url: '/scratch',
+        cache: false,
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/scratch.html',
+                controller: 'listScratchCtrl'
+            }
+        }
+    })
+
     .state('side.list-scratch', {
         url: '/list-scratch',
         cache: false,
@@ -345,7 +348,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         cache: false,
         views: {
             'menuContent': {
-                templateUrl: 'templates/list-scratch-assign',
+                templateUrl: 'templates/list-scratch-assign.html',
                 controller: 'listScratchCtrl'
             }
         }

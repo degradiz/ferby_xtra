@@ -5,8 +5,7 @@ function select_scratch($parameters){
     // Obtener la lista de cupones
     global $con;
 
-    $query = "SELECT sucursales.nombre as sucursal , sucursales.ciudad , scratch_generated.scratch_id , scratch.img , description  FROM `scratch_generated` RIGHT join scratch  on scratch_generated.scratch_id = scratch.scratch_id left join sucursales on scratch.place_location_id = sucursales.sucursal_id  WHERE `identidad` = '$parameters->identidad' and activo = 1 and (raspado = 0 or state = 1) and reclamado = 0 GROUP BY scratch_generated.scratch_id ORDER by scratch_generated.scratch_id ASC";
-
+    $query = "SELECT sucursales.nombre as sucursal , sucursales.ciudad , scratch_generated.scratch_id , scratch.img , description , count(scratch_generated.generated_id) as numeros FROM `scratch_generated` RIGHT join scratch  on scratch_generated.scratch_id = scratch.scratch_id left join sucursales on scratch.place_location_id = sucursales.sucursal_id  WHERE `identidad` = '$parameters->identidad' and activo = 1 and (raspado = 0 or state = 1)  GROUP BY scratch_generated.scratch_id ORDER by scratch_generated.scratch_id ASC";
 
     $sth = mysqli_query($con, $query);
 
@@ -29,8 +28,7 @@ function select_scratch_identidad($parameters){
     // Obtener la lista de cupones
     global $con;
 
-    $query = "SELECT scratch_id, generated_id , if(`img` != '',`img`,'retry.jpg' ) img , state FROM `scratch_generated` WHERE scratch_id = $parameters->scratch_id AND `identidad` = '$parameters->identidad' and (raspado = 0 or state = 1) and reclamado = 0 ORDER by scratch_generated.scratch_id ASC";
-
+    $query = "SELECT scratch_generated.scratch_id, scratch_generated.generated_id , if(scratch.img != '',scratch.img ,'retry.jpg' ) img , if(scratch_generated.img != '',scratch_generated.img ,'retry.jpg' ) img2 , scratch_generated.state , scratch_generated.raspado , reclamado FROM `scratch_generated` left join scratch ON scratch_generated.scratch_id = scratch.scratch_id WHERE scratch_generated.scratch_id = $parameters->scratch_id AND `identidad` = '$parameters->identidad' and (raspado = 0 or state = 1)  ORDER by scratch_generated.scratch_id ASC";
 
     $sth = mysqli_query($con, $query);
 
@@ -45,6 +43,76 @@ function select_scratch_identidad($parameters){
     }
 
     return 0; 
+
+}
+
+function select_scratch_generated($parameters){
+   
+    // Obtener la lista de cupones
+    global $con;
+
+    $query = "SELECT scratch_id, generated_id , if(`img` != '',`img`,'retry.jpg' ) img , state , raspado , reclamado FROM `scratch_generated` WHERE generated_id = $parameters->generated_id and scratch_id = $parameters->scratch_id AND `identidad` = '$parameters->identidad' and raspado = 0  ORDER by scratch_generated.scratch_id ASC";
+
+
+    $sth = mysqli_query($con, $query);
+
+    $num = mysqli_num_rows($sth);
+    //echo $num;
+    if ($num > 0) {
+        while ($r = mysqli_fetch_assoc($sth)) {
+
+            $rows[] = $r;
+        }
+
+        return $rows;
+        
+    }
+
+    return 0; 
+
+}
+
+
+
+
+function rasparscratch($parameters){
+   
+    // Obtener la lista de cupones
+    global $con;
+    $raspado = false;
+
+    $query = "SELECT generated_id , raspado  FROM `scratch_generated` WHERE generated_id = $parameters->generated_id AND `identidad` = '$parameters->identidad' and raspado = 0 ";
+
+
+    $sth = mysqli_query($con, $query);
+
+    $num = mysqli_num_rows($sth);
+    //echo $num;
+    if ($num > 0) {
+        while ($r = mysqli_fetch_assoc($sth)) {
+            // $rows[] = $r;
+        
+
+            // return $rows;
+            $query_set_raspado = "UPDATE scratch_generated SET raspado = '1' where generated_id = $parameters->generated_id and scratch_id = $parameters->scratch_id AND `identidad` = '$parameters->identidad' and raspado = 0 ";
+
+            if ($con->query($query_set_raspado) === TRUE) {
+                $raspado = true;
+            
+            } else {
+            
+            }
+        }
+
+    }
+
+    if ($raspado) {
+       return 1;
+    }else{
+       return 0;
+    }
+   
+     
 
 }
 

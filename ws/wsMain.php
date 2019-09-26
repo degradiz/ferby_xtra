@@ -2433,6 +2433,25 @@ case 'countReferidos'://CONSUMIDO
         print json_encode($result);
     break;
 
+    case 'select_scratch_generated'://asignados
+        $parameters = new stdClass();
+        $parameters->identidad = isset($_GET["identidad"]) ? $_GET["identidad"] : (isset($_POST["identidad"]) ? $_POST["identidad"] : "0"); 
+        $parameters->scratch_id = isset($_GET["scratch_id"]) ? $_GET["scratch_id"] : (isset($_POST["scratch_id"]) ? $_POST["scratch_id"] : "0"); 
+        $parameters->generated_id = isset($_GET["generated_id"]) ? $_GET["generated_id"] : (isset($_POST["generated_id"]) ? $_POST["generated_id"] : "0");        
+        $result = select_scratch_generated($parameters);
+        print json_encode($result);
+    break;
+
+    case 'rasparscratch'://asignados
+        $parameters = new stdClass();
+        $parameters->identidad = isset($_GET["identidad"]) ? $_GET["identidad"] : (isset($_POST["identidad"]) ? $_POST["identidad"] : "0"); 
+        $parameters->scratch_id = isset($_GET["scratch_id"]) ? $_GET["scratch_id"] : (isset($_POST["scratch_id"]) ? $_POST["scratch_id"] : "0");
+        $parameters->generated_id = isset($_GET["generated_id"]) ? $_GET["generated_id"] : (isset($_POST["generated_id"]) ? $_POST["generated_id"] : "0");
+                
+        $result = rasparscratch($parameters);
+        print json_encode($result);
+    break;
+
     case 'reclamarscratch'://asignados
         $parameters = new stdClass();
         $parameters->identidad = isset($_GET["identidad"]) ? $_GET["identidad"] : (isset($_POST["identidad"]) ? $_POST["identidad"] : "0"); 

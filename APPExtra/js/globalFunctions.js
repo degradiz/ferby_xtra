@@ -1,6 +1,6 @@
 function getServerPath() {
-    var serverPath = 'http://localhost/Github/ferby_xtra/ws/wsMain.php';
-    //var serverPath = 'https://app.almacenesxtra.com/ws/wsMain.php';
+//    var serverPath = 'http://localhost/Github/ferby_xtra/ws/wsMain.php';
+    var serverPath = 'https://app.almacenesxtra.com/ws/wsMain.php';
    // var serverPath = 'https://app.almacenesxtra.com/ws/wsMain.php'; 
     return serverPath;
 }
@@ -33,8 +33,8 @@ function generateToken() {
 }
 
 function baseUrl(){
-    return 'http://localhost/Github/ferby_xtra/';
-    //return 'https://app.almacenesxtra.com/';
+    //return 'http://localhost/Github/ferby_xtra/';
+    return 'https://app.almacenesxtra.com/';
 }
 
 function imgPath(img){
