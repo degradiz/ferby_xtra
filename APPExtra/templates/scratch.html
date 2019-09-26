@@ -1,6 +1,7 @@
-﻿<ion-view ng-init="getScratchGenerated()">
+﻿<content scroll="false">
+<ion-view overflow-scroll="false" ng-init="getScratchGenerated()">
    
-    <ion-content >
+    <ion-content overflow-scroll="false" >
 <!-- <ion-refresher pulling-text="Pull to refresh..." on-refresh="getScratchGenerated()"> </ion-refresher> -->
 
         <div ng-if="wi < 800" class="list card" ng-repeat="c in raspables" id="scratch-container" style="display:none; ">
@@ -18,3 +19,4 @@
 
 </ion-content>
 </ion-view>
+</content>
