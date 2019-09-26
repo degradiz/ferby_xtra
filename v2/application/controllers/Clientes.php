@@ -28,7 +28,7 @@ class Clientes extends CI_Controller {
 			$crud->unset_edit();
 			$crud->unset_delete();
 			$crud->unset_fields('fcmToken');
-			$crud->columns('identidad','nombre','email','platform');
+			$crud->columns('identidad','nombre','platform');
 			
 			$output = $crud->render();
 			$this->_example_output($output);
