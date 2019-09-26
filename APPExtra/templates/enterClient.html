@@ -30,12 +30,12 @@
             </label>
             <label class="item item-input item-stacked-label">
                 <span class="input-label">Tu Número de Celular</span>
-                <input id="celReg" type="tel" >
+                <input id="celReg" pattern="\d*" type="tel" >
             </label>
                 <input id="nomEmail" type="hidden" >
           <label class="item item-input item-stacked-label">
                 <span class="input-label">Número de Identidad</span>
-                <input id="nomIdentidad" type="number" >
+                <input id="nomIdentidad" pattern="\d*" type="number" >
             </label>
                    <button ng-click="ingresar()" class="button button-assertive">Ingresar</button>
                    <br><br>
