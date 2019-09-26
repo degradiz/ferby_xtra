@@ -436,7 +436,7 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
         //console.log('number lottery init');
             if (localStorage.isguest == 0){
                 localStorage.setItem('generated_scratched_id', scratch_generated_id);
-                localStorage.setItem('scratched_id', scratched_id);
+                localStorage.setItem('scratch_generated_id', scratched_id);
                 $state.go('side.scratch');
             }else{
                 alert("Esta opcion es solo para usuarios registrados");
