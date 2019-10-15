@@ -130,7 +130,7 @@ public function generated(){
 
 			$actual_link = $_SERVER['REQUEST_URI'];
 			$array = explode("/", $actual_link);
-			$id= $array[5];
+			$id= $array[count($array)-2];
 
 			$crud->where(array('scratch_generated.scratch_id'=> $id,'reclamado'=> 0	,'client_id' => null));
 

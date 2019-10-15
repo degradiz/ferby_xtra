@@ -143,7 +143,7 @@ function reclamarscratch($parameters){
             
 
                 // return $rows;
-                $query_set_reclamado = "UPDATE scratch_generated SET reclamado = '1' where generated_id = $parameters->scratch_generated_id AND `identidad` = '$parameters->identidad' and state = 1 and reclamado = 0 ";
+                $query_set_reclamado = "UPDATE scratch_generated SET reclamado = '1' , fecha_reclamado = NOW()  where generated_id = $parameters->scratch_generated_id AND `identidad` = '$parameters->identidad' and state = 1 and reclamado = 0 ";
 
                 if ($con->query($query_set_reclamado) === TRUE) {
                     $reclamado = true;

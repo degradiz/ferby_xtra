@@ -1,11 +1,11 @@
 ﻿<content scroll="false">
-<ion-view overflow-scroll="false" ng-init="getScratchGenerated()">
+<ion-view ng-init="getScratchGenerated()">
    
-    <ion-content overflow-scroll="false" >
+    <ion-content >
 <!-- <ion-refresher pulling-text="Pull to refresh..." on-refresh="getScratchGenerated()"> </ion-refresher> -->
 
         <div ng-if="wi < 800" class="" ng-repeat="c in raspables" id="scratch-container" style="display:none; ">
-             
+             <br>
 
              <div class="containerScartch"  >
                     <canvas class="canvas" id="scratch-canvas" width="300" height="300"></canvas>
@@ -13,6 +13,13 @@
                       <img style="width:100%;"  ng-src="{{basePath}}{{c.img}}"/>
                     </div>
             </div>
+
+            <br>
+
+            <a class="item item-icon-left assertive" ng-click="$ionicGoBack()">
+                  <i class="icon ion-ios-arrow-back"></i>
+                  Ver más
+                </a>
              
 </div> 
 

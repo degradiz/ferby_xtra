@@ -262,7 +262,7 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
         }
     })
 
-.controller('listScratchCtrl', function($scope, $ionicPopup,$ionicLoading, $state, $rootScope, $ionicModal){
+.controller('listScratchCtrl', function($scope, $ionicPopup,$ionicLoading, $state, $rootScope, $ionicModal,$ionicScrollDelegate){
 
    localStorage.showRaspablesBadge = 0;
    localStorage.contadorRaspables = 0;
@@ -437,6 +437,11 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
             if (localStorage.isguest == 0){
                 localStorage.setItem('generated_scratched_id', scratch_generated_id);
                 localStorage.setItem('scratch_generated_id', scratched_id);
+                setTimeout(function(){
+                    $ionicScrollDelegate.freezeAllScrolls(true);
+                    $ionicScrollDelegate.$getByHandle('mainScroll').getScrollView().options.scrollingY = false;
+                },1000);
+                
                 $state.go('side.scratch');
             }else{
                 alert("Esta opcion es solo para usuarios registrados");
@@ -448,7 +453,10 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
     
 
     $scope.getScratchGenerated = function(){
-  
+        setTimeout(function(){
+                    $ionicScrollDelegate.freezeAllScrolls(true);
+                    $ionicScrollDelegate.$getByHandle('mainScroll').getScrollView().options.scrollingY = false;
+                },1000);
         $scope.basePath = baseUrl()+'v2/assets/uploads/img/scratch/';
         console.log('scratch assign init');
             //listar los que aun no ha raspado y los que tiene premiados sin reclamar
@@ -462,6 +470,7 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
                 console.log('r: '+JSON.stringify(r));
                 $scope.raspables = r;
                 $scope.$apply();
+
                 setTimeout(function(){
                    
                     initScratch("scratch-container")
@@ -470,6 +479,11 @@ angular.module('starter.controllers', ["ion-datetime-picker"])
                        }
 
                    },1000)
+
+           
+                $ionicScrollDelegate.$getByHandle('mainScroll').freezeScroll(true);
+
+
                 $scope.$apply();
                 
             });    
@@ -4888,7 +4902,7 @@ function sendScratch(){
         $.getJSON(getServerPath(), {
             action: 'rasparscratch',
             identidad: localStorage.user_id,
-            scratch_id: localStorage.scratched_id,
+            scratch_id: localStorage.scratch_generated_id,
             generated_id: localStorage.generated_scratched_id
         }, function (r) {
             //console.log('r: '+JSON.stringify(r));
