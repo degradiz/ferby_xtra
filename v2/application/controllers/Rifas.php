@@ -140,7 +140,11 @@ public function generated(){
 
 			$actual_link = $_SERVER['REQUEST_URI'];
 			$array = explode("/", $actual_link);
-			$id= $array[5];
+			if($array[count($array)-2] == "success"){
+				$id= $array[count($array)-3];
+			}else{
+				$id= $array[count($array)-1];
+			}
 
 			$crud->where(array('lottery_generated.lottery_id' => $id , 'reclamado' => '0' , 'ganador' => '0'));
 
@@ -183,7 +187,11 @@ public function ganadores(){
 
 			$actual_link = $_SERVER['REQUEST_URI'];
 			$array = explode("/", $actual_link);
-			$id= $array[5];
+			if($array[count($array)-2] == "success"){
+				$id= $array[count($array)-3];
+			}else{
+				$id= $array[count($array)-1];
+			}
 
 			$crud->where(array('lottery_generated.lottery_id'=> $id , 'ganador' => 1));
 			
@@ -227,7 +235,11 @@ public function reclamados(){
 
 			$actual_link = $_SERVER['REQUEST_URI'];
 			$array = explode("/", $actual_link);
-			$id= $array[5];
+			if($array[count($array)-2] == "success"){
+				$id= $array[count($array)-3];
+			}else{
+				$id= $array[count($array)-1];
+			}
 
 			$crud->where(array('lottery_generated.lottery_id'=> $id , 'reclamado' => 1));
 			
