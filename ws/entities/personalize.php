@@ -54,6 +54,42 @@ function switch_show_rate_app($parameters) {//
 
 }
 
+function switch_show_scratch($parameters) {//
+    global $con;
+
+    $query = "
+    UPDATE place 
+    SET show_scratch = $parameters->show_scratch 
+    WHERE place_id = '$parameters->place_id'
+    ";
+
+    $result = mysqli_query($con, $query);
+    if ($result === true) {
+        return 1;
+    } 
+    
+    return 0; //mysqli_error($con);
+
+}
+
+function switch_show_lottery($parameters) {//
+    global $con;
+
+    $query = "
+    UPDATE place 
+    SET show_lottery = $parameters->show_lottery 
+    WHERE place_id = '$parameters->place_id'
+    ";
+
+    $result = mysqli_query($con, $query);
+    if ($result === true) {
+        return 1;
+    } 
+    
+    return 0; //mysqli_error($con);
+
+}
+
 function set_rate_app_text($parameters) {
     global $con;
 

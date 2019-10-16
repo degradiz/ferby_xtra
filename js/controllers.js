@@ -6016,8 +6016,8 @@ angular.module('starter.controllers', ['datatables', 'starter.services', 'ion-da
         })        
         .controller('personalizeCtrl', function ($scope, $state, $ionicPopup, $ionicHistory, $ionicLoading) {
            checkKey(key);
-           $("#linkEmul").val("https://app.almacenesxtra.com/AppEmulator");
-           $("#ifr").attr("src","https://app.almacenesxtra.com/AppEmulator");
+           $("#linkEmul").val("https://app.almacenesxtra.com/APPExtra");
+           $("#ifr").attr("src","https://app.almacenesxtra.com/APPExtra");
 
            $scope.moreIcons = function(){
                window.open("https://www.flaticon.com")
@@ -7293,7 +7293,47 @@ angular.module('starter.controllers', ['datatables', 'starter.services', 'ion-da
                 });
             }
 
+            $scope.switch_show_scratch = function(turn, p){
+                console.log('SWITCH: '+JSON.stringify(+ turn));
+                console.log('PLACE: '+JSON.stringify(p));
+                $.get(getServerPath(), {
+                        action: 'switch_show_scratch',
+                        place_id: p.place_id,
+                        show_scratch: + turn
+                    }, function (r) {
+                        if(r==1)
+                        {
+                            setTimeout(function () {
+                                $scope.getPersonalizeSettings();
+                            }, 500)
+                            return;
+                        }
 
+                        alert('Ocurrio un problema, si el registro no guardo intenta nuevamente o contacta a administracion.');
+                        console.log('error: '+JSON.stringify(r));
+                });
+            }
+
+            $scope.switch_show_lottery = function(turn, p){
+                console.log('SWITCH: '+JSON.stringify(+ turn));
+                console.log('PLACE: '+JSON.stringify(p));
+                $.get(getServerPath(), {
+                        action: 'switch_show_lottery',
+                        place_id: p.place_id,
+                        show_lottery: + turn
+                    }, function (r) {
+                        if(r==1)
+                        {
+                            setTimeout(function () {
+                                $scope.getPersonalizeSettings();
+                            }, 500)
+                            return;
+                        }
+
+                        alert('Ocurrio un problema, si el registro no guardo intenta nuevamente o contacta a administracion.');
+                        console.log('error: '+JSON.stringify(r));
+                });
+            }
 
             $scope.set_img_locations = function (place_id) {
                 var MAX_SIZE = LOGO_MAX_SIZE;

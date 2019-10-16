@@ -1720,6 +1720,22 @@ break;
         print json_encode($result);
         break;    
 
+    case 'switch_show_scratch':
+        $parameters = new stdClass();
+        $parameters->place_id = $_GET["place_id"];
+        $parameters->show_scratch = $_GET["show_scratch"];
+        $result = switch_show_scratch($parameters);
+        print json_encode($result);
+        break;   
+
+    case 'switch_show_lottery':
+        $parameters = new stdClass();
+        $parameters->place_id = $_GET["place_id"];
+        $parameters->show_lottery = $_GET["show_lottery"];
+        $result = switch_show_lottery($parameters);
+        print json_encode($result);
+        break;
+
     case 'set_rate_app_text':
         $parameters = new stdClass();
         $parameters->place_id = $_GET["place_id"];

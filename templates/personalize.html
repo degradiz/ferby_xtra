@@ -621,7 +621,44 @@
                                         <span style="font-size: 12px" ng-click="set_rate_app_text(p)">
                                             <a> <i class="ion-edit"><u>{{p.rate_app_text}}</u></i> </a>
                                         </span>
-                                    </div>                                                                        
+                                    </div>
+
+                                    <div class="grisubshel">
+                                  
+                                        <div class="container" style="margin-bottom: 0px">
+                                            <center>
+                                                
+                                                <img style="width:100%" src="img/{{p.img_track_orders}}" alt="Edit" class="image" />
+                                                
+                                            </center>
+                                        </div>
+                                        <div  style="margin: 0; padding: -5" class="container">
+                                            <input type="checkbox"  ng-checked="{{p.show_scratch}}" ng-model="p.show_scratch" ng-click='switch_show_scratch($event.target.checked, p)'  id="switch_show_scratch{{p.place_id}}" class="switch-input">
+                                            <label for="switch_show_scratch{{p.place_id}}" class="switch-label"><span class="toggle--on">On</span><span class="toggle--off">Off</span></label>
+                                        </div>
+                                        <span style="font-size: 12px">
+                                            Botón Raspables
+                                        </span>
+                                    </div>
+
+                                    <div class="grisubshel">
+                                  
+                                        <div class="container" style="margin-bottom: 0px">
+                                            <center>
+                                                
+                                                <img style="width:100%" src="img/{{p.img_track_orders}}" alt="Edit" class="image" />
+                                                
+                                            </center>
+                                        </div>
+                                        <div  style="margin: 0; padding: -5" class="container">
+                                            <input type="checkbox"  ng-checked="{{p.show_lottery}}" ng-model="p.show_lottery" ng-click='switch_show_lottery($event.target.checked, p)'  id="switch_show_lottery{{p.place_id}}" class="switch-input">
+                                            <label for="switch_show_lottery{{p.place_id}}" class="switch-label"><span class="toggle--on">On</span><span class="toggle--off">Off</span></label>
+                                        </div>
+                                        <span style="font-size: 12px">
+                                            Botón Rifas
+                                        </span>
+                                    </div>
+
 
                                 </div>
                             </center>
