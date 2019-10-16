@@ -1,19 +1,18 @@
 ﻿<ion-view>
 
-    <ion-content >
+	<ion-content >
 
-<div class="list">
-<br>
+		<div class="list">
 
 
-<a style="padding-left:0px;white-space:normal!important" ng-repeat="n in notif" class="item item-avatar">
-     
-      <h2>{{n.title}}</h2>
-      {{n.msg}}
-    </a>
+			<a ng-repeat="n in notif" class="item item-avatar" style="padding-left: 50px;">
+				<img src="./images/campana.png" style="max-width: 30px;max-height: 30px; left: 10px;">
+				<h2>{{n.title}}</h2>
+				<p style="white-space: normal;padding-right: 10px;">{{n.msg}}<p>
+			</a>
 
-   
-</div>
 
-    </ion-content>
+		</div>
+
+	</ion-content>
 </ion-view>
