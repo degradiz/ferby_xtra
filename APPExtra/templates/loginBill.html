@@ -121,14 +121,22 @@
 
                                 <div class="grisubshel" ng-click="openScratch()"  ng-if="place.show_scratch == 1">
                                                                             
-                                        <img id="cuponesIMG" ng-src="./images/cupones.png"  style="width:100%"  />
+                                        <img id="cuponesIMG" ng-src="./images/Raspa-y-gana.gif"  style="width:100%"  />
                                         <p class="textsubshelblack">Raspables</p>
                                 </div>
 
                                 <div class="grisubshel" ng-click="openLottery()" ng-if="place.show_lottery == 1" >
                                                                                 
-                                        <img id="cuponesIMG" ng-src="./images/cupones.png"  style="width:100%"  />
+                                        <img id="cuponesIMG" ng-src="./images/rifas.png"  style="width:100%"  />
                                         <p class="textsubshelblack">Rifas</p>
+                                </div>
+
+                                <div class="grisubshel" ng-click="openWeb('https://storeapp.almacenesxtra.com/etiqueta-producto/producto-nuevo/')" >
+                                        <div style="position:absolute;" ng-if="contadorCupones != 0"  class="badgextra">
+                                            <span>{{contadorArrivals}}</span>
+                                        </div>
+                                        <img id="newIMG" ng-src="./images/new.png"  style="width:100%"  />
+                                        <p class="textsubshelblack">Nuevos Productos</p>
                                 </div>
 
                                 <div class="grisubshel" ng-click="openPromos()"  >
@@ -142,13 +150,7 @@
                                         <img ng-src="{{baseImgUrl}}{{place.img_events}}"  style="width:100%" />
                                         <p class="textsubshelblack">Eventos</p>
                                 </div>
-                                <div class="grisubshel" ng-click="openWeb('https://storeapp.almacenesxtra.com/etiqueta-producto/producto-nuevo/')" >
-                                        <div style="position:absolute;" ng-if="contadorCupones != 0"  class="badgextra">
-                                            <span>{{contadorArrivals}}</span>
-                                        </div>
-                                        <img id="newIMG" ng-src="./images/new.png"  style="width:100%"  />
-                                        <p class="textsubshelblack">Nuevos Productos</p>
-                                </div>
+                                
                                 
                                 <div class="grisubshel" ng-click="openME();" ng-if="place.show_messenger == 1" >
                                         <img ng-src="{{baseImgUrl}}{{place.messenger_img}}" style="width:100%" />
@@ -164,15 +166,16 @@
                                         <!-- <p style="width:100%;text-align:center">Mis Tegupesos</p> -->
                                         <p class="textsubshelblack">Instagram</p>
                                 </div>
-                                <div class="grisubshel" ng-click="openwa();"  >
-                                        <img ng-src="./images/wa.png" style="width:100%" />
-                                        <p class="textsubshelblack">WhatsApp</p>
-                                </div>
                                 <div class="grisubshel"  ng-click="openFB();" >
                                         <img ng-src="./images/fb.png" style="width:100%" />
                                         <!-- <p style="width:100%;text-align:center">Mis Tegupesos</p> -->
                                         <p class="textsubshelblack">Facebook</p>
                                 </div>
+                                <div class="grisubshel" ng-click="openwa();"  >
+                                        <img ng-src="./images/wa.png" style="width:100%" />
+                                        <p class="textsubshelblack">WhatsApp</p>
+                                </div>
+                                
                                 <div class="grisubshel" ng-if="place.show_track_orders == 1" ng-click="trackOrders();" ng-init="validateToken()">
                                     <img ng-src="{{baseImgUrl}}{{place.img_track_orders}}" style="width:100%" />
                                     <!-- <p style="width:100%;text-align:center">Mis Tegupesos</p> -->
