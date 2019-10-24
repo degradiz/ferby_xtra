@@ -161,17 +161,17 @@
                                         <img ng-src="./images/qrcode.png" style="width:100%" />
                                         <p class="textsubshelblack">Escaner</p>
                                 </div>
-                                <div class="grisubshel"  ng-click="openInstagram(place);"  >
+                                <div class="grisubshel"  ng-click="openInstagram(place);" ng-if="place.show_instagram == 1" >
                                         <img ng-src="./images/ins.png" style="width:100%" />
                                         <!-- <p style="width:100%;text-align:center">Mis Tegupesos</p> -->
                                         <p class="textsubshelblack">Instagram</p>
                                 </div>
-                                <div class="grisubshel"  ng-click="openFB();" >
+                                <div class="grisubshel"  ng-click="openFB();" ng-if="place.show_facebook == 1">
                                         <img ng-src="./images/fb.png" style="width:100%" />
                                         <!-- <p style="width:100%;text-align:center">Mis Tegupesos</p> -->
                                         <p class="textsubshelblack">Facebook</p>
                                 </div>
-                                <div class="grisubshel" ng-click="openwa();"  >
+                                <div class="grisubshel" ng-click="openwa();"  ng-if="place.whatsapp_order == 1">
                                         <img ng-src="./images/wa.png" style="width:100%" />
                                         <p class="textsubshelblack">WhatsApp</p>
                                 </div>
