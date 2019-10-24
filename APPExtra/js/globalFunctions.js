@@ -1,4 +1,4 @@
-{ñpkójih4aa53efunction getServerPath() {
+function getServerPath() {
 //    var serverPath = 'http://localhost/Github/ferby_xtra/ws/wsMain.php';
     var serverPath = 'https://app.almacenesxtra.com/ws/wsMain.php';
    // var serverPath = 'https://app.almacenesxtra.com/ws/wsMain.php'; 
