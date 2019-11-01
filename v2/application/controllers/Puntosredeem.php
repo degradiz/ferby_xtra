@@ -36,7 +36,7 @@ class Puntosredeem extends CI_Controller {
 			$output = $crud->render();
 
 			//agregar data para enviarla al view
-			$data['place_id']= $_COOKIE["frb_place_id"];;
+			$data['place_id']= $_COOKIE["frb_place_id"];
 			$output->data = $data;
 			// se agrego y en el view se utliza asi $data['place_id']
 				
