@@ -248,7 +248,7 @@ function assign_number_lottery_identidad($tienda, $identidad , $amt){
                 while ($r1 = mysqli_fetch_assoc($sth)) {
 
                     $boletos = intval($amt/$r1['requisito']) ;
-                    echo "boletos rifa: " . $boletos;
+                    //echo "boletos rifa: " . $boletos;
                     $query_get_number = "SELECT numero FROM lottery_generated where identidad is null and lottery_id = $r1[rifa] order by rand() limit $boletos";
                    
                     $sth_number = mysqli_query($con, $query_get_number);
@@ -279,7 +279,7 @@ function assign_number_lottery_identidad($tienda, $identidad , $amt){
                             
                             $con->query($query_asigned);
                         }
-                        print_r($rows);
+                        //print_r($rows);
                         return $rows;
                     }
                 }
@@ -327,7 +327,7 @@ function assign_scratch_identidad($tienda, $identidad , $amt){
                 while ($r1 = mysqli_fetch_assoc($sth)) {
 
                     $boletos = intval($amt/$r1['requisito']) ;
-                    echo "Raspables: " . $boletos ;
+                    //echo "Raspables: " . $boletos ;
                    
                     $query_get_number = "SELECT generated_id FROM scratch_generated where identidad is null and scratch_id = $r1[raspable] order by rand() limit $boletos";
                    
@@ -359,7 +359,7 @@ function assign_scratch_identidad($tienda, $identidad , $amt){
                             
                             $con->query($query_asigned);
                         }
-                        print_r($rows);
+                        //print_r($rows);
                         return $rows;
                     }
                 }
