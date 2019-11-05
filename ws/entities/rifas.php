@@ -222,76 +222,82 @@ function assign_number_lottery_identidad($tienda, $identidad , $amt){
     global $con;
     $asignado = false;
     
+    $query_show_lottery = "SELECT show_lottery from place where place_id = 4 and show_lottery = 1";
+    $sth_show_lottery = mysqli_query($con, $query_show_lottery);
+    $num_show_lottery = mysqli_num_rows($sth_show_lottery);
+    if ($num_show_lottery > 0) {
+
+        // obtener id del cliente
+        $query_client = "SELECT id FROM xtraClientes where identidad = '$identidad'";
+
+        $sth_client = mysqli_query($con, $query_client);
+
+        $num_client = mysqli_num_rows($sth_client);
+
+        if ($num_client > 0) {
+            while ($r = mysqli_fetch_assoc($sth_client)) {
 
 
-    // obtener id del cliente
-    $query_client = "SELECT id FROM xtraClientes where identidad = '$identidad'";
+                //elegir numeros de la rifa de la tienda
 
-    $sth_client = mysqli_query($con, $query_client);
+                $query = "SELECT lottery_id as rifa , requisito FROM `lottery` where place_location_id = $tienda";
 
-    $num_client = mysqli_num_rows($sth_client);
+                $sth = mysqli_query($con, $query);
 
-    if ($num_client > 0) {
-        while ($r = mysqli_fetch_assoc($sth_client)) {
+                $num = mysqli_num_rows($sth);
 
+                //echo $num;
+                if ($num > 0) {
+                    while ($r1 = mysqli_fetch_assoc($sth)) {
 
-            //elegir numeros de la rifa de la tienda
+                        $boletos = intval($amt/$r1['requisito']) ;
+                        //echo "boletos rifa: " . $boletos;
+                        $query_get_number = "SELECT numero FROM lottery_generated where identidad is null and lottery_id = $r1[rifa] order by rand() limit $boletos";
+                       
+                        $sth_number = mysqli_query($con, $query_get_number);
 
-            $query = "SELECT lottery_id as rifa , requisito FROM `lottery` where place_location_id = $tienda";
+                        $num_number = mysqli_num_rows($sth_number);
 
-            $sth = mysqli_query($con, $query);
+                        //echo $num_number;
+                        if ($num_number > 0) {
+                            while ($r2 = mysqli_fetch_assoc($sth_number)) {
+                                $rows[] = $r2;
+                               //echo $r2['numero'];
 
-            $num = mysqli_num_rows($sth);
+                               $query_set_identidad = "UPDATE lottery_generated SET identidad = '$identidad' , client_id = $r[id] , state = 1 where identidad is null and lottery_id = $r1[rifa] and numero = $r2[numero] ";
+                       
+                               //$sth_identidad = mysqli_query($con, $query_set_identidad);
 
-            //echo $num;
-            if ($num > 0) {
-                while ($r1 = mysqli_fetch_assoc($sth)) {
+                               if ($con->query($query_set_identidad) === TRUE) {
+                                   $asignado = true;
+                                   // echo "Record updated successfully";
+                                } else {
+                                  //  echo "Error updating record: " . $con->error;
+                                }
 
-                    $boletos = intval($amt/$r1['requisito']) ;
-                    //echo "boletos rifa: " . $boletos;
-                    $query_get_number = "SELECT numero FROM lottery_generated where identidad is null and lottery_id = $r1[rifa] order by rand() limit $boletos";
-                   
-                    $sth_number = mysqli_query($con, $query_get_number);
-
-                    $num_number = mysqli_num_rows($sth_number);
-
-                    //echo $num_number;
-                    if ($num_number > 0) {
-                        while ($r2 = mysqli_fetch_assoc($sth_number)) {
-                            $rows[] = $r2;
-                           //echo $r2['numero'];
-
-                           $query_set_identidad = "UPDATE lottery_generated SET identidad = '$identidad' , client_id = $r[id] , state = 1 where identidad is null and lottery_id = $r1[rifa] and numero = $r2[numero] ";
-                   
-                           //$sth_identidad = mysqli_query($con, $query_set_identidad);
-
-                           if ($con->query($query_set_identidad) === TRUE) {
-                               $asignado = true;
-                               // echo "Record updated successfully";
-                            } else {
-                              //  echo "Error updating record: " . $con->error;
                             }
 
+                            if($asignado){
+                                $query_asigned = "UPDATE `lottery` SET `asigned` = (SELECT COUNT(generated_id) from lottery_generated where identidad is NOT null and lottery_id = $r1[rifa] ) WHERE `lottery`.`lottery_id` = $r1[rifa] ";
+                                
+                                $con->query($query_asigned);
+                            }
+                            //print_r($rows);
+                            return $rows;
                         }
-
-                        if($asignado){
-                            $query_asigned = "UPDATE `lottery` SET `asigned` = (SELECT COUNT(generated_id) from lottery_generated where identidad is NOT null and lottery_id = $r1[rifa] ) WHERE `lottery`.`lottery_id` = $r1[rifa] ";
-                            
-                            $con->query($query_asigned);
-                        }
-                        //print_r($rows);
-                        return $rows;
                     }
-                }
 
-              // return $rows;
+                  // return $rows;
+                }
             }
         }
+
+        
+        return 0; 
+
+    }else{
+        return 0; 
     }
-
-    
-    return 0; 
-
 }
 
 
@@ -301,75 +307,81 @@ function assign_scratch_identidad($tienda, $identidad , $amt){
     global $con;
     $asignado = false;
     
+    $query_show_scratch = "SELECT show_scratch from place where place_id = 4 and show_scratch = 1";
+    $sth_show_scratch = mysqli_query($con, $query_show_scratch);
+    $num_show_scratch = mysqli_num_rows($sth_show_scratch);
+    if ($num_show_scratch > 0) {
 
 
-    // obtener id del cliente
-    $query_client = "SELECT id FROM xtraClientes where identidad = '$identidad'";
+        // obtener id del cliente
+        $query_client = "SELECT id FROM xtraClientes where identidad = '$identidad'";
 
-    $sth_client = mysqli_query($con, $query_client);
+        $sth_client = mysqli_query($con, $query_client);
 
-    $num_client = mysqli_num_rows($sth_client);
+        $num_client = mysqli_num_rows($sth_client);
 
-    if ($num_client > 0) {
-        while ($r = mysqli_fetch_assoc($sth_client)) {
+        if ($num_client > 0) {
+            while ($r = mysqli_fetch_assoc($sth_client)) {
 
 
-            //elegir numeros de la raspable de la tienda
+                //elegir numeros de la raspable de la tienda
 
-            $query = "SELECT scratch_id as raspable , requisito FROM `scratch` where place_location_id = $tienda";
+                $query = "SELECT scratch_id as raspable , requisito FROM `scratch` where place_location_id = $tienda";
 
-            $sth = mysqli_query($con, $query);
+                $sth = mysqli_query($con, $query);
 
-            $num = mysqli_num_rows($sth);
+                $num = mysqli_num_rows($sth);
 
-            //echo $num;
-            if ($num > 0) {
-                while ($r1 = mysqli_fetch_assoc($sth)) {
+                //echo $num;
+                if ($num > 0) {
+                    while ($r1 = mysqli_fetch_assoc($sth)) {
 
-                    $boletos = intval($amt/$r1['requisito']) ;
-                    //echo "Raspables: " . $boletos ;
-                   
-                    $query_get_number = "SELECT generated_id FROM scratch_generated where identidad is null and scratch_id = $r1[raspable] order by rand() limit $boletos";
-                   
-                    $sth_number = mysqli_query($con, $query_get_number);
+                        $boletos = intval($amt/$r1['requisito']) ;
+                        //echo "Raspables: " . $boletos ;
+                       
+                        $query_get_number = "SELECT generated_id FROM scratch_generated where identidad is null and scratch_id = $r1[raspable] order by rand() limit $boletos";
+                       
+                        $sth_number = mysqli_query($con, $query_get_number);
 
-                    $num_number = mysqli_num_rows($sth_number);
+                        $num_number = mysqli_num_rows($sth_number);
 
-                    //echo $num_number;
-                    if ($num_number > 0) {
-                        while ($r2 = mysqli_fetch_assoc($sth_number)) {
-                            $rows[] = $r2;
-                           //echo $r2['generated_id'];
+                        //echo $num_number;
+                        if ($num_number > 0) {
+                            while ($r2 = mysqli_fetch_assoc($sth_number)) {
+                                $rows[] = $r2;
+                               //echo $r2['generated_id'];
 
-                           $query_set_identidad = "UPDATE scratch_generated SET identidad = '$identidad' , client_id = $r[id] where identidad is null and scratch_id = $r1[raspable] and generated_id = $r2[generated_id] ";
-                   
-                           //$sth_identidad = mysqli_query($con, $query_set_identidad);
+                               $query_set_identidad = "UPDATE scratch_generated SET identidad = '$identidad' , client_id = $r[id] where identidad is null and scratch_id = $r1[raspable] and generated_id = $r2[generated_id] ";
+                       
+                               //$sth_identidad = mysqli_query($con, $query_set_identidad);
 
-                           if ($con->query($query_set_identidad) === TRUE) {
-                               $asignado = true;
-                               // echo "Record updated successfully";
-                            } else {
-                              //  echo "Error updating record: " . $con->error;
+                               if ($con->query($query_set_identidad) === TRUE) {
+                                   $asignado = true;
+                                   // echo "Record updated successfully";
+                                } else {
+                                  //  echo "Error updating record: " . $con->error;
+                                }
+
                             }
 
+                            if($asignado){
+                                $query_asigned = "UPDATE `scratch` SET `asigned` = (SELECT COUNT(generated_id) from scratch_generated where identidad is NOT null and scratch_id = $r1[raspable] ) WHERE `scratch`.`scratch_id` = $r1[raspable] ";
+                                
+                                $con->query($query_asigned);
+                            }
+                            //print_r($rows);
+                            return $rows;
                         }
-
-                        if($asignado){
-                            $query_asigned = "UPDATE `scratch` SET `asigned` = (SELECT COUNT(generated_id) from scratch_generated where identidad is NOT null and scratch_id = $r1[raspable] ) WHERE `scratch`.`scratch_id` = $r1[raspable] ";
-                            
-                            $con->query($query_asigned);
-                        }
-                        //print_r($rows);
-                        return $rows;
                     }
-                }
 
-              // return $rows;
+                  // return $rows;
+                }
             }
         }
+
+        
+        return 0; 
+    }else{
+        return 0;
     }
-
-    
-    return 0; 
-
 }
