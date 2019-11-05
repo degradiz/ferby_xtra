@@ -341,7 +341,7 @@ function assign_scratch_identidad($tienda, $identidad , $amt){
                             $rows[] = $r2;
                            //echo $r2['generated_id'];
 
-                           $query_set_identidad = "UPDATE scratch_generated SET identidad = $identidad , client_id = $r[id] where identidad is null and scratch_id = $r1[raspable] and generated_id = $r2[generated_id] ";
+                           $query_set_identidad = "UPDATE scratch_generated SET identidad = '$identidad' , client_id = $r[id] where identidad is null and scratch_id = $r1[raspable] and generated_id = $r2[generated_id] ";
                    
                            //$sth_identidad = mysqli_query($con, $query_set_identidad);
 
