@@ -514,22 +514,22 @@ switch ($action) {
         
         assign_number_lottery_identidad($tienda,$username,$amt);
         assign_scratch_identidad($tienda,$username,$amt);
-        insertPoints_manually($username,$factura,$place_id,$amt,$tienda);
+        //insertPoints_manually($username,$factura,$place_id,$amt,$tienda);
         break;   
 
-    case 'assign_number_lottery_uuid':
+    case 'assign_number_lottery_identidad':
         $username = $_GET['identidad'];
         $amt = $_GET['amt'];
         $tienda = $_GET['tienda'];
-        $asignados = assign_number_lottery_uuid($tienda,$username,$amt);
+        $asignados = assign_number_lottery_identidad($tienda,$username,$amt);
         print json_encode($asignados);
         break;  
 
-    case 'assign_scratch_uuid':
+    case 'assign_scratch_identidad':
         $username = $_GET['identidad'];
         $amt = $_GET['amt'];
         $tienda = $_GET['tienda'];
-        $asignados = assign_scratch_uuid($tienda,$username,$amt);
+        $asignados = assign_scratch_identidad($tienda,$username,$amt);
         print json_encode($asignados);
         break; 
 
