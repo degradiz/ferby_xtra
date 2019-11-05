@@ -225,7 +225,7 @@ function assign_number_lottery_identidad($tienda, $identidad , $amt){
 
 
     // obtener id del cliente
-    $query_client = "SELECT id FROM xtraclientes where identidad = '$identidad'";
+    $query_client = "SELECT id FROM xtraClientes where identidad = '$identidad'";
 
     $sth_client = mysqli_query($con, $query_client);
 
@@ -304,7 +304,7 @@ function assign_scratch_identidad($tienda, $identidad , $amt){
 
 
     // obtener id del cliente
-    $query_client = "SELECT id FROM xtraclientes where identidad = '$identidad'";
+    $query_client = "SELECT id FROM xtraClientes where identidad = '$identidad'";
 
     $sth_client = mysqli_query($con, $query_client);
 
