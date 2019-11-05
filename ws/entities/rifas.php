@@ -283,6 +283,20 @@ function assign_number_lottery_identidad($tienda, $identidad , $amt){
                                 $con->query($query_asigned);
                             }
                             //print_r($rows);
+                            $queryUser = "SELECT fcmToken, platform FROM xtraClientes WHERE identidad = '$identidad' LIMIT 1";
+                            $sth = mysqli_query($con, $queryUser);
+                             while ($r = mysqli_fetch_assoc($sth)) {
+                                $parameters = new stdClass();
+                                
+                                $parameters->title = "Transacción de Rifas";
+                                $parameters->body = "Se asignaron $num_number números de rifa a tu app";
+                                
+                                $parameters->cType = "l";
+                                $parameters->fcm_key = "AIzaSyCN9BOgTjBQTfMX2SOWT4gc14LzxpgMz3s";
+                                if($r["platform"] == "Android"){
+                                    sendPushNotificationAndroidUser($r["fcmToken"], $parameters);
+                                }
+                           }
                             return $rows;
                         }
                     }
@@ -370,7 +384,22 @@ function assign_scratch_identidad($tienda, $identidad , $amt){
                                 $con->query($query_asigned);
                             }
                             //print_r($rows);
+                            $queryUser = "SELECT fcmToken, platform FROM xtraClientes WHERE identidad = '$identidad' LIMIT 1";
+                            $sth = mysqli_query($con, $queryUser);
+                             while ($r = mysqli_fetch_assoc($sth)) {
+                                $parameters = new stdClass();
+                                
+                                $parameters->title = "Transacción de Raspables";
+                                $parameters->body = "Se asignaron $num_number raspables a tu app";
+                                
+                                $parameters->cType = "l";
+                                $parameters->fcm_key = "AIzaSyCN9BOgTjBQTfMX2SOWT4gc14LzxpgMz3s";
+                                if($r["platform"] == "Android"){
+                                    sendPushNotificationAndroidUser($r["fcmToken"], $parameters);
+                                }
+                           }
                             return $rows;
+
                         }
                     }
 
