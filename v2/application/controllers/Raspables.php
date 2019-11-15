@@ -129,6 +129,7 @@ public function generated(){
 			$crud->set_table('scratch_generated');
 
 			$actual_link = $_SERVER['REQUEST_URI'];
+			echo $actual_link;
 			$array = explode("/", $actual_link);
 			if($array[count($array)-2] == "success"){
 				$id= $array[count($array)-3];
