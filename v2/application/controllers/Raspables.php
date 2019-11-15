@@ -135,8 +135,8 @@ public function generated(){
 			if($array[count($array)-1] > 0 ){
 				$id= $array[count($array)-1];
 			}
-			if($array[count($array)-3] == "success"){
-				$id= $array[count($array)-4];
+			if($array[count($array)-2] == "success"){
+				$id= $array[count($array)-3];
 			}
 
 			$crud->where(array('scratch_generated.scratch_id'=> $id,'reclamado'=> 0	,'client_id' => null));
