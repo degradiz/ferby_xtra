@@ -131,12 +131,10 @@ public function generated(){
 			$actual_link = $_SERVER['REQUEST_URI'];
 			echo $actual_link;
 			$array = explode("/", $actual_link);
-			if($array[count($array)-2] == "success"){
-				$id= $array[count($array)-3];
-			}elseif($array[count($array)-1] == "ajax_listajaxlist"){
-				$id= $array[count($array)-2];
+			if($array[count($array)-3] == "success"){
+				$id= $array[count($array)-4];
 			}else{
-				$id= $array[count($array)-1];
+				$id= $array[count($array)-2];
 			}
 			echo $array[count($array)-1];
 
