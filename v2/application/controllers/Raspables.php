@@ -132,11 +132,10 @@ public function generated(){
 
 			$array = explode("/", $actual_link);
 			
-			if($array[count($array)-1] > 0 ){
-				$id= $array[count($array)-1];
-			}
 			if($array[count($array)-2] == "success"){
 				$id= $array[count($array)-3];
+			}elseif($array[count($array)-1] > 0 && $array[count($array)-2] == "generated"){
+				$id= $array[count($array)-1];
 			}
 
 			$crud->where(array('scratch_generated.scratch_id'=> $id,'reclamado'=> 0	,'client_id' => null));
