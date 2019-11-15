@@ -131,7 +131,7 @@ public function generated(){
 			$actual_link = $_SERVER['REQUEST_URI'];
 
 			$array = explode("/", $actual_link);
-			
+			$id= $array[count($array)-1];
 			if($array[count($array)-2] == "success"){
 				$id= $array[count($array)-3];
 			}elseif($array[count($array)-1] > 0 && $array[count($array)-2] == "generated"){
