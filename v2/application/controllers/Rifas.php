@@ -144,7 +144,7 @@ public function generated(){
 			print_r($array);
 			if($array[count($array)-2] == "success"){
 				$id= $array[count($array)-3];
-			}else{
+			}elseif($array[count($array)-1] > 0 && $array[count($array)-2] == "generated"){
 				$id= $array[count($array)-1];
 			}
 
