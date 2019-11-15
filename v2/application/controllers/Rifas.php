@@ -140,6 +140,8 @@ public function generated(){
 
 			$actual_link = $_SERVER['REQUEST_URI'];
 			$array = explode("/", $actual_link);
+			echo count($array);
+			print_r($array);
 			if($array[count($array)-2] == "success"){
 				$id= $array[count($array)-3];
 			}else{
