@@ -25,7 +25,7 @@ class Raspables extends CI_Controller {
 			$crud = new grocery_CRUD();
 			$crud->set_table('scratch');
 			$crud->set_relation('place_location_id','sucursales','{nombre} - {ciudad}');
-			$crud->columns('scratch_id','img','place_location_id','name','description','cant','requisito','asigned','redeems','created');
+			$crud->columns('scratch_id','place_location_id','name','description','cant','requisito','asigned','redeems','created','img');
 			$crud->add_fields('place_location_id','name','description','cant','requisito','img');
 			$crud->edit_fields('name','cant','activo','description','requisito','img');
 			$crud->set_field_upload('img','assets/uploads/img/scratch');
