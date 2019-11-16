@@ -295,7 +295,8 @@ function set_cupon_nameXtra($cupon_code,$cupon_name){
     require_once '../nusoap/lib/nusoap.php';
 
         //$wsdl="http://localhost:53168/operaciones.asmx?WSDL";
-        $wsdl="http://138.0.230.5:53168/operaciones.asmx?WSDL";
+        //$wsdl="http://138.0.230.5:53168/operaciones.asmx?WSDL";
+        $wsdl="http://190.185.114.166:53168/operaciones.asmx?WSDL";
         $client=new nusoap_client($wsdl,true);
 
         $result=$client->call('nombre',array('cupon_code'=>$cupon_code,'nombre'=>$cupon_name));
@@ -556,7 +557,8 @@ function generarCuponesXtra($cant,$cupon_code,$cupon_name,$cupon_discount,$depar
     require_once '../nusoap/lib/nusoap.php';
 
         //$wsdl="http://localhost:53168/operaciones.asmx?WSDL";
-        $wsdl="http://138.0.230.5:53168/operaciones.asmx?WSDL";
+        //$wsdl="http://138.0.230.5:53168/operaciones.asmx?WSDL";
+        $wsdl="http://190.185.114.166:53168/operaciones.asmx?WSDL";
         $client=new nusoap_client($wsdl,true);
 
         $result=$client->call('Insert',array('cupon_code'=>$cupon_code,'nombre'=>$cupon_name,'descuento'=>$cupon_discount,'cantidad'=>$cant,'id_departamento'=>$department));
@@ -580,7 +582,8 @@ function adicionarCuponesXtra($cant,$cupon_code,$cupon_name,$cupon_discount,$dep
     require_once '../nusoap/lib/nusoap.php';
 
         //$wsdl="http://localhost:53168/operaciones.asmx?WSDL";
-        $wsdl="http://138.0.230.5:53168/operaciones.asmx?WSDL";
+        //$wsdl="http://138.0.230.5:53168/operaciones.asmx?WSDL";
+        $wsdl="http://190.185.114.166:53168/operaciones.asmx?WSDL";
         $client=new nusoap_client($wsdl,true);
 
         $result=$client->call('add',array('cupon_code'=>$cupon_code,'nombre'=>$cupon_name,'descuento'=>$cupon_discount,'cantidad'=>$cant,'id_departamento'=>$department,'last'=>$lastgenerated));
