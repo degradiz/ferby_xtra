@@ -61,12 +61,30 @@ function generar($post_array,$primary_key)
 				'scratch_generated'				=> 'scratch_generated',
 	);
 
+	$query = $this->db->query("SELECT COUNT(scratch_id) AS total FROM scratch_generated WHERE scratch_generated.scratch_id=".$primary_key);
+
+	$total = 0;
+
+	$row = $query->row_array();
+
+	if (isset($row))
+	{
+	        $total = $row['total'];
+	}
+
 	$generar_scratch = array(
         "scratch_id" => $primary_key,
         "img" => ''
     );
 
+	$ultimo = $total;	
 	for ($i=0; $i < $post_array['cant']; $i++) { 
+		$ultimo ++; 
+		$generar_scratch = array(
+	        "scratch_id" => $primary_key,
+	        "numero" => $ultimo,
+	        "img" => ''
+    	);
 		$this->db->insert('scratch_generated',$generar_scratch);
 	}
     
@@ -97,16 +115,17 @@ function plus($post_array,$primary_key)
 	{
 	        $total = $row['total'];
 	}
-
 	$cantidad_a_generar = ($post_array['cant'] - $total);
 
-	$generar_scratch = array(
-        "scratch_id" => $primary_key,
-        "img" => ''
-    );
-
+	$ultimo = $total;
 	if ($cantidad_a_generar > 0) {
-		for ($i=0; $i < $cantidad_a_generar; $i++) { 
+		for ($i=0; $i < $cantidad_a_generar; $i++) {
+			$ultimo ++; 
+			$generar_scratch = array(
+		        "scratch_id" => $primary_key,
+		        "numero" => $ultimo,
+		        "img" => ''
+	    	); 
 			$this->db->insert('scratch_generated',$generar_scratch);
 		}
 
@@ -131,16 +150,9 @@ public function generated(){
 			$actual_link = $_SERVER['REQUEST_URI'];
 
 			$array = explode("/", $actual_link);
-			$id= $array[count($array)-1];
-			// echo count($array);
-			// print_r($array);
-			if($array[count($array)-2] == "success"){
-				$id= $array[count($array)-3];
-			}elseif($array[count($array)-1] > 0 && $array[count($array)-2] == "generated"){
-				$id= $array[count($array)-1];
-			}elseif($array[count($array)-2] > 0 && $array[count($array)-3] == "generated"){
-				$id= $array[count($array)-2];
-			}
+						
+			$clave = array_search('generated', $array);
+			$id= $array[$clave + 1];
 
 			$crud->where(array('scratch_generated.scratch_id'=> $id,'reclamado'=> 0	,'client_id' => null));
 
@@ -156,14 +168,14 @@ public function generated(){
 			$crud->callback_column('img',array($this,'url_img'));
 
 
-			$crud->display_as('generated_id','Número');
+			$crud->display_as('generated_id','ID');
 			$crud->display_as('scratch_id','Titulo');
 			$crud->display_as('state','Estado');
 			$crud->display_as('client_id','Cliente');
 			$crud->display_as('img','Imagen');		
 			
 			$crud->unset_fields('uuid');
-			$crud->columns('generated_id','scratch_id','state','client_id','img');
+			$crud->columns('numero','scratch_id','state','client_id','img');
 
 			$crud->callback_before_update(array($this, 'estado'));
 

@@ -1,3 +1,8 @@
+<style type="text/css">
+	.modal-open {
+    overflow: scroll;
+}
+</style>
 <?php 
 
 	$column_width = (int)(80/count($columns));
@@ -48,7 +53,7 @@
 
 
           <!-- Modal -->
-          <div class="modal fade" id="loginModal<?php echo $i; ?>" tabindex="-1" role="" style="z-index: 9999 !important;">
+          <div class="modal fade" id="loginModal<?php echo $i; ?>" tabindex="-1" role="" style="">
             <div class="modal-dialog modal-login" role="document">
               <div class="modal-content">
                 <div class="card card-signup card-plain">
