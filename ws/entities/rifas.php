@@ -156,6 +156,30 @@ function reclamarscratch($parameters){
         }
 
         if ($reclamado) {
+            $reclamados_total = 0;
+            $query = "SELECT SUM(reclamado) as reclamados FROM `scratch_generated` WHERE scratch_id = $parameters->scratch_id ;";
+            $sth = mysqli_query($con, $query);
+
+            $num = mysqli_num_rows($sth);
+            //echo $num;
+            if ($num > 0) {
+                while ($r = mysqli_fetch_assoc($sth)) {
+                    $reclamados_total = $r["reclamados"];
+                }
+            }
+
+            if($reclamados_total > 0){
+                // return $rows;
+                $query_set_reclamados = "UPDATE scratch SET redeems = $reclamados_total where scratch_id = $parameters->scratch_id ;";
+
+                if ($con->query($query_set_reclamados) === TRUE) {
+                    $reclamado = true;
+                
+                } else {
+                
+                }
+            }
+
            return 1;
         }else{
            return 0;
