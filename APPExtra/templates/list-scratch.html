@@ -4,8 +4,12 @@
    
     <ion-content overflow-scroll="true">
 <ion-refresher pulling-text="Pull to refresh..." on-refresh="scratchInit()"> </ion-refresher>
-
+        <div ng-if="raspables == '0'">
         
+          <img style="width:100%" src="./images/imagen-ras.jpg">
+          {{raspables.length}}
+        </div>
+
         <div ng-if="wi < 800" ng-repeat="c in raspables">
           
            
@@ -57,6 +61,7 @@
                 </div>
             </div>
         </div> 
+
 </div> 
 <br>
 
