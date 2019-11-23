@@ -57,7 +57,7 @@ function sendPushNotification($gcm_key, $message) {
 
 // Close connection
     curl_close($ch);
-   // echo $result;
+    echo $result;
 //print_r($result);
 //var_dump($result);
 }
