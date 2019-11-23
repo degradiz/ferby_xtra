@@ -530,15 +530,6 @@ switch ($action) {
             //echo "No";
             return;
         }
-        // if($factura > 0){
-        //     insertPoints_manually($username,$factura,$place_id,$amt,$tienda);
-        //     if($tienda > 0 && $amt > 0) {       
-        //         assign_number_lottery_identidad($tienda,$username,$amt);
-        //         assign_scratch_identidad($tienda,$username,$amt);
-        //     }
-        // }else{
-        //     echo -1;
-        // }
         
          insertPoints_manually($username,$factura,$place_id,$amt,$tienda);
          if($tienda > 0 && $amt > 0) {      
