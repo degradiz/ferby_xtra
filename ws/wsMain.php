@@ -533,7 +533,7 @@ switch ($action) {
         $amt = $_GET['amt'];
         $tienda = $_GET['tienda'];
         $asignados = assign_number_lottery_identidad($tienda,$username,$amt);
-        print json_encode($asignados);
+        //print json_encode($asignados);
         break;  
 
     case 'assign_scratch_identidad':
@@ -541,7 +541,7 @@ switch ($action) {
         $amt = $_GET['amt'];
         $tienda = $_GET['tienda'];
         $asignados = assign_scratch_identidad($tienda,$username,$amt);
-        print json_encode($asignados);
+        //print json_encode($asignados);
         break; 
 
     case 'get_place_points':
