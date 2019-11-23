@@ -511,9 +511,13 @@ switch ($action) {
         $place_id = $_GET['place_id'];
         $amt = $_GET['amt'];
         $tienda = $_GET['tienda'];
-        insertPoints_manually($username,$factura,$place_id,$amt,$tienda);
-        assign_number_lottery_identidad($tienda,$username,$amt);
-        assign_scratch_identidad($tienda,$username,$amt);
+        if($factura > 0){
+            insertPoints_manually($username,$factura,$place_id,$amt,$tienda);        
+            assign_number_lottery_identidad($tienda,$username,$amt);
+            assign_scratch_identidad($tienda,$username,$amt);
+        }else{
+            echo -1;
+        }
         break;   
 
     case 'assign_number_lottery_identidad':
