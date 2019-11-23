@@ -511,6 +511,25 @@ switch ($action) {
         $place_id = $_GET['place_id'];
         $amt = $_GET['amt'];
         $tienda = $_GET['tienda'];
+
+        //validar si es repetido 
+        global $con;
+        $query_val = 'SELECT *,DATE_FORMAT(gift_time,"%Y-%m-%d %H:%i:%s") as fechformat FROM `gift_points` ORDER BY `gift_points`.`gift_time` DESC LIMIT 1';
+        $valsth = mysqli_query($con, $query_val);
+        $ahora = date("Y-m-d H:i:s");
+        
+        $ultmiafila = mysqli_fetch_array($valsth); 
+        $antes = strtotime($ultmiafila["fechformat"]);
+        //echo $ultmiafila["gift_time"] . "  " . $ahora;
+        $segundos_diferencia = strtotime($ahora) - $antes;
+        //echo $segundos_diferencia;
+        
+        
+        //return;
+        if ($username == $ultmiafila["gift_username"] && $amt == $ultmiafila["gift_points"] && $tienda == $ultmiafila["idtienda"] && $segundos_diferencia < 6) {
+            //echo "No";
+            return;
+        }
         // if($factura > 0){
         //     insertPoints_manually($username,$factura,$place_id,$amt,$tienda);
         //     if($tienda > 0 && $amt > 0) {       
@@ -521,11 +540,11 @@ switch ($action) {
         //     echo -1;
         // }
         
-            insertPoints_manually($username,$factura,$place_id,$amt,$tienda);
+         insertPoints_manually($username,$factura,$place_id,$amt,$tienda);
          if($tienda > 0 && $amt > 0) {      
                 //assign_number_lottery_identidad($tienda,$username,$amt);
                 assign_scratch_identidad($tienda,$username,$amt);
-          }  
+          } 
         break;   
 
     case 'assign_number_lottery_identidad':
