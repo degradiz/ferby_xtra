@@ -12,7 +12,7 @@ if($host == "localhost"){
 
 $host = 'localhost';
 $user = 'root';
-$password = 'catedradefensa';
+$password = '';
 $db = 'ferby_xtra';
 $con = mysqli_connect($host, $user, $password, $db);
 

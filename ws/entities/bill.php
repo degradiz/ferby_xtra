@@ -776,8 +776,6 @@ function notifyEmail($place_loc_id, $nombre, $telefono1, $email, $direccion, $bi
 
 function insertPoints_manually($username,$factura,$place_loc_id,$amt,$tienda) {
     global $con;
-    
-
     $prequery = "select place_id from place_location where place_location_id = $place_loc_id LIMIT 1";
     $presth = mysqli_query($con, $prequery);
     $StaringDate = date("Y-m-d");
