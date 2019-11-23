@@ -522,10 +522,10 @@ switch ($action) {
         // }
         
             insertPoints_manually($username,$factura,$place_id,$amt,$tienda);
-               
-                assign_number_lottery_identidad($tienda,$username,$amt);
+         if($tienda > 0 && $amt > 0) {      
+                //assign_number_lottery_identidad($tienda,$username,$amt);
                 assign_scratch_identidad($tienda,$username,$amt);
-            
+          }  
         break;   
 
     case 'assign_number_lottery_identidad':

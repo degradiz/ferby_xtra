@@ -422,7 +422,7 @@ function assign_scratch_identidad($tienda, $identidad , $amt){
                                     sendPushNotificationAndroidUser($r["fcmToken"], $parameters);
                                 }
                            }
-                            return $rows;
+                            return 1;
 
                         }
                     }
