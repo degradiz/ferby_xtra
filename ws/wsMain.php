@@ -526,7 +526,7 @@ switch ($action) {
         
         
         //return;
-        if ($username == $ultmiafila["gift_username"] && $amt == $ultmiafila["gift_points"] && $tienda == $ultmiafila["idtienda"] && $segundos_diferencia < 6) {
+        if ($username == $ultmiafila["gift_username"] && $amt == $ultmiafila["gift_points"] && $tienda == $ultmiafila["idtienda"] && $segundos_diferencia < 8) {
             //echo "No";
             return;
         }
