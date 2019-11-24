@@ -153,7 +153,7 @@ public function generated(){
 						
 			$clave = array_search('generated', $array);
 			$id= $array[$clave + 1];
-
+			
 			$crud->where(array('scratch_generated.scratch_id'=> $id,'reclamado'=> 0	,'client_id' => null));
 
 			$crud->set_relation('scratch_id','scratch','{name}');
@@ -221,7 +221,7 @@ public function reclamados(){
 			$crud->display_as('img','Imagen');		
 			
 			$crud->unset_fields('uuid');
-			$crud->columns('generated_id','scratch_id','state','client_id','fecha_reclamado','img');
+			$crud->columns('numero','scratch_id','state','client_id','fecha_reclamado','img');
 
 			$output = $crud->render();
 
@@ -263,7 +263,7 @@ public function asignados(){
 			$crud->display_as('img','Imagen');		
 			
 			$crud->unset_fields('uuid','reclamado');
-			$crud->columns('generated_id','scratch_id','state','client_id','img');
+			$crud->columns('numero','scratch_id','state','client_id','img');
 
 			$crud->add_action('Reclamar', '', '','redeem',array($this,'reclamar'));
 
