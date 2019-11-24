@@ -192,12 +192,11 @@ public function reclamados(){
 			$crud->set_table('scratch_generated');
 
 			$actual_link = $_SERVER['REQUEST_URI'];
+
 			$array = explode("/", $actual_link);
-			if($array[count($array)-2] == "success"){
-				$id= $array[count($array)-3];
-			}else{
-				$id= $array[count($array)-1];
-			}
+						
+			$clave = array_search('reclamados', $array);
+			$id= $array[$clave + 1];
 
 			$crud->where(array('scratch_generated.scratch_id'=> $id,'scratch_generated.reclamado'=> 1	));
 
@@ -237,12 +236,11 @@ public function asignados(){
 			$crud->set_table('scratch_generated');
 
 			$actual_link = $_SERVER['REQUEST_URI'];
+
 			$array = explode("/", $actual_link);
-			if($array[count($array)-2] == "success"){
-				$id= $array[count($array)-3];
-			}else{
-				$id= $array[count($array)-1];
-			}
+						
+			$clave = array_search('asignados', $array);
+			$id= $array[$clave + 1];
 
 			$crud->where(array('scratch_generated.scratch_id'=> $id,'scratch_generated.client_id >'=> 0 ,'scratch_generated.reclamado' => 0	));
 
