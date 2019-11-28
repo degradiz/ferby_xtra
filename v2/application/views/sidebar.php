@@ -60,6 +60,12 @@ color: black  ;
             </a>
           </li>
           <li class="nav-item ">
+            <a class="nav-link" href='<?php echo site_url('puntos/show')?>'>
+              <i class="material-icons">radio_button_checked</i>
+              <p>Puntos</p>
+            </a>
+          </li>
+          <li class="nav-item ">
             <a class="nav-link" href='<?php echo site_url('sucursales/show')?>'>
               <i class="material-icons">store</i>
               <p>Sucursales</p>

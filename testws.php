@@ -19,7 +19,13 @@ var_dump($result);
 
 echo $result['sumarResult'];
 
+//asignar raspables manual
+//https://app.almacenesxtra.com/ws/wsMain.php/?action=assign_scratch_identidad&identidad=1704200602973&amt=13&tienda=6
 
+//asignar puntos manual
+//https://app.almacenesxtra.com/ws/wsMain.php/?action=insertPoints_manually&identidad=0801196400389&factura=642179&place_id=4&amt=89&tienda=6
 
+//ver puntos manual
+//https://app.almacenesxtra.com/ws/wsMain.php/?action=get_user_pointsJSON&username=0801199518230&place_id=4
 
 ?>
