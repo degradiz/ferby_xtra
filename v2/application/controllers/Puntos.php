@@ -15,6 +15,11 @@ class Puntos extends CI_Controller {
 		$this->load->view('puntos.php',(array)$output);
 	}
 
+	public function _form_output($output = null)
+	{ 
+		$this->load->view('puntos_acumular.php',(array)$output);
+	}
+
 	public function index()
 	{
 		$this->_example_output((object)array('output' => '' , 'js_files' => array() , 'css_files' => array()));
@@ -42,6 +47,30 @@ class Puntos extends CI_Controller {
 			$output = $crud->render();
 
 			$this->_example_output($output);
+	}
+
+	public function acumular()
+	{
+			$crud = new grocery_CRUD();
+			$crud->set_table("gift_points");
+			$crud->columns("gift_username" ,"gift_points","gift_bill_id","gift_time","idtienda");
+			
+			$crud->where(array('gift_place_id'=> "4"));
+			$crud->display_as('gift_username','Identidad');
+			$crud->display_as('gift_points','Puntos');
+			$crud->display_as('gift_bill_id','Factura');
+			$crud->display_as('gift_time','Fecha');
+			$crud->display_as('idtienda','Tienda');
+			$crud->unset_add();
+			$crud->unset_edit();
+			$crud->unset_delete();
+			$crud->unset_clone();
+
+			//$crud->add_action('Agregar manual', '', 'puntos/agregar', 'plus');
+
+			$output = $crud->render();
+
+			$this->_form_output($output);
 	}
 
 
