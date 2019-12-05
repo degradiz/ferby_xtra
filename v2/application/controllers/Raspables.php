@@ -124,7 +124,8 @@ function plus($post_array,$primary_key)
 			$generar_scratch = array(
 		        "scratch_id" => $primary_key,
 		        "numero" => $ultimo,
-		        "img" => ''
+		        "state" => 1,
+		        "img" => 'c2957-premio-sorpresa.jpg'
 	    	); 
 			$this->db->insert('scratch_generated',$generar_scratch);
 		}
