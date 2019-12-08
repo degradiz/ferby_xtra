@@ -25,12 +25,13 @@ class Raspables extends CI_Controller {
 			$crud = new grocery_CRUD();
 			$crud->set_table('scratch');
 			$crud->set_relation('place_location_id','sucursales','{nombre} - {ciudad}');
-			$crud->columns('scratch_id','place_location_id','cant','requisito','asigned','redeems','name','description','created','img');
+			$crud->columns('scratch_id','place_location_id','requisito','disponibles','cant','asigned','redeems','name','description','created','img');
 			$crud->add_fields('place_location_id','name','description','cant','requisito','img');
 			$crud->edit_fields('name','cant','activo','description','requisito','img');
 			$crud->set_field_upload('img','assets/uploads/img/scratch');
 			$crud->unset_delete();
 			$crud->unset_clone();
+			$crud->callback_column('disponibles',array($this, 'disponibles'));
 			$crud->display_as('scratch_id','Raspable');
 			$crud->display_as('place_location_id','Tienda');
 			$crud->display_as('name','Titulo');
@@ -53,6 +54,10 @@ class Raspables extends CI_Controller {
 			$this->_example_output($output);
 	}
 
+function disponibles($value, $row)
+{
+	return $row->cant - $row->asigned;
+}
 
 function generar($post_array,$primary_key)
 {
