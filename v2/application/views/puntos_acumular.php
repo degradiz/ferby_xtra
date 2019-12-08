@@ -73,7 +73,7 @@
 <script type="text/javascript">
 
 function enviar(){  
-  var url = "http://localhost/ferby/ferby_xtra/ws/wsMain.php";
+  var url = "https://app.almacenesxtra.com/ws/wsMain.php";
   var form = $("#acumular");
   form.validate();
 
