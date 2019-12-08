@@ -21,8 +21,8 @@
           <div class="card-body">
             <form  method="GET" id="acumular">
   <div class="form-group">
-    <label for="exampleFormControlInput1">Factura</label>
-    <input type="number" class="form-control" name="factura" required placeholder="">
+    <label for="factura">Factura</label>
+    <input type="number" class="form-control" id="factura" name="factura" required placeholder="">
   </div>
   <div class="form-group">
     <label >Tienda</label>
@@ -41,17 +41,17 @@
     </select>
   </div>
     <div class="form-group">
-    <label for="exampleFormControlInput1">Identidad</label>
-    <input type="number" class="form-control" name="identidad" required placeholder="">
+    <label for="identidad">Identidad</label>
+    <input type="number" class="form-control" name="identidad" id="identidad" required placeholder="">
   </div>
     <div class="form-group">
-    <label for="exampleFormControlInput1">Puntos</label>
-    <input type="number" class="form-control" name="amt" required placeholder="">
+    <label for="amt">Puntos</label>
+    <input type="number" class="form-control" id="amt"  name="amt" required placeholder="">
   </div>
 <input type="hidden" name="action" value="insertPoints_manually">
   <input type="hidden" name="place_id" value="4">
 
-<button id="btn-ingresar" class="btn btn-primary" onclick="enviar()">Enviar</button>
+<a id="btn-ingresar" class="btn btn-primary" onclick="enviar()">Enviar</a>
 </form>
           </div>
         </div>
@@ -84,9 +84,9 @@ function enviar(){
       data: $("#acumular").serialize(), 
       success: function(data)             
       { 
-
-        $('#acumular').trigger("reset");
         alert("Puntos enviados");
+        $('#acumular').trigger("reset");
+        
       }
     });
   }
