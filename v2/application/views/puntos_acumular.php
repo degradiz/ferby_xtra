@@ -51,7 +51,7 @@
 <input type="hidden" name="action" value="insertPoints_manually">
   <input type="hidden" name="place_id" value="4">
 
-<a id="btn-ingresar" class="btn btn-primary" onclick="enviar()">Enviar</a>
+<a id="btn-ingresar" class="btn btn-primary text-white" onclick="enviar()">Enviar</a>
 </form>
           </div>
         </div>
