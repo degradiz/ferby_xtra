@@ -8,6 +8,11 @@
 	$this->set_js_lib($this->default_javascript_path.'/jquery_plugins/jquery.noty.js');
 	$this->set_js_lib($this->default_javascript_path.'/jquery_plugins/config/jquery.noty.config.js');
 ?>
+<style type="text/css">
+	.qq-upload-button {
+    display: block !important;
+}
+</style>
 <div class="flexigrid crud-form" style='width: 100%;' data-unique-hash="<?php echo $unique_hash; ?>">
 	<div class="mDiv">
 		<div class="ftitle">
@@ -36,6 +41,7 @@
 				</div>
 				<div class='form-input-box' id="<?php echo $field->field_name; ?>_input_box">
 					<?php echo $input_fields[$field->field_name]->input?>
+					
 				</div>
 				<div class='clear'></div>
 			</div>
@@ -79,4 +85,8 @@
 
 	var message_alert_edit_form = "<?php echo $this->l('alert_edit_form')?>";
 	var message_update_error = "<?php echo $this->l('update_error')?>";
+
+	function cambiar(){
+
+	}
 </script>

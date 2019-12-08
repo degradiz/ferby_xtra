@@ -31,16 +31,18 @@ color: black  ;
 
 <div class="sidebar" data-color="purple" data-background-color="white" data-image="<?php echo base_url()?>img/barra.jpg" style="background-image:url(<?php echo base_url()?>img/barra.jpg) !important">
       <div class="logo" style="padding:0px">
+        <a href='<?php echo site_url('home')?>'>
        <img src="<?php echo base_url()?>img/logo.png" style="padding: 30px;     width: 100%;" />
+     </a>
       </div>
       <div class="sidebar-wrapper" >
         <ul class="nav">
-           <li class="nav-item " >
+           <!-- <li class="nav-item " >
             <a class="nav-link" href='<?php echo site_url('home')?>' >
               <i class="material-icons">home</i>
               <p>Inicio</p>
             </a>
-          </li>
+          </li> -->
           <li class="nav-item ">
             <a class="nav-link" href='<?php echo site_url('raspables/show')?>'>
               <i class="material-icons">card_giftcard</i>
@@ -53,16 +55,23 @@ color: black  ;
               <p>Rifas</p>
             </a>
           </li>
-           <li class="nav-item ">
-            <a class="nav-link" href='<?php echo site_url('clientes/show')?>'>
-              <i class="material-icons">face</i>
-              <p>Clientes</p>
-            </a>
-          </li>
+           
           <li class="nav-item ">
             <a class="nav-link" href='<?php echo site_url('puntos/show')?>'>
               <i class="material-icons">radio_button_checked</i>
               <p>Puntos</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href='<?php echo site_url('puntos/acumular')?>'>
+              <i class="material-icons">add_shopping_cart</i>
+              <p>Acumular Puntos</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href='<?php echo site_url('clientes/show')?>'>
+              <i class="material-icons">face</i>
+              <p>Clientes</p>
             </a>
           </li>
           <li class="nav-item ">
@@ -130,3 +139,7 @@ color: black  ;
         <br> <br> <br> <br> <br>
       </div>
     </div>
+
+
+
+    

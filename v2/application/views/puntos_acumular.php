@@ -19,10 +19,10 @@
             <p class="card-category">Llene los datos para sumar puntos y raspables al cliente</p>
           </div>
           <div class="card-body">
-            <form action="https://app.almacenesxtra.com/ws/wsMain.php" method="GET">
+            <form  method="GET" id="acumular">
   <div class="form-group">
     <label for="exampleFormControlInput1">Factura</label>
-    <input type="number" class="form-control" name="factura" placeholder="">
+    <input type="number" class="form-control" name="factura" required placeholder="">
   </div>
   <div class="form-group">
     <label >Tienda</label>
@@ -42,16 +42,16 @@
   </div>
     <div class="form-group">
     <label for="exampleFormControlInput1">Identidad</label>
-    <input type="number" class="form-control" name="identidad" placeholder="">
+    <input type="number" class="form-control" name="identidad" required placeholder="">
   </div>
     <div class="form-group">
     <label for="exampleFormControlInput1">Puntos</label>
-    <input type="number" class="form-control" name="amt" placeholder="">
+    <input type="number" class="form-control" name="amt" required placeholder="">
   </div>
 <input type="hidden" name="action" value="insertPoints_manually">
   <input type="hidden" name="place_id" value="4">
 
-<button type="submit" class="btn btn-primary">Enviar</button>
+<button id="btn-ingresar" class="btn btn-primary" onclick="enviar()">Enviar</button>
 </form>
           </div>
         </div>
@@ -69,6 +69,30 @@
 
 <?php include 'footer.php';?>
 </body>
+
+<script type="text/javascript">
+
+function enviar(){  
+  var url = "http://localhost/ferby/ferby_xtra/ws/wsMain.php";
+  var form = $("#acumular");
+  form.validate();
+
+  if(form.valid()){
+    $.ajax({                        
+      type: "GET",                 
+      url: url,                     
+      data: $("#acumular").serialize(), 
+      success: function(data)             
+      { 
+
+        $('#acumular').trigger("reset");
+        alert("Puntos enviados");
+      }
+    });
+  }
+}
+
+</script>
 
 </html>
 

@@ -30,7 +30,7 @@ class Puntos extends CI_Controller {
 			$crud = new grocery_CRUD();
 			$crud->set_table("gift_points");
 			$crud->columns("gift_username" ,"gift_points","gift_bill_id","gift_time","idtienda");
-			
+			$crud->set_relation('idtienda' , 'sucursales' , 'nombre');
 			$crud->where(array('gift_place_id'=> "4"));
 			$crud->display_as('gift_username','Identidad');
 			$crud->display_as('gift_points','Puntos');
