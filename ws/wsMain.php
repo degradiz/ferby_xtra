@@ -514,19 +514,27 @@ switch ($action) {
 
         //validar si es repetido 
         global $con;
-        $query_val = 'SELECT *,DATE_FORMAT(gift_time,"%Y-%m-%d %H:%i:%s") as fechformat FROM `gift_points` ORDER BY `gift_points`.`gift_time` DESC LIMIT 1';
-        $valsth = mysqli_query($con, $query_val);
+        $query_val = 'SELECT gift_username , gift_points , idtienda , gift_time FROM `gift_points` ORDER BY `gift_points`.`gift_time` DESC LIMIT 1';
+        $valsth = mysqli_query($con, $query_val);                
+        $ultimafila = mysqli_fetch_array($valsth);
+
         $ahora = date("Y-m-d H:i:s");
+        $antes = $ultimafila["gift_time"];
+        $dteStart = new DateTime($antes);
+        $dteEnd   = new DateTime($ahora);
+        $interval  = $dteStart->diff($dteEnd);
+        //echo $ahora . " - " . $antes;
         
-        $ultmiafila = mysqli_fetch_array($valsth); 
-        $antes = strtotime($ultmiafila["fechformat"]);
-        //echo $ultmiafila["gift_time"] . "  " . $ahora;
-        $segundos_diferencia = strtotime($ahora) - $antes;
-        //echo $segundos_diferencia;
+        $seconds = $interval->days*86400 + $interval->h*3600 
+           + $interval->i*60 + $interval->s;
+        //echo " = " . $seconds;
         
-        
+        if ($amt == "0") {
+            //echo "No";
+            return;
+        }
         //return;
-        if ($username == $ultmiafila["gift_username"] && $amt == $ultmiafila["gift_points"] && $tienda == $ultmiafila["idtienda"] && $segundos_diferencia < 8) {
+        if ($username == $ultimafila["gift_username"] && $amt == $ultimafila["gift_points"]  && $seconds < 8) {
             //echo "No";
             return;
         }

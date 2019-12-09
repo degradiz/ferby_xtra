@@ -82,9 +82,9 @@ function enviar(){
       type: "GET",                 
       url: url,                     
       data: $("#acumular").serialize(), 
-      success: function(data)             
+      success: function(respuesta)             
       { 
-        alert("Puntos enviados");
+        alert("Puntos enviados , respuesta: " + respuesta);
         $('#acumular').trigger("reset");
         
       }
