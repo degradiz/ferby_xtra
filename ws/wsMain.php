@@ -518,15 +518,14 @@ switch ($action) {
         $valsth = mysqli_query($con, $query_val);                
         $ultimafila = mysqli_fetch_array($valsth);
 
-        $ahora = date("Y-m-d H:i:s");
-        $antes = $ultimafila["gift_time"];
-        $dteStart = new DateTime($antes);
-        $dteEnd   = new DateTime($ahora);
-        $interval  = $dteStart->diff($dteEnd);
+        //$ahora = date("Y-m-d H:i:s");
+        ///$antes = $ultimafila["gift_time"];
+        //$dteStart = new DateTime($antes);
+        //$dteEnd   = new DateTime($ahora);
+        //$interval  = $dteStart->diff($dteEnd);
         //echo $ahora . " - " . $antes;
         
-        $seconds = $interval->days*86400 + $interval->h*3600 
-           + $interval->i*60 + $interval->s;
+       // $seconds = $interval->days*86400 + $interval->h*3600 + $interval->i*60 + $interval->s;
         //echo " = " . $seconds;
         
         if ($amt == "0") {
@@ -534,9 +533,13 @@ switch ($action) {
             return;
         }
         //return;
-        if ($username == $ultimafila["gift_username"] && $amt == $ultimafila["gift_points"]  && $seconds < 8) {
-            //echo "No";
-            return;
+        if ($username == $ultimafila["gift_username"] ) {
+            if ($amt == $ultimafila["gift_points"]) {
+                // if ($seconds < 8) {
+                return;
+             // }
+            }
+            
         }
         
          insertPoints_manually($username,$factura,$place_id,$amt,$tienda);
