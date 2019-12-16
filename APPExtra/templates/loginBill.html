@@ -74,7 +74,7 @@
                                         <img ng-src="{{baseImgUrl}}{{place.img_help_link}}"  style="width:100%" />
                                         <p class="textsubshelblack">Tienda</p>
                                 </div>
-                                <div class="grisubshel" ng-click="openHelpLink(place.subscription_link)" >
+                                <div class="grisubshel" ng-click="openHelpLink(place.subscription_link)" ng-if="place.show_subscription_link == 1" >
                                         <img ng-src="./images/basket.png"  style="width:100%" />
                                         <p class="textsubshelblack">Departamentos</p>
                                 </div>
@@ -131,7 +131,7 @@
                                         <p class="textsubshelblack">Rifas</p>
                                 </div>
 
-                                <div class="grisubshel" ng-click="openWeb('https://storeapp.almacenesxtra.com/etiqueta-producto/producto-nuevo/')" >
+                                <div class="grisubshel" ng-click="openWeb('https://storeapp.almacenesxtra.com/etiqueta-producto/producto-nuevo/')" ng-if="place.show_rate_app == 1">
                                         <div style="position:absolute;" ng-if="contadorCupones != 0"  class="badgextra">
                                             <span>{{contadorArrivals}}</span>
                                         </div>
