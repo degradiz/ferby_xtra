@@ -2890,7 +2890,7 @@ $scope.obtenerServicio = function (category) {
 
     $scope.ingresar = function(){
 
-        if($("#nomIdentidad").val() == ""){alert("Debes llenar el campo identidad con el numero de tu identidad del registro nacional de las personas."); return;}
+        if($("#nomIdentidad").val() == ""){alert("Debes llenar el campo identidad para acumular o redimir puntos y para ganar raspables."); return;}
         if($("#nomReg").val() == ""){alert("Debes llenar el campo nombre."); return;}
         if($("#celReg").val() == ""){alert("Debes llenar el celular con tu numero actual de celular."); return;}
 
