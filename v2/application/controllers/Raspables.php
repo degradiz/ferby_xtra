@@ -172,16 +172,13 @@ public function generated(){
 
 			$crud->callback_column('state',array($this,'url_client'));
 			$crud->callback_column('img',array($this,'url_img'));
-
-
-			$crud->display_as('generated_id','ID');
-			$crud->display_as('scratch_id','Titulo');
+			
+			$crud->display_as('place_location_id','Sucursal');
 			$crud->display_as('state','Estado');
 			$crud->display_as('client_id','Cliente');
-			$crud->display_as('img','Imagen');		
+			$crud->display_as('img','Premio');		
 			
-			$crud->unset_fields('uuid');
-			$crud->columns('numero','scratch_id','state','client_id','img');
+			$crud->columns('numero','place_location_id','state','img');
 
 			$crud->callback_before_update(array($this, 'estado'));
 
