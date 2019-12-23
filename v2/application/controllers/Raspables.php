@@ -205,7 +205,7 @@ public function reclamados(){
 			//$crud->set_relation('client_id','xtraClientes','{nombre}');
 			$crud->set_field_upload('img','assets/uploads/img/scratch');
 			//$crud->field_type('state','hidden');
-			$crud->field_type('raspado','dropdown',array('1'=>'Si','0'=>'No'));
+			
 			$crud->unset_add();
 			$crud->unset_edit();
 			$crud->unset_delete();
@@ -248,7 +248,7 @@ public function asignados(){
 			//$crud->set_relation('client_id','xtraClientes','{nombre}');
 			$crud->set_field_upload('img','assets/uploads/img/scratch');
 			//$crud->field_type('state','hidden');
-			$crud->field_type('raspado','dropdown',array('1'=>'Si','0'=>'No'));
+			
 			$crud->unset_add();
 			$crud->unset_edit();
 			$crud->unset_delete();
