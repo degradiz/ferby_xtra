@@ -219,7 +219,7 @@ public function reclamados(){
 			//$crud->display_as('state','Estado');
 			$crud->display_as('client_id','Cliente');
 			$crud->display_as('img','Premio');			
-			$crud->columns('numero','identidad','client_id','raspado','img','state');
+			$crud->columns('numero','identidad','client_id','raspado','img');
 
 			$crud->add_action('Reclamar', '', '','redeem',array($this,'reclamar'));
 
@@ -262,7 +262,7 @@ public function asignados(){
 			//$crud->display_as('state','Estado');
 			$crud->display_as('client_id','Cliente');
 			$crud->display_as('img','Premio');			
-			$crud->columns('numero','identidad','client_id','raspado','img','state');
+			$crud->columns('numero','identidad','client_id','raspado','img');
 
 			$crud->add_action('Reclamar', '', '','redeem',array($this,'reclamar'));
 
