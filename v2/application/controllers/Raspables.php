@@ -251,7 +251,7 @@ public function asignados(){
 			$crud->where(array('scratch_generated.scratch_id'=> $id,'scratch_generated.client_id >'=> 0 ,'scratch_generated.reclamado' => 0	));
 
 			
-			$crud->set_relation('client_id','xtraClientes','{nombre}');
+			//$crud->set_relation('client_id','xtraClientes','{nombre}');
 			$crud->set_field_upload('img','assets/uploads/img/scratch');
 			//$crud->field_type('state','hidden');
 			$crud->field_type('raspado','dropdown',array('1'=>'Si','0'=>'No'));
@@ -259,7 +259,7 @@ public function asignados(){
 			$crud->unset_edit();
 			$crud->unset_delete();
 
-			//$crud->callback_column('state',array($this,'url_client'));
+			$crud->callback_column('client_id',array($this,'url_client'));
 			//$crud->callback_column('img',array($this,'url_img'));
 
 
