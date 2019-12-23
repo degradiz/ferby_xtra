@@ -170,7 +170,7 @@ public function generated(){
 			$crud->unset_delete();
 			$crud->edit_fields('state','img');
 
-			$crud->callback_column('state',array($this,'url_client'));
+			$crud->callback_column('client_id',array($this,'url_client'));
 			$crud->callback_column('img',array($this,'url_img'));
 			
 			$crud->display_as('place_location_id','Sucursal');
@@ -178,7 +178,7 @@ public function generated(){
 			$crud->display_as('client_id','Cliente');
 			$crud->display_as('img','Premio');		
 			
-			$crud->columns('numero','state','img');
+			$crud->columns('numero','img','state','client_id');
 
 			$crud->callback_before_update(array($this, 'estado'));
 
@@ -220,7 +220,7 @@ public function reclamados(){
 			//$crud->display_as('state','Estado');
 			$crud->display_as('client_id','Cliente');
 			$crud->display_as('img','Premio');			
-			$crud->columns('numero','identidad','client_id','raspado','img');
+			$crud->columns('numero','identidad','client_id','raspado','img','state');
 
 			$crud->add_action('Reclamar', '', '','redeem',array($this,'reclamar'));
 
@@ -263,7 +263,7 @@ public function asignados(){
 			//$crud->display_as('state','Estado');
 			$crud->display_as('client_id','Cliente');
 			$crud->display_as('img','Premio');			
-			$crud->columns('numero','identidad','client_id','raspado','img');
+			$crud->columns('numero','identidad','client_id','raspado','img','state');
 
 			$crud->add_action('Reclamar', '', '','redeem',array($this,'reclamar'));
 
@@ -287,14 +287,14 @@ public function url_img($value, $row)
 public function url_client($value, $row)
 {	
 	
-	if ($value == 1 && $row->client_id != null && $row->reclamado == 0) {
+	if ($row->state == 1 && $value != null && $row->reclamado == 0) {
 		return "<a class='btn btn-success' href='".site_url('clientes/show/read/'.$row->client_id)."'>Ganador</a>";
 	}elseif ($row->reclamado == 1  ) {
 		return "<a class='btn btn-danger' href='".site_url('clientes/show/read/'.$row->client_id)."'>Reclamado</a>";
-	}elseif ($value == 1 && $row->client_id == null) {
+	}elseif ($row->state == 1 && $value == null) {
 		return "<a class='btn btn-info' href='#'>Premiado</a>";
 
-	}elseif ($value == 0 && $row->client_id != null) {
+	}elseif ($row->state == 0 && $value != null) {
 		return "<a class='btn btn-info' href='".site_url('clientes/show/read/'.$row->client_id)."'>Asignado</a>";
 	}else{
 		
