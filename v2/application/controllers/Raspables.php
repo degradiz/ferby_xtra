@@ -250,7 +250,7 @@ public function asignados(){
 			echo $id;
 			$crud->where(array('scratch_generated.scratch_id'=> $id,'scratch_generated.client_id >'=> 0 ,'scratch_generated.reclamado' => 0	));
 
-			$crud->set_relation('scratch_id','scratch','{name}');
+			//$crud->set_relation('scratch_id','scratch','{name}');
 			$crud->set_relation('client_id','xtraClientes','{nombre}');
 			$crud->set_field_upload('img','assets/uploads/img/scratch');
 			$crud->field_type('state','hidden');
@@ -269,7 +269,7 @@ public function asignados(){
 			$crud->display_as('img','Imagen');		
 			
 			$crud->unset_fields('uuid','reclamado');
-			$crud->columns('numero','scratch_id','state','identidad','client_id','raspado','img');
+			$crud->columns('numero','state','identidad','client_id','raspado','img');
 
 			$crud->add_action('Reclamar', '', '','redeem',array($this,'reclamar'));
 
