@@ -227,7 +227,7 @@ public function reclamados(){
 			$crud->display_as('img','Imagen');		
 			
 			$crud->unset_fields('uuid');
-			$crud->columns('numero','scratch_id','state','client_id','fecha_reclamado','img');
+			$crud->columns('numero','scratch_id','state','identidad','client_id','fecha_reclamado','img');
 
 			$output = $crud->render();
 
@@ -269,7 +269,7 @@ public function asignados(){
 			$crud->display_as('img','Imagen');		
 			
 			$crud->unset_fields('uuid','reclamado');
-			$crud->columns('numero','scratch_id','state','client_id','img');
+			$crud->columns('numero','scratch_id','state','identidad','client_id','raspado','img');
 
 			$crud->add_action('Reclamar', '', '','redeem',array($this,'reclamar'));
 
