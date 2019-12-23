@@ -258,8 +258,8 @@ public function asignados(){
 			$crud->unset_edit();
 			$crud->unset_delete();
 
-			$crud->callback_column('state',array($this,'url_client'));
-			$crud->callback_column('img',array($this,'url_img'));
+			//$crud->callback_column('state',array($this,'url_client'));
+			//$crud->callback_column('img',array($this,'url_img'));
 
 
 			$crud->display_as('generated_id','Número');
