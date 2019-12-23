@@ -178,7 +178,7 @@ public function generated(){
 			$crud->display_as('client_id','Cliente');
 			$crud->display_as('img','Premio');		
 			
-			$crud->columns('numero','place_location_id','state','img');
+			$crud->columns('numero','state','img');
 
 			$crud->callback_before_update(array($this, 'estado'));
 
