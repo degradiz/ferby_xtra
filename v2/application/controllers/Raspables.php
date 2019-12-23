@@ -170,15 +170,14 @@ public function generated(){
 			$crud->unset_delete();
 			$crud->edit_fields('state','img');
 
-			$crud->callback_column('client_id',array($this,'url_client'));
+			$crud->callback_column('state',array($this,'state_boton'));
 			$crud->callback_column('img',array($this,'url_img'));
 			
-			$crud->display_as('place_location_id','Sucursal');
+			
 			$crud->display_as('state','Estado');
-			$crud->display_as('client_id','Cliente');
 			$crud->display_as('img','Premio');		
 			
-			$crud->columns('numero','img','state','client_id');
+			$crud->columns('numero','img','state');
 
 			$crud->callback_before_update(array($this, 'estado'));
 
@@ -296,6 +295,19 @@ public function url_client($value, $row)
 
 	}elseif ($row->state == 0 && $value != null) {
 		return "<a class='btn btn-info' href='".site_url('clientes/show/read/'.$row->client_id)."'>Asignado</a>";
+	}else{
+		
+		return "";
+	}
+	
+}
+
+public function state_boton($value, $row)
+{	
+	
+	if ( $value == 1) {
+		return "<a class='btn btn-info' href='#'>Premiado</a>";
+
 	}else{
 		
 		return "";
