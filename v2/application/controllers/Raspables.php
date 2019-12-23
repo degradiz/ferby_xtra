@@ -206,28 +206,26 @@ public function reclamados(){
 
 			$crud->where(array('scratch_generated.scratch_id'=> $id,'scratch_generated.reclamado'=> 1	));
 
-			$crud->set_relation('scratch_id','scratch','{name}');
-			$crud->set_relation('client_id','xtraClientes','{nombre}');
+			//$crud->set_relation('client_id','xtraClientes','{nombre}');
 			$crud->set_field_upload('img','assets/uploads/img/scratch');
-			$crud->edit_fields('reclamado','fecha_reclamado');
-			$crud->field_type('reclamado','dropdown',array('1'=>'Si','0'=>'No'));
+			//$crud->field_type('state','hidden');
+			$crud->field_type('raspado','dropdown',array('1'=>'Si','0'=>'No'));
 			$crud->unset_add();
-			//$crud->unset_edit();
+			$crud->unset_edit();
 			$crud->unset_delete();
 
-			$crud->callback_column('state',array($this,'url_client'));
-			$crud->callback_column('img',array($this,'url_img'));
+			$crud->callback_column('client_id',array($this,'url_client'));
+			//$crud->callback_column('img',array($this,'url_img'));
 
-			$crud->required_fields('reclamado','fecha_reclamado');
 
-			$crud->display_as('generated_id','Número');
-			$crud->display_as('scratch_id','Titulo');
-			$crud->display_as('state','Estado');
-			$crud->display_as('client_id','Cliente');
-			$crud->display_as('img','Imagen');		
+			//$crud->display_as('generated_id','Número');
 			
-			$crud->unset_fields('uuid');
-			$crud->columns('numero','scratch_id','state','identidad','client_id','fecha_reclamado','img');
+			//$crud->display_as('state','Estado');
+			$crud->display_as('client_id','Cliente');
+			$crud->display_as('img','Premio');			
+			$crud->columns('numero','identidad','client_id','raspado','img');
+
+			$crud->add_action('Reclamar', '', '','redeem',array($this,'reclamar'));
 
 			$output = $crud->render();
 
