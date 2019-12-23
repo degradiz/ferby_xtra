@@ -266,7 +266,7 @@ public function asignados(){
 			//$crud->display_as('generated_id','Número');
 			//$crud->display_as('scratch_id','Titulo');
 			$crud->display_as('state','Estado');
-			//$crud->display_as('client_id','Cliente');
+			$crud->display_as('client_id','Cliente');
 			$crud->display_as('img','Imagen');		
 			
 			$crud->unset_fields('uuid','reclamado');
