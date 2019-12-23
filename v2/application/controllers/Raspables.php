@@ -247,7 +247,7 @@ public function asignados(){
 						
 			$clave = array_search('asignados', $array);
 			$id= $array[$clave + 1];
-
+			echo $id;
 			$crud->where(array('scratch_generated.scratch_id'=> $id,'scratch_generated.client_id >'=> 0 ,'scratch_generated.reclamado' => 0	));
 
 			$crud->set_relation('scratch_id','scratch','{name}');
