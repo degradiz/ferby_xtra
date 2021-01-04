@@ -19,7 +19,7 @@ require 'entities/bill_detail.php';
 require 'entities/gift_points.php';
 require 'entities/check_in.php';
 require 'entities/loyal_users.php';
-require 'entities/receipt_points.php'; 
+require 'entities/receipt_points.php';
 require 'entities/sale.php';
 require 'entities/promo.php';
 require 'entities/rifas.php';
@@ -40,8 +40,9 @@ require 'extras/contacts_referred.php';
 require 'receptorfile.php';
 require 'woo-ferby/push-woo-to-ferby.php';
 
-function utf8_converter($array) {
-    array_walk_recursive($array, function(&$item, $key) {
+function utf8_converter($array)
+{
+    array_walk_recursive($array, function (&$item, $key) {
         if (!mb_detect_encoding($item, 'utf-8', true)) {
             $item = utf8_encode($item);
         }
@@ -55,39 +56,39 @@ $action = isset($_GET["action"]) ? $_GET["action"] : (isset($_POST["action"]) ? 
 
 switch ($action) {
 
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-//T  Y  P  E   A  C  T  I  O  N
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        //T  Y  P  E   A  C  T  I  O  N
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
     case 'get_types': //CONSUMIDO
         $result = get_types();
         print json_encode($result);
         break;
 
 
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-//W  O  O    F  E  R  B  Y
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        //W  O  O    F  E  R  B  Y
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
     case 'app_push_woo_ferby': //CONSUMIDO
         $parameters = new stdClass();
         $parameters = isset($_POST['object_data']) ? $_POST['object_data'] : "";
-        if($parameters === "")
+        if ($parameters === "")
             return;
 
         $parameters = (object)json_decode($parameters);
-        
+
         pushWooFerbyOrder($parameters);
         break;
     case 'push_woo_ferby': //CONSUMIDO
         $parameters = new stdClass();
         $parameters = isset($_POST['object_data']) ? (object)$_POST['object_data'] : NULL;
-        if($parameters == NULL)
+        if ($parameters == NULL)
             return;
-        
+
         pushWooFerbyOrder($parameters);
         break;
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-//A  D  M  I  N  I  S  T  R  A  T  O  R
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        //A  D  M  I  N  I  S  T  R  A  T  O  R
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
     case 'insert_Admin': //CONSUMIDO
         $admin_id = $_GET['admin_id'];
         $pass = $_GET['pass'];
@@ -149,33 +150,33 @@ switch ($action) {
         $platform = isset($_GET["platform"]) ? $_GET["platform"] : (isset($_POST["platform"]) ? $_POST["platform"] : "Android");
         insert_gcm_place_admin($uuid, $gcmToken, $admin_id, $platform);
         break;
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-//C   L   I   E  N   T   E  S
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        //C   L   I   E  N   T   E  S
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
 
-   case 'insert_xtraCliente':
+    case 'insert_xtraCliente':
         $identdad = $_GET['identidad'];
         $nombre = $_GET['nombre'];
         $numero = $_GET['numero'];
         $email = $_GET["email"];
         insert_xtraCliente($identdad, $nombre, $numero, $email);
         break;
-   case 'updateUserTokenIdentidad':
+    case 'updateUserTokenIdentidad':
         $identidad = $_GET['identidad'];
         $platform = $_GET['platform'];
         $token = $_GET['token'];
-        updateUserTokenIdentidad($identidad,$platform,$token);
-   break;
+        updateUserTokenIdentidad($identidad, $platform, $token);
+        break;
 
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-//P  L   A   C  E
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        //P  L   A   C  E
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
     case 'delete_place':
         $parameters = new stdClass();
         $parameters->place_id = $_GET["place_id"];
         $result = delete_place($parameters);
         print json_encode($result);
-        break;   
+        break;
     case 'switch_show_shop':
         $parameters = new stdClass();
         $parameters->place_id = $_GET["place_id"];
@@ -260,7 +261,7 @@ switch ($action) {
         $result = switch_show_facebook($parameters);
         print json_encode($result);
         break;
-    case 'create_new_app'://CONSUMIDO
+    case 'create_new_app': //CONSUMIDO
         $parameters = new stdClass();
         $parameters->business_logo = isset($_FILES["business_logo"]) ? $_FILES["business_logo"] : (isset($_FILES["business_logo"]) ? $_FILES["business_logo"] : "");
         $parameters->business_name = isset($_GET["business_name"]) ? $_GET["business_name"] : (isset($_POST["business_name"]) ? $_POST["business_name"] : "");
@@ -276,54 +277,54 @@ switch ($action) {
         $place = get_place($place_id);
         print json_encode($place);
         break;
-    case 'insert_Place'://CONSUMIDO
+    case 'insert_Place': //CONSUMIDO
         $admin_id = isset($_GET["admin_id"]) ? $_GET["admin_id"] : (isset($_POST["admin_id"]) ? $_POST["admin_id"] : "0");
         $business_logo = isset($_FILES["business_logo"]) ? $_FILES["business_logo"] : (isset($_FILES["business_logo"]) ? $_FILES["business_logo"] : "0");
         $business_name = isset($_GET["business_name"]) ? $_GET["business_name"] : (isset($_POST["business_name"]) ? $_POST["business_name"] : "0");
         insert_Place($admin_id, $business_name, $business_logo);
         break;
-    case 'activate_points'://CONSUMIDO
+    case 'activate_points': //CONSUMIDO
         $parameters = new stdClass();
         $parameters->place_id = $_GET['place_id'];
         $res = activate_points($parameters);
         echo $res;
         break;
-    case 'select_place'://CONSUMIDO
+    case 'select_place': //CONSUMIDO
         $admin_id = $_GET['admin_id'];
         select_place($admin_id);
         break;
-    case 'get_place_by_admin_id'://CONSUMIDO
+    case 'get_place_by_admin_id': //CONSUMIDO
         $parameters = new stdClass();
         $parameters->admin_id = $_GET['admin_id'];
         $place = get_place_by_admin_id($parameters);
         print json_encode($place);
         break;
-    case 'get_place_by_place_location'://CONSUMIDO
+    case 'get_place_by_place_location': //CONSUMIDO
         $place_location_id = $_GET['place_location_id'];
         $place = get_place_by_place_location($place_location_id);
         print json_encode($place);
         break;
-    case 'select_all_settings'://CONSUMIDO
+    case 'select_all_settings': //CONSUMIDO
         $result = select_all_settings();
         print json_encode($result);
         break;
-    case 'select_theme'://CONSUMIDO
+    case 'select_theme': //CONSUMIDO
         $place_id = $_GET['place_id'];
         select_theme($place_id);
         break;
-    case 'select_place_settings'://CONSUMIDO
+    case 'select_place_settings': //CONSUMIDO
         $parameters = new stdClass();
         $parameters->place_id = $_GET['place_id'];
         $setting = select_place_settings($parameters);
         print json_encode($setting);
         break;
-    case 'select_checkin_options'://CONSUMIDO
+    case 'select_checkin_options': //CONSUMIDO
         $parameters = new stdClass();
         $parameters->place_id = $_GET['place_id'];
         $setting = select_checkin_options($parameters);
         print json_encode($setting);
         break;
-    case 'update_place'://CONSUMIDO
+    case 'update_place': //CONSUMIDO
         $place_id = isset($_GET["place_id"]) ? $_GET["place_id"] : (isset($_POST["place_id"]) ? $_POST["place_id"] : "0");
         $business_logo = isset($_FILES["business_logo"]) ? $_FILES["business_logo"] : (isset($_FILES["business_logo"]) ? $_FILES["business_logo"] : "0");
         $business_name = isset($_GET["business_name"]) ? $_GET["business_name"] : (isset($_POST["business_name"]) ? $_POST["business_name"] : "0");
@@ -334,23 +335,23 @@ switch ($action) {
         $gcmToken = $_GET['gcmToken'];
         $place_Id = $_GET['place_Id'];
         $platform = isset($_GET["platform"]) ? $_GET["platform"] : (isset($_POST["platform"]) ? $_POST["platform"] : "Android");
-        insert_place_user($uuid, $gcmToken, $place_Id,$platform);
+        insert_place_user($uuid, $gcmToken, $place_Id, $platform);
         break;
     case 'addAdminGcm':
         $uuid = $_GET['uuid'];
         $gcmToken = $_GET['gcmToken'];
         $place_Id = $_GET['place_Id'];
         $platform = isset($_GET["platform"]) ? $_GET["platform"] : (isset($_POST["platform"]) ? $_POST["platform"] : "Android");
-        insert_place_admin_user($uuid, $gcmToken, $place_Id,$platform);
+        insert_place_admin_user($uuid, $gcmToken, $place_Id, $platform);
         break;
     case 'select_producs_from_place':
         $place_Id = $_GET['place_Id'];
         select_producs_from_place($place_Id);
         break;
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-//P  L  A  C  E    L  O  C  A  T  I  O  N  S
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬   
-    case 'insert_Place_Locations'://CONSUMIDO
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        //P  L  A  C  E    L  O  C  A  T  I  O  N  S
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬   
+    case 'insert_Place_Locations': //CONSUMIDO
         $name = $_GET['name'];
         $city = $_GET['city'];
         $lat = $_GET['lat'];
@@ -396,7 +397,7 @@ switch ($action) {
         $parameters->place_location_id = $_GET["place_location_id"];
         delete_place_location($parameters);
         break;
-    case 'update_Place_Locations'://CONSUMIDO
+    case 'update_Place_Locations': //CONSUMIDO
         $name = $_GET['name'];
         $city = $_GET['city'];
         $lat = $_GET['lat'];
@@ -405,18 +406,18 @@ switch ($action) {
         $min = $_GET['min'];
         udpate_Place_Locations($name, $lat, $lon, $place_Location_id, $city, $min);
         break;
-    case 'select_Place_Locations'://CONSUMIDO
+    case 'select_Place_Locations': //CONSUMIDO
         $place_id = $_GET['place_id'];
         select_place_Locations($place_id);
         break;
-    case 'select_place_locations_det'://CONSUMIDO
+    case 'select_place_locations_det': //CONSUMIDO
         $place_id = $_GET['place_id'];
         select_place_locations_det($place_id);
         break;
-    case'select_All_Place_Locations':
+    case 'select_All_Place_Locations':
         select_All_Place_Locations();
         break;
-    case'select_Filt_Locations':
+    case 'select_Filt_Locations':
         $filt = $_GET['filt'];
         select_Filt_Locations($filt);
         break;
@@ -461,9 +462,9 @@ switch ($action) {
         get_orders_by_admin($admin_id, $status);
         break;
 
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-//G  I  F  T   P  O  I  N  T  S
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        //G  I  F  T   P  O  I  N  T  S
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
     case 'add_puntos_place':
         $parameters = new stdClass();
         $parameters->place_id = isset($_GET["place_id"]) ? $_GET["place_id"] : (isset($_POST["place_id"]) ? $_POST["place_id"] : "");
@@ -480,43 +481,48 @@ switch ($action) {
         $result = add_punchcard_place($parameters);
         print json_encode($result);
         break;
-    case 'select_gift_points'://CONSUMIDO
+    case 'select_gift_points': //CONSUMIDO
         $username = isset($_GET["username"]) ? $_GET["username"] : (isset($_POST["username"]) ? $_POST["username"] : "0");
         select_gift_points($username);
         break;
-    case 'redeem_points'://CONSUMIDO
+    case 'redeem_points': //CONSUMIDO
         $parameters = new stdClass();
         $parameters->place_id = $_GET['place_id'];
         $parameters->place_location_id = $_GET['place_location_id'];
         $parameters->gift_username = $_GET['username'];
         $parameters->gift_points = $_GET['gift_points'];
         $parameters->gift_bill_id = isset($_GET["gift_bill_id"]) ? $_GET["gift_bill_id"] : (isset($_POST["gift_bill_id"]) ? $_POST["gift_bill_id"] : "0");
-        redeem_points($parameters);
+        if ($parameters->gift_bill_id > 0) {
+            redeem_points($parameters);
+        } else {
+            echo "Error en parametros recibidos:";
+            print_r($_GET);
+        }
         break;
     case 'get_user_points':
         $username = $_GET['username'];
         $place_id = $_GET['place_id'];
         get_alliance_points($username, $place_id);
         break;
-        
-      case 'get_user_pointsJSON':
+
+    case 'get_user_pointsJSON':
         $username = $_GET['username'];
         $place_id = $_GET['place_id'];
         get_user_pointsJSON($username, $place_id);
-        break;    
+        break;
 
     case 'insertPoints_manually':
         $username = $_GET['identidad'];
-        $factura = $_GET['factura'];
+        $factura = isset($_GET["factura"]) ? $_GET["factura"] : "0";
         $place_id = $_GET['place_id'];
         $amt = $_GET['amt'];
         $tienda = $_GET['tienda'];
 
         //validar si es repetido 
-        global $con;
-        $query_val = 'SELECT gift_username , gift_points , idtienda , gift_time FROM `gift_points` ORDER BY `gift_points`.`gift_time` DESC LIMIT 1';
-        $valsth = mysqli_query($con, $query_val);                
-        $ultimafila = mysqli_fetch_array($valsth);
+        // global $con;
+        // $query_val = 'SELECT gift_username , gift_points , idtienda , gift_time FROM `gift_points` ORDER BY `gift_points`.`gift_time` DESC LIMIT 1';
+        // $valsth = mysqli_query($con, $query_val);                
+        // $ultimafila = mysqli_fetch_array($valsth);
 
         //$ahora = date("Y-m-d H:i:s");
         ///$antes = $ultimafila["gift_time"];
@@ -524,57 +530,61 @@ switch ($action) {
         //$dteEnd   = new DateTime($ahora);
         //$interval  = $dteStart->diff($dteEnd);
         //echo $ahora . " - " . $antes;
-        
-       // $seconds = $interval->days*86400 + $interval->h*3600 + $interval->i*60 + $interval->s;
+
+        // $seconds = $interval->days*86400 + $interval->h*3600 + $interval->i*60 + $interval->s;
         //echo " = " . $seconds;
-        
-        if ($amt == "0") {
-            //echo "No";
-            return;
-        }
+
+        // if ($amt == "0") {
+        //     //echo "No";
+        //     return;
+        // }
         //return;
-        if ($username == $ultimafila["gift_username"] ) {
-            if ($amt == $ultimafila["gift_points"]) {
-                // if ($seconds < 8) {
-                return;
-             // }
-            }
-            
-        }
-        
-         insertPoints_manually($username,$factura,$place_id,$amt,$tienda);
-         if($tienda > 0 && $amt > 0) {      
+        // if ($username == $ultimafila["gift_username"] ) {
+        //     if ($amt == $ultimafila["gift_points"]) {
+        //         // if ($seconds < 8) {
+        //         return;
+        //      // }
+        //     }
+
+        // }
+        if ($factura > 0) {
+            insertPoints_manually($username, $factura, $place_id, $amt, $tienda);
+            if ($tienda > 0 && $amt > 0) {
                 //assign_number_lottery_identidad($tienda,$username,$amt);
-                assign_scratch_identidad($tienda,$username,$amt);
-          } 
-        break;   
+                assign_scratch_identidad($tienda, $username, $amt);
+            }
+        } else {
+            echo "Error en parametros recibidos:";
+            print_r($_GET);
+        }
+        break;
 
     case 'assign_number_lottery_identidad':
         $username = $_GET['identidad'];
         $amt = $_GET['amt'];
         $tienda = $_GET['tienda'];
-        $asignados = assign_number_lottery_identidad($tienda,$username,$amt);
+        $asignados = assign_number_lottery_identidad($tienda, $username, $amt);
         //print json_encode($asignados);
-        break;  
+        break;
 
     case 'assign_scratch_identidad':
         $username = $_GET['identidad'];
         $amt = $_GET['amt'];
         $tienda = $_GET['tienda'];
-        $asignados = assign_scratch_identidad($tienda,$username,$amt);
+        $asignados = assign_scratch_identidad($tienda, $username, $amt);
         //print json_encode($asignados);
-        break; 
+        break;
 
     case 'get_place_points':
         $username = $_GET['username'];
         $place_id = $_GET['place_id'];
         get_alliance_points($username, $place_id);
         break;
-break;
+        break;
 
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-//L  O  Y  A  L   U  S  E  R  S
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        //L  O  Y  A  L   U  S  E  R  S
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
     case 'select_loyal_user':
         $parameters = new stdClass();
         $parameters->username = $_GET['username'];
@@ -582,9 +592,9 @@ break;
         print json_encode($loyal_users);
         break;
 
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-//C  H  E  C  K   I  N
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        //C  H  E  C  K   I  N
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
     case 'select_loyal_username':
         $parameters = new stdClass();
         $parameters->username = $_GET['username'];
@@ -604,7 +614,7 @@ break;
         $parameters->place_id = $_GET['place_id'];
         get_user_checkins($parameters);
         break;
-    case 'redeem_check'://CONSUMIDO
+    case 'redeem_check': //CONSUMIDO
         $parameters = new stdClass();
         $parameters->place_id = $_GET['place_id'];
         $parameters->store_id = $_GET['store_id'];
@@ -613,7 +623,7 @@ break;
         $parameters->transaction_entry = isset($_GET["transaction_entry"]) ? $_GET["transaction_entry"] : (isset($_POST["transaction_entry"]) ? $_POST["transaction_entry"] : "");
         redeem_check($parameters);
         break;
-    case 'check_in'://CONSUMIDO
+    case 'check_in': //CONSUMIDO
         $parameters = new stdClass();
         $parameters->place_id = $_GET['place_id'];
         $parameters->store_id = $_GET['store_id'];
@@ -623,45 +633,45 @@ break;
         echo check_in($parameters);
         break;
 
-    case 'delete_checkin'://CONSUMIDO
+    case 'delete_checkin': //CONSUMIDO
         $parameters = new stdClass();
         $parameters->check_in_id = $_GET['check_in_id'];
         echo delete_checkin($parameters);
         break;
 
-     case 'insert_loyal_username':
+    case 'insert_loyal_username':
         $parameters = new stdClass();
         $parameters->username = isset($_GET["identidad"]) ? $_GET["identidad"] : (isset($_POST["identidad"]) ? $_POST["identidad"] : "0");
         $parameters->Nombre = isset($_GET["Nombre"]) ? $_GET["Nombre"] : (isset($_POST["Nombre"]) ? $_POST["Nombre"] : "0");
         $parameters->numero = isset($_GET["numero"]) ? $_GET["numero"] : (isset($_POST["numero"]) ? $_POST["numero"] : "0");
         $parameters->email = isset($_GET["email"]) ? $_GET["email"] : (isset($_POST["email"]) ? $_POST["email"] : "0");
         insert_loyal_username($parameters);
-     break;
+        break;
 
 
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-//P  L  A  C  E   U  S  E  R  S
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-    case 'notify_unchecked_bills'://CONSUMIDO
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        //P  L  A  C  E   U  S  E  R  S
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+    case 'notify_unchecked_bills': //CONSUMIDO
         notify_unchecked_bills();
         break;
 
 
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-//R  E   C  E  I  P  T  P  O  I  N  T  S
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-    case 'select_receipt_points'://CONSUMIDO
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        //R  E   C  E  I  P  T  P  O  I  N  T  S
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+    case 'select_receipt_points': //CONSUMIDO
         $parameters = new stdClass();
         $parameters->username = isset($_GET["username"]) ? $_GET["username"] : (isset($_POST["username"]) ? $_POST["username"] : "0");
         $parameters->place_location_id = $_GET['place_location_id'];
         select_receipt_points($parameters);
         break;
-    case 'select_all_receipt_points'://CONSUMIDO
+    case 'select_all_receipt_points': //CONSUMIDO
         $parameters = new stdClass();
         $parameters->place_location_id = $_GET['place_location_id'];
         select_all_receipt_points($parameters);
         break;
-    case 'select_receipt_points_of_day'://CONSUMIDO
+    case 'select_receipt_points_of_day': //CONSUMIDO
         $parameters = new stdClass();
         $parameters->place_location_id = $_GET['place_location_id'];
         $parameters->year = $_GET['year'];
@@ -669,9 +679,9 @@ break;
         $parameters->day = $_GET['day'];
         select_receipt_points_of_day($parameters);
         break;
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-//A  P  P   D  E  T  A  I  L  S
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        //A  P  P   D  E  T  A  I  L  S
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
     case 'select_apps':
         select_apps();
         break;
@@ -680,9 +690,9 @@ break;
         detail_app($app_id);
         break;
 
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-//F  E  A  T  U  R  E  D   P  R  O  M  O
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        //F  E  A  T  U  R  E  D   P  R  O  M  O
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
     case 'select_featured_promos':
         select_featured_promos();
         break;
@@ -694,9 +704,9 @@ break;
         detail_promo($place_id);
         break;
 
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-//S  U  B  S  C  R  I  B  E  R  S
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬    
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        //S  U  B  S  C  R  I  B  E  R  S
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬    
     case 'insert_subscription':
         $place_id = $_GET['place_id'];
         $user_id = $_GET['user_id'];
@@ -740,16 +750,16 @@ break;
         $place_id = $_GET['place_id'];
         select_Count_Subscription($place_id);
         break;
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-//V I S I T O R
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬    
-    case'select_count_visitor':
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        //V I S I T O R
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬    
+    case 'select_count_visitor':
         $place_id = $_GET['place_id'];
         select_count_visitor($place_id);
         break;
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-// C  U  S  T  O  M  E  R  S
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        // C  U  S  T  O  M  E  R  S
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
     case 'insert_Client':
         $username = $_GET['username'];
         $password = $_GET['password'];
@@ -820,7 +830,7 @@ break;
         $place_id = $_GET['place_id'];
         get_users($place_id);
         break;
-    
+
     case 'login_activated_user':
         $username = $_GET['username'];
         $password = $_GET['password'];
@@ -855,10 +865,10 @@ break;
         new_password($username, $place_id, $password);
         break;
 
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-//W  A  I  T  E  R
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-    case 'insert_Waiter'://CONSUMIDO
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        //W  A  I  T  E  R
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+    case 'insert_Waiter': //CONSUMIDO
         $waiter_id = $_GET['waiter_id'];
         $first_name = $_GET['first_name'];
         $last_name = $_GET['last_name'];
@@ -866,7 +876,7 @@ break;
         $place_id = $_GET['place_id'];
         insert_Waiter($waiter_id, $first_name, $last_name, $number, $place_id);
         break;
-    case 'update_Waiter'://CONSUMIDO
+    case 'update_Waiter': //CONSUMIDO
         $waiter_id = $_GET['waiter_id'];
         $first_name = $_GET['first_name'];
         $last_name = $_GET['last_name'];
@@ -901,36 +911,36 @@ break;
         $new_password = $_GET['new_password'];
         change_pass_waiter($waiter_id, $old_password, $new_password);
         break;
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-//T  A  B  L  E  S
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-    case 'insert_desk'://CONSUMIDO
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        //T  A  B  L  E  S
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+    case 'insert_desk': //CONSUMIDO
         $place_location_id = $_GET['place_location_id'];
         $desk_name = $_GET['desk_nm'];
         insert_desk($place_location_id, $desk_name);
         break;
-    case'update_desk':
+    case 'update_desk':
         $desk_name = $_GET['desk_name'];
         $desk_id = $_GET['desk_id'];
         $status = $_GET['status'];
         update_desk_name($desk_name, $desk_id, $status);
         break;
-    case'update_desk_status':
+    case 'update_desk_status':
         $desk_id = $_GET['desk_id'];
         $status = $_GET['status'];
         update_desk_status($status, $desk_id);
         break;
-    case'select_desk':
+    case 'select_desk':
         $place_location_id = $_GET['place_location_id'];
         select_desk($place_location_id);
         break;
-    case'delete_desk':
+    case 'delete_desk':
         $desk_id = $_GET['desk_id'];
         delete_desk($desk_id);
         break;
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-//C  A  T  E  G  O  R  I  E  S
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ 
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        //C  A  T  E  G  O  R  I  E  S
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ 
     case 'insert_category':
         $place_id = $_GET['place_id'];
         $name = $_GET['name'];
@@ -978,19 +988,19 @@ break;
         $cat_id = $_GET['cat_id'];
         delete_cat($cat_id);
         break;
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-//M  E  N  U
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ 
-    case 'menu_concat_options'://CONSUMIDO
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        //M  E  N  U
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ 
+    case 'menu_concat_options': //CONSUMIDO
         $parameters = new stdClass();
         $parameters->place_id = isset($_GET["place_id"]) ? $_GET["place_id"] : (isset($_POST["place_id"]) ? $_POST["place_id"] : "0");
         $result = menu_concat_options($parameters);
         print json_encode($result);
         break;
-    case 'get_category_menu'://CONSUMIDO
+    case 'get_category_menu': //CONSUMIDO
         $parameters = new stdClass();
         $parameters->category_id = isset($_GET["category_id"]) ? $_GET["category_id"] : (isset($_POST["category_id"]) ? $_POST["category_id"] : "0");
-        
+
         $result = get_category_menu($parameters);
         print json_encode($result);
         break;
@@ -1016,19 +1026,19 @@ break;
         $parameters->place_id = $_GET["place_id"];
         $whatsapp_clicks = view_whatsapp_clicks($parameters);
         print json_encode($whatsapp_clicks);
-        break;  
+        break;
     case 'get_menu_items':
         $parameters = new stdClass();
         $parameters->menu_id = $_GET["menu_id"];
         $menu_detail = get_menu_items($parameters);
         print json_encode($menu_detail);
         break;
-    case 'add_whatsapp_click'://CONSUMIDO
+    case 'add_whatsapp_click': //CONSUMIDO
         $parameters = new stdClass();
         $parameters->id = $_GET["id"];
         add_whatsapp_click($parameters);
-        break;    
-    case 'import_menu'://CONSUMIDO
+        break;
+    case 'import_menu': //CONSUMIDO
         $parameters = new stdClass();
         $parameters->menu_data = $_POST["menu_data"];
         $parameters->category_id = $_POST['category_id'];
@@ -1052,7 +1062,7 @@ break;
                 break;
             }
         }
-        insert_menu($category_id, $name, $description, $price, $img, $status, $tipo_menu, $menu_price, $conversion, $menu_points,$menuInventario);
+        insert_menu($category_id, $name, $description, $price, $img, $status, $tipo_menu, $menu_price, $conversion, $menu_points, $menuInventario);
         break;
 
     case 'delete_image_menu':
@@ -1083,7 +1093,7 @@ break;
         $tipo_menu = isset($_GET["tipo_menu"]) ? $_GET["tipo_menu"] : (isset($_POST["tipo_menu"]) ? $_POST["tipo_menu"] : "0");
         $menuStock = isset($_GET["menuStock"]) ? $_GET["menuStock"] : (isset($_POST["menuStock"]) ? $_POST["menuStock"] : "0");
         $menu_points = isset($_GET["menu_points"]) ? $_GET["menu_points"] : (isset($_POST["menu_points"]) ? $_POST["menu_points"] : "0");
-        update_menu($menu_id, $category_id, $name, $description, $price, $img, $status, $tipo_menu, $menu_price, $conversion, $menu_points,$menuStock);
+        update_menu($menu_id, $category_id, $name, $description, $price, $img, $status, $tipo_menu, $menu_price, $conversion, $menu_points, $menuStock);
         break;
     case 'select_rest_menu':
         $place_id = $_GET["place_id"];
@@ -1107,27 +1117,27 @@ break;
         $description = $_GET['description'];
         get_search_menu($placeId, $description);
         break;
-    case'delete_menu':
+    case 'delete_menu':
         $menu_id = $_GET['menu_id'];
         delete_menu($menu_id);
         break;
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-//U  S  E  R    S  E  A  R  C  H  S 
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ 
-//    case 'insert_search':
-//        $place_id = $_GET['place_id'];
-//        $user_id = $_GET['user_id'];
-//        $search_string = $_GET['search_string'];
-//        insert_search2($place_id, $user_id, $search_string);
-//        break;
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        //U  S  E  R    S  E  A  R  C  H  S 
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ 
+        //    case 'insert_search':
+        //        $place_id = $_GET['place_id'];
+        //        $user_id = $_GET['user_id'];
+        //        $search_string = $_GET['search_string'];
+        //        insert_search2($place_id, $user_id, $search_string);
+        //        break;
     case 'select_searchs':
         $place_id = $_GET['place_id'];
         $user_id = $_GET['user_id'];
         select_searchs($place_id, $user_id);
         break;
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-//I  M  A  G  E  S 
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ 
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        //I  M  A  G  E  S 
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ 
     case 'insert_image':
         $menu_id = isset($_GET["menu_id"]) ? $_GET["menu_id"] : (isset($_POST["menu_id"]) ? $_POST["menu_id"] : "0");
         $img = isset($_FILES["img"]) ? $_FILES["img"] : (isset($_FILES["img"]) ? $_FILES["img"] : "0");
@@ -1141,25 +1151,25 @@ break;
         $image = isset($_FILES["$image_id"]) ? $_FILES["$image_id"] : (isset($_FILES["$image_id"]) ? $_FILES["$image_id"] : "0");
         delete_Image($image_id);
         break;
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-//B  I  L  L  S
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        //B  I  L  L  S
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
     case 'untrack_order':
         $parameters = new stdClass();
-        $parameters->bill_id=isset($_GET["bill_id"]) ? $_GET["bill_id"] : (isset($_POST["bill_id"]) ? $_POST["bill_id"] : "");
+        $parameters->bill_id = isset($_GET["bill_id"]) ? $_GET["bill_id"] : (isset($_POST["bill_id"]) ? $_POST["bill_id"] : "");
         $result = untrack_order($parameters);
         print json_encode($result);
         break;
     case 'get_user_orders':
         $parameters = new stdClass();
-        $parameters->bill_username=isset($_GET["bill_username"]) ? $_GET["bill_username"] : (isset($_POST["bill_username"]) ? $_POST["bill_username"] : "");
+        $parameters->bill_username = isset($_GET["bill_username"]) ? $_GET["bill_username"] : (isset($_POST["bill_username"]) ? $_POST["bill_username"] : "");
         $parameters->place_id = isset($_GET["place_id"]) ? $_GET["place_id"] : (isset($_POST["place_id"]) ? $_POST["place_id"] : "0");
         $orders = get_user_orders($parameters);
         print json_encode($orders);
         break;
     case 'track_id_orders':
         $parameters = new stdClass();
-        $parameters->track_id=isset($_GET["track_id"]) ? $_GET["track_id"] : (isset($_POST["track_id"]) ? $_POST["track_id"] : "");
+        $parameters->track_id = isset($_GET["track_id"]) ? $_GET["track_id"] : (isset($_POST["track_id"]) ? $_POST["track_id"] : "");
         $parameters->place_id = isset($_GET["place_id"]) ? $_GET["place_id"] : (isset($_POST["place_id"]) ? $_POST["place_id"] : "0");
         $orders = track_id_orders($parameters);
         print json_encode($orders);
@@ -1176,9 +1186,9 @@ break;
         $parameters->direccion = isset($_GET["direccion"]) ? $_GET["direccion"] : (isset($_POST["direccion"]) ? $_POST["direccion"] : "");
         $parameters->RTN = isset($_GET["RTN"]) ? $_GET["RTN"] : (isset($_POST["RTN"]) ? $_POST["RTN"] : "");
         $parameters->tipo_pago = isset($_GET["tipo_pago"]) ? $_GET["tipo_pago"] : (isset($_POST["tipo_pago"]) ? $_POST["tipo_pago"] : "0");
-        $parameters->bill_username=isset($_GET["bill_username"]) ? $_GET["bill_username"] : (isset($_POST["bill_username"]) ? $_POST["bill_username"] : "");
-        $parameters->username=isset($_GET["username"]) ? $_GET["username"] : (isset($_POST["username"]) ? $_POST["username"] : "100015899701211");
-        $parameters->track_id=isset($_GET["track_id"]) ? $_GET["track_id"] : (isset($_POST["track_id"]) ? $_POST["track_id"] : "none");
+        $parameters->bill_username = isset($_GET["bill_username"]) ? $_GET["bill_username"] : (isset($_POST["bill_username"]) ? $_POST["bill_username"] : "");
+        $parameters->username = isset($_GET["username"]) ? $_GET["username"] : (isset($_POST["username"]) ? $_POST["username"] : "100015899701211");
+        $parameters->track_id = isset($_GET["track_id"]) ? $_GET["track_id"] : (isset($_POST["track_id"]) ? $_POST["track_id"] : "none");
         $parameters->comment = isset($_GET["comment"]) ? $_GET["comment"] : (isset($_POST["comment"]) ? $_POST["comment"] : "");
         $parameters->qty = isset($_GET["qty"]) ? $_GET["qty"] : (isset($_POST["qty"]) ? $_POST["qty"] : "1");
         $parameters->price = isset($_GET["price"]) ? $_GET["price"] : (isset($_POST["price"]) ? $_POST["price"] : "0");
@@ -1192,19 +1202,19 @@ break;
         $desk_id = $_GET["desk_id"];
         insert_bill($desk_id);
         break;
-	case 'updateBalance':
-		$bill_id = $_GET["bill_id"];
+    case 'updateBalance':
+        $bill_id = $_GET["bill_id"];
         updateBalance($bill_id);
         break;
-	break;	
-	case 'get_bill_images';
-	    $bill_id = $_GET["bill_id"];
-	    get_bill_images($bill_id);
-	break;
-	case 'delete_image_bill':
-		  $imgId = $_GET["imgId"];
-		  delete_image_bill($imgId );
-	break;
+        break;
+    case 'get_bill_images';
+        $bill_id = $_GET["bill_id"];
+        get_bill_images($bill_id);
+        break;
+    case 'delete_image_bill':
+        $imgId = $_GET["imgId"];
+        delete_image_bill($imgId);
+        break;
     case 'insert_Bill_qr':
         $desk_id = $_GET["desk_id"];
         $place_loc = $_GET["place_loc"];
@@ -1234,19 +1244,19 @@ break;
         $track_id = isset($_GET["track_id"]) ? $_GET["track_id"] : (isset($_POST["track_id"]) ? $_POST["track_id"] : "none");
         $bill_points = isset($_GET["bill_points"]) ? $_GET["bill_points"] : (isset($_POST["bill_points"]) ? $_POST["bill_points"] : -1);
         $deliveryDate = isset($_GET["deliveryDate"]) ? $_GET["deliveryDate"] : (isset($_POST["deliveryDate"]) ? $_POST["deliveryDate"] : 0);
-		$balance = isset($_GET["balance"]) ? $_GET["balance"] : (isset($_POST["balance"]) ? $_POST["balance"] : 0);
-        update_bill_home_order($bill_id, $longitud, $latitud, $nombre, $telefono1, $email, $direccion, $tipo_pago, $place_loc_id, $uuid, $rtn, $deliveryDate,$balance, $username, $track_id, $bill_points, $bill_token);
+        $balance = isset($_GET["balance"]) ? $_GET["balance"] : (isset($_POST["balance"]) ? $_POST["balance"] : 0);
+        update_bill_home_order($bill_id, $longitud, $latitud, $nombre, $telefono1, $email, $direccion, $tipo_pago, $place_loc_id, $uuid, $rtn, $deliveryDate, $balance, $username, $track_id, $bill_points, $bill_token);
         break;
-	case 'insert_bill_images':
-		$img = $_FILES["img"];
-		$bill_id = isset($_GET["bill_id"]) ? $_GET["bill_id"] : (isset($_POST["bill_id"]) ? $_POST["bill_id"] : "0");
-		insert_bill_images($bill_id,$img);
-	break;
-        case 'insert_bill_refImage':
+    case 'insert_bill_images':
         $img = $_FILES["img"];
         $bill_id = isset($_GET["bill_id"]) ? $_GET["bill_id"] : (isset($_POST["bill_id"]) ? $_POST["bill_id"] : "0");
-        insert_bill_refImage($bill_id,$img);
-    break;
+        insert_bill_images($bill_id, $img);
+        break;
+    case 'insert_bill_refImage':
+        $img = $_FILES["img"];
+        $bill_id = isset($_GET["bill_id"]) ? $_GET["bill_id"] : (isset($_POST["bill_id"]) ? $_POST["bill_id"] : "0");
+        insert_bill_refImage($bill_id, $img);
+        break;
     case 'update_Bill_Header':
         $bill_id = $_GET['bill_id'];
         $nombre = $_GET['nombrePed'];
@@ -1306,9 +1316,9 @@ break;
         echo '0';
         //delete_Bill($bill_id);
         break;
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-//B  I  L  L  S    D  E  T  A  I  L  S
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ 
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        //B  I  L  L  S    D  E  T  A  I  L  S
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ 
     case 'insert_Bill_Detail':
         $file = isset($_FILES["file"]) ? $_FILES["file"] : (isset($_FILES["file"]) ? $_FILES["file"] : "0");
         $menu_id = isset($_GET["menu_id"]) ? $_GET["menu_id"] : (isset($_POST["menu_id"]) ? $_POST["menu_id"] : "0");
@@ -1409,27 +1419,27 @@ break;
         $bill_detail_id = $_GET["bill_detail_id"];
         suppress_img($bill_detail_id);
         break;
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-//P  R  O  M  O  S
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ 
-    case 'select_promotions'://CONSUMIDO
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        //P  R  O  M  O  S
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ 
+    case 'select_promotions': //CONSUMIDO
         $parameters = new stdClass();
         $parameters->place_id = isset($_GET["place_id"]) ? $_GET["place_id"] : (isset($_POST["place_id"]) ? $_POST["place_id"] : "0");
-        
+
         $result = select_promotions($parameters);
         print json_encode($result);
         break;
 
-    case 'username_cupon_redeems'://CONSUMIDO
+    case 'username_cupon_redeems': //CONSUMIDO
         $parameters = new stdClass();
         $parameters->customer_username = isset($_GET["customer_username"]) ? $_GET["customer_username"] : (isset($_POST["customer_username"]) ? $_POST["customer_username"] : "");
         $parameters->cupon_code = isset($_GET["cupon_code"]) ? $_GET["cupon_code"] : (isset($_POST["cupon_code"]) ? $_POST["cupon_code"] : "");
-        
+
         $result = username_cupon_redeems($parameters);
         print json_encode($result);
         break;
 
-    case 'insert_cupon_redeem'://CONSUMIDO
+    case 'insert_cupon_redeem': //CONSUMIDO
         $parameters = new stdClass();
         $parameters->customer_email = isset($_GET["customer_email"]) ? $_GET["customer_email"] : (isset($_POST["customer_email"]) ? $_POST["customer_email"] : "");
         $parameters->customer_name = isset($_GET["customer_name"]) ? $_GET["customer_name"] : (isset($_POST["customer_name"]) ? $_POST["customer_name"] : "");
@@ -1439,20 +1449,20 @@ break;
         $parameters->cupon_name = isset($_GET["cupon_name"]) ? $_GET["cupon_name"] : (isset($_POST["cupon_name"]) ? $_POST["cupon_name"] : "");
         $parameters->place_id = isset($_GET["place_id"]) ? $_GET["place_id"] : (isset($_POST["place_id"]) ? $_POST["place_id"] : "0");
         $parameters->place_location_id = isset($_GET["place_location_id"]) ? $_GET["place_location_id"] : (isset($_POST["place_location_id"]) ? $_POST["place_location_id"] : "0");
-        
+
         $result = insert_cupon_redeem($parameters);
         print json_encode($result);
         break;
 
     case 'getmyplaceid':
-    $place_location = isset($_GET["place_location"]) ? $_GET["place_location"] : (isset($_POST["place_location"]) ? $_POST["place_location"] : "0");
-    global $con;
-    $prequery = "SELECT place_id FROM place_location where place_location_id = '$place_location'";
-    $presth = mysqli_query($con, $prequery);
-    while ($rPre = mysqli_fetch_assoc($presth)) {
-       echo $rPre['place_id'];
-    }
-    break;
+        $place_location = isset($_GET["place_location"]) ? $_GET["place_location"] : (isset($_POST["place_location"]) ? $_POST["place_location"] : "0");
+        global $con;
+        $prequery = "SELECT place_id FROM place_location where place_location_id = '$place_location'";
+        $presth = mysqli_query($con, $prequery);
+        while ($rPre = mysqli_fetch_assoc($presth)) {
+            echo $rPre['place_id'];
+        }
+        break;
 
     case 'delete_cupon_code':
         $parameters = new stdClass();
@@ -1509,36 +1519,36 @@ break;
         }
         set_cupon_image($parameters);
         break;
-    case 'next_cupon_code'://CONSUMIDO
+    case 'next_cupon_code': //CONSUMIDO
         $parameters = new stdClass();
         $parameters->place_id = isset($_GET["place_id"]) ? $_GET["place_id"] : (isset($_POST["place_id"]) ? $_POST["place_id"] : "0");
-        
+
         $result = generate_cupon_code($parameters);
         print json_encode($result);
         break;
-    case 'scan_cupon_code'://CONSUMIDO
+    case 'scan_cupon_code': //CONSUMIDO
         $parameters = new stdClass();
         $parameters->cupon_code = isset($_GET["cupon_code"]) ? $_GET["cupon_code"] : (isset($_POST["cupon_code"]) ? $_POST["cupon_code"] : "0");
         $result = scan_cupon_code($parameters);
         print json_encode($result);
         break;
-    case 'select_cupon_code'://CONSUMIDO
+    case 'select_cupon_code': //CONSUMIDO
         $parameters = new stdClass();
         $parameters->place_id = isset($_GET["place_id"]) ? $_GET["place_id"] : (isset($_POST["place_id"]) ? $_POST["place_id"] : "0");
-        
+
         $result = select_cupon_code($parameters);
         print json_encode($result);
         break;
 
-    case 'select_cupon_code_uuid'://CONSUMIDO
+    case 'select_cupon_code_uuid': //CONSUMIDO
         $parameters = new stdClass();
         $parameters->place_id = isset($_GET["place_id"]) ? $_GET["place_id"] : (isset($_POST["place_id"]) ? $_POST["place_id"] : "0");
         $parameters->uuid = isset($_GET["uuid"]) ? $_GET["uuid"] : (isset($_POST["uuid"]) ? $_POST["uuid"] : "0");
-        
+
         $result = select_cupon_code_uuid($parameters);
         print json_encode($result);
         break;
-    case 'create_cupon'://CONSUMIDO
+    case 'create_cupon': //CONSUMIDO
         $parameters = new stdClass();
         $parameters->place_id = isset($_GET["place_id"]) ? $_GET["place_id"] : (isset($_POST["place_id"]) ? $_POST["place_id"] : "0");
         $parameters->cupon_name = isset($_GET["cupon_name"]) ? $_GET["cupon_name"] : (isset($_POST["cupon_name"]) ? $_POST["cupon_name"] : "");
@@ -1561,26 +1571,26 @@ break;
         $result = create_cupon($parameters);
         print json_encode($result);
         break;
-    case 'select_scratch_code_uuid'://CONSUMIDO
+    case 'select_scratch_code_uuid': //CONSUMIDO
         $parameters = new stdClass();
         $parameters->place_id = isset($_GET["place_id"]) ? $_GET["place_id"] : (isset($_POST["place_id"]) ? $_POST["place_id"] : "0");
         $parameters->uuid = isset($_GET["uuid"]) ? $_GET["uuid"] : (isset($_POST["uuid"]) ? $_POST["uuid"] : "0");
-        
+
         $result = select_scratch_code_uuid($parameters);
         print json_encode($result);
         break;
-    case'login_place_loc':
+    case 'login_place_loc':
         $place_loc_id = isset($_GET["place_loc_id"]) ? $_GET["place_loc_id"] : (isset($_POST["place_loc_id"]) ? $_POST["place_loc_id"] : "0");
         $passkey = isset($_GET["passkey"]) ? $_GET["passkey"] : (isset($_POST["passkey"]) ? $_POST["passkey"] : "0");
         login_place_loc($place_loc_id, $passkey);
         break;
-    case'login_personalized':
+    case 'login_personalized':
         $place_loc_id = isset($_GET["place_loc_id"]) ? $_GET["place_loc_id"] : (isset($_POST["place_loc_id"]) ? $_POST["place_loc_id"] : "0");
         $passkey = isset($_GET["passkey"]) ? $_GET["passkey"] : (isset($_POST["passkey"]) ? $_POST["passkey"] : "0");
         $place_id = isset($_GET["place_id"]) ? $_GET["place_id"] : (isset($_POST["place_id"]) ? $_POST["place_id"] : "0");
         login_place_loc($place_loc_id, $passkey, $place_id);
         break;
-    case'insert_promo':
+    case 'insert_promo':
         $place_id = isset($_GET["place_id"]) ? $_GET["place_id"] : (isset($_POST["place_id"]) ? $_POST["place_id"] : "0");
         $img = isset($_FILES["img"]) ? $_FILES["img"] : (isset($_FILES["img"]) ? $_FILES["img"] : "0");
         $title = isset($_GET["title"]) ? $_GET["title"] : (isset($_POST["title"]) ? $_POST["title"] : "0");
@@ -1592,7 +1602,7 @@ break;
         }
         insert_promo($place_id, $img, $title, $description, $type);
         break;
-    case'update_promo':
+    case 'update_promo':
         $promo_id = isset($_GET["promo_id"]) ? $_GET["promo_id"] : (isset($_POST["promo_id"]) ? $_POST["promo_id"] : "0");
         $img = isset($_FILES["img"]) ? $_FILES["img"] : (isset($_FILES["img"]) ? $_FILES["img"] : "0");
         $title = isset($_GET["title"]) ? $_GET["title"] : (isset($_POST["title"]) ? $_POST["title"] : "0");
@@ -1600,28 +1610,28 @@ break;
         $type = isset($_GET["type"]) ? $_GET["type"] : (isset($_POST["type"]) ? $_POST["type"] : "0");
         update_promo($promo_id, $img, $title, $description, $type);
         break;
-    case'getPromos':
+    case 'getPromos':
         $place_id = $_GET["place_id"];
         selectPromo($place_id);
         break;
-    case'getFiltPromos':
+    case 'getFiltPromos':
         $filt = $_GET["filt"];
         getFiltPromos($filt);
         break;
-    case'selectAllPromo':
+    case 'selectAllPromo':
         $place_id = $_GET["place_id"];
         selectAllPromo($place_id);
         break;
-    case'select_ferby_promos':
+    case 'select_ferby_promos':
         select_ferby_promos();
         break;
-    case'delete_promo':
+    case 'delete_promo':
         $promo_id = isset($_GET["promo_id"]) ? $_GET["promo_id"] : (isset($_POST["promo_id"]) ? $_POST["promo_id"] : "0");
         delete_promotion($promo_id);
         break;
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-//F  U  N  C  T  I  O  N       S  E  R  V  I  C  E  S
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        //F  U  N  C  T  I  O  N       S  E  R  V  I  C  E  S
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
     case 'Notification_placeid':
         $place_id = $_GET["place_id"];
         Notification_placeid($place_id);
@@ -1676,9 +1686,9 @@ break;
         $tipo_menu = isset($_GET["tipo_menu"]) ? $_GET["tipo_menu"] : (isset($_POST["tipo_menu"]) ? $_POST["tipo_menu"] : "0");
         getAllServices($place_id, $tipo_menu);
         break;
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-//C   H   A   T
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬   
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        //C   H   A   T
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬   
     case 'getConversations':
         $user_id = $_GET["user_id"];
         getConversations($user_id);
@@ -1720,18 +1730,18 @@ break;
         $id_conv = $_GET["id_conv"];
         updateRead($userID, $id_conv);
         break;
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-//P  E  R  S  O  N  A  L  I  Z  E
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬  
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        //P  E  R  S  O  N  A  L  I  Z  E
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬  
 
- 
+
     case 'set_rate_app_playstore':
         $parameters = new stdClass();
         $parameters->place_id = isset($_GET["place_id"]) ? $_GET["place_id"] : (isset($_POST["place_id"]) ? $_POST["place_id"] : "0");
         $parameters->rate_app_playstore = isset($_GET["rate_app_playstore"]) ? $_GET["rate_app_playstore"] : (isset($_POST["rate_app_playstore"]) ? $_POST["rate_app_playstore"] : "");
         $result = set_rate_app_playstore($parameters);
         print json_encode($result);
-        break;        
+        break;
 
     case 'set_img_rate_app':
         $img = isset($_FILES["img"]) ? $_FILES["img"] : (isset($_FILES["img"]) ? $_FILES["img"] : "0");
@@ -1743,7 +1753,7 @@ break;
         }
         $result = set_img_rate_app($img, $place_id);
         print json_encode($result);
-        break;   
+        break;
 
     case 'switch_show_rate_app':
         $parameters = new stdClass();
@@ -1751,7 +1761,7 @@ break;
         $parameters->show_rate_app = $_GET["show_rate_app"];
         $result = switch_show_rate_app($parameters);
         print json_encode($result);
-        break;    
+        break;
 
     case 'switch_show_scratch':
         $parameters = new stdClass();
@@ -1759,7 +1769,7 @@ break;
         $parameters->show_scratch = $_GET["show_scratch"];
         $result = switch_show_scratch($parameters);
         print json_encode($result);
-        break;   
+        break;
 
     case 'switch_show_lottery':
         $parameters = new stdClass();
@@ -1776,14 +1786,14 @@ break;
         $result = set_rate_app_text($parameters);
         print json_encode($result);
         break;
- 
+
     case 'set_subscription_link':
         $parameters = new stdClass();
         $parameters->place_id = isset($_GET["place_id"]) ? $_GET["place_id"] : (isset($_POST["place_id"]) ? $_POST["place_id"] : "0");
         $parameters->subscription_link = isset($_GET["subscription_link"]) ? $_GET["subscription_link"] : (isset($_POST["subscription_link"]) ? $_POST["subscription_link"] : "");
         $result = set_subscription_link($parameters);
         print json_encode($result);
-        break;        
+        break;
 
     case 'set_img_subscription_link':
         $img = isset($_FILES["img"]) ? $_FILES["img"] : (isset($_FILES["img"]) ? $_FILES["img"] : "0");
@@ -1795,7 +1805,7 @@ break;
         }
         $result = set_img_subscription_link($img, $place_id);
         print json_encode($result);
-        break;   
+        break;
 
     case 'switch_show_subscription_link':
         $parameters = new stdClass();
@@ -1803,7 +1813,7 @@ break;
         $parameters->show_subscription_link = $_GET["show_subscription_link"];
         $result = switch_show_subscription_link($parameters);
         print json_encode($result);
-        break;    
+        break;
 
     case 'set_subscription_link_text':
         $parameters = new stdClass();
@@ -1824,15 +1834,15 @@ break;
         }
         $result = set_img_reservar($img, $place_id);
         print json_encode($result);
-        break;   
-        
+        break;
+
     case 'switch_show_reservar':
         $parameters = new stdClass();
         $parameters->place_id = $_GET["place_id"];
         $parameters->show_reservar = $_GET["show_reservar"];
         $result = switch_show_reservar($parameters);
         print json_encode($result);
-        break;             
+        break;
 
     case 'set_help_link':
         $parameters = new stdClass();
@@ -1840,7 +1850,7 @@ break;
         $parameters->help_link = isset($_GET["help_link"]) ? $_GET["help_link"] : (isset($_POST["help_link"]) ? $_POST["help_link"] : "");
         $result = set_help_link($parameters);
         print json_encode($result);
-        break;        
+        break;
 
     case 'set_img_help_link':
         $img = isset($_FILES["img"]) ? $_FILES["img"] : (isset($_FILES["img"]) ? $_FILES["img"] : "0");
@@ -1852,7 +1862,7 @@ break;
         }
         $result = set_img_help_link($img, $place_id);
         print json_encode($result);
-        break;   
+        break;
 
     case 'switch_show_help_link':
         $parameters = new stdClass();
@@ -1860,7 +1870,7 @@ break;
         $parameters->show_help_link = $_GET["show_help_link"];
         $result = switch_show_help_link($parameters);
         print json_encode($result);
-        break;    
+        break;
 
 
     case 'set_instagram_username':
@@ -1881,7 +1891,7 @@ break;
         }
         $result = set_img_instagram($img, $place_id);
         print json_encode($result);
-        break;         
+        break;
 
     case 'switch_show_instagram':
         $parameters = new stdClass();
@@ -1909,7 +1919,7 @@ break;
         $parameters->show_track_orders = $_GET["show_track_orders"];
         $result = switch_show_track_orders($parameters);
         print json_encode($result);
-        break;   
+        break;
 
     case 'set_redeem_name':
         $parameters = new stdClass();
@@ -1917,24 +1927,24 @@ break;
         $parameters->redeem_name = $_GET["redeem_name"];
         $result = set_redeem_name($parameters);
         print json_encode($result);
-        break;  
-        
+        break;
+
     case 'set_fcm_key':
         $parameters = new stdClass();
         $parameters->place_id = isset($_GET["place_id"]) ? $_GET["place_id"] : (isset($_POST["place_id"]) ? $_POST["place_id"] : "0");
         $parameters->fcm_key = isset($_GET["fcm_key"]) ? $_GET["fcm_key"] : (isset($_POST["fcm_key"]) ? $_POST["fcm_key"] : "");
         $result = set_fcm_key($parameters);
         print json_encode($result);
-        break;                    
+        break;
 
     case 'insert_sale':
         $bill_id = $_GET["bill_id"];
         $qty = $_GET["qty"];
         insert_sale($qty, $bill_id);
         break;
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-//O  P  T  I  O  N  S 
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        //O  P  T  I  O  N  S 
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
     case 'get_options':
         $place_id = $_GET["place_id"];
         get_options($place_id);
@@ -1988,7 +1998,7 @@ break;
         $group = $_GET["group"];
         $optionConv = $_GET["optionConv"];
         $inventory = $_GET["inventory"];
-        insert_option($name, $menu_id, $group, $price, $optionConv,$inventory);
+        insert_option($name, $menu_id, $group, $price, $optionConv, $inventory);
         break;
     case 'delete_option':
         $optionId = $_GET["optionId"];
@@ -2004,9 +2014,9 @@ break;
         $group = $_GET["group"];
         insert_excel($excel, $menu_id, $group);
         break;
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-//I  M  A  G   E   S 
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        //I  M  A  G   E   S 
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
     case 'insert_images':
         $img = isset($_FILES["img"]) ? $_FILES["img"] : (isset($_FILES["img"]) ? $_FILES["img"] : "0");
         $menu_id = isset($_GET["menu_id"]) ? $_GET["menu_id"] : (isset($_POST["menu_id"]) ? $_POST["menu_id"] : "0");
@@ -2018,7 +2028,7 @@ break;
         }
         insert_galley_image($menu_id, $img, $mylabel);
         break;
-     
+
 
 
     case 'set_img_shop':
@@ -2116,7 +2126,7 @@ break;
         $result = set_img_events($img, $place_id);
         print json_encode($result);
         break;
-        
+
     case 'set_promo_img':
         $img = isset($_FILES["img"]) ? $_FILES["img"] : (isset($_FILES["img"]) ? $_FILES["img"] : "0");
         $place_id = isset($_GET["place_id"]) ? $_GET["place_id"] : (isset($_POST["place_id"]) ? $_POST["place_id"] : "0");
@@ -2335,9 +2345,9 @@ break;
         $place_id = $_GET["place_id"];
         select_place_images($place_id);
         break;
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-//R  E  P  O  R  T  S
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        //R  E  P  O  R  T  S
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
     case 'cupon_redeems_report':
         $parameters = new stdClass();
         $parameters->place_id = isset($_GET["place_id"]) ? $_GET["place_id"] : (isset($_POST["place_id"]) ? $_POST["place_id"] : "0");
@@ -2347,20 +2357,20 @@ break;
     case 'reporte_de_ventas':
         $place_id = isset($_GET["place_id"]) ? $_GET["place_id"] : (isset($_POST["place_id"]) ? $_POST["place_id"] : "0");
         reporte_de_ventas($place_id);
-    break;
+        break;
     case 'pointsTransactions':
         $place_id = isset($_GET["place_id"]) ? $_GET["place_id"] : (isset($_POST["place_id"]) ? $_POST["place_id"] : "0");
         pointsTransactions($place_id);
-    break;
+        break;
     case 'checkInsTransactions':
         $place_id = isset($_GET["place_id"]) ? $_GET["place_id"] : (isset($_POST["place_id"]) ? $_POST["place_id"] : "0");
         checkInsTransactions($place_id);
-    break;
+        break;
 
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-//Q  R       C   O   D   E   S 
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-    case 'insert_qr_catalog' :
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        //Q  R       C   O   D   E   S 
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+    case 'insert_qr_catalog':
         $title = isset($_GET["title"]) ? $_GET["title"] : (isset($_POST["title"]) ? $_POST["title"] : "0");
         $desc = isset($_GET["desc"]) ? $_GET["desc"] : (isset($_POST["desc"]) ? $_POST["desc"] : "0");
         $img = isset($_FILES["img"]) ? $_FILES["img"] : (isset($_FILES["img"]) ? $_FILES["img"] : "0");
@@ -2369,7 +2379,7 @@ break;
         insert_qr_catalog($title, $desc, $img, $place_id);
         break;
 
-    case 'update_qr_catalog' :
+    case 'update_qr_catalog':
         $title = isset($_GET["title"]) ? $_GET["title"] : (isset($_POST["title"]) ? $_POST["title"] : "0");
         $desc = isset($_GET["desc"]) ? $_GET["desc"] : (isset($_POST["desc"]) ? $_POST["desc"] : "0");
         $img = isset($_FILES["img"]) ? $_FILES["img"] : (isset($_FILES["img"]) ? $_FILES["img"] : "0");
@@ -2398,140 +2408,136 @@ break;
         $reg_id = isset($_GET["reg_id"]) ? $_GET["reg_id"] : (isset($_POST["reg_id"]) ? $_POST["reg_id"] : "0");
         select_prd_qr($reg_id);
         break;
- 
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-//E  V  E  N  T  O  S
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        //E  V  E  N  T  O  S
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
     case 'insert_new_ev_user':
         $name = isset($_GET["name"]) ? $_GET["name"] : (isset($_POST["name"]) ? $_POST["name"] : "0");
         insert_new_ev_user($name);
-    break;
+        break;
 
     case 'select_event_posts':
         $limit = isset($_GET["limit"]) ? $_GET["limit"] : (isset($_POST["limit"]) ? $_POST["limit"] : "0");
         select_event_posts($limit);
-    break;
+        break;
 
     case 'insert_post_img':
-    $img = $_FILES["file"];
-    $txt = isset($_GET["txt"]) ? $_GET["txt"] : (isset($_POST["txt"]) ? $_POST["txt"] : "0");
-    $id = isset($_GET["id"]) ? $_GET["id"] : (isset($_POST["id"]) ? $_POST["id"] : "0");
-    insert_post_img($img,$txt,$id);
-    break;
+        $img = $_FILES["file"];
+        $txt = isset($_GET["txt"]) ? $_GET["txt"] : (isset($_POST["txt"]) ? $_POST["txt"] : "0");
+        $id = isset($_GET["id"]) ? $_GET["id"] : (isset($_POST["id"]) ? $_POST["id"] : "0");
+        insert_post_img($img, $txt, $id);
+        break;
     case 'insert_post_text':
-    $txt = isset($_GET["txt"]) ? $_GET["txt"] : (isset($_POST["txt"]) ? $_POST["txt"] : "0");
-    $id = isset($_GET["id"]) ? $_GET["id"] : (isset($_POST["id"]) ? $_POST["id"] : "0");
-    insert_post_text($txt,$id);
-    break;
+        $txt = isset($_GET["txt"]) ? $_GET["txt"] : (isset($_POST["txt"]) ? $_POST["txt"] : "0");
+        $id = isset($_GET["id"]) ? $_GET["id"] : (isset($_POST["id"]) ? $_POST["id"] : "0");
+        insert_post_text($txt, $id);
+        break;
 
     case "select_my_post":
-    $id = isset($_GET["id"]) ? $_GET["id"] : (isset($_POST["id"]) ? $_POST["id"] : "0");
-    select_my_post($id);
-    break;
+        $id = isset($_GET["id"]) ? $_GET["id"] : (isset($_POST["id"]) ? $_POST["id"] : "0");
+        select_my_post($id);
+        break;
 
     case "delete_post":
-    $id = isset($_GET["id"]) ? $_GET["id"] : (isset($_POST["id"]) ? $_POST["id"] : "0");
-    delete_post($id);
-    break;
+        $id = isset($_GET["id"]) ? $_GET["id"] : (isset($_POST["id"]) ? $_POST["id"] : "0");
+        delete_post($id);
+        break;
 
-    case 'love_post'://CONSUMIDO
-    $parameters = new stdClass();
-    $parameters->id = $_GET["id"];
-    print love_post($parameters);
-    break;  
+    case 'love_post': //CONSUMIDO
+        $parameters = new stdClass();
+        $parameters->id = $_GET["id"];
+        print love_post($parameters);
+        break;
 
-    case 'dislove_post'://CONSUMIDO
-    $parameters = new stdClass();
-    $parameters->id = $_GET["id"];
-    print dislove_post($parameters);
-    break;  
+    case 'dislove_post': //CONSUMIDO
+        $parameters = new stdClass();
+        $parameters->id = $_GET["id"];
+        print dislove_post($parameters);
+        break;
 
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-//R  E  F  E  R  R  A  L  S
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-case 'countReferidos'://CONSUMIDO
-    $phoneNumber = isset($_GET["phoneNumber"]) ? $_GET["phoneNumber"] : (isset($_POST["phoneNumber"]) ? $_POST["phoneNumber"] : "0");
-    countReferidos($phoneNumber);
-    
-    break; 
-    case 'create_contacts_referred'://CONSUMIDO
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        //R  E  F  E  R  R  A  L  S
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+    case 'countReferidos': //CONSUMIDO
+        $phoneNumber = isset($_GET["phoneNumber"]) ? $_GET["phoneNumber"] : (isset($_POST["phoneNumber"]) ? $_POST["phoneNumber"] : "0");
+        countReferidos($phoneNumber);
+
+        break;
+    case 'create_contacts_referred': //CONSUMIDO
         $uuid = isset($_GET["uuid"]) ? $_GET["uuid"] : (isset($_POST["uuid"]) ? $_POST["uuid"] : "0");
         $contact_username = isset($_GET["contact_username"]) ? $_GET["contact_username"] : (isset($_POST["contact_username"]) ? $_POST["contact_username"] : "0");
         $refnumber = isset($_GET["refnumber"]) ? $_GET["refnumber"] : (isset($_POST["refnumber"]) ? $_POST["refnumber"] : "0");
         $place_id = isset($_GET["place_id"]) ? $_GET["place_id"] : (isset($_POST["place_id"]) ? $_POST["place_id"] : "0");
         create_contacts_referred($uuid, $contact_username, $refnumber, $place_id);
-    break; 
+        break;
 
 
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-// RASPABLES
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        // RASPABLES
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
 
-    case 'select_scratch'://asignados
+    case 'select_scratch': //asignados
         $parameters = new stdClass();
-        $parameters->identidad = isset($_GET["identidad"]) ? $_GET["identidad"] : (isset($_POST["identidad"]) ? $_POST["identidad"] : "0");        
+        $parameters->identidad = isset($_GET["identidad"]) ? $_GET["identidad"] : (isset($_POST["identidad"]) ? $_POST["identidad"] : "0");
         $result = select_scratch($parameters);
         print json_encode($result);
-    break;
+        break;
 
-    case 'select_scratch_identidad'://asignados
+    case 'select_scratch_identidad': //asignados
         $parameters = new stdClass();
-        $parameters->identidad = isset($_GET["identidad"]) ? $_GET["identidad"] : (isset($_POST["identidad"]) ? $_POST["identidad"] : "0"); 
-        $parameters->scratch_id = isset($_GET["scratch_id"]) ? $_GET["scratch_id"] : (isset($_POST["scratch_id"]) ? $_POST["scratch_id"] : "0");         
+        $parameters->identidad = isset($_GET["identidad"]) ? $_GET["identidad"] : (isset($_POST["identidad"]) ? $_POST["identidad"] : "0");
+        $parameters->scratch_id = isset($_GET["scratch_id"]) ? $_GET["scratch_id"] : (isset($_POST["scratch_id"]) ? $_POST["scratch_id"] : "0");
         $result = select_scratch_identidad($parameters);
         print json_encode($result);
-    break;
+        break;
 
-    case 'select_scratch_generated'://asignados
+    case 'select_scratch_generated': //asignados
         $parameters = new stdClass();
-        $parameters->identidad = isset($_GET["identidad"]) ? $_GET["identidad"] : (isset($_POST["identidad"]) ? $_POST["identidad"] : "0"); 
-        $parameters->scratch_id = isset($_GET["scratch_id"]) ? $_GET["scratch_id"] : (isset($_POST["scratch_id"]) ? $_POST["scratch_id"] : "0"); 
-        $parameters->generated_id = isset($_GET["generated_id"]) ? $_GET["generated_id"] : (isset($_POST["generated_id"]) ? $_POST["generated_id"] : "0");        
-        $result = select_scratch_generated($parameters);
-        print json_encode($result);
-    break;
-
-    case 'rasparscratch'://asignados
-        $parameters = new stdClass();
-        $parameters->identidad = isset($_GET["identidad"]) ? $_GET["identidad"] : (isset($_POST["identidad"]) ? $_POST["identidad"] : "0"); 
+        $parameters->identidad = isset($_GET["identidad"]) ? $_GET["identidad"] : (isset($_POST["identidad"]) ? $_POST["identidad"] : "0");
         $parameters->scratch_id = isset($_GET["scratch_id"]) ? $_GET["scratch_id"] : (isset($_POST["scratch_id"]) ? $_POST["scratch_id"] : "0");
         $parameters->generated_id = isset($_GET["generated_id"]) ? $_GET["generated_id"] : (isset($_POST["generated_id"]) ? $_POST["generated_id"] : "0");
-                
+        $result = select_scratch_generated($parameters);
+        print json_encode($result);
+        break;
+
+    case 'rasparscratch': //asignados
+        $parameters = new stdClass();
+        $parameters->identidad = isset($_GET["identidad"]) ? $_GET["identidad"] : (isset($_POST["identidad"]) ? $_POST["identidad"] : "0");
+        $parameters->scratch_id = isset($_GET["scratch_id"]) ? $_GET["scratch_id"] : (isset($_POST["scratch_id"]) ? $_POST["scratch_id"] : "0");
+        $parameters->generated_id = isset($_GET["generated_id"]) ? $_GET["generated_id"] : (isset($_POST["generated_id"]) ? $_POST["generated_id"] : "0");
+
         $result = rasparscratch($parameters);
         print json_encode($result);
-    break;
+        break;
 
-    case 'reclamarscratch'://asignados
+    case 'reclamarscratch': //asignados
         $parameters = new stdClass();
-        $parameters->identidad = isset($_GET["identidad"]) ? $_GET["identidad"] : (isset($_POST["identidad"]) ? $_POST["identidad"] : "0"); 
+        $parameters->identidad = isset($_GET["identidad"]) ? $_GET["identidad"] : (isset($_POST["identidad"]) ? $_POST["identidad"] : "0");
         $parameters->scratch_id = isset($_GET["scratch_id"]) ? $_GET["scratch_id"] : (isset($_POST["scratch_id"]) ? $_POST["scratch_id"] : "0");
         $parameters->scratch_generated_id = isset($_GET["scratch_generated_id"]) ? $_GET["scratch_generated_id"] : (isset($_POST["scratch_generated_id"]) ? $_POST["scratch_generated_id"] : "0");
-        $parameters->clave = isset($_GET["clave"]) ? $_GET["clave"] : (isset($_POST["clave"]) ? $_POST["clave"] : "0");         
+        $parameters->clave = isset($_GET["clave"]) ? $_GET["clave"] : (isset($_POST["clave"]) ? $_POST["clave"] : "0");
         $result = reclamarscratch($parameters);
         print json_encode($result);
-    break;
+        break;
 
 
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-// RIFAS
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        // RIFAS
+        //▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
 
-    case 'select_lottery_identidad'://asignados
+    case 'select_lottery_identidad': //asignados
         $parameters = new stdClass();
-        $parameters->identidad = isset($_GET["identidad"]) ? $_GET["identidad"] : (isset($_POST["identidad"]) ? $_POST["identidad"] : "0");        
+        $parameters->identidad = isset($_GET["identidad"]) ? $_GET["identidad"] : (isset($_POST["identidad"]) ? $_POST["identidad"] : "0");
         $result = select_lottery_identidad($parameters);
         print json_encode($result);
-    break;
+        break;
 
-    case 'select_number_lottery_identidad'://asignados
+    case 'select_number_lottery_identidad': //asignados
         $parameters = new stdClass();
-        $parameters->identidad = isset($_GET["identidad"]) ? $_GET["identidad"] : (isset($_POST["identidad"]) ? $_POST["identidad"] : "0"); 
-        $parameters->lottery = isset($_GET["lottery"]) ? $_GET["lottery"] : (isset($_POST["lottery"]) ? $_POST["lottery"] : "0");       
+        $parameters->identidad = isset($_GET["identidad"]) ? $_GET["identidad"] : (isset($_POST["identidad"]) ? $_POST["identidad"] : "0");
+        $parameters->lottery = isset($_GET["lottery"]) ? $_GET["lottery"] : (isset($_POST["lottery"]) ? $_POST["lottery"] : "0");
         $result = select_number_lottery_identidad($parameters);
         print json_encode($result);
-    break;
-
-
-
-
+        break;
 }
