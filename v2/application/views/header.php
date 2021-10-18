@@ -4,23 +4,27 @@
   <link rel="icon" type="image/png" href="<?php echo base_url(); ?>theme/assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-   Xtra
+    Xtra
   </title>
   <style>
-    #ui-datepicker-div{
-      z-index: 99!important;
+    #ui-datepicker-div {
+      z-index: 99 !important;
     }
   </style>
 
-  <?php 
-foreach($css_files as $file): ?>
-  <link type="text/css" rel="stylesheet" href="<?php echo $file; ?>" />
-<?php endforeach; ?>
+  <?php
+  foreach ($css_files as $file) : ?>
+    <link type="text/css" rel="stylesheet" href="<?php echo $file; ?>" />
+  <?php endforeach; ?>
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.css" >
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css" >
-  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
 
+  <style>
+    .sidebar .sidebar-background:after {
+      background: unset !important;
+    }
+  </style>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
