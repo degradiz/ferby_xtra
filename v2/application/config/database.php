@@ -102,7 +102,7 @@ $db['default'] = array(
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
+	'hostname' => '10.128.0.3',
 	'username' => 'ferbyadmin',
 	'password' => 'Catedradefensa2018$',
 	'database' => 'ferby',
