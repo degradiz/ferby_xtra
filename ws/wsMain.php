@@ -516,10 +516,10 @@ switch ($action) {
         $factura = isset($_GET["factura"]) ? $_GET["factura"] : "0";
         $place_id = $_GET['place_id'];
         $amt = $_GET['amt'];
-        $dia_semana = date("N");
-        if($amt > 0 && ($dia_semana == 2 || $dia_semana == 4)){
-            $amt = $amt * 2;
-        }
+        // $dia_semana = date("N");
+        // if($amt > 0 && ($dia_semana == 2 || $dia_semana == 4)){
+        //     $amt = $amt * 2;
+        // }
         $tienda = $_GET['tienda'];
 
         //validar si es repetido 
