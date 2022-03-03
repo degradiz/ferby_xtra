@@ -517,7 +517,7 @@ switch ($action) {
         $place_id = $_GET['place_id'];
         $amt = $_GET['amt'];
         $dia_semana = date("N");
-        if($dia_semana == 2 || $dia_semana == 4){
+        if($amt > 0 && ($dia_semana == 2 || $dia_semana == 4)){
             $amt = $amt * 2;
         }
         $tienda = $_GET['tienda'];
